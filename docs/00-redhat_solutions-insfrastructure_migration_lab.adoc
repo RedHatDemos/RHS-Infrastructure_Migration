@@ -47,20 +47,23 @@ Internet Explorer is not recommended.
 
 === Environment
 
+A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1a2b`), this identifier is referred in this documentation as *GUID*.  
+
 The demo environment consists of the following systems:
 
 [cols="1,1,2",options="header"]
 |=======
-|Hostname |Internal IP |Description
-|`workstation.example.com` |`172.16.0.10` | Jump host and iSCSI/NFS server
-|`ipa.example.com` |`172.16.0.15` | IPA server managed by Satellite, serves `rhcs.example.com` sub-domain
-|`cf.example.com` |`172.16.0.20` | CloudForms server
-|`satellite.example.com` |`172.16.0.25` | Red Hat Satellite 6.1 server
-|`rhevm.example.com` |`172.16.0.50` | Red Hat Enterprise Virtualization Manager server
-|`kvm.example.com` |`172.16.0.55` | KVM hypervisor managed by Red Hat Enterprise Virtualization
-|`esx00.example.com` |`172.16.0.30` | ESXi hypervisor
-|`vcenter.example.com` |`172.16.0.40` | VMware vCenter server
-|`migration.example.com` | `172.16.0.11` | Virtual-to-Virtual Migration server
+| Hostname | Internal IP | External name | Description
+|`idm.example.com` |`192.168.0.10` | N/A |IdM server managed by Satellite, serves `rhcs.example.com` sub-domain
+|`migration.example.com` | `192.168.0.105` | N/A |Virtual-to-Virtual Migration server
+|`workstation.example.com` |`192.168.0.5` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and iSCSI/NFS server
+|`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
+|`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Enterprise Virtualization
+|`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Enterprise Virtualization Manager server
+|`satellite.example.com` | DHCP | sat-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Satellite 6.1 server
+|`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
+|`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
+|`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
 |=======
 
 
@@ -82,7 +85,7 @@ The demo environment consists of the following systems:
 ** Wait for the full demo to load, even if some of its systems are marked "Up."
 * Watch for an email with information about how to access your demo environment.
 ** Make note of the email's contents: a list of hostnames, IP addresses, and your GUID.
-** Whenever you see GUID in the demo instructions, replace it with the GUID provided in the email.
+** Whenever you see <YOUR-GUID> in the demo instructions, replace it with the GUID provided in the email.
 * You can get real-time updates of your demo environment at https://www.opentlc.com/rhpds-status.
 ====
 +
@@ -123,10 +126,10 @@ The log entries are very long, so it helps if you stretch this window as wide as
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 
-* *Red Hat Enterprise Virtualization Manager:* `https://rhevm-GUID.rhpds.opentlc.com`
+* *Red Hat Enterprise Virtualization Manager:* `https://rhevm-<YOUR-GUID>.rhpds.opentlc.com`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
 
-* *vCenter:* `https://vcenter-GUID.rhpds.opentlc.com`
+* *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
 
 .. Use `root` as the username to log in to vCenter.
 
@@ -136,7 +139,7 @@ You must accept all of the self-signed SSL certificates.
 
 .. Click *VMs and Templates*.
 
-* *CloudForms:* `https://cf-GUID.rhpds.opentlc.com`
+* *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
 
 +
 [NOTE]
