@@ -1,2 +1,2 @@
-# RHS-Optimize_IT-Infrastructure_Migration
+# RHS - Optimize IT - Infrastructure Migration
 Red Hat Solutions - Optimize IT - Infrastructure Migration
