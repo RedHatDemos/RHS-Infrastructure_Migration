@@ -67,9 +67,17 @@ The demo environment consists of the following systems:
 |=======
 
 
+=== Obtaining or enabling access credentials
+
+. First time login, forgot login or password? Go to https://www.opentlc.com/account 
+
+. Your username should NOT have an *@* in it. 
+
+. Partners MUST request access to RHPDS by sending an email to open-program@redhat.com. 
+
 === Provision Your Demo Environment
 
-. If you have OPENTLC access, log in to the link:https://labs.opentlc.com/[OPENTLC lab portal] with your OPENTLC SSO credentials.
+. Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials. 
 
 . Go to *Services -> Catalogs -> Service Catalogs*.
 
