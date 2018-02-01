@@ -28,10 +28,10 @@ Current versions of products used:
 [cols="1,1",options="header"]
 |=======
 |Product |Version 
-|`CloudForms` |`4.5`
-|`Red Hat Virtualization` |`4.1`
-|`VMware vSphere` |`5.5`
-|`Satellite` |`6.2` 
+|CloudForms |4.5
+|Red Hat Virtualization |4.1
+|Satellite |6.2 
+|VMware vSphere |5.5
 |=======
 
 === System Requirements
