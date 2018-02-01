@@ -79,22 +79,22 @@ The demo environment consists of the following systems:
 
 . Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials. 
 
-. Go to *Services -> Catalogs -> Service Catalogs*.
+. Go to *Services -> Catalogs*.
 
-. Under *All Services -> Red Hat Solutions*, select *IT Optimization - Virtualization Migration*.
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Demo*.
 
-. On the right, click *Order*.
+. On the right pane, click *Order*.
 
-. Read all of the information on the resulting page, check the necessary box, and then click *Submit*.
+. Please, read carefully all of the information on the resulting page, check the box to confirm you understood the runtime warning message, and then click *Submit*.
 +
 [IMPORTANT]
 ====
-* It takes about 30 minutes for the demo to load completely and become accessible.
+* It takes about 20 ~ 30 minutes for the demo to load completely and become accessible.
 ** Wait for the full demo to load, even if some of its systems are marked "Up."
 * Watch for an email with information about how to access your demo environment.
 ** Make note of the email's contents: a list of hostnames, IP addresses, and your GUID.
 ** Whenever you see <YOUR-GUID> in the demo instructions, replace it with the GUID provided in the email.
-* You can get real-time updates of your demo environment at https://www.opentlc.com/rhpds-status.
+* You can get real-time updates and status of your demo environment at https://www.opentlc.com/rhpds-status.
 ====
 +
 [TIP]
@@ -107,7 +107,7 @@ Be mindful of the runtime of your demo environment! It may take several hours to
 * Example using a Unix/Linux system:
 +
 ----
-$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@demo-<YOUR-GUID>.rhpds.opentlc.com
+$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
 . Become `root` using your OpenTLC password:
