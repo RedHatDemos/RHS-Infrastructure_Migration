@@ -119,7 +119,7 @@ $ sudo -i
 . Establish an SSH connection to the CloudForms server and monitor `automation.log`:
 +
 ----
-# ssh cf
+# ssh cf.example.com
 # tail -f /var/www/miq/vmdb/log/automation.log
 ----
 +
