@@ -104,13 +104,19 @@ Be mindful of the runtime of your demo environment! It may take several hours to
 
 . Once the system is running, use SSH to access your demo server using your OPENTLC login name and private SSH key.
 
-* Example using a Unix/Linux system:
+* Using a Unix/Linux system:
 +
 ----
 $ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
-. Become `root` using your OpenTLC password:
+* Example for user 'batman' and GUID '1a2b', using the default ssh private key:
++
+----
+$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1a2b.rhpds.opentlc.com
+----
+
+. Become `root` using the provided password:
 +
 ----
 $ sudo -i
