@@ -164,11 +164,11 @@ You can also find these URLs in the email provided when you provisioned the demo
 
 === Validate the Current VMs
 
-. On the `cf` system, go to *Infrastructure -> Providers*.
+. On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
 
-. If you see an exclamation mark (*!*) in a provider, check the provider's box, go to *Configuration -> Edit Selected Infrastructure Provider*, and click *Validate*.
+. If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
 
-. Repeat the previous step for each provider.
+. Take into account that vCenter may take longer to start.
 
 . Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
 
