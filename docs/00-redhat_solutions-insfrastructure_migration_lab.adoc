@@ -60,7 +60,7 @@ The demo environment consists of the following systems:
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
 |`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Enterprise Virtualization
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Enterprise Virtualization Manager server
-|`satellite.example.com` | DHCP | sat-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Satellite 6.1 server
+|`sat.example.com` | DHCP | sat-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Satellite 6.1 server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
 |`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
