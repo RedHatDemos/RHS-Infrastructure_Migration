@@ -10,4 +10,8 @@ Please, report issues with documentation and/or lab in the issues section of thi
 ## Releases
 ```
   0.1 Initial commit
+  0.2 Fixed RHV cluster config
+  0.3 Added ssh access from workstation to other infra
+  0.4 Modified vCenter config
+  0.5 Modified ESXi configs 
 ```
