@@ -30,7 +30,6 @@ Current versions of products used:
 |Product |Version 
 |CloudForms |4.5
 |Red Hat Virtualization |4.1
-|Satellite |6.2 
 |VMware vSphere |5.5
 |=======
 
@@ -54,13 +53,11 @@ The demo environment consists of the following systems:
 [cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
-|`idm.example.com` |`192.168.0.10` | N/A |IdM server managed by Satellite, serves `rhcs.example.com` sub-domain
-|`migration.example.com` | `192.168.0.105` | N/A |Virtual-to-Virtual Migration server
+|`migration.example.com` | `192.168.0.3` | N/A |Virtual-to-Virtual Migration server
 |`workstation.example.com` |`192.168.0.5` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and iSCSI/NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
 |`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Enterprise Virtualization
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Enterprise Virtualization Manager server
-|`sat.example.com` | DHCP | sat-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Satellite 6.1 server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
 |`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
