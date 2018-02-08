@@ -53,7 +53,7 @@ The demo environment consists of the following systems:
 [cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
-|`migration.example.com` | `192.168.0.3` | N/A |Virtual-to-Virtual Migration server
+|`migration.example.com` | `192.168.0.6` | N/A |Virtual-to-Virtual Migration server
 |`workstation.example.com` |`192.168.0.5` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and iSCSI/NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
 |`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Enterprise Virtualization
