@@ -120,6 +120,12 @@ $ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1a2b.rhpds.opentlc.com
 $ sudo -i
 ----
 
+. Check the status of the environment using ansible:
++
+----
+# ansible all -m ping
+----
+
 . Establish an SSH connection to the CloudForms server and monitor `automation.log`:
 +
 ----

@@ -17,4 +17,5 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.6 Fixzed networking issues. Static IP for storage and migration
   0.7 Cleaned up resources
   0.8 Fixed cloud-init in workstation
+  0.9 Added ansible to workstation
 ```
