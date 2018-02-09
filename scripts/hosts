@@ -11,3 +11,8 @@
 192.168.0.52 esx2.example.com esx2
 192.168.0.50 vcenter.example.com vcenter
   
+192.168.1.100 nginx.example.com nginx
+192.168.1.110 jboss0.example.com jboss0
+192.168.1.111 jboss1.example.com jboss1
+192.168.1.120 db.example.com db
+
