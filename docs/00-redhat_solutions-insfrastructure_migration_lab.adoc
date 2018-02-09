@@ -18,10 +18,10 @@ NOTE: The source VM's are still maintained post migration and are not deleted. T
 .Prerequisites
 
 * Deployment of the demo environment which includes the following provisioned VMs:
-** `wp1` - a Red Hat Enterprise Linux 7 host running Apache and WordPress
-** `wp2` - a Red Hat Enterprise Linux 7 host running Apache and WordPress
-** `haproxy` - a Red Hat Enterprise Linux 7 host running the HAProxy tool configured to proxy traffic to `wp1` and `wp2`
-** `mysql`- a Red Hat Enterprise Linux 7 host running MariaDB that the `wp1` and `wp2` hosts talk to
+** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP
+** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP
+** `nginx` - a Red Hat Enterprise Linux 7 host running Nginx  configured to proxy traffic to `jboss0` and `jboss1`
+** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL that the `jboss0` and `jboss1` application servers connect to
 
 Current versions of products used:
 
