@@ -1,8 +1,7 @@
 ---
 - name: Install Nginx
   yum:
-    pkg: nginx
-    state: installed
-    update_cache: true
+    name: nginx
+    state: latest
   notify:
     - Start Nginx
