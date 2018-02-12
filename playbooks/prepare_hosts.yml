@@ -1,0 +1,18 @@
+---
+
+- hosts: app
+  connection: local
+  become: yes
+  become_user: root
+  tasks:
+  - name: Subscribe app VMs
+    redhat_subscription:
+      state: present
+      username: "{{rhn_username}}"
+      password: "{{rhn_password}}"
+      pool_ids: "{{rhn_pool_ids}}"
+
+  - name: Update app VMs
+    yum:
+      name: '*'
+      state: latest
