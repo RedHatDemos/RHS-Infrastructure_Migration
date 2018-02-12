@@ -1,5 +1,4 @@
 ---
----
 - hosts: nginx.example.com
   roles:
     - nginx
