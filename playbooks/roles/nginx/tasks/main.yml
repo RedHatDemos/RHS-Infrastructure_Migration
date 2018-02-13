@@ -17,9 +17,12 @@
     port: 80/tcp
     permanent: true
     state: enabled
+    immediate: yes
 
 - name: Enable Nginx Firewalld https port
   firewalld:
     port: 443/tcp
     permanent: true
     state: enabled
+    immediate: yes
+

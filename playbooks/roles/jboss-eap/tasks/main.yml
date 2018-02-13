@@ -19,10 +19,12 @@
     port: 8080/tcp
     permanent: true
     state: enabled
+    immediate: yes
 
 - name: Enable Jboss EAP Firewalld https port
   firewalld:
     port: 8443/tcp
     permanent: true
     state: enabled
+    immediate: yes
 
