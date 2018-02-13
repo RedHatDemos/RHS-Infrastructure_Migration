@@ -11,3 +11,15 @@
     name: nginx
     enabled: yes
     state: started
+
+- name: Enable Nginx Firewalld http port
+  firewalld:
+    port: 80/tcp
+    permanent: true
+    state: enabled
+
+- name: Enable Nginx Firewalld https port
+  firewalld:
+    port: 443/tcp
+    permanent: true
+    state: enabled
