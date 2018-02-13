@@ -13,3 +13,16 @@
       name: eap-standalone
       enabled: yes
       state: started
+
+- name: Enable Jboss EAP Firewalld http port
+  firewalld:
+    port: 8080/tcp
+    permanent: true
+    state: enabled
+
+- name: Enable Jboss EAP Firewalld https port
+  firewalld:
+    port: 8443/tcp
+    permanent: true
+    state: enabled
+
