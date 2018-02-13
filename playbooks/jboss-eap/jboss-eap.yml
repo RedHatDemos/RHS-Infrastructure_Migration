@@ -1,4 +1,4 @@
 ---
-- hosts: jboss[0,1].example.com
+- hosts: jboss[0:1].example.com
   roles:
     - jboss-eap
