@@ -8,3 +8,8 @@
   notify:
     - Start JBoss EAP
 
+- name: Enable JBoss Standalone Service
+    service: 
+      name: eap-standalone
+      enabled: yes
+      state: started
