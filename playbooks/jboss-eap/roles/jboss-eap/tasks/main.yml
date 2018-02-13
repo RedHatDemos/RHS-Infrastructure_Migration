@@ -1,0 +1,10 @@
+---
+# tasks file for jboss-eap
+#
+- name: Install JBoss EAP
+  yum:
+    name: "@jboss-eap7"
+    state: latest
+  notify:
+    - Start JBoss EAP
+

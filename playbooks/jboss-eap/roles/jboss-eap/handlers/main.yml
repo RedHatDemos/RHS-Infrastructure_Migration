@@ -1,0 +1,14 @@
+---
+# handlers file for jboss-eap
+#
+
+- name: Start JBoss EAP
+  service:
+    name: eap7-standalone
+    state: started
+
+- name: Reload JBoss EAP
+  service:
+    name: eap7-standalone
+    state: reloaded
+
