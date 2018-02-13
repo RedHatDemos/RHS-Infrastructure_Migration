@@ -10,7 +10,7 @@
 
 - name: Enable JBoss Standalone Service
   service: 
-    name: eap-standalone
+    name: eap7-standalone
     enabled: yes
     state: started
 
