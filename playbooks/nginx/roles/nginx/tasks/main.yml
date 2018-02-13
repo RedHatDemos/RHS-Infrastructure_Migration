@@ -5,3 +5,9 @@
     state: latest
   notify:
     - Start Nginx
+
+- name: Enable Nginx
+  service: 
+    name=nginx
+    enabled=yes
+    state=started
