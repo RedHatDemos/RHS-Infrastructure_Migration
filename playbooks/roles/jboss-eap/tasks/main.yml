@@ -9,10 +9,10 @@
     - Start JBoss EAP
 
 - name: Enable JBoss Standalone Service
-    service: 
-      name: eap-standalone
-      enabled: yes
-      state: started
+  service: 
+    name: eap-standalone
+    enabled: yes
+    state: started
 
 - name: Enable Jboss EAP Firewalld http port
   firewalld:
