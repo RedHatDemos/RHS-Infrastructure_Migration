@@ -14,17 +14,15 @@
     enabled: yes
     state: started
 
-- name: Enable Jboss EAP Firewalld http port
+- name: Enable Jboss EAP Firewalld ports
   firewalld:
-    port: 8080/tcp
+    port: "{{ item }}"
     permanent: true
     state: enabled
     immediate: yes
-
-- name: Enable Jboss EAP Firewalld https port
-  firewalld:
-    port: 8443/tcp
-    permanent: true
-    state: enabled
-    immediate: yes
+  with_items:
+    - 8080/tcp
+    - 8443/tcp
+    - 9990/tcp
+    - 9999/tcp
 
