@@ -54,6 +54,7 @@
     dbusers:
       - { username: root, password: postgres }
       - { username: postgres, password: postgres }
+      - { username: ticketmonster, password: postgres }
   with_items: "{{ dbusers }}"
   postgresql_user: name={{ item.username }} password={{ item.password }} state=present role_attr_flags=SUPERUSER
 
