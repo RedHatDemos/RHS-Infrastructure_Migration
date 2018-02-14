@@ -4,8 +4,8 @@
 
 - name: Install PostgreSQL
   yum:
-    name: nginx
-    state: postgresql-server
+    name: postgresql-server
+    state: latest
   notify:
     - Start PostgreSQL
 
