@@ -9,7 +9,8 @@
 
 - name: Initiate database
   command: 'postgresql-setup initdb'
-  creates: /var/lib/pgsql/data/postgresql.conf
+  args:
+    creates: /var/lib/pgsql/data/postgresql.conf
 
 - name: Configure pg_hba.conf for local access
   replace: 
