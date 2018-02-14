@@ -12,17 +12,13 @@
     enabled: yes
     state: started
 
-- name: Enable Nginx Firewalld http port
+- name: Enable Nginx Firewalld ports
   firewalld:
-    port: 80/tcp
+    port: "{{ items }}"
     permanent: true
     state: enabled
     immediate: yes
-
-- name: Enable Nginx Firewalld https port
-  firewalld:
-    port: 443/tcp
-    permanent: true
-    state: enabled
-    immediate: yes
+  with_items:
+    - 80/tcp
+    - 443/tcp
 
