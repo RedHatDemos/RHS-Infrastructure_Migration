@@ -5,6 +5,13 @@
 - name: Install PostgreSQL
   yum:
     name: '{{ item }}'
+    state: latest
+  with_items:
+    - postgresql-server
+    - python-psycopg2
+
+  yum:
+    name: '{{ item }}'
     with_items:
       - postgresql-server
       - python-psycopg2
