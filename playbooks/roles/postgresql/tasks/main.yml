@@ -8,7 +8,7 @@
     state: latest
 
 - name: Initiate database
-  command: service postgresql initdb
+  command: 'postgresql-setup initdb'
   creates: /var/lib/pgsql/data/postgresql.conf
 
 - name: Configure pg_hba.conf for local access
