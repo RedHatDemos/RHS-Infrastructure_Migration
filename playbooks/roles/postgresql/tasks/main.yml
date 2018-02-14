@@ -4,13 +4,11 @@
 
 - name: Install PostgreSQL
   yum:
-    name: postgresql-server
+    name: {{ item }}
     state: latest
-
-- name: Install PostgreSQL tooling
-  yum:
-    name: python2-psycopg2
-    state: latest
+  with_items:
+    - postgresql-server
+    - python-psycopg2
 
 - name: Initiate database
   command: 'postgresql-setup initdb'
