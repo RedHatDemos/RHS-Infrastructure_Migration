@@ -8,11 +8,17 @@
   notify:
     - Start JBoss EAP
 
-- name: Enable JBoss Standalone Service
+- name: Enable JBoss Domain Service
   service: 
-    name: eap7-standalone
+    name: eap7-domain
     enabled: yes
     state: started
+
+- name: Disable JBoss Staandalone Service
+  service: 
+    name: eap7-standalone
+    enabled: no
+    state: stopped
 
 - name: Enable Jboss EAP Firewalld ports
   firewalld:
