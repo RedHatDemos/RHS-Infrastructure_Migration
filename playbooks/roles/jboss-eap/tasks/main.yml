@@ -26,3 +26,15 @@
     - 9990/tcp
     - 9999/tcp
 
+- name: Copy master config
+  copy: src=host-master.xml dest=/etc/opt/rh/eap7/wildfly/domain/host.xml
+  when: inventory_hostname == "jboss0.example.com"
+
+- name: Copy slave config
+  copy: src=host-slave.xml dest=/etc/opt/rh/eap7/wildfly/domain/host.xml
+  when: inventory_hostname == "jboss1.example.com"
+
+- name: Copy user properties config
+  copy: src=mgmt-users.properties dest=/etc/opt/rh/eap7/wildfly/domain/mgmt-users.properties
+
+
