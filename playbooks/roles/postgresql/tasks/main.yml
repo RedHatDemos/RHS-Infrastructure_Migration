@@ -6,8 +6,31 @@
   yum:
     name: postgresql-server
     state: latest
-  notify:
-    - Start PostgreSQL
+
+- name: Initiate database
+  command: service postgresql initdb
+    creates: /var/lib/pgsql/data/postgresql.conf
+
+- name: Configure pg_hba.conf for local access
+  replace: 
+    dest: /var/lib/pgsql/data/pg_hba.conf 
+    regexp: '^(local\s*\w*\s*\w*\s*)(peer)'
+    replace: '\1trust' 
+    backup: yes
+
+- name: Configure pg_hba.conf for network access
+  replace: 
+    dest: /var/lib/pgsql/data/pg_hba.conf 
+    regexp: '^(host\s*\w*\s*\w*\s*)(127.0.0.1/32)\s*(ident)'
+    replace: '\1 0.0.0.0/0        trust'
+    backup: yes
+
+- name: Configure postgresql.conf
+  lineinfile:  
+    path: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^listen_addresses.*'
+    line: "listen_addresses :  '*'"
+    backup: yes
 
 - name: Enable PostgreSQL
   service:
@@ -21,4 +44,12 @@
     permanent: true
     state: enabled
     immediate: yes
+
+- name: Create users in PostgreSQL
+  vars:
+    dbusers:
+      - { username: root, password: postgres }
+      - { username: postgres, password: postgres }
+  with_items: "{{ dbusers }}"
+  postgresql_user: name={{ item.username }} password={{ item.password }} state=present role_attr_flags=SUPERUSER
 
