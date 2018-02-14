@@ -34,7 +34,7 @@
 
 - name: Enable PostgreSQL
   service:
-    name: postgresql-server
+    name: postgresql
     enabled: yes
     state: started
 
