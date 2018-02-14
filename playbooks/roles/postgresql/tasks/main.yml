@@ -29,7 +29,7 @@
   lineinfile:  
     path: /var/lib/pgsql/data/postgresql.conf
     regexp: '^listen_addresses.*'
-    line: "listen_addresses :  '*'"
+    line: "listen_addresses =  '*'"
     backup: yes
 
 - name: Enable PostgreSQL
