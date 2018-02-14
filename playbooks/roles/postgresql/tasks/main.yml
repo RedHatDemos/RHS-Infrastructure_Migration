@@ -1,0 +1,24 @@
+---
+# tasks file for postgresql
+#
+
+- name: Install PostgreSQL
+  yum:
+    name: nginx
+    state: postgresql-server
+  notify:
+    - Start PostgreSQL
+
+- name: Enable PostgreSQL
+  service:
+    name: postgresql-server
+    enabled: yes
+    state: started
+
+- name: Enable PostgreSQL Firewalld port
+  firewalld:
+    port: 5432/tcp
+    permanent: true
+    state: enabled
+    immediate: yes
+
