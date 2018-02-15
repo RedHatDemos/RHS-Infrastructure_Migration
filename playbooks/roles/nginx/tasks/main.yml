@@ -22,11 +22,15 @@
     - 80/tcp
     - 443/tcp
 
-- name: Set SELinux boolean to allow proxy to run
-  seboolean:
-    name: httpd_can_network_connect
-    state: yes
-    persistent: yes
+#
+# SELinux boolean to enable connection Nginx-JBoss
+# setsebool -P httpd_can_network_connect 1
+#
+#- name: Set SELinux boolean to allow proxy to run
+#  seboolean:
+#    name: httpd_can_network_connect
+#    state: yes
+#    persistent: yes
 
 - name: Copy Nginx-JBoss config
   copy:
@@ -35,6 +39,12 @@
     backup: yes
   notify:
     - Reload Nginx
+
+- name: Creates Nginx SSL directory
+  file:
+    path: /etc/nginx/ssl
+    state: directory
+    mode: 0755
 
 - name: Copy Nginx cert
   copy:
