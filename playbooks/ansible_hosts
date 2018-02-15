@@ -12,12 +12,8 @@ migration.example.com
 workstation.example.com
 storage.example.com
 cf.example.com
-
-[rhv]
 kvm.example.com
 rhvm.example.com
-
-[vmw]
 #esx1.example.com
 #esx2.example.com
 vcenter.example.com
@@ -27,4 +23,8 @@ nginx.example.com
 jboss0.example.com
 jboss1.example.com
 db.example.com
+
+[jboss]
+jboss0.example.com
+jboss1.example.com
 
