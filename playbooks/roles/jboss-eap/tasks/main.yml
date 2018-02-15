@@ -56,5 +56,5 @@
   copy: src=domain.xml dest=/etc/opt/rh/eap7/wildfly/domain/domain.xml
   backup: yes
   notify: 
-    - Reload JBoss EAP
+    - Restart JBoss EAP
 
