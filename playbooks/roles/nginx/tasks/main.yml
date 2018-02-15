@@ -22,3 +22,10 @@
     - 80/tcp
     - 443/tcp
 
+- name: Copy Nginx-JBoss config
+  copy:
+    src: jboss.conf
+    dest: /etc/nginx/conf.d/jboss.conf
+    backup: yes
+  notify:
+    - Reload Nginx
