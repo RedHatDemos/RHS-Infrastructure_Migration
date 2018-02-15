@@ -33,27 +33,35 @@
     - 9999/tcp
 
 - name: Copy master config
-  copy: src=host-master.xml dest=/etc/opt/rh/eap7/wildfly/domain/host.xml
+  copy: 
+    src: host-master.xml 
+    dest: /etc/opt/rh/eap7/wildfly/domain/host.xml
     backup: yes
   when: inventory_hostname == "jboss0.example.com"
   notify: 
     - Reload JBoss EAP
 
 - name: Copy slave config
-  copy: src=host-slave.xml dest=/etc/opt/rh/eap7/wildfly/domain/host.xml
+  copy:  
+    src: host-slave.xml 
+    dest: /etc/opt/rh/eap7/wildfly/domain/host.xml
     backup: yes
   when: inventory_hostname == "jboss1.example.com"
   notify: 
     - Reload JBoss EAP
 
 - name: Copy user properties config
-  copy: src=mgmt-users.properties dest=/etc/opt/rh/eap7/wildfly/domain/mgmt-users.properties
+  copy: 
+    src: mgmt-users.properties 
+    dest: /etc/opt/rh/eap7/wildfly/domain/mgmt-users.properties
     backup: yes
   notify: 
     - Reload JBoss EAP
 
 - name: Copy domain config
-  copy: src=domain.xml dest=/etc/opt/rh/eap7/wildfly/domain/domain.xml
+  copy: 
+    src: domain.xml 
+    dest: /etc/opt/rh/eap7/wildfly/domain/domain.xml
     backup: yes
   notify: 
     - Restart JBoss EAP
