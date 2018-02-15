@@ -7,11 +7,6 @@
     name: eap7-standalone
     state: started
 
-- name: Reload JBoss EAP
-  service:
-    name: eap7-standalone
-    state: reloaded
-
 - name: Restart JBoss EAP
   service:
     name: eap7-standalone

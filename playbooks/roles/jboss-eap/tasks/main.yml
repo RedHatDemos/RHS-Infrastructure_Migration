@@ -39,7 +39,7 @@
     backup: yes
   when: inventory_hostname == "jboss0.example.com"
   notify: 
-    - Reload JBoss EAP
+    - Restart JBoss EAP
 
 - name: Copy slave config
   copy:  
@@ -48,7 +48,7 @@
     backup: yes
   when: inventory_hostname == "jboss1.example.com"
   notify: 
-    - Reload JBoss EAP
+    - Restart JBoss EAP
 
 - name: Copy user properties config
   copy: 
@@ -56,7 +56,7 @@
     dest: /etc/opt/rh/eap7/wildfly/domain/mgmt-users.properties
     backup: yes
   notify: 
-    - Reload JBoss EAP
+    - Restart JBoss EAP
 
 - name: Copy domain config
   copy: 
