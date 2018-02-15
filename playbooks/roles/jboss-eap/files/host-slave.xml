@@ -92,7 +92,6 @@
     </jvms>
     <servers>
         <server name="server-one" group="main-server-group"/>
-        </server>
     </servers>
     <profile>
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
