@@ -20,4 +20,5 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.9 Added ansible to workstation
   0.10 Added VMs to vSphere (nginx, jboss0, jboss1, db)
   0.11 Initial playbooks to deploy Nginx and JBoss EAP
+  0.12 Playbooks deploy Nginx and JBoss in Domain, also PostgreSQL
 ```
