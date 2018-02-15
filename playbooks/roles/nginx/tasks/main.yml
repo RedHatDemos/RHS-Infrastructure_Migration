@@ -14,7 +14,7 @@
 
 - name: Enable Nginx Firewalld ports
   firewalld:
-    port: "{{ items }}"
+    port: "{{ item }}"
     permanent: true
     state: enabled
     immediate: yes
