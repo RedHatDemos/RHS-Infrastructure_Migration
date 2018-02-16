@@ -217,7 +217,7 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 === Configure Red Hat Enterprise Virtualization as a Migration Destination
 
-. On the `cf` system, go to *Infrastructure -> Providers*.
+. On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
 
 . Click *RHV*.
 
@@ -225,7 +225,7 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 . Select *Point of Arrival* and then select *Rhev* for the assigned value.
 +
-* This sets this provider as an available Red Hat Enterprise Virtualization destination.
+* This sets this provider as an available Red Hat Virtualization destination.
 
 . Select the *provider_type* tag and select *POA* for the assigned value, then click *Save*.
 +
@@ -243,7 +243,7 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 === Set VM Migration Attributes
 
-. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
+. On the `cf` system, go to *Services -> Catalogs* and select the *Service Catalogs* pane.
 
 . Under *All Services -> Import CSV*, select *Import Attributes*.
 
@@ -252,9 +252,6 @@ You may verify that VMs are down by running in the terminal in the workstation m
 . On the resulting screen, enter `attributes.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-+
-[NOTE]
-If you see any errors about `wp2-rhcs-example-com`, you can ignore them for now because you are not exporting from Red Hat Enterprise Virtualization yet.
 
 === Set VM Migration Tags
 
