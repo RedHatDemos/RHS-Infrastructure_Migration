@@ -125,6 +125,23 @@ $ sudo -i
 ----
 # ansible all -m ping
 ----
++
+This command establishes a connection to all the machines in the environment (except ESXi servers). 
+In case the machine is up an running the following message will show up:
++
+----
+jboss0.example.com | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+----
++ 
+To be sure the VMs in the vCenter environment are running, you may use the following command:
++
+----
+# ansible app -m ping
+----
+
 
 . Establish an SSH connection to the CloudForms server and monitor `automation.log`:
 +
