@@ -264,15 +264,12 @@ You may verify that VMs are down by running in the terminal in the workstation m
 . On the resulting screen, enter `tags.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-+
-[NOTE]
-Continue to ignore errors about `wp2-rhcs-example-com`.
 
 === Check Tags and Attributes
 
 . Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
 
-. Navigate to the `mysql` VM.
+. Navigate to the `db` VM.
 
 . Under *Custom Attributes*, confirm that there is a custom attribute called `ip` with the value you provided in `attributes.csv`.
 
@@ -299,11 +296,11 @@ It may be beneficial to open three separate sessions to the Migration server and
 ----
 
 ----
-# tail -f /mnt/migrate/ova/mysql.rhcs.example.com/*log
+# tail -f /mnt/migrate/ova/db.example.com/*log
 ----
 
 ----
-# tail -f /mnt/migrate/ova/mysql.rhcs.example.com/*err
+# tail -f /mnt/migrate/ova/db.example.com/*err
 ----
 ====
 +
@@ -311,9 +308,9 @@ NOTE: It takes about 20 minutes for `automation.log` to show that the service is
 
 === Verify VM Migration
 
-. Log in to the Red Hat Enterprise Virtualization Admin GUI and open the console for the `mysql` VM that was migrated.
+. Log in to the Red Hat Enterprise Virtualization Admin GUI and open the console for the `db` VM that was migrated.
 
-. Start the `mysql` VM and log in as `root` with the password `<to_be_provided>`.
+. Start the `db` VM and log in as `root` with the password `<to_be_provided>`.
 
 . Make sure the VM retained the IP address from `attributes.csv` and that it can resolve an external hostname.
 
@@ -372,7 +369,7 @@ You can ignore the warnings from the VMs with disabled providers.
 . Monitor `automation.log` and the RHV Platform dashboard closely.
 
 
-== Migrate the wp2 VM from Red Hat Enterprise Virtualization to RHV Platform
+== Migrate the jboss0 VM from VMware to RHV Platform
 
 === Clear the POD Tag from VMware
 
@@ -388,7 +385,7 @@ You can ignore the warnings from the VMs with disabled providers.
 
 . Click *Save*.
 
-=== Configure Red Hat Enterprise Virtualization as a POD
+=== Configure Red Hat Virtualization as a POD
 
 . Navigate to the *RHV* provider.
 
@@ -419,9 +416,9 @@ You can ignore the warnings from the VMs with disabled providers.
 
 == End State
 
-* You now have the `mysql` server on Red Hat Enterprise Virtualization and the two `wp` servers on RHV Platform.  
-* The `haproxy` system remains on Red Hat Enterprise Virtualization.
+* You now have the `db` server on VMware and the two `jboss` servers on RHV Platform.  
+* The `nginx` system remains on VMware
 
 == Extra Credit
 
-* Use what you learned in this lab to migrate `haproxy` to RHV Platform.
+* Use what you learned in this lab to migrate `nginx` to RHV Platform.
