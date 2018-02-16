@@ -211,9 +211,7 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 +
 [TIP]
 You may verify that VMs are down by running in the terminal in the workstation machine the check command:
-----
-# ansible app -m ping
-----
+`# ansible app -m ping`
 
 == Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
 
