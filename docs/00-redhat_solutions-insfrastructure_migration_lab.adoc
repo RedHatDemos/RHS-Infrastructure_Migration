@@ -172,6 +172,9 @@ You must accept all of the self-signed SSL certificates.
 .. Click *Log in to vSphere Web Client*.
 
 ** Flash Player is required.
++
+[TIP]
+Modern browsers have flash player disabled by default. You may need to enable it for this page.
 
 .. Click *VMs and Templates*.
 
