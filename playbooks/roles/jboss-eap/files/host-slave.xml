@@ -10,9 +10,7 @@
         <security-realms>
             <security-realm name="ManagementRealm">
                 <server-identities>
-                    <!-- Replace this with either a base64 password of your own, or use a vault with a vault expression -->
-                    <!-- <secret value="c2xhdmVfdXMzcl9wYXNzd29yZA=="/> -->
-                    <secret value="amJvc3MxMjMh" />
+                    <secret value="amJvc3MxMjMh"/>
                 </server-identities>
                 <authentication>
                     <local default-user="$local" skip-group-loading="true"/>
@@ -65,18 +63,16 @@
     <domain-controller>
         <remote security-realm="ManagementRealm">
             <discovery-options>
-                <!-- <static-discovery name="primary" protocol="${jboss.domain.master.protocol:remote}" host="${jboss.domain.master.address}" port="${jboss.domain.master.port:9999}"/> -->
                 <static-discovery name="primary" protocol="${jboss.domain.master.protocol:remote}" host="192.168.1.110" port="${jboss.domain.master.port:9999}"/>
             </discovery-options>
         </remote>
     </domain-controller>
     <interfaces>
         <interface name="management">
-            <!-- <inet-address value="${jboss.bind.address.management:127.0.0.1}"/> -->
             <inet-address value="0.0.0.0"/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <any-address/>
         </interface>
     </interfaces>
     <jvms>

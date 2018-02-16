@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
-<host xmlns="urn:jboss:domain:5.0" name="master">
+<host name="master" xmlns="urn:jboss:domain:5.0">
     <extensions>
         <extension module="org.jboss.as.jmx"/>
         <extension module="org.wildfly.extension.core-management"/>
@@ -66,12 +66,11 @@
     </domain-controller>
     <interfaces>
         <interface name="management">
-            <!-- <inet-address value="${jboss.bind.address.management:127.0.0.1}"/> -->
             <inet-address value="0.0.0.0"/>
         </interface>
         <interface name="public">
-             <inet-address value="0.0.0.0"/>
-         </interface>
+            <any-address/>
+        </interface>
     </interfaces>
     <jvms>
         <jvm name="default">
@@ -84,6 +83,11 @@
             </jvm-options>
         </jvm>
     </jvms>
+    <servers>
+        <server name="server-two" group="main-server-group" auto-start="true">
+            <socket-bindings socket-binding-group="full-sockets" port-offset="0"/>
+        </server>
+    </servers>
     <profile>
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
         <subsystem xmlns="urn:wildfly:elytron:1.2" final-providers="combined-providers" disallowed-providers="OracleUcrypto">
