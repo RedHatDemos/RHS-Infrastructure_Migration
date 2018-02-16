@@ -127,7 +127,8 @@ $ sudo -i
 ----
 +
 This command establishes a connection to all the machines in the environment (except ESXi servers). 
-In case the machine is up an running the following message will show up:
+In case the machines are up an running a success message, per each, will show up. 
+This is an example of a success message for the VM jboss0.example.com:
 +
 ----
 jboss0.example.com | SUCCESS => {
@@ -136,12 +137,12 @@ jboss0.example.com | SUCCESS => {
 }
 ----
 + 
-To be sure the VMs in the vCenter environment are running, you may use the following command:
+There are 4 VMs in the vCenter environment hosting an app with Nginx as loadbalancer, two JBoss EAP in domain mode, and a Postgresql database.
+To check only if these ones are running, you may use the following command:
 +
 ----
 # ansible app -m ping
 ----
-
 
 . Establish an SSH connection to the CloudForms server and monitor `automation.log`:
 +
