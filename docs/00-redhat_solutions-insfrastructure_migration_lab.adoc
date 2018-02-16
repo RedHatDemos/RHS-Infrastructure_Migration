@@ -208,6 +208,12 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 . Only the VMs and Templates in vSphere will show.
 
 . Use CloudForms to shut down (_not_ power off) all four VMs (db, jboss0, jboss1, nginx).
++
+[TIP]
+You may verify that VMs are down by running in the terminal in the workstation machine the check command:
+----
+# ansible app -m ping
+----
 
 == Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
 
