@@ -189,22 +189,27 @@ You can also find these URLs in the email provided when you provisioned the demo
 
 === Validate the Current VMs
 
-. On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
+. On the CloudForms web interface, go to *Compute -> Infrastructure -> Providers*.
 
 . If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
++
+[TIP]
+Take into account that vCenter may take longer to start.
 
-. Take into account that vCenter may take longer to start.
+. Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 
-. Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
-
-. All VMs show as entities in CloudForms.
+. All VMs and Templates in both RHV and vSphere show as entities in CloudForms.
 +
 [NOTE]
 If you needed to validate providers, you may have to wait a few minutes and refresh the screen before the VMs show up.
 
-. Use CloudForms to shut down (_not_ power off) all four VMs.
+. Select the pane *VMs & Templates* and, in it, the *VMware* provider.
 
-== Migrate the mysql VM from VMware to Red Hat Enterprise Virtualization
+. Only the VMs and Templates in vSphere will show.
+
+. Use CloudForms to shut down (_not_ power off) all four VMs (db, jboss0, jboss1, nginx).
+
+== Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
 
 === Configure Red Hat Enterprise Virtualization as a Migration Destination
 
