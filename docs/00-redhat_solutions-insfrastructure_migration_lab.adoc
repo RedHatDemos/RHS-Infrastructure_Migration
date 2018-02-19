@@ -392,4 +392,4 @@ For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is
 
 == Extra Tip
 
-* You can use `attribute_all.csv` for attributes, `tag_all.csv` for tags, and `fullmigration` as migration group, to perform a full migration.
+* You can use `attribute_all.csv` for attributes, `tag_all.csv` for tags, and `fulltest` as migration group, to perform a full migration.
