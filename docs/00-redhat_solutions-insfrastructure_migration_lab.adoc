@@ -53,7 +53,7 @@ The demo environment consists of the following systems:
 [cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
-|`migration.example.com` | `192.168.0.6` | N/A |Virtual-to-Virtual Migration server
+|`migration.example.com` | `192.168.0.105` | N/A |Virtual-to-Virtual Migration server
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
@@ -279,11 +279,23 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 . On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
 
+. Under *All Services -> Migration*, select *Batch_Pre_Migrate*.
+
+. On the right, click *Order*.
+
+. For *Migration Group*, select `demo2` and click *Submit*.
+
+. Monitor `automation.log` and the Red Hat Enterprise Virtualization Admin GUI closely.
+
+=== Start VM Migration
+
+. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
+
 . Under *All Services -> Migration*, select *Batch_Migrate*.
 
 . On the right, click *Order*.
 
-. For *Migration Group*, select `demo1` and click *Submit*.
+. For *Migration Group*, select `demo2` and click *Submit*.
 
 . Monitor `automation.log` and the Red Hat Enterprise Virtualization Admin GUI closely.
 +
@@ -308,53 +320,30 @@ NOTE: It takes about 20 minutes for `automation.log` to show that the service is
 
 === Verify VM Migration
 
-. Log in to the Red Hat Enterprise Virtualization Admin GUI and open the console for the `db` VM that was migrated.
+. Log in to the Red Hat Virtualization Admin GUI and open the console for the `db` VM that was migrated.
 
 . Start the `db` VM and log in as `root` with the password `<to_be_provided>`.
 
 . Make sure the VM retained the IP address from `attributes.csv` and that it can resolve an external hostname.
 
 
-== Migrate the wp1 VM from VMware to RHV Platform
+== Migrate the jboss VMs from VMware to RHV Platform
 
 === Configure RHV Platform as a Migration Destination
 
 . On the `cf` system, go to *Clouds -> Providers*.
 
-. Select *OSP*.
+. Select *RHV*.
 
 . Select *Policy -> Edit Tags*.
 
-. Select *Point of Arrival* and select *RHV* for the assigned value.
+. Select *Point of Arrival* and check that *RHV* is the assigned value.
 +
 * This sets this provider as an available *RHV* destination.
 
 . Select *provider_type* and select *POA* for the assigned value, then click *Save*.
 +
 * This sets this provider as the current point of arrival.
-
-=== Clear the POA Tag from Red Hat Enterprise Virtualization
-
-. On the `cf` system, go to *Infrastructure -> Providers*.
-
-. Select *RHV*.
-
-. Select *Policy -> Edit Tags*.
-
-. Click the *Trash Can* icon next to the Point of Arrival tag.
-
-. Click the *Trash Can* icon next to the provider_type tag.
-
-. Click *Save*.
-
-. Set the VM tags and attributes. 
-+
-NOTE: Anytime a change is made to the either the tags or attributes .csv files, the *Import Tags* and *Import Attributes* catalog items must be run again.  The same goes for making changes to the *POA* and *POD* tags for providers.
-
-. Using the procedure learned before, monitor `automation.log` while running the *Import Tags* and *Import Attributes* catalog items again.
-+
-[NOTE]
-You can ignore the warnings from the VMs with disabled providers.
 
 === Migrate the VM
 
@@ -364,7 +353,7 @@ You can ignore the warnings from the VMs with disabled providers.
 
 . On the right, click *Order*.
 
-. For *Migration Group*, select `demo2` then click *Submit*.
+. For *Migration Group*, select `demo1` then click *Submit*.
 
 . Monitor `automation.log` and the RHV Platform dashboard closely.
 

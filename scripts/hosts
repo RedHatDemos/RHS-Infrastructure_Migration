@@ -1,7 +1,7 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-192.168.0.6 migration.example.com migration
+192.168.0.105 migration.example.com migration
 192.168.0.10 workstation.example.com workstation
 192.168.0.254 storage.example.com storage
 192.168.0.100 cf.example.com cf
