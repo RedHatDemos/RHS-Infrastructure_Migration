@@ -179,10 +179,6 @@ Modern browsers have flash player disabled by default. You may need to enable it
 .. Click *VMs and Templates*.
 
 * *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
-
-+
-[NOTE]
-If you are accessing the Satellite console, you may see `error` for the Satellite server's status and `out-of sync` for the hosts' statuses. This is normal and can be ignored.
 +
 [TIP]
 You can also find these URLs in the email provided when you provisioned the demo environment.
