@@ -8,7 +8,7 @@
 
 == Overview
 
-This demonstration uses Red Hat CloudForms as a broker to drive virtual-to-virtual tools such as `ovftool` and `virt-v2v` to migrate VMs from VMware vSphere to Red Hat Enterprise Virtualization 
+This demonstration uses Red Hat CloudForms as a broker to drive virtual-to-virtual tools such as `ovftool` and `virt-v2v` to migrate VMs from VMware vSphere to Red Hat Virtualization 
 
 .Goal
 * Migrate the VMs with a Red Hat Solution: IT Optimization - Infrastructure Migration
@@ -57,8 +57,8 @@ The demo environment consists of the following systems:
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
-|`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Enterprise Virtualization
-|`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Enterprise Virtualization Manager server
+|`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
+|`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
 |`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
@@ -162,7 +162,7 @@ The log entries are very long, so it helps if you stretch this window as wide as
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 
-* *Red Hat Enterprise Virtualization Manager:* `https://rhevm-<YOUR-GUID>.rhpds.opentlc.com`
+* *Red Hat Virtualization Manager:* `https://rhevm-<YOUR-GUID>.rhpds.opentlc.com`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
 
 * *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
@@ -207,15 +207,7 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 
 . Only the VMs and Templates in vSphere will show.
 
-. Use CloudForms to shut down (_not_ power off) all four VMs (db, jboss0, jboss1, nginx).
-+
-[TIP]
-You may verify that VMs are down by running in the terminal in the workstation machine the check command:
-`# ansible app -m ping`
-
-== Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
-
-=== Configure Red Hat Enterprise Virtualization as a Migration Destination
+=== Configure Red Hat Virtualization as a Migration Destination
 
 . On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
 
@@ -241,6 +233,17 @@ You may verify that VMs are down by running in the terminal in the workstation m
 +
 * This sets this provider as the point of departure or source provider.
 
+== Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
+
+. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `db` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `nginx`).
++
+[TIP]
+It can be verified that `db` VM is down by running, in the terminal, in the workstation machine, the check command:
+`# ansible db.example.com -m ping`
+
+For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is:
+`# ansible app -m ping`
+
 === Set VM Migration Attributes
 
 . On the `cf` system, go to *Services -> Catalogs* and select the *Service Catalogs* pane.
@@ -249,7 +252,7 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 . On the right, click *Order*.
 
-. On the resulting screen, enter `attributes.csv` in the *Filename* field and click *Submit*.
+. On the resulting screen, enter `attribute_db.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
 
@@ -261,7 +264,7 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 . On the right, click *Order*.
 
-. On the resulting screen, enter `tags.csv` in the *Filename* field and click *Submit*.
+. On the resulting screen, enter `tag_db.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
 
@@ -271,33 +274,37 @@ You may verify that VMs are down by running in the terminal in the workstation m
 
 . Navigate to the `db` VM.
 
-. Under *Custom Attributes*, confirm that there is a custom attribute called `ip` with the value you provided in `attributes.csv`.
+. Under *Custom Attributes*, confirm that there is a custom attribute called `ip` with the value you provided in `attribute_db.csv`.
 
-. Under *Smart Management*, confirm that *migrate_group* is set to `demo1` and *Point of Arrival* is set to `Rhev`.
+. Under *Smart Management*, confirm that *migrate_group* is set to `demo2` and *Point of Arrival* is set to `Rhev`.
 
-=== Start VM Migration
+=== Start VM Pre-Migration
 
-. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
+. On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
 
-. Under *All Services -> Migration*, select *Batch_Pre_Migrate*.
+. Under *All Services -> Migration*, select *Batch_PreMigrate*.
 
 . On the right, click *Order*.
 
-. For *Migration Group*, select `demo2` and click *Submit*.
+. For *Migration Group*, select `demo2`.
 
-. Monitor `automation.log` and the Red Hat Enterprise Virtualization Admin GUI closely.
+. Verify in the *VMs in Migration Group* textbox that `db` is the only Vm displayed, and click *Submit*.
+
+. Monitor `automation.log` in the terminal connected to CloudForms.
 
 === Start VM Migration
 
-. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
+. On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
 
 . Under *All Services -> Migration*, select *Batch_Migrate*.
 
 . On the right, click *Order*.
 
-. For *Migration Group*, select `demo2` and click *Submit*.
+. For *Migration Group*, select `demo2`.
 
-. Monitor `automation.log` and the Red Hat Enterprise Virtualization Admin GUI closely.
+. Verify in the *VMs in Migration Group* textbox that `db` is the only Vm displayed, and click *Submit*.
+
+. Monitor `automation.log` in the terminal connected to CloudForms, and the Red Hat Virtualization Admin GUI closely.
 +
 [TIP]
 ====
@@ -324,72 +331,47 @@ NOTE: It takes about 20 minutes for `automation.log` to show that the service is
 
 . Start the `db` VM and log in as `root` with the password `<to_be_provided>`.
 
-. Make sure the VM retained the IP address from `attributes.csv` and that it can resolve an external hostname.
+. Make sure the VM retained the IP address from `attribute_db.csv` and that it can resolve an external hostname.
 
 
-== Migrate the jboss VMs from VMware to RHV Platform
+== Migrate the JBoss EAP VMs from VMware to RHV Platform
 
-=== Configure RHV Platform as a Migration Destination
-
-. On the `cf` system, go to *Clouds -> Providers*.
-
-. Select *RHV*.
-
-. Select *Policy -> Edit Tags*.
-
-. Select *Point of Arrival* and check that *RHV* is the assigned value.
+. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `jboss0` and `jboss1` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `nginx`).
 +
-* This sets this provider as an available *RHV* destination.
+[TIP]
+It can be verified that `jboss0` and `jboss1` VM are down by running, in the terminal, in the workstation machine, the check command:
+`# ansible jboss -m ping`
 
-. Select *provider_type* and select *POA* for the assigned value, then click *Save*.
-+
-* This sets this provider as the current point of arrival.
+For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is:
+`# ansible app -m ping`
 
-=== Migrate the VM
+=== Set VM Migration Attributes
 
-. On the `cf` system, go to *Services* -> *Catalogs* -> *Service Catalogs*.
+. On the `cf` system, go to *Services -> Catalogs* and select the *Service Catalogs* pane.
 
-. Under *All Services -> Migration*, select *Batch_Migrate*.
+. Under *All Services -> Import CSV*, select *Import Attributes*.
 
 . On the right, click *Order*.
 
-. For *Migration Group*, select `demo1` then click *Submit*.
+. On the resulting screen, enter `attribute_jboss.csv` in the *Filename* field and click *Submit*.
 
-. Monitor `automation.log` and the RHV Platform dashboard closely.
+. Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
 
+=== Set VM Migration Tags
 
-== Migrate the jboss0 VM from VMware to RHV Platform
+. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
 
-=== Clear the POD Tag from VMware
+. Under *All Services -> Import CSV*, select *Import Tags*.
 
-. On the `cf` system, go to *Infrastructure -> Providers*.
+. On the right, click *Order*.
 
-. Select *VMware*.
+. On the resulting screen, enter `tag_jboss.csv` in the *Filename* field and click *Submit*.
 
-. Select *Policy -> Edit Tags*.
+. Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
 
-. Click the *Trash Can* icon next to the Point of Arrival tag.
+=== Check Tags and Attributes
 
-. Click the *Trash Can* icon next to the provider_type tag.
-
-. Click *Save*.
-
-=== Configure Red Hat Virtualization as a POD
-
-. Navigate to the *RHV* provider.
-
-. Click *Policy -> Edit Tags*.
-
-. Select the *provider_type* tag, select *POD* for the assigned value, and then click *Save*.
-
-. Set the VM tags and attributes
-+
-NOTE: Anytime a change is made to the either the tags or attributes .csv files, the *Import Tags* and *Import Attributes* catalog items must be run again.  The same goes for making changes to the *POA* and *POD* tags for providers.
-
-.. Using the procedure learned before, monitor `automation.log` while running the *Import Tags* and *Import Attributes* catalog items again.
-+
-[NOTE]
-You can ignore the warnings from the VMs with disabled providers.
+. Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
 
 === Migrate the VM
 
@@ -399,7 +381,7 @@ You can ignore the warnings from the VMs with disabled providers.
 
 . On the right, click *Order*.
 
-. For *Migration Group*, select `demo3` then click *Submit*.
+. For *Migration Group*, select `demo` then click *Submit*.
 
 . Monitor `automation.log` and the RHV Platform dashboard closely.
 
@@ -410,4 +392,8 @@ You can ignore the warnings from the VMs with disabled providers.
 
 == Extra Credit
 
-* Use what you learned in this lab to migrate `nginx` to RHV Platform.
+* Use what you learned in this lab to migrate `nginx` to RHV Platform (Tip: use `demo3` migration group)
+
+== Extra Tip
+
+* You can use `attribute_all.csv` for attributes, `tag_all.csv` for tags, and `fullmigration` as migration group, to perform a full migration.
