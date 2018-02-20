@@ -248,9 +248,12 @@ For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is
 
 . On the right, click *Order*.
 
-. On the resulting screen, enter `attribute_db.csv` in the *Filename* field and click *Submit*.
+. On the resulting screen, select `attribute_db.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
++
+[TIP]
+The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/attributes/`.
 
 === Set VM Migration Tags
 
@@ -260,9 +263,12 @@ For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is
 
 . On the right, click *Order*.
 
-. On the resulting screen, enter `tag_db.csv` in the *Filename* field and click *Submit*.
+. On the resulting screen, select `tag_db.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
++
+[TIP]
+The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/tags/`.
 
 === Check Tags and Attributes
 
