@@ -37,6 +37,3 @@ Author Information
 ------------------
 
 Miguel Pérez Colino 
-
-Based on work by Sergio Ocón Cardenas:
-https://github.com/chargio/postgresql-vagrant
