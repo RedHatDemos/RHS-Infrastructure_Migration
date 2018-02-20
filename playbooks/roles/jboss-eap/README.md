@@ -6,7 +6,7 @@ A role to deploy, and configure two JBoss servers as master adn slave in RHEL7 /
 Requirements
 ------------
 
-The system to run this role has to be subscribed (if RHEL), and configured with the base repo, adn the JBoss EAP repo.
+The system to run this role has to be subscribed (if RHEL), and configured with the base, optional and extras repos, as well as the JBoss EAP repo.
 
 It can be done in RHEL with the following command (once subscribed)
 ```
