@@ -6,7 +6,13 @@ A role to deploy, and configure a Nginx webserver as load balancer in RHEL7 / Ce
 Requirements
 ------------
 
-The system to run this role has to be subscribed (if RHEL), and configured with the base repo.
+The system to run this role has to be subscribed (if RHEL), and configured with the base, optional and extras repos.
+
+
+It can be done in RHEL with the following command (once subscribed)
+```
+subscription-manager repos --disable='*' --enable='rhel-x86_64-server-7' --enable='rhel-x86_64-server-extras-7' --enable='rhel-x86_64-server-optional-7'
+```
 
 Role Variables
 --------------
