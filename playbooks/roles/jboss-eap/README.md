@@ -7,7 +7,8 @@ Requirements
 ------------
 
 The system to run this role has to be subscribed (if RHEL), and configured with the base repo, adn the JBoss EAP repo.
-It canbe done in RHEL with the following command (once subscribed)
+
+It can be done in RHEL with the following command (once subscribed)
 ```
 subscription-manager repos --disable='*' --enable='rhel-x86_64-server-7' --enable='rhel-x86_64-server-extras-7' --enable='rhel-x86_64-server-optional-7'
 ```
