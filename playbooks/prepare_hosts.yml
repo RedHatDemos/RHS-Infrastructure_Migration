@@ -10,7 +10,7 @@
       pool_ids: "{{rhn_pool_ids}}"
 
   - name: Configure repos
-    command: subscription-manager repos --disable='*' --enable='rhel-x86_64-server-7' --enable='rhel-x86_64-server-extras-7' --enable='rhel-x86_64-server-optional-7'
+    command: subscription-manager repos --disable='*' --enable='rhel-7-server-rpms' --enable='rhel-7-server-extras-rpms' --enable='rhel-7-server-optional-rpms'
 
   - name: Update app VMs
     yum:
