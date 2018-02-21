@@ -20,7 +20,7 @@ NOTE: The source VM's are still maintained post migration and are not deleted. T
 * Deployment of the demo environment which includes the following provisioned VMs:
 ** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP
 ** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP
-** `nginx` - a Red Hat Enterprise Linux 7 host running Nginx  configured to proxy traffic to `jboss0` and `jboss1`
+** `lb` - a Red Hat Enterprise Linux 7 host running Nginx configured to proxy traffic to `jboss0` and `jboss1`
 ** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL that the `jboss0` and `jboss1` application servers connect to
 
 Current versions of products used:
@@ -231,13 +231,13 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 
 == Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
 
-. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `db` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `nginx`).
+. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `db` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `lb`).
 +
 [TIP]
 It can be verified that `db` VM is down by running, in the terminal, in the workstation machine, the check command:
 `# ansible db.example.com -m ping`
 
-For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is:
+For all application VMs (`db`, `jboss0`, `jboss1`, `lb`) the check command is:
 `# ansible app -m ping`
 
 === Set VM Migration Attributes
@@ -338,13 +338,13 @@ NOTE: It takes about 20 minutes for `automation.log` to show that the service is
 
 == Migrate the JBoss EAP VMs from VMware to RHV Platform
 
-. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `jboss0` and `jboss1` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `nginx`).
+. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `jboss0` and `jboss1` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `lb`).
 +
 [TIP]
 It can be verified that `jboss0` and `jboss1` VM are down by running, in the terminal, in the workstation machine, the check command:
 `# ansible jboss -m ping`
 
-For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is:
+For all application VMs (`db`, `jboss0`, `jboss1`, `lb`) the check command is:
 `# ansible app -m ping`
 
 === Set VM Migration Attributes
@@ -390,11 +390,11 @@ For all application VMs (`db`, `jboss0`, `jboss1`, `nginx`) the check command is
 == End State
 
 * You now have the `db` server on VMware and the two `jboss` servers on RHV Platform.  
-* The `nginx` system remains on VMware
+* The `lb` system remains on VMware
 
 == Extra Credit
 
-* Use what you learned in this lab to migrate `nginx` to RHV Platform (Tip: use `demo3` migration group)
+* Use what you learned in this lab to migrate `lb` to RHV Platform (Tip: use `demo3` migration group)
 
 == Extra Tip
 
