@@ -6,12 +6,13 @@ A role to deploy, and configure a Nginx webserver as load balancer in RHEL7 / Ce
 Requirements
 ------------
 
-The system to run this role has to be subscribed (if RHEL), and configured with the base, optional and extras repos.
+The system to run this role has to be subscribed (if RHEL), and configured with the base, optional and extras repos. Then add EPEL.
 
 
-It can be done in RHEL with the following command (once subscribed)
+It can be done in RHEL with the following commands (once subscribed):
 ```
-subscription-manager repos --disable='*' --enable='rhel-x86_64-server-7' --enable='rhel-x86_64-server-extras-7' --enable='rhel-x86_64-server-optional-7'
+subscription-manager repos --disable='*' --enable='rhel-7-server-rpms' --enable='rhel-7-server-extras-rpms' --enable='rhel-7-server-optional-rpms'nal-7'
+yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 ```
 
 Role Variables
