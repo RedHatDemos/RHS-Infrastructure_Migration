@@ -13,7 +13,7 @@
                         </driver>
                     </drivers>
                     <datasource jndi-name="java:jboss/datasources/TicketMonsterPostgreSQLDS" pool-name="PostgreSQLDS">
-                        <connection-url>jdbc:postgresql://localhost:5432/ticketmonster</connection-url>
+                        <connection-url>jdbc:postgresql://db.example.com:5432/ticketmonster</connection-url>
                         <driver>org.postgresql</driver>
                         <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
                         <pool>
@@ -22,8 +22,8 @@
                             <prefill>true</prefill>
                         </pool>
                             <security>
-                            <user-name>test</user-name>
-                            <password>test</password>
+                            <user-name>ticketmonster</user-name>
+                            <password>postgres</password>
                         </security>
                         <statement>
                             <prepared-statement-cache-size>32</prepared-statement-cache-size>
@@ -36,4 +36,5 @@
                         </driver>
                     </drivers>
                 </datasources>
+
 
