@@ -1,4 +1,4 @@
 ---
-- hosts: nginx.example.com
+- hosts: lb.example.com
   roles:
     - nginx

@@ -28,7 +28,7 @@ rhvm.example.com
 vcenter.example.com
 
 [app]
-nginx.example.com
+lb.example.com
 jboss0.example.com
 jboss1.example.com
 db.example.com
