@@ -11,6 +11,9 @@
                         <driver name="h2" module="com.h2database.h2">
                             <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                         </driver>
+                        <driver name="org.postgresql" module="org.postgresql">
+                            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+                        </driver>
                     </drivers>
                     <datasource jndi-name="java:jboss/datasources/TicketMonsterPostgreSQLDS" pool-name="PostgreSQLDS">
                         <connection-url>jdbc:postgresql://db.example.com:5432/ticketmonster</connection-url>
@@ -30,11 +33,6 @@
                             <share-prepared-statements/>
                         </statement>
                     </datasource>
-                        <drivers>
-                            <driver name="org.postgresql" module="org.postgresql">
-                            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
-                        </driver>
-                    </drivers>
                 </datasources>
 
 

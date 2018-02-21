@@ -1,1 +1,1 @@
-/opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql
+/opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql/main
