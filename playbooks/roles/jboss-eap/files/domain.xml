@@ -898,9 +898,30 @@
                             <password>sa</password>
                         </security>
                     </datasource>
+                    <datasource jndi-name="java:jboss/datasources/TicketMonsterPostgreSQLDS" pool-name="PostgreSQLDS">
+                        <connection-url>jdbc:postgresql://db.example.com:5432/ticketmonster</connection-url>
+                        <driver>org.postgresql</driver>
+                        <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+                        <pool>
+                            <min-pool-size>10</min-pool-size>
+                            <max-pool-size>100</max-pool-size>
+                            <prefill>true</prefill>
+                        </pool>
+                            <security>
+                            <user-name>ticketmonster</user-name>
+                            <password>postgres</password>
+                        </security>
+                        <statement>
+                            <prepared-statement-cache-size>32</prepared-statement-cache-size>
+                            <share-prepared-statements/>
+                        </statement>
+                    </datasource>
                     <drivers>
                         <driver name="h2" module="com.h2database.h2">
                             <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                        </driver>
+                        <driver name="org.postgresql" module="org.postgresql">
+                            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
                         </driver>
                     </drivers>
                 </datasources>
