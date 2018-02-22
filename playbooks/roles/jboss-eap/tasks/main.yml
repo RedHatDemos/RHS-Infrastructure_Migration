@@ -70,9 +70,7 @@
   file:
     path: /opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql/main
     state: directory
-    mode: 0755
-    owner: jboss
-    group: jboss
+    mode: 0775
 
 - name: Copy PostgreSQL JDBC driver
   copy: 
@@ -80,8 +78,6 @@
     dest: /opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql/main/postgresql-9.2-1004.jdbc41.jar
     backup: yes
     mode: 0644
-    owner: jboss
-    group: jboss
   notify: 
     - Restart JBoss EAP
 
@@ -91,7 +87,5 @@
     dest: /opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql/main/module.xml
     backup: yes
     mode: 0644
-    owner: jboss
-    group: jboss
   notify: 
     - Restart JBoss EAP
