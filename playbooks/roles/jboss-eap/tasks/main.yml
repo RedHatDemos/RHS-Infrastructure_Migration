@@ -74,7 +74,7 @@
 
 - name: Copy PostgreSQL JDBC driver
   copy: 
-    src: postgresql-9.2-1004.jdbc41.jar         postgresql-9.2-1004.jdbc41.module.xml  
+    src: postgresql-9.2-1004.jdbc41.jar
     dest: /opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql/main/postgresql-9.2-1004.jdbc41.jar
     backup: yes
     mode: 0644
@@ -83,7 +83,7 @@
 
 - name: Copy PostgreSQL JDBC driver module config
   copy: 
-    src: module.xml  
+    src: postgresql-9.2-1004.jdbc41.module.xml
     dest: /opt/rh/eap7/root/usr/share/wildfly/modules/system/layers/base/org/postgresql/main/module.xml
     backup: yes
     mode: 0644
