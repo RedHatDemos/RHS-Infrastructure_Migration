@@ -57,7 +57,7 @@ image::architecture_diagram.png[Architecture Diagram]
 |=======
 | Hostname | Internal IP | External name | Description
 |`migration.example.com` | `192.168.0.105` | N/A |Virtual-to-Virtual Migration server
-|`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host
+|`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
 |`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
