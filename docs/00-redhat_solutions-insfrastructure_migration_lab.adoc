@@ -1,6 +1,7 @@
 :scrollbar:
 :data-uri:
 :toc2:
+:imagesdir: images
 
 == Red Hat Solutions: IT Optimization - Infrastructure Migration
 
@@ -49,6 +50,8 @@ Internet Explorer is not recommended.
 A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1a2b`), this identifier is referred in this documentation as *GUID*.  
 
 The demo environment consists of the following systems:
+
+image::architecture_diagram.png[Architecture Diagram]
 
 [cols="1,1,1,2",options="header"]
 |=======
