@@ -1,0 +1,2 @@
+subscription-manager repos --disable='*' --enable='rhel-server-7-rpms' --enable='rhel-server-extras-7-rpms' --enable='rhel-server-optional-7-rpms' --enable=rhel-7-server-ansible-2.4-rpms
+
