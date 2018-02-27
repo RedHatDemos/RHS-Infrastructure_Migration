@@ -258,16 +258,15 @@ For all application VMs (`db`, `jboss0`, `jboss1`, `lb`) the check command is:
 . On the resulting screen, select `attribute_db.csv` in the *Filename* field and click *Submit*.
 
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-
 It can be done by establishing an SSH connection to the CloudForms server and watching the content of `automation.log`:
++
 ----
 # ssh cf.example.com
 # tail -f /var/www/miq/vmdb/log/automation.log
 ----
-
 +
 [NOTE]
-The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
+The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
 +
 [TIP]
 The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/attributes/`.
