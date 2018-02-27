@@ -210,7 +210,7 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 
 . Only the VMs and Templates in vSphere will show.
 
-=== Configure Red Hat Virtualization as a Migration Destination
+=== Configure Red Hat Virtualization as a Migration Point of Arrival
 
 . On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
 
@@ -226,7 +226,7 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 +
 * This sets this provider as the current point of arrival.
 
-=== Configure VMware as a Migration Source
+=== Configure VMware as a Migration Point of Departure
 
 . Navigate to the *VMware* provider.
 
@@ -306,6 +306,8 @@ The csv files for attributes can be accessed in the machine `cf` under the folde
 . Under *Smart Management*, confirm that *migrate_group* is set to `demo2` and *Point of Arrival* is set to `Rhev`.
 
 === Start VM Pre-Migration
+
+Before starting the migration a set of checks are run against the tagged VMs to facilitate a successful migration. Once the checks are passed, the VMs are tagged as *check_premigrate_tag = true*. The migration will not run on the VMs unles the machines have this tag assigned.
 
 . On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
 
