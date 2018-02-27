@@ -414,6 +414,28 @@ The log entries can be seen in the CloudFomrm web UI in *Automation -> Automate 
 
 . Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
 
+=== VM Pre-Migration
+
+. On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
+
+. Under *All Services -> Migration*, select *Batch_PreMigrate*.
+
+. On the right, click *Order*.
+
+. For *Migration Group*, select `demo`.
+
+. Verify in the *VMs in Migration Group* textbox that `db` is the only Vm displayed, and click *Submit*.
+
+. Monitor `automation.log` in the terminal connected to CloudForms.
++
+----
+# ssh cf.example.com
+# tail -f /var/www/miq/vmdb/log/automation.log
+----
++
+[NOTE]
+The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
+
 === Migrate the VM
 
 . On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
