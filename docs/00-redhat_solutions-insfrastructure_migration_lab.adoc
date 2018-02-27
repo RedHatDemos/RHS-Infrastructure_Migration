@@ -260,11 +260,11 @@ For all application VMs (`db`, `jboss0`, `jboss1`, `lb`) the check command is:
 . Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
 
 It can be done by establishing an SSH connection to the CloudForms server and watching the content of `automation.log`:
-+
 ----
 # ssh cf.example.com
 # tail -f /var/www/miq/vmdb/log/automation.log
 ----
+
 +
 [NOTE]
 The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
