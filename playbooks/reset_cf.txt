@@ -1,0 +1,3 @@
+rake evm:db:reset                       # Resets the ManageIQ EVM Database (VMDB) of all tables, views and indices
+# alias vmdbalias vmdb='cd /var/www/miq/vmdb'
+
