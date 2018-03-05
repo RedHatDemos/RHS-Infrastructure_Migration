@@ -189,7 +189,6 @@ The log entries can be also seen in the CloudFomrm web UI in *Automation -> Auto
 * Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and chek it is running:
 
 image::app-ticketmonster-running.png[Ticket Monster app running]
-+
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 
