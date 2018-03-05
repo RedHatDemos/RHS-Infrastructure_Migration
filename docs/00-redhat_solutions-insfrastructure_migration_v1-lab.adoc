@@ -243,6 +243,8 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 
 === Configure Red Hat Virtualization as a Migration Point of Arrival
 
+image::rhv-point-of-arrival-tag.png[RHV PoA]
+
 . On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
 
 . Click *RHV*.
@@ -257,7 +259,9 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 +
 * This sets this provider as the current point of arrival.
 
-=== Configure VMware as a Migration Point of Departure
+=== Configure VMware vSphere as a Migration Point of Departure
+
+image::vsphere-point-of-departure-tag.png[vSphere PoD]
 
 . Navigate to the *VMware* provider.
 
