@@ -26,4 +26,5 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.15 Changed nginx VM to lb.example.com. Minor fixes
   0.16 Ticket Monster configured to connect to DB (PostgreSQL)
   0.17 Remove tags in environment. Cleanup logs.
+  0.18 Added second RHV Hypervisor. Improved documentation.
 ```
