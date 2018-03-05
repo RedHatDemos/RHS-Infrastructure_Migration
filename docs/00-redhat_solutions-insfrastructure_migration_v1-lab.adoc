@@ -9,20 +9,36 @@
 
 == Overview
 
-This demonstration uses Red Hat CloudForms as a broker to drive virtual-to-virtual tools such as `ovftool` and `virt-v2v` to migrate VMs from VMware vSphere to Red Hat Virtualization 
+This demonstration uses Red Hat CloudForms as a broker to drive virtual-to-virtual tools such as `ovftool` and `virt-v2v` to migrate VMs from VMware vSphere to Red Hat Virtualization. During the demostration, the resources need ot be mapped in order to perform the migration.
+
+The initial mappings are related to the Virtualization capabilities, which in this case, we will use the following:
+
+* Point of Departure (POD): VMware vSphere
+* Point of Arrival (POA): Red Hat Virtualization
+** Point of Arrival type: RHEV
+
+This way we define the origin and destination of the VMs taking into account the type of infrastucture where they will be hosted. There is work in progress to enable OpenStack as a valid Point of Arrival.
+
+After this initial mapping, the VMs to be migrated will require the following information:
+
+* Attributes: specifying the type of migration to be performed on the VM
+* Tags: Identifying the VMs and assigning (if needed) the network configuration tranformation
+* Migration group: Name of the group of VMs to be migrated toghether. It is assigned in through the *tags* and *attributes*
+
+All the mappings can be seen in CloudForms as a capability internally named *Tags*, which is extended information added to any of the objects being managed (VMs, Virtualizaiton Infrastructure, Cloud Infrastructures, etc). 
+
+Once everything id properly identified and mapped, t  will allow us to prepare the full migration and execute it as a batch in an intervention window.
+
+The migration is executed in two phases:
+
+* Pre-migration: VMs get checked to ensure that the migration will be successful. Once checks are passed they are *taggeg* as "pre-migration successful"
+* Migration: All the VMs with the successful pre-migration *tag* will be assigned to worker machines that will perform the migration.
 
 .Goal
-* Migrate the VMs with a Red Hat Solution: IT Optimization - Infrastructure Migration
+* Migrate several VMs from vSphere to Red Hat virtualization with a Red Hat Solution: Infrastructure Migration
 +
 NOTE: The source VM's are still maintained post migration and are not deleted. This allows for "failback" if a migration failure occurs.
 
-.Prerequisites
-
-* Deployment of the demo environment which includes the following provisioned VMs:
-** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP
-** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP
-** `lb` - a Red Hat Enterprise Linux 7 host running Nginx configured to proxy traffic to `jboss0` and `jboss1`
-** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL that the `jboss0` and `jboss1` application servers connect to
 
 Current versions of products used:
 
@@ -36,8 +52,7 @@ Current versions of products used:
 
 === System Requirements
 
-* Firefox 17 or higher
-* Chromium (for vCenter and CloudForms connectivity)
+* Firefox 17 or higher, or Chromium / Chrome
 +
 [NOTE]
 Internet Explorer is not recommended.
@@ -67,6 +82,15 @@ image::architecture_diagram.png[Architecture Diagram]
 |`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
 |=======
 
+.Prerequisites
+
+* Deployment of the demo environment which includes the following VMs provisioned in the vSphere environment:
+** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP
+** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP
+** `lb` - a Red Hat Enterprise Linux 7 host running Nginx configured to proxy traffic to `jboss0` and `jboss1`
+** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL that the `jboss0` and `jboss1` application servers connect to
+
+* An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accesible.
 
 === Obtaining or enabling access credentials
 
@@ -160,8 +184,16 @@ The log entries are very long, so it helps if you stretch this window as wide as
 [NOTE]
 The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
 
+. Verify that the Ticket Monster app is running:
 
-. From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
+* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and chek it is running:
+
+image::app-ticketmonster-running.png[Ticket Monster app running]
++
+[NOTE]
+You must accept all of the self-signed SSL certificates.
+
+. Prepare to manage the environment. From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
 
 * *Username*: `admin`
 * *Password*: `<to_be_provided>`
