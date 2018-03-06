@@ -1,0 +1,8 @@
+Start with a RHEL7 VM
+Just suscribe it (playbooks will add the channels)
+
+1 Disk OS 20 GB
+1 Disk 10 GB database
+1 Disk 10 GB logs
+
+
