@@ -1,0 +1,30 @@
+[rhel-7-server-rpms]
+name=Red Hat Enterprise Linux 7
+baseurl=http://storage.example.com/repos/rhel-7-server-rpms
+enabled=1
+gpgcheck=1
+
+[rhel-7-server-ansible-2.4-rpms]
+name=Ansible 2.4 for Red Hat Enterprise Linux 7
+baseurl=http://storage.example.com/repos/rhel-7-server-ansible-2.4-rpms
+enabled=0
+gpgcheck=1
+
+[rhel-7-server-extras-rpms]
+name=Red Hat Enterprise Linux 7 Extras
+baseurl=http://storage.example.com/repos/rhel-7-server-extras-rpms
+enabled=1
+gpgcheck=1
+
+[rhel-7-server-optional-rpms]
+name=Red Hat Enterprise Linux 7 Optional
+baseurl=http://storage.example.com/repos/rhel-7-server-optional-rpms
+enabled=1
+gpgcheck=1
+
+[jb-eap-7-for-rhel-7-server-rpms]
+name=Red Hat Enterprise Linux 7 Optional
+baseurl=http://storage.example.com/repos/jb-eap-7-for-rhel-7-server-rpms
+enabled=0
+gpgcheck=1
+
