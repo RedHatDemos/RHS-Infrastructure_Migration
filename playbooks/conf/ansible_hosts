@@ -12,7 +12,8 @@ migration.example.com
 workstation.example.com
 storage.example.com
 cf.example.com
-kvm.example.com
+kvm0.example.com
+kvm1.example.com
 rhvm.example.com
 #esx1.example.com
 #esx2.example.com
