@@ -5,6 +5,7 @@
 192.168.0.10 workstation.example.com workstation
 192.168.0.254 storage.example.com storage
 192.168.0.100 cf.example.com cf
+192.168.0.101 miq.example.com miq
 192.168.0.40 kvm0.example.com kvm0
 192.168.0.41 kvm1.example.com kvm1
 192.168.0.35 rhvm.example.com rhvm-repl.rhpds.opentlc.com rhvm
