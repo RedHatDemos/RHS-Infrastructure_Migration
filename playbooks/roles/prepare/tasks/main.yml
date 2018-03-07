@@ -8,6 +8,8 @@
     dest: /etc/hosts
     backup: yes
 
+- name: Disable external subs
+  command: 'subscription-manager repos --disable=*'
 
 - name: Copy Yum local repos
   copy:
@@ -15,7 +17,4 @@
     dest: /etc/yum.repos.d/infra_migration.repo
     backup: yes
   when: ansible_distribution == 'Red Hat Enterprise Linux'
-
-- name: Disable external subs
-  command: 'subscription-manager repos --disable=*'
 
