@@ -6,8 +6,8 @@
     name: chronyd
     state: started
 
-- name: Reload Chrony
+- name: Restart Chrony
   service:
     name: chronyd
-    state: reloaded
+    state: restarted
 

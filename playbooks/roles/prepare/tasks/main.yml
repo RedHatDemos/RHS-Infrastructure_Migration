@@ -50,5 +50,5 @@
     dest: /etc/chrony.conf
     backup: yes
   notify:
-    - Reload Chrony
+    - Restart Chrony
 
