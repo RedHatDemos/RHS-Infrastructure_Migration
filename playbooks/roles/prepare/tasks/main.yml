@@ -30,11 +30,13 @@
   yum:
     name: ntp
     state: absent
+  when: ansible_distribution == 'RedHat'
 
 - name: Install Chrony
   yum:
     name: chrony
     state: latest
+  when: ansible_distribution == 'RedHat'
   notify:
     - Start Chrony
 
@@ -43,12 +45,14 @@
     name: chronyd
     enabled: yes
     state: started
+  when: ansible_distribution == 'RedHat'
 
 - name: Copy Chrony config
   copy:
     src: chrony.conf
     dest: /etc/chrony.conf
     backup: yes
+  when: ansible_distribution == 'RedHat'
   notify:
     - Restart Chrony
 
