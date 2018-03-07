@@ -8,10 +8,10 @@
     dest: /etc/hosts
     backup: yes
 
-- name: Disable external subs
-  command: 'subscription-manager repos --disable=*'
-  ignore_errors: yes
-  when: ansible_distribution == 'RedHat'
+#- name: Disable external subs
+#  command: 'subscription-manager repos --disable=*'
+#  ignore_errors: yes
+#  when: ansible_distribution == 'RedHat'
 
 - name: Copy Yum local repos
   copy:
@@ -25,4 +25,30 @@
     name: '*'
     state: latest
   when: ansible_distribution == 'RedHat'
+
+- name: Uninstall NTP
+  yum:
+    name: ntp
+    state: absent
+
+- name: Install Chrony
+  yum:
+    name: chrony
+    state: latest
+  notify:
+    - Start Chrony
+
+- name: Enable Chrony
+  service:
+    name: chronyd
+    enabled: yes
+    state: started
+
+- name: Copy Chrony config
+  copy:
+    src: chrony.conf
+    dest: /etc/chrony.conf
+    backup: yes
+  notify:
+    - Reload Chrony
 

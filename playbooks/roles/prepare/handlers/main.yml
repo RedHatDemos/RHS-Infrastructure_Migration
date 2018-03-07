@@ -1,2 +1,13 @@
 ---
 # handlers file for rhel
+
+- name: Start Chrony
+  service:
+    name: chronyd
+    state: started
+
+- name: Reload Chrony
+  service:
+    name: chronyd
+    state: reloaded
+
