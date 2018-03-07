@@ -18,9 +18,19 @@ rhvm.example.com
 #esx2.example.com
 vcenter.example.com
 
-[app]
+[app:children]
+app_jboss
+app_lb
+app_db
+
+[app_lb]
 lb.example.com
-jboss0.example.com
-jboss1.example.com
+
+[app_jboss]
+jboss0.example.com jboss_role=master
+jboss1.example.com jboss_role=slave
+
+[app_db]
 db.example.com
+
 
