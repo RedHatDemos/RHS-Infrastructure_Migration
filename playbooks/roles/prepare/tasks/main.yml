@@ -11,14 +11,14 @@
 - name: Disable external subs
   command: 'subscription-manager repos --disable=* 2>&1 > /dev/null'
   ignore_errors: yes
-  when: ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_distribution == 'RedHat'
 
 - name: Copy Yum local repos
   copy:
     src: infra_migration.repo
     dest: /etc/yum.repos.d/infra_migration.repo
     backup: yes
-  when: ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_distribution == 'RedHat'
 
 
 
