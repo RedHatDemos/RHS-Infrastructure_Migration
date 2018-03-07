@@ -20,5 +20,11 @@
     backup: yes
   when: ansible_distribution == 'RedHat'
 
+- name: Update OS
+  yum:
+    name: *
+    state: latest
+  when: ansible_distribution == 'RedHat'
+
 
 
