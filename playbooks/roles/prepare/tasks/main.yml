@@ -10,6 +10,7 @@
 
 - name: Disable external subs
   command: 'subscription-manager repos --disable=*'
+  ignore_errors: yes
 
 - name: Copy Yum local repos
   copy:
