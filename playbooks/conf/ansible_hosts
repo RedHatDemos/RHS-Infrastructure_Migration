@@ -7,16 +7,25 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 
-[infra]
-workstation.example.com
-storage.example.com
-cf.example.com
+[infra:children]
+infra_rhv
+infra_vsphere
+infra_other
+
+[infra_rhv]
 kvm0.example.com
 kvm1.example.com
 rhvm.example.com
+
+[infra_vsphere]
 #esx1.example.com
 #esx2.example.com
 vcenter.example.com
+
+[infra_other]
+workstation.example.com
+storage.example.com
+cf.example.com
 
 [app:children]
 app_jboss
