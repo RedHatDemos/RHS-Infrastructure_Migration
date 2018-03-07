@@ -12,7 +12,7 @@
 - name: Copy Yum local repos
   copy:
     src: infra_migration.repo
-    dest: /etc/yum.repos.d/infra_migration.conf
+    dest: /etc/yum.repos.d/infra_migration.repo
     backup: yes
 
 
