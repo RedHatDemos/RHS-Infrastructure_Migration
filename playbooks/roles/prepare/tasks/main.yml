@@ -9,7 +9,7 @@
     backup: yes
 
 - name: Disable external subs
-  command: 'subscription-manager repos --disable=* 2>&1 > /dev/null'
+  command: 'subscription-manager repos --disable=*'
   ignore_errors: yes
   when: ansible_distribution == 'RedHat'
 
