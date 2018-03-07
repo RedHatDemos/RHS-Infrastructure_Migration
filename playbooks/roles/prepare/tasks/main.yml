@@ -14,5 +14,8 @@
     src: infra_migration.repo
     dest: /etc/yum.repos.d/infra_migration.repo
     backup: yes
+  when: ansible_distribution == 'Red Hat Enterprise Linux'
 
+- name: Disable external subs
+  command: 'subscription-manager repos --disable=*'
 
