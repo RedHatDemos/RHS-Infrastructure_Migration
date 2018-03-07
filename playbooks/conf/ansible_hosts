@@ -8,7 +8,6 @@
 #   - A hostname/ip can be a member of multiple groups
 
 [infra]
-migration.example.com
 workstation.example.com
 storage.example.com
 cf.example.com
@@ -20,22 +19,9 @@ rhvm.example.com
 #esx2.example.com
 vcenter.example.com
 
-[rhv]
-kvm.example.com
-rhvm.example.com
-
-[vmw]
-#esx1.example.com
-#esx2.example.com
-vcenter.example.com
-
 [app]
 lb.example.com
 jboss0.example.com
 jboss1.example.com
 db.example.com
-
-[jboss]
-jboss0.example.com
-jboss1.example.com
 
