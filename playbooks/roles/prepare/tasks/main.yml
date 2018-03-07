@@ -22,9 +22,7 @@
 
 - name: Update OS
   yum:
-    name: *
+    name: '*'
     state: latest
   when: ansible_distribution == 'RedHat'
-
-
 
