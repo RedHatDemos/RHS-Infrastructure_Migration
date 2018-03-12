@@ -36,3 +36,4 @@ baseurl=http://storage.example.com/repos/beta-rhv-4.2.2
 enabled=1
 skip_if_unavailable=1
 gpgcheck=0
+
