@@ -73,10 +73,10 @@ all:
               manageiq_logs_disk: /dev/vdc
   hosts:
 ----
-+
+
 [NOTE]
 The `vars:` section, when not including any var, needs to be commented to run.
-+
+
 [TIP]
 Disks for logs and database need to be different. If configured with the same one, playbook will fail.
 
