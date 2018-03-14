@@ -1444,7 +1444,7 @@ sslverify = 1
 name = Red Hat Enterprise Linux 7 Server - RH Common (RPMs)
 sslclientkey = /etc/pki/entitlement/5500171367816350825-key.pem
 gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
-enabled = 0
+enabled = 1
 sslcacert = /etc/rhsm/ca/redhat-uep.pem
 gpgcheck = 1
 

@@ -200,7 +200,7 @@ You must accept all of the self-signed SSL certificates.
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 
-* *Red Hat Virtualization Manager:* `https://rhevm-<YOUR-GUID>.rhpds.opentlc.com`
+* *Red Hat Virtualization Manager:* `https://rhvm-<YOUR-GUID>.rhpds.opentlc.com`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
 
 * *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`

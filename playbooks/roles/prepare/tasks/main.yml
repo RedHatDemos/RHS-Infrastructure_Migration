@@ -1,0 +1,58 @@
+---
+# tasks file for rhel
+#
+
+- name: Copy hosts file
+  copy:
+    src: hosts
+    dest: /etc/hosts
+    backup: yes
+
+#- name: Disable external subs
+#  command: 'subscription-manager repos --disable=*'
+#  ignore_errors: yes
+#  when: ansible_distribution == 'RedHat'
+
+- name: Copy Yum local repos
+  copy:
+    src: infra_migration.repo
+    dest: /etc/yum.repos.d/infra_migration.repo
+    backup: yes
+  when: ansible_distribution == 'RedHat'
+
+- name: Update OS
+  yum:
+    name: '*'
+    state: latest
+  when: ansible_distribution == 'RedHat'
+
+- name: Uninstall NTP
+  yum:
+    name: ntp
+    state: absent
+  when: ansible_distribution == 'RedHat'
+
+- name: Install Chrony
+  yum:
+    name: chrony
+    state: latest
+  when: ansible_distribution == 'RedHat'
+  notify:
+    - Start Chrony
+
+- name: Enable Chrony
+  service:
+    name: chronyd
+    enabled: yes
+    state: started
+  when: ansible_distribution == 'RedHat'
+
+- name: Copy Chrony config
+  copy:
+    src: chrony.conf
+    dest: /etc/chrony.conf
+    backup: yes
+  when: ansible_distribution == 'RedHat'
+  notify:
+    - Restart Chrony
+

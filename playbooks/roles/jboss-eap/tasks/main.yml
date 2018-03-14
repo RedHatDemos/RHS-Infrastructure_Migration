@@ -37,7 +37,7 @@
     src: host-master.xml 
     dest: /etc/opt/rh/eap7/wildfly/domain/host.xml
     backup: yes
-  when: inventory_hostname == "jboss0.example.com"
+  when: jboss_role == "master"
   notify: 
     - Restart JBoss EAP
 
@@ -46,7 +46,7 @@
     src: host-slave.xml 
     dest: /etc/opt/rh/eap7/wildfly/domain/host.xml
     backup: yes
-  when: inventory_hostname == "jboss1.example.com"
+  when: jboss_role == "slave"
   notify: 
     - Restart JBoss EAP
 
