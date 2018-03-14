@@ -29,9 +29,9 @@ The minimum product versions required to run the solution are the following:
 |VMware vSphere |5.5
 |=======
 
-=== Environment requirements
+=== CloudForms requirements
 
-* CloudForms 
+CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
 
 Initially Cloudforms will be deployed using the following playbooks:
 
@@ -80,6 +80,32 @@ The `vars:` section, when not including any var, needs to be commented to run.
 [TIP]
 Disks for logs and database need to be different. If configured with the same one, playbook will fail.
 
+=== RHV Requirements
+
+Red Hat Virtualization, referred as RHV, the product built from the code of its upstream project oVirt. Int his case even the changes are done upstream the software used to build the environment is derived from the engineering build system
+
+The location of the packages are the following:
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server/$basearch/os/ |RHEL 7.5.z beta builds (Libvirt changes needed)
+|RHEL 7.5 optional |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server-optional/$basearch/os/ | RHEL 7.5 optional packages beta builds
+|RHEL 7.5 extras |http://download.eng.bos.redhat.com/rel-eng/latest-EXTRAS-7-RHEL-7.5/compose/Server/$basearch/os/ | RHEL 7.5 extras packages beta builds
+|RHV Hypervisor packages for RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/repos/rhevh-rhel-7.5-candidate/$basearch/ |RHV Hypervisor beta builds for RHEL 7.5
+|RHV Manager 4.2.2 |http://bob.eng.lab.tlv.redhat.com/builds/4.2/rhv-4.2.2-3/el$releasever |RHV Manager 4.2.2 beta builds
+|JBoss EAP 7.1 |http://download.devel.redhat.com/devel/candidates/JBEAP/composing/latest-JBEAP-7.1-RHEL-7/compose/Server/$basearch/os/ |RHV Manager depends on it
+|=======
+
+The following link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes_v2/rhv.repo:[repo file] was used to retrieve the packages using `reposync` tool (`yum-utils` package)
+
+----
+# reposync --config=/root/rhv.repo --download_path=/mnt/  --download-metadata --downloadcomps --newest-only
+----
+
+== Installation
+
+=== CloudForms Installation
+
 The installation creates the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
 
 In the the home you will find the following folders with github origins:
@@ -90,5 +116,4 @@ In the the home you will find the following folders with github origins:
 |manageiq-ui-classic |https://github.com/ManageIQ/manageiq-ui-classic.git |Main ManageIQ UI code (CloudForms Upstream)
 |miq_v2v_ui_plugin |https://github.com/priley86/miq_v2v_ui_plugin.git |Infra Migration Plugin for ManageIQ (CloudForms Upstream)
 |=======
-
 
