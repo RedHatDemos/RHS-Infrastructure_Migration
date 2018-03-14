@@ -4,6 +4,9 @@ Before=ovirt-engine.service
 
 [Service]
 Type=oneshot
-RemainAfterExit=yes
+RemainAfterExit=no
 ExecStart=/usr/bin/echo "SSO_ALTERNATE_ENGINE_FQDNS=\"$(hostname -f) rhvm.example.com\"" > /etc/ovirt-engine/engine.conf.d/99-custom-sso-setup.conf
+
+[Install]
+WantedBy=multi-user.target
 
