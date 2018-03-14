@@ -20,6 +20,13 @@
     backup: yes
   when: ansible_distribution == 'RedHat'
 
+- name: Blacklist modules
+  copy:
+    src: blacklist.conf
+    dest: /etc/modprobe.d/blacklist.conf
+    backup: yes
+  when: ansible_distribution == 'RedHat'
+
 - name: Update OS
   yum:
     name: '*'
