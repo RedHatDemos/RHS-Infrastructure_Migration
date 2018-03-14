@@ -80,6 +80,15 @@ The `vars:` section, when not including any var, needs to be commented to run.
 [TIP]
 Disks for logs and database need to be different. If configured with the same one, playbook will fail.
 
+The installation creates the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
 
+In the the home you will find the following folders with github origins:
+[cols="1,1,1",options="header"]
+|=======
+|Folder |Origin| Use
+|manageiq |https://github.com/ManageIQ/manageiq.git |Main ManageIQ backend code (CloudForms Upstream)
+|manageiq-ui-classic |https://github.com/ManageIQ/manageiq-ui-classic.git |Main ManageIQ UI code (CloudForms Upstream)
+|miq_v2v_ui_plugin |https://github.com/priley86/miq_v2v_ui_plugin.git |Infra Migration Plugin for ManageIQ (CloudForms Upstream)
+|=======
 
 
