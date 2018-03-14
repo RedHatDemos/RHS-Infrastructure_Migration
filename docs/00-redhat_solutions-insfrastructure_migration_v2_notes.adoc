@@ -117,3 +117,57 @@ In the the home you will find the following folders with github origins:
 |miq_v2v_ui_plugin |https://github.com/priley86/miq_v2v_ui_plugin.git |Infra Migration Plugin for ManageIQ (CloudForms Upstream)
 |=======
 
+== Running the Environment
+
+=== Starting CloudForms
+
+There are two ways to run Cloudforms.
+
+. Starting using `rake`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:start
+----
+
+. Stopping using `rake`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:stop
+----
+
+. Starting using `foreman`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ foreman start -p 3000
+----
+
+. Stopping using `foreman`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ foreman stop
+----
+
+The port 3000 should have been opened in FirewallD
+
+
+After this, a running instance of Cloudforms will be listening in port 3000 (http)
+http://cf.example.com:3000
+
+Now it is time to start the v2v plugin:
+
+----
+# su - miq
+$ cd /home/miq/manageiq-ui-classic
+$ NODE_ENV=development ./node_modules/.bin/webpack-dev-server --config config/webpack/development.js
+----
+
+In this case it will be listening in port 8080 (http) and we will need to open the port
+
+----
+# firewall-cmd --permanent --zone=public --add-port=8080/tcp
+----
+
