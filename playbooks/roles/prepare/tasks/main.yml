@@ -13,53 +13,58 @@
 #  ignore_errors: yes
 #  when: ansible_distribution == 'RedHat'
 
-- name: Copy Yum local repos
-  copy:
-    src: infra_migration.repo
-    dest: /etc/yum.repos.d/infra_migration.repo
-    backup: yes
-  when: ansible_distribution == 'RedHat'
+- block:
+  - name: Copy Yum local repos
+    copy:
+      src: infra_migration.repo
+      dest: /etc/yum.repos.d/infra_migration.repo
+      backup: yes
 
-- name: Blacklist modules
-  copy:
-    src: blacklist.conf
-    dest: /etc/modprobe.d/blacklist.conf
-    backup: yes
-  when: ansible_distribution == 'RedHat'
+  - name: Blacklist modules
+    copy:
+      src: blacklist.conf
+      dest: /etc/modprobe.d/blacklist.conf
+      backup: yes
 
-- name: Update OS
-  yum:
-    name: '*'
-    state: latest
-  when: ansible_distribution == 'RedHat'
+  - name: Install Packages
+    yum:
+      name: '{{ item }}'
+      state: present
+    with_items:
+      - bash-completion
+      - vim 
+      - lsof
+      - firewalld
 
-- name: Uninstall NTP
-  yum:
-    name: ntp
-    state: absent
-  when: ansible_distribution == 'RedHat'
+  - name: Update OS
+    yum:
+      name: '*'
+      state: latest
 
-- name: Install Chrony
-  yum:
-    name: chrony
-    state: latest
-  when: ansible_distribution == 'RedHat'
-  notify:
-    - Start Chrony
+  - name: Uninstall NTP
+    yum:
+      name: ntp
+      state: absent
 
-- name: Enable Chrony
-  service:
-    name: chronyd
-    enabled: yes
-    state: started
-  when: ansible_distribution == 'RedHat'
+  - name: Install Chrony
+    yum:
+      name: chrony
+      state: latest
+    notify:
+      - Start Chrony
 
-- name: Copy Chrony config
-  copy:
-    src: chrony.conf
-    dest: /etc/chrony.conf
-    backup: yes
-  when: ansible_distribution == 'RedHat'
-  notify:
-    - Restart Chrony
+  - name: Enable Chrony
+    service:
+      name: chronyd
+      enabled: yes
+      state: started
 
+  - name: Copy Chrony config
+    copy:
+      src: chrony.conf
+      dest: /etc/chrony.conf
+      backup: yes
+    notify:
+      - Restart Chrony
+
+  when: ansible_distribution == 'RedHat'
