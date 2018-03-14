@@ -51,5 +51,35 @@ It requires a VM with:
 ** Disk2: PostgreSQL database
 ** Disk3: Logs
 
+Once the VM is ready the playbooks need to be run, whether from the VM itself or from another VM with Ansible. Tested with Ansible version 2.4
+
+The Playbooks can help you register the VM and assign the proper repos. For a VM with repos configured I used the following `install.yml` in `v2v-demolab-ansible`
+
+----
+all:
+  children:
+    ManageIQ:
+      children:
+        database:
+          hosts:
+            cf.example.com:
+              manageiq_postgresql_disk: /dev/vdb
+        ui:
+          hosts:
+            cf.example.com:
+        worker:
+          hosts:
+            cf.example.com:
+              manageiq_logs_disk: /dev/vdc
+  hosts:
+----
++
+[Note]
+The `vars:` section, when not including any var, needs to be commented to run.
++
+[Tip]
+Disks for logs and database need to be different. If configured with the same one, playbook will fail.
+
+
 
 
