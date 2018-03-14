@@ -1,0 +1,55 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Red Hat Solutions: IT Optimization - Infrastructure Migration v2 Notes
+
+:numbered:
+
+== Overview
+
+The field experience in migrating VMs from propietary virtualization infrastructures to oven virtualization infrastructures has been consolidaest in several real life customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams a productized version of it is being built.
+
+This document intends to capture the information derived from the experience of building the solution and putting it into a reproducible environment.
+
+== Requirements
+
+What is needed torun the solutiona nd, hopefully, why ... :-)
+
+=== Product requirements
+
+The minimum product versions required to run the solution are the following:
+[cols="1,1",options="header"]
+|=======
+|Product |Version
+|CloudForms |4.6 beta
+|Red Hat Virtualization |4.2.2 beta
+|Red Hat Enterprise Linux (Hypervisor) |7.5 beta
+|VMware vSphere |5.5
+|=======
+
+=== Environment requirements
+
+* CloudForms 
+
+Initially Cloudforms will be deployed using the following playbooks:
+
+link:https://github.com/fdupont-redhat/v2v-demolab-ansible[v2v-demolab-ansible]
+
+It requires a VM with:
+
+* CentOS 7.4 or RHEL 7.4 
+** Software Collections are needed to use PostgreSQL 9.5
+** `subscription-manager repos --disable='*' --enable='rhel-7-server-rpms' --enable='rhel-7-server-rh-common-rpms' --enable='rhel-server-rhscl-7-rpms' --enable='rhel-7-server-optional-rpms'`
+
+* EPEL installed 
+** yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+* Three HDD
+** Disk1: Operating System and CloudForms 
+** Disk2: PostgreSQL database
+** Disk3: Logs
+
+
+
