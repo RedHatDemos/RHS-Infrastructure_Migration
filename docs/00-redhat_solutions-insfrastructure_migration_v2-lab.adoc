@@ -24,28 +24,19 @@ After this initial step, the VMs to be migrated will require creating an *Infras
 * Storage
 * Networks
 
-All the mappings can be seen in CloudForms as a capability internally named *Tags*, which is extended information added to any of the objects being managed (VMs, Virtualizaiton Infrastructure, Cloud Infrastructures, etc). 
-
-Once everything id properly identified and mapped, t  will allow us to prepare the full migration and execute it as a batch in an intervention window.
-
-The migration is executed in two phases:
-
-* Pre-migration: VMs get checked to ensure that the migration will be successful. Once checks are passed they are *taggeg* as "pre-migration successful"
-* Migration: All the VMs with the successful pre-migration *tag* will be assigned to worker machines that will perform the migration.
-
 .Goal
-* Migrate several VMs from vSphere to Red Hat virtualization with a Red Hat Solution: Infrastructure Migration
+* Migrate several VMs from vSphere to Red Hat Virtualization with a Red Hat Solution: Infrastructure Migration
 +
 NOTE: The source VM's are still maintained post migration and are not deleted. This allows for "failback" if a migration failure occurs.
-
 
 Current versions of products used:
 
 [cols="1,1",options="header"]
 |=======
-|Product |Version 
-|CloudForms |4.5
-|Red Hat Virtualization |4.1
+|Product |Version
+|CloudForms |4.6 beta
+|Red Hat Virtualization |4.2.2 beta
+|Red Hat Enterprise Linux (Hypervisor) |7.5 beta
 |VMware vSphere |5.5
 |=======
 
@@ -70,11 +61,11 @@ image::architecture_diagram.png[Architecture Diagram]
 [cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
-|`migration.example.com` | `192.168.0.105` | N/A |Virtual-to-Virtual Migration server
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
-|`kvm.example.com` |`192.168.0.40` | kvm-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
+|`kvm0.example.com` |`192.168.0.40` | kvm0-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
+|`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
@@ -105,7 +96,7 @@ image::architecture_diagram.png[Architecture Diagram]
 
 . Go to *Services -> Catalogs*.
 
-. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Demo*.
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Demo v2*.
 
 . On the right pane, click *Order*.
 
