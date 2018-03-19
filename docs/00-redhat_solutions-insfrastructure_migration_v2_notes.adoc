@@ -1,0 +1,173 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Red Hat Solutions: IT Optimization - Infrastructure Migration v2 Notes
+
+:numbered:
+
+== Overview
+
+The field experience in migrating VMs from propietary virtualization infrastructures to oven virtualization infrastructures has been consolidaest in several real life customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams a productized version of it is being built.
+
+This document intends to capture the information derived from the experience of building the solution and putting it into a reproducible environment.
+
+== Requirements
+
+What is needed torun the solutiona nd, hopefully, why ... :-)
+
+=== Product requirements
+
+The minimum product versions required to run the solution are the following:
+[cols="1,1",options="header"]
+|=======
+|Product |Version
+|CloudForms |4.6 beta
+|Red Hat Virtualization |4.2.2 beta
+|Red Hat Enterprise Linux (Hypervisor) |7.5 beta
+|VMware vSphere |5.5
+|=======
+
+=== CloudForms requirements
+
+CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
+
+Initially Cloudforms will be deployed using the following playbooks:
+
+link:https://github.com/fdupont-redhat/v2v-demolab-ansible[v2v-demolab-ansible]
+
+It requires a VM with:
+
+* CentOS 7.4 or RHEL 7.4 
+** Software Collections are needed to use PostgreSQL 9.5
+** `# subscription-manager repos --disable='*' --enable='rhel-7-server-rpms' --enable='rhel-7-server-rh-common-rpms' --enable='rhel-server-rhscl-7-rpms' --enable='rhel-7-server-optional-rpms'`
+
+* EPEL installed 
+** `# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm`
+
+* Three HDD
+** Disk1: Operating System and CloudForms 
+** Disk2: PostgreSQL database
+** Disk3: Logs
+
+Once the VM is ready the playbooks need to be run, whether from the VM itself or from another VM with Ansible. Tested with Ansible version 2.4
+
+The Playbooks can help you register the VM and assign the proper repos. For a VM with repos configured I used the following `install.yml` in `v2v-demolab-ansible`
+
+----
+all:
+  children:
+    ManageIQ:
+      children:
+        database:
+          hosts:
+            cf.example.com:
+              manageiq_postgresql_disk: /dev/vdb
+        ui:
+          hosts:
+            cf.example.com:
+        worker:
+          hosts:
+            cf.example.com:
+              manageiq_logs_disk: /dev/vdc
+  hosts:
+----
+
+[NOTE]
+The `vars:` section, when not including any var, needs to be commented to run.
+
+[TIP]
+Disks for logs and database need to be different. If configured with the same one, playbook will fail.
+
+=== RHV Requirements
+
+Red Hat Virtualization, referred as RHV, the product built from the code of its upstream project oVirt. Int his case even the changes are done upstream the software used to build the environment is derived from the engineering build system
+
+The location of the packages are the following:
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server/$basearch/os/ |RHEL 7.5.z beta builds (Libvirt changes needed)
+|RHEL 7.5 optional |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server-optional/$basearch/os/ | RHEL 7.5 optional packages beta builds
+|RHEL 7.5 extras |http://download.eng.bos.redhat.com/rel-eng/latest-EXTRAS-7-RHEL-7.5/compose/Server/$basearch/os/ | RHEL 7.5 extras packages beta builds
+|RHV Hypervisor packages for RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/repos/rhevh-rhel-7.5-candidate/$basearch/ |RHV Hypervisor beta builds for RHEL 7.5
+|RHV Manager 4.2.2 |http://bob.eng.lab.tlv.redhat.com/builds/4.2/rhv-4.2.2-3/el$releasever |RHV Manager 4.2.2 beta builds
+|JBoss EAP 7.1 |http://download.devel.redhat.com/devel/candidates/JBEAP/composing/latest-JBEAP-7.1-RHEL-7/compose/Server/$basearch/os/ |RHV Manager depends on it
+|=======
+
+The following link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes_v2/rhv.repo:[repo file] was used to retrieve the packages using `reposync` tool (`yum-utils` package)
+
+----
+# reposync --config=/root/rhv.repo --download_path=/mnt/  --download-metadata --downloadcomps --newest-only
+----
+
+== Installation
+
+=== CloudForms Installation
+
+The installation creates the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
+
+In the the home you will find the following folders with github origins:
+[cols="1,1,1",options="header"]
+|=======
+|Folder |Origin| Use
+|manageiq |https://github.com/ManageIQ/manageiq.git |Main ManageIQ backend code (CloudForms Upstream)
+|manageiq-ui-classic |https://github.com/ManageIQ/manageiq-ui-classic.git |Main ManageIQ UI code (CloudForms Upstream)
+|miq_v2v_ui_plugin |https://github.com/priley86/miq_v2v_ui_plugin.git |Infra Migration Plugin for ManageIQ (CloudForms Upstream)
+|=======
+
+== Running the Environment
+
+=== Starting CloudForms
+
+There are two ways to run Cloudforms.
+
+. Starting using `rake`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:start
+----
+
+. Stopping using `rake`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:stop
+----
+
+. Starting using `foreman`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ foreman start -p 3000
+----
+
+. Stopping using `foreman`
+----
+# su - miq
+$ cd /home/miq/manageiq
+$ foreman stop
+----
+
+The port 3000 should have been opened in FirewallD
+
+
+After this, a running instance of Cloudforms will be listening in port 3000 (http)
+http://cf.example.com:3000
+
+Now it is time to start the v2v plugin:
+
+----
+# su - miq
+$ cd /home/miq/manageiq-ui-classic
+$ NODE_ENV=development ./node_modules/.bin/webpack-dev-server --config config/webpack/development.js
+----
+
+In this case it will be listening in port 8080 (http) and we will need to open the port
+
+----
+# firewall-cmd --permanent --zone=public --add-port=8080/tcp
+----
+

@@ -1,0 +1,13 @@
+[Unit]
+Description=Add hostname to RHV SSO
+Before=ovirt-engine.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/local/sbin/ovirt-engine-hostname-sso
+ExecStop=/usr/bin/true
+
+[Install]
+WantedBy=multi-user.target
+
