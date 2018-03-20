@@ -1,4 +1,4 @@
 Getting the VM id in VMDB ...
 $ cd /home/miq/manageiq
 $ bundle exec rails c
-irb> Vm.find_by(:name => <VM_NAME>).id
+irb> Vm.find_by(:name => "<VM_NAME>").id
