@@ -12,6 +12,7 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.1 Deploy RHV 4.2.2 beta
   0.2 Deploy ManageIQ with new code
   0.3 Fixes to Manage IQ and migration plugin
+  0.4 kvm0 and kvm1 enabled as conversion hosts
 ```
 
 
