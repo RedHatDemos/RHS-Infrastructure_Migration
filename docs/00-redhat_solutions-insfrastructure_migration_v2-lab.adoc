@@ -209,13 +209,20 @@ You must accept all of the self-signed SSL certificates.
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 
+image::ssl_cert_warning.png[SSL Cert Warning]
+
 * *Red Hat Virtualization Manager:* `https://rhevm-<YOUR-GUID>.rhpds.opentlc.com`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
+
+image::rhv_login.png[RHV Login]
 
 .. Verify that the Cluster is up and Hypervisors are active
 +
 [TIP]
 As this is nested virtualization, sometimes the CPU type of the hypervisor is changed. 
+
+image::rhv_hypervisors_up.png[RHV Hypervisors up]
+
 
 * *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
 
@@ -227,6 +234,8 @@ As this is nested virtualization, sometimes the CPU type of the hypervisor is ch
 +
 [TIP]
 Modern browsers have flash player disabled by default. You may need to enable it for this page.
+
+
 
 .. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss0.example.com` and `db.example.com` are running. 
 
