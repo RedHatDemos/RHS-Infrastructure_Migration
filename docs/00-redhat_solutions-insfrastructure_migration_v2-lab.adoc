@@ -72,12 +72,18 @@ Internet Explorer is not recommended.
 
 . Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials. 
 
+image::rhpds_login.png[RHPDS]
+
 . Go to *Services -> Catalogs*.
 
-. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Demo v2*.
+image::rhpds_catalog.png[RHPDS]
+
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Beta*.
 +
 [NOTE]
 Currently in *beta* so, it's only accesible as part of the `rhpds-access-beta` group. Contact the the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team] if you want access.
+
+image::rhpds_order.png[RHPDS]
 
 . On the right pane, click *Order*.
 
