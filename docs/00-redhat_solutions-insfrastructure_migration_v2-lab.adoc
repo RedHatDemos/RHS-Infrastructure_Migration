@@ -189,7 +189,7 @@ The log entries can be also seen in the CloudFomrm web UI in *Automation -> Auto
 
 . Verify that the Ticket Monster app is running:
 
-* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and chek it is running:
+* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and check it is running:
 
 image::app-ticketmonster-running.png[Ticket Monster app running]
 [NOTE]
@@ -211,7 +211,6 @@ You must accept all of the self-signed SSL certificates.
 [TIP]
 As this is nested virtualization, sometimes the CPU type of the hypervisor is changed. 
 
-
 * *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
 
 .. Use `root` as the username to log in to vCenter.
@@ -223,14 +222,14 @@ As this is nested virtualization, sometimes the CPU type of the hypervisor is ch
 [TIP]
 Modern browsers have flash player disabled by default. You may need to enable it for this page.
 
-.. Click *VMs and Templates*.
+.. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss0.example.com` and `db.example.com` are running. 
 
 * *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
 +
 [TIP]
 You can also find these URLs in the email provided when you provisioned the demo environment.
 
-=== Validate the Current VMs
+=== Validate the Current Infrastructure in CloudForms
 
 . On the CloudForms web interface, go to *Compute -> Infrastructure -> Providers*.
 
@@ -241,7 +240,7 @@ Take into account that vCenter may take longer to start.
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 
-. All VMs and Templates in both RHV and vSphere show as entities in CloudForms.
+. All VMs, Orphaned VMs and Templates in both RHV and vSphere show as entities in CloudForms.
 +
 [NOTE]
 If you needed to validate providers, you may have to wait a few minutes and refresh the screen before the VMs show up.
@@ -250,259 +249,59 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 
 . Only the VMs and Templates in vSphere will show.
 
-=== Configure Red Hat Virtualization as a Migration Point of Arrival
+=== Configure Conversion Hosts
 
-image::rhv-point-of-arrival-tag.png[RHV PoA]
+. On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
 
-. On the `cf` system, go to *Compute -> Infrastructure -> Providers*.
-
-. Click *RHV*.
+. Click *kvm0*.
 
 . Select *Policy -> Edit Tags*.
 
-. Select *Point of Arrival* and then select *Rhev* for the assigned value.
+. Select *V2V - Transformation Host* and then select *t* (as true) for the assigned value.
 +
-* This sets this provider as an available Red Hat Virtualization destination.
+* This sets this Host as *Conversion Host*.
 
-. Select the *provider_type* tag and select *POA* for the assigned value, then click *Save*.
+. Select the *V2V - Transformation Method* tag and select *VDDK* for the assigned value, then click *Save*.
 +
-* This sets this provider as the current point of arrival.
+* This sets the method that *Conversion Host* will use to migrate the *VMs*.
 
-=== Configure VMware vSphere as a Migration Point of Departure
+* The process may be repeated with host `kvm1`
 
-image::vsphere-point-of-departure-tag.png[vSphere PoD]
+=== Create an Infrastructure Mapping
 
-. Navigate to the *VMware* provider.
+. Navigate to the *Compute -> Migration -> Ovewrview*.
 
-. Select *Policy -> Edit Tags*.
+. Click on *Create Infrastructure Mapping*.
 
-. Select *provider_type* and select *POD* for the assigned value, then click *Save*.
+. In the *step 1* of the wizard, *General*, type a the name `ticket-monster-mapping` and click *next*.
 +
-* This sets this provider as the point of departure or source provider.
+* A description may be added to make it easy to, later on, recognice the usage of the mapping.
 
-== Migrate the db (PostgreSQL) VM from VMware to Red Hat Virtualization
+.  In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `Cluster01` and *Target Cluster* as `Default` and click *Add Mapping*, then click *next*.
 
-. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `db` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `lb`).
+.  In the *step 3* of the wizard, *Datastores*, select *Source Datastore* as `Datastore` and *Target Datastore* as `vmstore00` and click *Add Mapping*, then click *next*.
+
+.  In the *step 4* of the wizard, *Networks*, select *Source Network* as `VM Network` and *Target Network* as `ovirtmgmt` and click *Add Mapping*, then click *next*.
+
+.  In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-mapping have been mapped.` shall appear. Click *close*.
+
+In these steps an *Înfrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
+
+=== Create an Migration Plan
+
+. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Ovewrview*, which is the finishing page from previous step.
+
+. Click on *Create Migration Plan*.
+
+. In the *step 1* of the wizard, *General*, select the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan` and click *next*.
 +
-[TIP]
-It can be verified that `db` VM is down by running, in the terminal, in the workstation machine, the check command:
-`# ansible db.example.com -m ping`
+* A description may be added to make it easy to, later on, recognice the usage of the plan.
 
-For all application VMs (`db`, `jboss0`, `jboss1`, `lb`) the check command is:
-`# ansible app -m ping`
+. In a different brower page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes_v2/ticket_monster_migration.csv[ticket_monster_migration.csv]
 
-=== Set VM Migration Attributes
+. In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
 
-. On the `cf` system, go to *Services -> Catalogs* and select the *Service Catalogs* pane.
+. The list of the VMs to be migrated shall appear in on screen. Review and click *create*.
 
-. Under *All Services -> Import CSV*, select *Import Attributes*.
+. In the *step 3* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan is in progress` shall appear. Click *close*.
 
-. On the right, click *Order*.
-
-. On the resulting screen, select `attribute_db.csv` in the *Filename* field and click *Submit*.
-
-. Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-It can be done by establishing an SSH connection to the CloudForms server and watching the content of `automation.log`:
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-[NOTE]
-The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
-+
-[TIP]
-The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/attributes/`.
-
-=== Set VM Migration Tags
-
-. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
-
-. Under *All Services -> Import CSV*, select *Import Tags*.
-
-. On the right, click *Order*.
-
-. On the resulting screen, select `tag_db.csv` in the *Filename* field and click *Submit*.
-
-. Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-It can be done by establishing an SSH connection to the CloudForms server and watching the content of `automation.log`:
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-[NOTE]
-The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
-+
-[TIP]
-The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/tags/`.
-
-=== Check Tags and Attributes
-
-. Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
-
-. Navigate to the `db` VM.
-
-. Under *Custom Attributes*, confirm that there is a custom attribute called `ip` with the value you provided in `attribute_db.csv`.
-
-. Under *Smart Management*, confirm that *migrate_group* is set to `demo2` and *Point of Arrival* is set to `Rhev`.
-
-=== Start VM Pre-Migration
-
-Before starting the migration a set of checks are run against the tagged VMs to facilitate a successful migration. Once the checks are passed, the VMs are tagged as *check_premigrate_tag = true*. The migration will not run on the VMs unles the machines have this tag assigned.
-
-. On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
-
-. Under *All Services -> Migration*, select *Batch_PreMigrate*.
-
-. On the right, click *Order*.
-
-. For *Migration Group*, select `demo2`.
-
-. Verify in the *VMs in Migration Group* textbox that `db` is the only Vm displayed, and click *Submit*.
-
-. Monitor `automation.log` in the terminal connected to CloudForms.
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-[NOTE]
-The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
-
-=== Start VM Migration
-
-. On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
-
-. Under *All Services -> Migration*, select *Batch_Migrate*.
-
-. On the right, click *Order*.
-
-. For *Migration Group*, select `demo2`.
-
-. Verify in the *VMs in Migration Group* textbox that `db` is the only Vm displayed, and click *Submit*.
-
-. Monitor `automation.log` in the terminal connected to CloudForms, and the Red Hat Virtualization Admin GUI closely.
-+
-[NOTE]
-The log entries can be seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
-+
-[TIP]
-====
-It may be beneficial to open three separate sessions to the Migration server and run the following:
-
-----
-# watch find /mnt
-----
-
-----
-# tail -f /mnt/migrate/ova/db.example.com/*log
-----
-
-----
-# tail -f /mnt/migrate/ova/db.example.com/*err
-----
-====
-+
-NOTE: It takes about 20 minutes for `automation.log` to show that the service is complete.
-
-=== Verify VM Migration
-
-. Log in to the Red Hat Virtualization Admin GUI and open the console for the `db` VM that was migrated.
-
-. Start the `db` VM and log in as `root` with the password `<to_be_provided>`.
-
-. Make sure the VM retained the IP address from `attribute_db.csv` and that it can resolve an external hostname.
-
-
-== Migrate the JBoss EAP VMs from VMware to RHV Platform
-
-. Use CloudForms to shut down (_not_ power off) the VMs to be migrated. Initially just `jboss0` and `jboss1` but, all VMs can be shut down (`db`, `jboss0`, `jboss1`, `lb`).
-+
-[TIP]
-It can be verified that `jboss0` and `jboss1` VM are down by running, in the terminal, in the workstation machine, the check command:
-`# ansible jboss -m ping`
-
-For all application VMs (`db`, `jboss0`, `jboss1`, `lb`) the check command is:
-`# ansible app -m ping`
-
-=== Set VM Migration Attributes
-
-. On the `cf` system, go to *Services -> Catalogs* and select the *Service Catalogs* pane.
-
-. Under *All Services -> Import CSV*, select *Import Attributes*.
-
-. On the right, click *Order*.
-
-. On the resulting screen, enter `attribute_jboss.csv` in the *Filename* field and click *Submit*.
-
-. Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-+
-[NOTE]
-The log entries can be seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
-
-=== Set VM Migration Tags
-
-. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
-
-. Under *All Services -> Import CSV*, select *Import Tags*.
-
-. On the right, click *Order*.
-
-. On the resulting screen, enter `tag_jboss.csv` in the *Filename* field and click *Submit*.
-
-. Monitor `automation.log` on the `cf` server.  When the process is complete, continue with the next section.
-
-=== Check Tags and Attributes
-
-. Go to *Infrastructure -> Providers -> Virtual Machines -> VMs -> All VMs*.
-
-=== VM Pre-Migration
-
-. On the `cf` system, go to *Services -> Catalogs* and choose the *Service Catalogs* pane.
-
-. Under *All Services -> Migration*, select *Batch_PreMigrate*.
-
-. On the right, click *Order*.
-
-. For *Migration Group*, select `demo`.
-
-. Verify in the *VMs in Migration Group* textbox that `db` is the only Vm displayed, and click *Submit*.
-
-. Monitor `automation.log` in the terminal connected to CloudForms.
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-[NOTE]
-The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
-
-=== Migrate the VM
-
-. On the `cf` system, go to *Services -> Catalogs -> Service Catalogs*.
-
-. Under *All Services -> Migration*, select *Batch_Migrate*.
-
-. On the right, click *Order*.
-
-. For *Migration Group*, select `demo` then click *Submit*.
-
-. Monitor `automation.log` and the RHV Platform dashboard closely.
-
-== End State
-
-* You now have the `db` server on VMware and the two `jboss` servers on RHV Platform.  
-* The `lb` system remains on VMware
-
-== Extra Credit
-
-* Use what you learned in this lab to migrate `lb` to RHV Platform (Tip: use `demo3` migration group)
-
-== Extra Tip
-
-* You can use `attribute_all.csv` for attributes, `tag_all.csv` for tags, and `fulltest` as migration group, to perform a full migration.
