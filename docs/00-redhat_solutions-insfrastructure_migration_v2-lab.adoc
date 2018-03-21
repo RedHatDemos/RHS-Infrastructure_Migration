@@ -98,7 +98,7 @@ Be mindful of the runtime of your demo environment! It may take several hours to
 
 === Environment
 
-A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1a2b`), this identifier is referred in this documentation as *GUID*.  
+A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *GUID*.  
 
 The demo environment consists of the following systems:
 
@@ -138,10 +138,10 @@ image::architecture_diagram.png[Architecture Diagram]
 $ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
-* Example for user 'batman' and GUID '1a2b', using the default ssh private key:
+* Example for user 'batman' and GUID '1e37', using the default ssh private key:
 +
 ----
-$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1a2b.rhpds.opentlc.com
+$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1e37.rhpds.opentlc.com
 ----
 
 . Become `root` using the provided password:
