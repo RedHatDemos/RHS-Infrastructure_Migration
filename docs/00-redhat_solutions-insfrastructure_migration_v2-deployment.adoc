@@ -1,0 +1,140 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Red Hat Solutions: IT Optimization - Infrastructure Migration v2 Deployment
+
+:numbered:
+
+== Overview
+
+The field experience in migrating VMs from propietary virtualization infrastructures to oven virtualization infrastructures has been consolidaest in several real life customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams a productized version of it is being built.
+
+This document intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution
+
+== Requirements
+
+What is needed torun the solutiona nd, hopefully, why ... :-)
+
+=== Product requirements
+
+The minimum product versions required to run the solution are the following:
+[cols="1,1",options="header"]
+|=======
+|Product |Version
+|CloudForms |4.6 beta
+|Red Hat Virtualization |4.2.2 beta
+|Red Hat Enterprise Linux (Hypervisor) |7.5 beta
+|VMware vSphere |5.5
+|=======
+
+=== CloudForms requirements
+
+CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
+
+Initially Cloudforms will be deployed using the following appliance:
+TODO: Add appliance URL
+
+To save time a pre-deployed appliance is provided
+
+The CloudForms appliance will use
+
+* RHEL 7.4 
+* Software Collections 
+** PostgreSQL 9.5
+
+The recommended deployment shall include three disks:
+** Disk1: Operating System and CloudForms 
+** Disk2: PostgreSQL database
+** Disk3: Logs
+
+=== RHV Requirements
+
+Red Hat Virtualization, referred as RHV, is the product built from the code of its upstream project oVirt. 
+To be able to performt he migration the following versions are required:
+
+* RHEL 7.5 beta
+* RHV 4.2.2 beta
+
+The code being included will reach the product once it's published as GA.
+
+Meanwhile, the location of the packages used in this lab are the following:
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server/$basearch/os/ |RHEL 7.5.z beta builds (Libvirt changes needed)
+|RHEL 7.5 optional |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server-optional/$basearch/os/ | RHEL 7.5 optional packages beta builds
+|RHEL 7.5 extras |http://download.eng.bos.redhat.com/rel-eng/latest-EXTRAS-7-RHEL-7.5/compose/Server/$basearch/os/ | RHEL 7.5 extras packages beta builds
+|RHV Hypervisor packages for RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/repos/rhevh-rhel-7.5-candidate/$basearch/ |RHV Hypervisor beta builds for RHEL 7.5
+|RHV Manager 4.2.2 |http://bob.eng.lab.tlv.redhat.com/builds/4.2/rhv-4.2.2-3/el$releasever |RHV Manager 4.2.2 beta builds
+|JBoss EAP 7.1 |http://download.devel.redhat.com/devel/candidates/JBEAP/composing/latest-JBEAP-7.1-RHEL-7/compose/Server/$basearch/os/ |RHV Manager depends on it
+|=======
+
+The packages are already available "offline" in the environment in:
+
+* http://storage.example.com/repos
+
+The following link::https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes_v2/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+
+=== Conversion Host Requirements
+
+To perform the conversion task of the VMs during migration a conversion host is required. One of the architectural choices is to use RHEL-H Hypervisors as conversion hosts, which is the one we will use here.
+
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|VDDK RPMs |http://storage.example.com/repos/v2v-nbdkit-rpms |Virtual Disk Development Kit (VDDK) RPMs
+|VDDK SRPMs |http://storage.example.com/repos/v2v-nbdkit-src-rpms |Virtual Disk Development Kit (VDDK) SRPMs
+|=======
+
+== Deployment
+
+=== CloudForms Deployment
+
+The deployed instance has the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
+
+TODO: Walkaround infra migration panes
+TODO: playbook to un-configure
+TODO: Add providers 
+
+=== Conversion Host Installation
+
+We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts
+
+In the `root` folder of the Worksation, used as *Ansible* main host, the following repo is cloned:
+[cols="1,1,1",options="header"]
+|=======
+|Folder |Origin| Use
+|manageiq |https://github.com/fdupont-redhat/v2v-transformation_host-ansible.git |Main ManageIQ backend code (CloudForms Upstream)
+|=======
+
+The file `inventory.yml` is created, in the `v2v-transformation_host-ansible` folder, with the following content:
+
+----
+all:
+  vars:
+    v2v_repo_rpms_name: "v2v-nbdkit-rpms"
+    v2v_repo_rpms_url: "http://storage.example.com/repos/v2v-nbdkit-rpms"
+    v2v_repo_srpms_name: "v2v-nbdkit-src-rpms"
+    v2v_repo_srpms_url: "http://storage.example.com/repos/v2v-nbdkit-src-rpms"
+    v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
+    v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
+  hosts:
+    kvm0.example.com:
+    kvm1.example.com:
+----
+
+Then the playbooks are run. To check:
+
+----
+# ansible-playbook --inventory-file=inventory.yml transformation_host_check.yml 
+----
+
+After that, and if it all went OK, the installation:
+
+----
+# ansible-playbook --inventory-file=inventory.yml transformation_host_enable.yml 
+----
+
