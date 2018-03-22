@@ -127,7 +127,18 @@ In the the home you will find the following folders with github origins:
 |manageiq |https://github.com/ManageIQ/manageiq.git |Main ManageIQ backend code (CloudForms Upstream)
 |manageiq-ui-classic |https://github.com/ManageIQ/manageiq-ui-classic.git |Main ManageIQ UI code (CloudForms Upstream)
 |miq_v2v_ui_plugin |https://github.com/priley86/miq_v2v_ui_plugin.git |Infra Migration Plugin for ManageIQ (CloudForms Upstream)
+|v2v-automate |https://github.com/fdupont-redhat/v2v-automate |v2v ManageIQ classes and methods
 |=======
+
+Once the ManageIQ instance is deployed the Classes and methods need to be added:
+
+----
+# su - miq
+$ mkdir /tmp/automate
+$ git clone https://github.com/fdupont-redhat/v2v-automate.git /tmp/automate/V2V
+$ cd /home/miq/manageiq
+$ bundle exec rake evm:automate:import DOMAIN=V2V IMPORT_DIR=/tmp/automate PREVIEW=false ENABLED=true
+----
 
 === Conversion Host Installation
 
