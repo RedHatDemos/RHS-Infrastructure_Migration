@@ -223,12 +223,15 @@ As this is nested virtualization, sometimes the CPU type of the hypervisor is ch
 
 image::rhv_hypervisors_up.png[RHV Hypervisors up]
 
-
 * *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
+
+image::vsphere_web_client_1.png[vCenter Login]
 
 .. Use `root` as the username to log in to vCenter.
 
 .. Click *Log in to vSphere Web Client*.
+
+image::vsphere_web_client_2.png[vCenter]
 
 ** Flash Player is required.
 +
