@@ -257,11 +257,11 @@ image::cloudforms_dashboard.png[CloudForms Dashboard]
 image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
 
 . If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
+image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
+image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Providers 3]
 +
 [TIP]
 Take into account that vCenter may take longer to start.
-image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
-image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Providers 3]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 
