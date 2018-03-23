@@ -240,19 +240,31 @@ Modern browsers have flash player disabled by default. You may need to enable it
 
 .. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss0.example.com` and `db.example.com` are running. 
 
+
 * *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
+
+image::cloudforms_login.png[CloudForms Login]
+
 +
 [TIP]
 You can also find these URLs in the email provided when you provisioned the demo environment.
+
+image::cloudforms_dashboard.png[CloudForms Dashboard]
 
 === Validate the Current Infrastructure in CloudForms
 
 . On the CloudForms web interface, go to *Compute -> Infrastructure -> Providers*.
 
+image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
+
 . If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
 +
 [TIP]
 Take into account that vCenter may take longer to start.
+
+image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
+
+image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Providers 3]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 
