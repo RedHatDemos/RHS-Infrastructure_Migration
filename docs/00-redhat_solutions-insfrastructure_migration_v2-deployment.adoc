@@ -89,6 +89,30 @@ To perform the conversion task of the VMs during migration a conversion host is 
 |VDDK SRPMs |http://storage.example.com/repos/v2v-nbdkit-src-rpms |Virtual Disk Development Kit (VDDK) SRPMs
 |=======
 
+== VM Migration Workflow
+
+image::migration_workflow.png[VM Migration Workflow]
+
+. The Infrastructure Admin creates an *Infrastructure Mapping* and *Migration Plan* for VM migration. The VM migration executes.
+
+. CloudForms locates the *VMs* chosen to migrate based on the *Infrastructure Mapping* and source *ESXi hosts*.  
+
+. The ESXi host *fingerprint* is captured for VM conversion. 
+
+. Using the *RHV attributes* for the target environment, CloudForms initiates communication with the *RHV engine* and *API upload*.
+
+. The *RHV API upload* selects a *conversion host* for the VM transformation. RHEL based RHV hosts must have the tools installed, and configured as *conversion hosts*.
+
+. The *RHV conversion host* captures the *VM attributes* from the source using virt-v2v.
+
+. The *target VM* is created.
+
+. The *RHV conversion host* connects to the source *VM datastore* and streams the disk conversion to the *RHV data domain* (a.k.a. Storage Domain). A disk with the transformed VM is created.
+
+. Once the disk creation is complete, the *disk is attached* to the *target VM*.
+
+. *VM migration is complete* and status displayed in CloudForms.
+
 == Deployment
 
 === CloudForms Deployment
