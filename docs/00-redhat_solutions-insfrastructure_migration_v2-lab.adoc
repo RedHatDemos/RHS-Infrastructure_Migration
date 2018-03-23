@@ -342,16 +342,28 @@ In these steps an *Înfrastructure Mapping* has been created in order to simplif
 . Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Ovewrview*, which is the finishing page from previous step.
 
 . Click on *Create Migration Plan*.
++
+image::migration_plan_1.png[Migration Plan 1]
 
 . In the *step 1* of the wizard, *General*, select the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan` and click *next*.
 +
 * A description may be added to make it easy to, later on, recognice the usage of the plan.
++
+image::migration_plan_2.png[Migration Plan 2]
 
 . In a different brower page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes_v2/ticket_monster_migration.csv[ticket_monster_migration.csv]
++
+image::migration_plan_3.png[Migration Plan 3]
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
++
+image::migration_plan_4.png[Migration Plan 4]
 
 . The list of the VMs to be migrated shall appear in on screen. Review and click *create*.
++
+image::migration_plan_5.png[Migration Plan 5]
 
 . In the *step 3* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan is in progress` shall appear. Click *close*.
++
+image::migration_plan_6.png[Migration Plan 6]
 
