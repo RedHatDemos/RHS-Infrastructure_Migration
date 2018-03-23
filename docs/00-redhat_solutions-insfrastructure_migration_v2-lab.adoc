@@ -254,16 +254,13 @@ image::cloudforms_dashboard.png[CloudForms Dashboard]
 === Validate the Current Infrastructure in CloudForms
 
 . On the CloudForms web interface, go to *Compute -> Infrastructure -> Providers*.
-
 image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
 
 . If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
 +
 [TIP]
 Take into account that vCenter may take longer to start.
-
 image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
-
 image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Providers 3]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
