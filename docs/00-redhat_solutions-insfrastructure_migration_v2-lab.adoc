@@ -184,14 +184,14 @@ To check only if these ones are running, you may use the following command:
 +
 ----
 # ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
+# tail -f /home/miq/manageiq/log/automation.log
 ----
 +
 [TIP]
 The log entries are very long, so it helps if you stretch this window as wide as possible.
 +
 [NOTE]
-The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
+The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
 
 . Verify that the Ticket Monster app is running:
 
@@ -201,6 +201,8 @@ image::app-ticketmonster-running.png[Ticket Monster app running]
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 
+image::ssl_cert_warning.png[SSL Cert Warning]
+
 . Prepare to manage the environment. From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
 
 * *Username*: `admin`
@@ -208,8 +210,6 @@ You must accept all of the self-signed SSL certificates.
 +
 [NOTE]
 You must accept all of the self-signed SSL certificates.
-
-image::ssl_cert_warning.png[SSL Cert Warning]
 
 * *Red Hat Virtualization Manager:* `https://rhevm-<YOUR-GUID>.rhpds.opentlc.com`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
