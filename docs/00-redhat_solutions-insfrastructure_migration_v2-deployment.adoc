@@ -45,6 +45,7 @@ The CloudForms appliance will use
 ** PostgreSQL 9.5
 
 The recommended deployment shall include three disks:
+
 ** Disk1: Operating System and CloudForms 
 ** Disk2: PostgreSQL database
 ** Disk3: Logs
