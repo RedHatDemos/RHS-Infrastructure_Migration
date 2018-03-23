@@ -266,8 +266,12 @@ image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Provi
 Take into account that vCenter may take longer to start.
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
++
+image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
 
 . All VMs, Orphaned VMs and Templates in both RHV and vSphere show as entities in CloudForms.
++
+image::cloudforms_vms_2.png[CloudForms Virtual Machines 2]
 +
 [NOTE]
 If you needed to validate providers, you may have to wait a few minutes and refresh the screen before the VMs show up.
@@ -275,6 +279,8 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 . Select the pane *VMs & Templates* and, in it, the *VMware* provider.
 
 . Only the VMs and Templates in vSphere will show.
++
+image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 
 === Configure Conversion Hosts
 
