@@ -285,20 +285,37 @@ image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 === Configure Conversion Hosts
 
 . On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
++
+image::conversion_host_1.png[Conversion Host 1]
 
 . Click *kvm0*.
++
+image::conversion_host_2.png[Conversion Host 2]
 
 . Select *Policy -> Edit Tags*.
++
+image::conversion_host_3.png[Conversion Host 3]
 
 . Select *V2V - Transformation Host* and then select *t* (as true) for the assigned value.
++
+image::conversion_host_4.png[Conversion Host 4]
++
+image::conversion_host_5.png[Conversion Host 5]
 +
 * This sets this Host as *Conversion Host*.
 
 . Select the *V2V - Transformation Method* tag and select *VDDK* for the assigned value, then click *Save*.
 +
+image::conversion_host_6.png[Conversion Host 6]
++
 * This sets the method that *Conversion Host* will use to migrate the *VMs*.
++
+image::conversion_host_7.png[Conversion Host 7]
++
+[NOTE]
+You may see the tags added under *Smart Management* in the host page.
 
-* The process may be repeated with host `kvm1`
+* The process may be repeated with host `kvm1` to scale out the conversion process
 
 === Create an Infrastructure Mapping
 
