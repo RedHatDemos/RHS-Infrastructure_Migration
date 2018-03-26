@@ -5,22 +5,19 @@
 
 == Red Hat Solutions: IT Optimization - Infrastructure Migration
 
-:numbered:
-
-== Info
-
 Infrastructure Migration has two versions, please use as needed.
 
-== Version 1
 
-Based in Migration Factory code. Does not include UI to perform migration.
-
-. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v1-lab.adoc[Infrastructure Migration v1 Lab Instructions]
-
-== Version 2
+=== Version 2
 
 Based in New code. Includes UI to perform migration. Beta.
 
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Infrastructure Migration v2 Lab Instructions]
+. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Infrastructure Migration v2 Deployment]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2_notes.adoc[Infrastructure Migration v2 Notes]
 
+=== Version 1
+
+Based in Migration Factory code. Does not include UI to perform migration. To be superseeded.
+
+. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v1-lab.adoc[Infrastructure Migration v1 Lab Instructions]
