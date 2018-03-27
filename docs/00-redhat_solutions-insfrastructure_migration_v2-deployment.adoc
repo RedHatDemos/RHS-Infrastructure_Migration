@@ -120,9 +120,12 @@ For more detail plese take a look at the link:images/migration_workflow_vm_conve
 
 === CloudForms Deployment
 
-The deployed instance has the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
+The deployed instance is a ManageIQ nightly build.
 
-TODO: Walkaround infra migration panes
+Go to http://www.jung-christian.de/post/2017/11/continuous-integration-with-automate/
+
+Import https://github.com/fdupont-redhat/v2v-automate
+
 TODO: playbook to un-configure
 TODO: Add providers 
 
