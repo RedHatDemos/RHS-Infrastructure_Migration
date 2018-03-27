@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration
+== Red Hat Solutions: IT Optimization - Infrastructure Migration - Lab
 
 :numbered:
 
