@@ -114,6 +114,8 @@ image::migration_workflow.png[VM Migration Workflow]
 
 . *VM migration is complete* and status displayed in CloudForms.
 
+For more detail plese take a look at the link:images/migration_workflow_vm_conversion_rhv.png[full detailed vm migration and conversion workflow] 
+
 == Deployment
 
 === CloudForms Deployment
