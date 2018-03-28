@@ -124,7 +124,37 @@ TODO: playbook to un-configure
 
 ==== Add Virtualization Providers
 
-TODO: Add providers 
+Once the environment has ben reset to a just installed state, the Virtualization providers have to be added to CloudForms. It can be done by following these steps:
+
+. Navigate, in *Cloudforms* to  *Compute -> Infrastructure -> Providers*. Click on *Configuration -> Add a New Infrastructure Provider*.
++
+image::cloudforms_add_providers_1.png[Add Providers 1]
+
+. In the page *Add New Infrastructure Provider* type in Name `VMware` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `admin` and in *Password* use the <provided_password>. Click *Validate*.
++
+image::cloudforms_add_providers_2.png[Add Providers 2]
+
+. Once validated, a message stating *Credential validation was successful* shall appear. Click *Add*
++
+image::cloudforms_add_providers_3.png[Add Providers 3]
+
+. This will move to the *Infrastructure providers* page showing a message saying *Infrastructure Provider "VMware" was saved*.
++
+image::cloudforms_add_providers_4.png[Add Providers 4]
+
+. Click on *Configuration -> Add a New Infrastructure Provider* again. In the page *Add New Infrastructure Provider* type, this time, Name `RHV` and choose in *Type* dropdown menu `Red Hat Virtualization`. Then under *Endpoints* in the space assigned as *Hostname* type `rhv.example.com`, deactivate *Verify TLS Certificates*, then in *Username* type `admin@internal` and in *Password* use the <provided_password>. Click *Validate*.
++
+image::cloudforms_add_providers_5.png[Add Providers 5]
+
+. Once validated, a message stating *Credential validation was successful* shall appear. Click *Add*
++
+image::cloudforms_add_providers_6.png[Add Providers 6]
+
+. This will move, again, to the *Infrastructure providers* page showing a message saying *Infrastructure Provider "RHV" was saved*.
++
+image::cloudforms_add_providers_7.png[Add Providers 7]
+
+This way the two Virtualization provided are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
 
 ==== Adding the V2V Automation Domain
 
