@@ -184,7 +184,7 @@ To check only if these ones are running, you may use the following command:
 +
 ----
 # ssh cf.example.com
-# tail -f /home/miq/manageiq/log/automation.log
+# tail -f /var/log/manageiq/automation.log
 ----
 +
 [TIP]
