@@ -114,14 +114,51 @@ For more detail plese take a look at the link:images/migration_workflow_vm_conve
 
 === ManageIQ Deployment
 
-The deployed instance is a ManageIQ nightly build.
+A ManageIQ instance has been deployed using a link:http://manageiq.org/download/[nightly build], by downloading an appliance image and adding it to the environment.
 
-Go to http://www.jung-christian.de/post/2017/11/continuous-integration-with-automate/
+The environment is configured and an overview look at it is recommended before starting.
 
-Import https://github.com/fdupont-redhat/v2v-automate
+Once the overview is done, we can proceed by running the plabook to unconfigure the environment:
 
 TODO: playbook to un-configure
+
+==== Add Virtualization Providers
+
 TODO: Add providers 
+
+==== Adding the V2V Automation Domain
+
+Some logic to perform the VMs transformation tasks come bundled as a Domain provided by a git repo.
+
+To enable, in CloudForms, the capability to import git repos, the neccesary role has to be activated, by following these steps:
+
+. Go to upper right corner, click in *Administrator* to get a drop down menu, and in it, click in *Configuration*.
+
+. In the *Configuration* page click in *Git Repositories Owner* to enable it, and then click *Save*
++
+image::cloudforms_enable_git.png[CloudForms Enable Git]
+
+. To import the Domain, go to *Automation -> Automate -> Import/Export*.
+
+. In the *Import/Export* page, in the field for *Git URL* type `https://github.com/fdupont-redhat/v2v-automate.git`, no *Username* or *Password* needed. The checkbox *Verify Peer Certificate* may be left checked. Click *Submit*.
++
+image::cloudforms_automate_import_1.png[CloudForms Automate Import 1]
+ 
+. A page to speccify import details appears. In it the selection for *Branch/Tag* will be `Branch` and the selection in *Branches* will be `origin/master`. Click *Submit*.
++
+image::cloudforms_automate_import_2.png[CloudForms Automate Import 2]
+
+. The import will be done and a page informing with the message *Imported from git* will appear.
++
+image::cloudforms_automate_import_3.png[CloudForms Automate Import 3]
+
+. Import can be verified by navigating to *Automation -> Automate -> Explorer* and seeing the `V2V (origin/master) (V2V) (Locked)` entry in the *Datastore*
++
+image::cloudforms_automate_import_4.png[CloudForms Automate Import 4]
++
+[TIP]
+For more information on how to use this feature to create a CI/CD pipeline go to http://www.jung-christian.de/post/2017/11/continuous-integration-with-automate/
+
 
 === Conversion Host Installation
 
