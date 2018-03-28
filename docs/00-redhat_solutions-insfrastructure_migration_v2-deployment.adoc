@@ -9,13 +9,13 @@
 
 == Overview
 
-The field experience in migrating VMs from propietary virtualization infrastructures to oven virtualization infrastructures has been consolidaest in several real life customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams a productized version of it is being built.
+The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is being built.
 
-This document intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution
+This training intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
 
 == Requirements
 
-What is needed torun the solutiona nd, hopefully, why ... :-)
+What is needed to run the solution and, hopefully, why ... :-)
 
 === Product requirements
 
@@ -23,40 +23,34 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.6 beta
-|Red Hat Virtualization |4.2.2 beta
+|Manage IQ |4.6+ (available in nighlty builds)
+|Red Hat Virtualization |4.2.2+ beta
 |Red Hat Enterprise Linux (Hypervisor) |7.5 beta
-|VMware vSphere |5.5
+|VMware vSphere |5.5 or later
 |=======
 
-=== CloudForms requirements
+=== ManageIQ requirements
 
 CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
 
-Initially Cloudforms will be deployed using the following appliance:
-TODO: Add appliance URL
+Initially ManageIQ will be deployed using the following appliance:
+http://manageiq.org/download/[Nightly]
 
 To save time a pre-deployed appliance is provided
 
-The CloudForms appliance will use
+The ManageIQ appliance will use:
 
 * RHEL 7.4 
 * Software Collections 
 ** PostgreSQL 9.5
 
-The recommended deployment shall include three disks:
-
-** Disk1: Operating System and CloudForms 
-** Disk2: PostgreSQL database
-** Disk3: Logs
-
 === RHV Requirements
 
 Red Hat Virtualization, referred as RHV, is the product built from the code of its upstream project oVirt. 
-To be able to performt he migration the following versions are required:
+To be able to perform the migration the following versions are required:
 
 * RHEL 7.5 beta
-* RHV 4.2.2 beta
+* RHV 4.2.2+ beta
 
 The code being included will reach the product once it's published as GA.
 
@@ -118,7 +112,7 @@ For more detail plese take a look at the link:images/migration_workflow_vm_conve
 
 == Deployment
 
-=== CloudForms Deployment
+=== ManageIQ Deployment
 
 The deployed instance is a ManageIQ nightly build.
 
