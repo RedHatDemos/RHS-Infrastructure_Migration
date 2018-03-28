@@ -371,6 +371,17 @@ image::migration_plan_2.png[Migration Plan 2]
 . In a different brower page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes/ticket_monster_migration.csv[ticket_monster_migration.csv]
 +
 image::migration_plan_3.png[Migration Plan 3]
++
+[NOTE]
+This step will be kept for massive migrations, however, a different interface to choose VMs to be migrated is expected in the near term
++
+[TIP]
+To get the VM ids for the CVS file the following commands can be run in CloudForms:
+---- 
+# cd /var/www/miq/vmdb
+# bundle exec rails c
+irb> Vm.find_by(:name => "<VM_NAME>").id
+----
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
 +
