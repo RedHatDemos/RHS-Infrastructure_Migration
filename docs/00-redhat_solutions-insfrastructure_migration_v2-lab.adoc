@@ -395,3 +395,18 @@ image::migration_plan_5.png[Migration Plan 5]
 +
 image::migration_plan_6.png[Migration Plan 6]
 
+Now the migration is executing. We can see the orchestration process in Cloudforms logs
+
+----
+# ssh cf.example.com
+# tail -f /var/log/manageiq/automation.log
+----
+
+And each VM migration process in the Conversion Host:
+
+----
+# ssh kvm0.example.com
+# tail -f /var/log/vdsm/import/*
+----
+
+
