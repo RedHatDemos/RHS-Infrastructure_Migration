@@ -192,7 +192,7 @@ For more information on how to use this feature to create a CI/CD pipeline go to
 
 === Conversion Host Installation
 
-We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts
+We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts. We will only install `kvm1`.
 
 In the `root` folder of the Worksation, used as *Ansible* main host, the following repo is cloned:
 [cols="1,1,1",options="header"]
@@ -213,7 +213,7 @@ all:
     v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
     v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
   hosts:
-    kvm0.example.com:
+#    kvm0.example.com:
     kvm1.example.com:
 ----
 
@@ -235,7 +235,7 @@ After that, and if it all went OK, the installation:
 +
 image::conversion_host_1.png[Conversion Host 1]
 
-. Click *kvm0*.
+. Click *kvm1*.
 +
 image::conversion_host_2.png[Conversion Host 2]
 
@@ -266,7 +266,7 @@ You may see the tags added under *Smart Management* in the host page.
 +
 image::conversion_host_1.png[Conversion Host 1]
 
-. Click *kvm0* again.
+. Click *kvm1* again.
 +
 image::conversion_host_2.png[Conversion Host 2]
 
@@ -274,13 +274,12 @@ image::conversion_host_2.png[Conversion Host 2]
 +
 image::conversion_host_8.png[Conversion Host 8]
 
-. Fill *Username* with `root` and Password with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save. This is needed to be able to connect to the conversion host and initiate the conversion.
+. Fill *Username* with `root` and Password with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
 +
 image::conversion_host_9.png[Conversion Host 9]
 
 . Now the conversion host is ready.
 
-* The process may be repeated with host `kvm1` to scale out the conversion process
-dd
+* The process was done with host `kvm0` already.
 
 

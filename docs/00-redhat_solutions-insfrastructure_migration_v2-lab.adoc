@@ -282,7 +282,7 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 +
 image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 
-=== Configure Conversion Hosts
+=== Check Conversion Hosts
 
 . On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
 +
@@ -296,26 +296,24 @@ image::conversion_host_2.png[Conversion Host 2]
 +
 image::conversion_host_3.png[Conversion Host 3]
 
-. Select *V2V - Transformation Host* and then select *t* (as true) for the assigned value.
-+
-image::conversion_host_4.png[Conversion Host 4]
-+
-image::conversion_host_5.png[Conversion Host 5]
-+
-* This sets this Host as *Conversion Host*.
-
-. Select the *V2V - Transformation Method* tag and select *VDDK* for the assigned value, then click *Save*.
+. Check that *V2V - Transformation Host* has value *t* (for true) and that *V2V - Transformation Method* tag has value *VDDK*. Click *Cancel*.
 +
 image::conversion_host_6.png[Conversion Host 6]
 +
-* This sets the method that *Conversion Host* will use to migrate the *VMs*.
+* This values can also be seen in the *Smart Management* box in the host description
 +
 image::conversion_host_7.png[Conversion Host 7]
-+
-[NOTE]
-You may see the tags added under *Smart Management* in the host page.
 
-* The process may be repeated with host `kvm1` to scale out the conversion process
+. Select *Configuration -> Edit this item* (back in `kvm0`).
++
+image::conversion_host_8.png[Conversion Host 8]
+
+. Check that *Username* has `root` and Password is set. You can click *Validate* to verify they are OK then the message "Credential validation was successful" will appear. This is needed to be able to connect to the conversion host and initiate the conversion.
++
+image::conversion_host_9.png[Conversion Host 9]
+
+. The conversion host is ready.
+
 
 === Create an Infrastructure Mapping
 
