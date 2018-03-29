@@ -11,12 +11,19 @@
 
 *Work in Progress*
 
-This lab uses Red Hat CloudForms, and the Infrastructure Migration plugin as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
+This lab uses ManageIQ/Red Hat CloudForms, and the Infrastructure Migration plugin, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
  
-The initial steps consist in assigning the infrastructure providers to be used as point of departure and point of arrival for the VMs. In this case the providers will be:
+The initial configuration steps include:
 
-* VMware vSphere
-* Red Hat Virtualization
+* Configuring the conversion hosts for the target provider (RHV)
+* Validating credentials for the conversion hosts in ManaeIQ/CloudForms
+* Assigned the appropriate tags for the conversion hosts in MiQ/CloudForms
+* .csv file creatiuon for the chosen VMs to be migrated
+
+The providers are:
+
+* Source - VMware vSphere
+* Target - Red Hat Virtualization
 
 After this initial step, the resource equivalence between the two providers has to be defined in an *Infrastucture Mapping* including:
 
@@ -38,10 +45,10 @@ Required versions of products used:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.6 beta
-|Red Hat Virtualization |4.2.2 beta
+|ManageIQ Nightly |4.6+ (CloudForms in the future)
+|Red Hat Virtualization |4.2.2+ beta
 |Red Hat Enterprise Linux (Hypervisor) |7.5 beta
-|VMware vSphere |5.5
+|VMware vSphere |5.5+
 |=======
 
 == Requirements to access and perform this lab
@@ -74,17 +81,17 @@ Internet Explorer is not recommended.
 
 image::rhpds_login.png[RHPDS]
 
+[start=2]
 . Go to *Services -> Catalogs*.
 
 image::rhpds_catalog.png[RHPDS]
 
+[start=3]
 . Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Beta*.
-+
-[NOTE]
-Currently in *beta* so, it's only accesible as part of the `rhpds-access-beta` group. Contact the the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team] if you want access.
 
 image::rhpds_order.png[RHPDS]
 
+[start=4]
 . On the right pane, click *Order*.
 
 . Please, read carefully all of the information on the resulting page, check the box to confirm you understood the runtime warning message, and then click *Submit*.
@@ -320,7 +327,7 @@ image::conversion_host_9.png[Conversion Host 9]
 . Navigate to the *Compute -> Migration -> Ovewrview*.
 +
 [NOTE]
-A login page may appear. Introduce the credentials used to login in CloudForms
+A login page may appear. Introduce the credentials used to login in ManageIQ/CloudForms (fixed in future releease)
 +
 image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 
@@ -374,12 +381,14 @@ image::migration_plan_3.png[Migration Plan 3]
 This step will be kept for massive migrations, however, a different interface to choose VMs to be migrated is expected in the near term
 +
 [TIP]
-To get the VM ids for the CVS file the following commands can be run in CloudForms:
+To get the VM ids for the CVS file the following commands can be run in ManageIQ/CloudForms:
 ---- 
 # cd /var/www/miq/vmdb
 # bundle exec rails c
 irb> Vm.find_by(:name => "<VM_NAME>").id
 ----
+
+...or from a web browser:  https://<appliance_IP/hostname>/api/vms?expand=resources
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
 +
