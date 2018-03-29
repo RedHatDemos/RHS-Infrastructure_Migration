@@ -78,24 +78,21 @@ Internet Explorer is not recommended.
 === Provision Your Demo Environment
 
 . Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials. 
-
++
 image::rhpds_login.png[RHPDS]
 
 [start=2]
 . Go to *Services -> Catalogs*.
-
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Beta*.
+. On the right pane, click *Order*.
++
 image::rhpds_catalog.png[RHPDS]
 
-[start=3]
-. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration Beta*.
-
-image::rhpds_order.png[RHPDS]
-
-[start=4]
-. On the right pane, click *Order*.
-
+[start=5]
 . Please, read carefully all of the information on the resulting page, check the box to confirm you understood the runtime warning message, and then click *Submit*.
 +
+image::rhpds_order.png[RHPDS]
+
 [IMPORTANT]
 ====
 * It takes about 20 ~ 30 minutes for the demo to load completely and become accessible.
@@ -105,7 +102,7 @@ image::rhpds_order.png[RHPDS]
 ** Whenever you see <YOUR-GUID> in the demo instructions, replace it with the GUID provided in the email.
 * You can get real-time updates and status of your demo environment at https://www.opentlc.com/rhpds-status.
 ====
-+
+
 [TIP]
 Be mindful of the runtime of your demo environment! It may take several hours to complete the demo, so you may need to extend the runtime. This is especially important in later steps when you are building virtual machines. For information on how to extend runtime and lifetime, see https://www.opentlc.com/lifecycle.
 
