@@ -1,0 +1,4 @@
+---
+- hosts: cf.example.com
+  roles:
+    - unconfigure
