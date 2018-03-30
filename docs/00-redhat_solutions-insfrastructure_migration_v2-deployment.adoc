@@ -114,13 +114,26 @@ For more detail plese take a look at the link:images/migration_workflow_vm_conve
 
 === ManageIQ Deployment
 
-A ManageIQ instance has been deployed using a link:http://manageiq.org/download/[nightly build], by downloading an appliance image and adding it to the environment.
+The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL. 
+
+A CloudForms appliance has to be deployed. To do so, follow the official documentation: 
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_red_hat_virtualization/[Installing Red Hat CloudForms on Red Hat Virtualization]
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_vmware_vsphere/[Installing Red Hat CloudForms on VMware vSphere]
+
+In this lab we will have a ManageIQ instance, that was deployed using a link:http://manageiq.org/download/[nightly build], by downloading an appliance image and adding it to the environment.
 
 The environment is configured and an overview look at it is recommended before starting.
 
-Once the overview is done, we can proceed by running the plabook to unconfigure the environment:
+Once the overview is done, we can proceed by running the playbook to unconfigure the deplyed CloudForms / ManageIQ:
 
-TODO: playbook to un-configure
+----
+# cd /root/RHS-Optimize_IT-Infrastructure_Migration/playbooks/
+# ansible-playbook unconfigure.yml 
+----
+
+The playbook will stop the CloudForms services, will reset the database, and restart the services.
 
 ==== Add Virtualization Providers
 

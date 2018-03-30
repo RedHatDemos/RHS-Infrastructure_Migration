@@ -11,9 +11,10 @@
     - evmserverd.service
 
 - name: Reset CloudForms database
-  command: 'DISABLE_DATABASE_ENVIRONMENT_CHECK=1 rake evm:db:reset' 
+  command: rake evm:db:reset
   args:
     chdir: /var/www/miq/vmdb
+  environment: '{{ rails_env }}'
 
 - name: Start EVM services
   service:
