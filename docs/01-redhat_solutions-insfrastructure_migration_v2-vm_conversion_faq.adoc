@@ -63,7 +63,7 @@ CloudForms knows the size of each disk, so it's able to weight the progress with
 
 * Where is `virt-v2v-log` located?
 
-The log is stored in `/tmp` on conversion host. To make it easier for user to debug using the log, we have implemented a download link in the UI that retrieves the log file from the conversion host. Anyway, the log is part of the oVirt log cleaning policy and will be retained for a period of 30 days.
+The log are stored in `/var/log/vdsm/import/` on conversion host. To make it easier for user to debug using the log, we have implemented a download link in the UI that retrieves the log file from the conversion host. Anyway, the log is part of the oVirt / RHV log cleaning policy and will be retained for a period of 30 days.
 
 * Where and how is the `virt-v2v-wrapper.py` executed?
 
