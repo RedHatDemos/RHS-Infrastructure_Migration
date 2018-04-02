@@ -3,15 +3,13 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration - Lab
+== Infrastructure Migration v2 - Lab Guide
 
 :numbered:
 
 == Overview
 
-*Work in Progress*
-
-This lab uses ManageIQ/Red Hat CloudForms, and the Infrastructure Migration plugin, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
+This Lab Environment uses ManageIQ/Red Hat CloudForms, and the Infrastructure Migration plugin, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
  
 The initial configuration steps include:
 

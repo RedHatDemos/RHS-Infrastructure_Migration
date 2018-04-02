@@ -3,15 +3,15 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration v2 Deployment
+== Infrastructure Migration v2 - Deployment Guide
 
 :numbered:
 
 == Overview
 
-The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is being built.
+The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is built, and included in the environment provided for this guide.
 
-This training intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
+This guide intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
 
 == Requirements
 
