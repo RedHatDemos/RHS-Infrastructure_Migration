@@ -1,0 +1,96 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Red Hat Solutions: IT Optimization - Infrastructure Migration
+
+== VM Conversion FAQ
+
+VM Conversion workflow
+
+image::migration_workflow_vm_conversion.png[VM Conversion Workflow]
+
+For more detail, and context, please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV]
+
+* What is the `virt-v2v-wrapper.py`?
+
+The `virt-v2v-wrapper.py` is a Python executable installed on the conversion host when the conversion host role is enabled. The conversion host role is managed by an Ansible role, maintained by oVirt project, and its source code is available on Github:
+
+https://github.com/oVirt/ovirt-ansible-v2v-conversion-host/blob/master/files/virt-v2v-wrapper.py
+
+A RPM is also available as part of the oVirt project. This package installs the role in a standard path: /usr/share/ansible/roles. It also installs the playbooks to enable, disable and check the role on oVirt hosts.
+
+* Why using a wrapper and not `virt-v2v`?
+
+The `virt-v2v` command runs in the foreground and generates logs on standard output and error. The list of arguments is long and finding the right combination is a fail & retry process. The oVirt team proposed to create a wrapper that takes a JSON hash as its input, daemonizes the virt-v2v command with the correct options and return the paths to wrapper log, virt-v2v log and wrapper state. The hash describes the VMware connection, the RHV connection and the disks to convert.
+----
+{
+  "export_domain": "172.31.143.97:/v2v_rhv42_data/export",
+  "vm_name": "test_migration",
+  "vmware_fingerprint": "C1:4F:CB:DA:C8:B7:4A:15:3A:9B:13:D9:C2:A8:AA:6A:DF:8D:77:0E",
+  "vmware_uri": "vpx://administrator%40vsphere.local@10.19.2.21/V2V_Datacenter/V2V%20Cluster/esx01.v2v.example.com?no_verify=1",
+  "vmware_password": "secret",
+  "transport_method": "vddk",
+  "source_disks": [
+    "[iscsi_data_ds] test_migration/test_migration.vmdk"
+  ]
+}
+----
++
+Input hash example
+
+The most interesting feature of the wrapper state. It is a file that is refreshed every 15 seconds by the wrapper and that provides a status for the migration. It parses the log of virt-v2v and generates a JSON hash that is easier to understand from CloudForms stand point.
+
+----
+{
+  "started": true,
+  "disks": [
+    {
+      "path": "[local_esx01] test_migration/test_migration.vmdk",
+      "progress": 100.0
+    }
+  ],
+  "pid": 77620,
+  "disk_count": 1,
+  "return_code": 0,
+  "finished": true
+}
+----
+
+CloudForms knows the size of each disk, so it's able to weight the progress with the total storage size of the virtual machine and provide a more accurate percentage of progress for the overall virtual machine migration.
+
+* Where is `virt-v2v-log` located?
+
+The log is stored in `/tmp` on conversion host. To make it easier for user to debug using the log, we have implemented a download link in the UI that retrieves the log file from the conversion host. Anyway, the log is part of the oVirt log cleaning policy and will be retained for a period of 30 days.
+
+* Where and how is the `virt-v2v-wrapper.py` executed?
+
+The `virt-v2v-wrapper.py` is executed on the conversion host, which is also an oVirti / RHV host (a.k.a. Hypervisor). The launch of `virt-v2v-wrapper.py` is done through SSH, directly from CloudForms, using the net-ssh gem. The wrapper input is passed as standard input through the SSH channel and the output is collected. The wrapper immediately returns, so the SSH connection is short and less prone to network issues. 
+
+Currently, CloudForms leverages the host credentials, that have to be provided through the WebUI: *Infrastructure -> Hosts -> Configuration -> Edit this host*. These credentials are used to initiate the SSH channel. We use the root user account, as it is required to run the wrapper.
+
+* What happens if conversion fails?
+
+If the conversion fails, an error message is set on the CloudForms task, so that it can be displayed in the UI. We are currently working to provide an on demand access to the virt-v2v log, which is very verbose.
+
+* Is a NFS export share needed?
+
+Currently, yes. An effort is ongoing to remove that dependency and use the direct upload API of RHV. This would have the advantage to remove the import step, as it creates a fully functional virtual machine in the destination provider, by uploading its disks through the API. From CloudForms, the change will consist in a different input hash for the virt-v2v wrapper, that will then use the API.
+
+* What happens if import fails?
+
+If the import fails, an error message is set on the CloudForms task, so that it can be displayed in the UI. The message will expose the error from oVirt SDK if we have one.
+
+* How is the Network interface reconfigured?
+
+The network interface is simply mapped to its destination network, as it is not done by virt-v2v. We use the oVirt SDK to perform that operation. The actual code that does it is available in the vm_set_network_nic method defined in the /Transformation/Infrastructue/VM/rhevm/Utils method:
+
+https://github.com/fdupont-redhat/v2v-automate/blob/master/V2V/Transformation/Infrastructure/VM/rhevm.class/__methods__/utils.rb
+
+We are working to move this code to the *ManageIQ oVirt* provider.
+
+* How can an Ansible post migration job be executed?
+
+This feature is initially planned for June.
+

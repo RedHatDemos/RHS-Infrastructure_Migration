@@ -108,7 +108,9 @@ image::migration_workflow.png[VM Migration Workflow]
 
 . *VM migration is complete* and status displayed in CloudForms.
 
-For more detail plese take a look at the link:images/migration_workflow_vm_conversion_rhv.png[full detailed vm migration and conversion workflow] 
+For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV] 
+
+If you have doubts on the steps taking place during the conversion, please read the link:01-redhat_solutions-insfrastructure_migration_v2-vm_conversion_faq.adoc[VM Conversion FAQ]
 
 == Deployment
 
