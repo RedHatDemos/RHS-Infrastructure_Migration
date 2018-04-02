@@ -23,17 +23,17 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.6 beta
-|Red Hat Virtualization |4.2.2 beta
+|ManageIQ Nightly |4.6+ (CloudForms in the future)
+|Red Hat Virtualization |4.2.2+ beta
 |Red Hat Enterprise Linux (Hypervisor) |7.5 beta
-|VMware vSphere |5.5
+|VMware vSphere |5.5+
 |=======
 
 === CloudForms requirements
 
 CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
 
-Initially Cloudforms will be deployed using the following playbooks:
+Initially ManageIQ will be deployed using the following playbooks:
 
 link:https://github.com/fdupont-redhat/v2v-demolab-ansible[v2v-demolab-ansible]
 
@@ -80,9 +80,11 @@ The `vars:` section, when not including any var, needs to be commented to run.
 [TIP]
 Disks for logs and database need to be different. If configured with the same one, playbook will fail.
 
+*^^^DEPRECATED BY USING NIGHTLY BUILDS^^^*
+
 === RHV Requirements
 
-Red Hat Virtualization, referred as RHV, the product built from the code of its upstream project oVirt. Int his case even the changes are done upstream the software used to build the environment is derived from the engineering build system
+Red Hat Virtualization, referred as RHV, the product built from the code of its upstream project oVirt. In this case even the changes are done upstream the software used to build the environment is derived from the engineering build system.
 
 The location of the packages are the following:
 [cols="1,1,1",options="header"]
@@ -116,7 +118,7 @@ To perform the conversion task of the VMs during migration a conversion host is 
 
 == Installation
 
-=== CloudForms Installation
+=== ManageIQ/CloudForms Installation
 
 The installation creates the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
 
@@ -139,6 +141,7 @@ $ git clone https://github.com/fdupont-redhat/v2v-automate.git /tmp/automate/V2V
 $ cd /home/miq/manageiq
 $ bundle exec rake evm:automate:import DOMAIN=V2V IMPORT_DIR=/tmp/automate PREVIEW=false ENABLED=true
 ----
+*^DEPRECATED WITH NIGHTLTY BUILDS^*
 
 === Conversion Host Installation
 
@@ -182,54 +185,3 @@ After that, and if it all went OK, the installation:
 == Running the Environment
 
 === Starting CloudForms
-
-There are two ways to run Cloudforms.
-
-. Starting using `rake`
-----
-# su - miq
-$ cd /home/miq/manageiq
-$ bundle exec rake evm:start
-----
-
-. Stopping using `rake`
-----
-# su - miq
-$ cd /home/miq/manageiq
-$ bundle exec rake evm:stop
-----
-
-. Starting using `foreman`
-----
-# su - miq
-$ cd /home/miq/manageiq
-$ foreman start -p 3000
-----
-
-. Stopping using `foreman`
-----
-# su - miq
-$ cd /home/miq/manageiq
-$ foreman stop
-----
-
-The port 3000 should have been opened in FirewallD
-
-
-After this, a running instance of Cloudforms will be listening in port 3000 (http)
-http://cf.example.com:3000
-
-Now it is time to start the v2v plugin:
-
-----
-# su - miq
-$ cd /home/miq/manageiq-ui-classic
-$ NODE_ENV=development ./node_modules/.bin/webpack-dev-server --config config/webpack/development.js
-----
-
-In this case it will be listening in port 8080 (http) and we will need to open the port
-
-----
-# firewall-cmd --permanent --zone=public --add-port=8080/tcp
-----
-

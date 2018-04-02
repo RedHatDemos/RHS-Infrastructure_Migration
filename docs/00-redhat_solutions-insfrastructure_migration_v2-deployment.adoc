@@ -114,17 +114,33 @@ For more detail plese take a look at the link:images/migration_workflow_vm_conve
 
 === ManageIQ Deployment
 
-A ManageIQ instance has been deployed using a link:http://manageiq.org/download/[nightly build], by downloading an appliance image and adding it to the environment.
+The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL. 
+
+A CloudForms appliance has to be deployed. To do so, follow the official documentation: 
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_red_hat_virtualization/[Installing Red Hat CloudForms on Red Hat Virtualization]
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_vmware_vsphere/[Installing Red Hat CloudForms on VMware vSphere]
+
+In this lab we will have a ManageIQ instance, that was deployed using a link:http://manageiq.org/download/[nightly build], by downloading an appliance image and adding it to the environment.
 
 The environment is configured and an overview look at it is recommended before starting.
 
-Once the overview is done, we can proceed by running the plabook to unconfigure the environment:
+Once the overview is done, we can proceed by running the playbook to unconfigure the deplyed CloudForms / ManageIQ:
 
-TODO: playbook to un-configure
+----
+# cd /root/RHS-Optimize_IT-Infrastructure_Migration/playbooks/
+# ansible-playbook unconfigure.yml 
+----
+
+The playbook will stop the CloudForms services, will reset the database, and restart the services.
++
+[NOTE]
+Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password.
 
 ==== Add Virtualization Providers
 
-Once the environment has ben reset to a just installed state, the Virtualization providers have to be added to CloudForms. It can be done by following these steps:
+Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by following these steps:
 
 . Navigate, in *Cloudforms* to  *Compute -> Infrastructure -> Providers*. Click on *Configuration -> Add a New Infrastructure Provider*.
 +
@@ -192,7 +208,7 @@ For more information on how to use this feature to create a CI/CD pipeline go to
 
 === Conversion Host Installation
 
-We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts. We will only install `kvm1`.
+We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts. Host `kvm0` is already configured. We will proceed to install `kvm1`.
 
 In the `root` folder of the Worksation, used as *Ansible* main host, the following repo is cloned:
 [cols="1,1,1",options="header"]
@@ -217,9 +233,10 @@ all:
     kvm1.example.com:
 ----
 
-Then the playbooks are run. To check:
+Then the playbooks are run in the `v2v-transformation_host-ansible` folder. To check:
 
 ----
+# cd /root/v2v-transformation_host-ansible
 # ansible-playbook --inventory-file=inventory.yml transformation_host_check.yml 
 ----
 
@@ -280,6 +297,6 @@ image::conversion_host_9.png[Conversion Host 9]
 
 . Now the conversion host is ready.
 
-* The process was done with host `kvm0` already.
+The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions].
 
 

@@ -1,0 +1,26 @@
+---
+# tasks file for rhel
+#
+
+- name: Stop EVM services
+  service:
+    name: '{{ item }}'
+    state: stopped
+  with_items:
+    - evm-watchdog.service
+    - evmserverd.service
+
+- name: Reset CloudForms database
+  command: rake evm:db:reset
+  args:
+    chdir: /var/www/miq/vmdb
+  environment: '{{ rails_env }}'
+
+- name: Start EVM services
+  service:
+    name: '{{ item }}'
+    state: started
+  with_items:
+    - evm-watchdog.service
+    - evmserverd.service
+

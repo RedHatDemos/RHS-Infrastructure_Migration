@@ -15,6 +15,7 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.4 kvm0 and kvm1 enabled as conversion hosts
   0.5 Added V2V domain with required classes and methods
   0.6 Updated ManageIQ with Nightly Build 20180327
+  0.7 Added unconfigure playbook
 ```
 
 

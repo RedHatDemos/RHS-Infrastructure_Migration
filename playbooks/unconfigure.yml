@@ -1,0 +1,9 @@
+---
+- hosts: cf.example.com
+  roles:
+    - unconfigure
+
+  vars:
+    rails_env:
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
+
