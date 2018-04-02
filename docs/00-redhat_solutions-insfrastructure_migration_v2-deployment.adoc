@@ -70,7 +70,7 @@ The packages are already available "offline" in the environment in:
 
 * http://storage.example.com/repos
 
-The following link::https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes_v2/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+The following https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes_v2/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
 === Conversion Host Requirements
 
