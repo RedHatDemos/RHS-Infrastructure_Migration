@@ -24,6 +24,9 @@ A RPM is also available as part of the oVirt project. This package installs the 
 * Why using a wrapper and not `virt-v2v`?
 
 The `virt-v2v` command runs in the foreground and generates logs on standard output and error. The list of arguments is long and finding the right combination is a fail & retry process. The oVirt team proposed to create a wrapper that takes a JSON hash as its input, daemonizes the virt-v2v command with the correct options and return the paths to wrapper log, virt-v2v log and wrapper state. The hash describes the VMware connection, the RHV connection and the disks to convert.
+
+Input hash example:
+
 ----
 {
   "export_domain": "172.31.143.97:/v2v_rhv42_data/export",
@@ -37,8 +40,6 @@ The `virt-v2v` command runs in the foreground and generates logs on standard out
   ]
 }
 ----
-+
-Input hash example
 
 The most interesting feature of the wrapper state. It is a file that is refreshed every 15 seconds by the wrapper and that provides a status for the migration. It parses the log of virt-v2v and generates a JSON hash that is easier to understand from CloudForms stand point.
 
