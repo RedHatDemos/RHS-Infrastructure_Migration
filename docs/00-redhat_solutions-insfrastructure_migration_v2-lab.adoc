@@ -425,6 +425,10 @@ image::migration_running_2.png[Migration Running 2]
 +
 image::migration_running_3.png[Migration Running 3]
 
-. And we can see the app running
+. It's time to check the *app* running and accesible via the URL https://app-<YOUR-GUID>.rhpds.opentlc.com
 +
 image::migration_running_5.png[Migration Running 5]
+
+If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Deployment guide]. 
+
+
