@@ -382,8 +382,9 @@ To get the VM ids for the CVS file the following commands can be run in ManageIQ
 # bundle exec rails c
 irb> Vm.find_by(:name => "<VM_NAME>").id
 ----
-
-... or from a web browser:  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
++
+[TIP]
+To get the VM ids can also be obtained from a web browser by accessing the following CloudForms URL (remember to change the GUID):  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
 +
