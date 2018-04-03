@@ -305,6 +305,13 @@ The environment is ready to perform a migration. To test it, follow the link:00-
 
 In this part of the training you will customize the migration workflow to perform extra steps.
 
++Pick one of the following use-case:
++
++. (easy) Modify automate to add a step in your statemachine to .... (tbd) 
++. (medium) Ansible pre-migration step:   Use ansible to add the VM name to a log file (tracking VM migrations)
++. (hard - bonus point) : Change CPU or Memory configuration of a VM after migration using Ansible or Automate.
++
+
 == Troubleshooting the Migration Solution
 
 === Network Communication
