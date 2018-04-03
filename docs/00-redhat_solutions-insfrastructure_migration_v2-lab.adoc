@@ -336,7 +336,7 @@ image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 +
 image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
 
-.  In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `Cluster01` and *Target Cluster* as `Default` and click *Add Mapping*, then click *next*.
+.  In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `Cluster01` and *Target Cluster* as `TrustedCluster` and click *Add Mapping*, then click *next*.
 +
 image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 
@@ -356,7 +356,7 @@ In these steps an *Înfrastructure Mapping* has been created in order to simplif
 
 === Create an Migration Plan
 
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Ovewrview*, which is the finishing page from previous step.
+. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Overview*, which is the finishing page from previous step.
 
 . Click on *Create Migration Plan*.
 +
@@ -383,7 +383,7 @@ To get the VM ids for the CVS file the following commands can be run in ManageIQ
 irb> Vm.find_by(:name => "<VM_NAME>").id
 ----
 
-...or from a web browser:  https://<appliance_IP/hostname>/api/vms?expand=resources
+... or from a web browser:  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
 +
