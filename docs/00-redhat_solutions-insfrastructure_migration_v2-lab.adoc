@@ -322,7 +322,7 @@ image::conversion_host_9.png[Conversion Host 9]
 . Navigate to the *Compute -> Migration -> Ovewrview*.
 +
 [NOTE]
-A login page may appear. Introduce the credentials used to login in ManageIQ/CloudForms (fixed in future releease)
+A login page may appear. Introduce the credentials used to login in ManageIQ/CloudForms (fixed in future release)
 +
 image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 
