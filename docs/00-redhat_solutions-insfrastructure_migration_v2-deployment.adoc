@@ -301,4 +301,22 @@ image::conversion_host_9.png[Conversion Host 9]
 
 The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions].
 
+== Customizing the Migration Workflow
+
+In this part of the training you will customize the migration workflow to perform extra steps.
+
+== Troubleshooting the Migration Solution
+
+=== Network Communication
+
+=== Logs 
+
+=== Processes
+
+=== Common Failures
+
+Here are some common reasons migrations fail
+
+
+
 
