@@ -376,15 +376,15 @@ image::migration_plan_3.png[Migration Plan 3]
 This step will be kept for massive migrations, however, a different interface to choose VMs to be migrated is expected in the near term
 +
 [TIP]
-To get the VM ids for the CVS file the following commands can be run in ManageIQ/CloudForms:
+To get the VM ids, for the CVS file, can be obtained from a web browser by accessing the following CloudForms URL (remember to change the GUID):  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
++
+[TIP]
+To get the VM ids via command line, the following commands can be run in ManageIQ/CloudForms:
 ---- 
 # cd /var/www/miq/vmdb
 # bundle exec rails c
 irb> Vm.find_by(:name => "<VM_NAME>").id
 ----
-+
-[TIP]
-To get the VM ids can also be obtained from a web browser by accessing the following CloudForms URL (remember to change the GUID):  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
 +
