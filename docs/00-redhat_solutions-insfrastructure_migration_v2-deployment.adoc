@@ -23,10 +23,10 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|Manage IQ |4.6+ (available in nighlty builds)
+|ManageIQ Nightly |4.6+ (CloudForms in the future)
 |Red Hat Virtualization |4.2.2+ beta
 |Red Hat Enterprise Linux (Hypervisor) |7.5 beta
-|VMware vSphere |5.5 or later
+|VMware vSphere |5.5+
 |=======
 
 === ManageIQ requirements
@@ -136,7 +136,7 @@ Once the overview is done, we can proceed by running the playbook to unconfigure
 ----
 
 The playbook will stop the CloudForms services, will reset the database, and restart the services.
-+
+
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password.
 
@@ -293,7 +293,7 @@ image::conversion_host_2.png[Conversion Host 2]
 +
 image::conversion_host_8.png[Conversion Host 8]
 
-. Fill *Username* with `root` and Password with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
+. Fill *Username* with `root` and *Password* with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
 +
 image::conversion_host_9.png[Conversion Host 9]
 
