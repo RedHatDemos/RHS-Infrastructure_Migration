@@ -299,49 +299,15 @@ image::conversion_host_9.png[Conversion Host 9]
 
 . Now the conversion host is ready.
 
-The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions].
+=== Testing the Environment
+
+The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions] using `kvm1` as the Conversion Host.
 
 == Advanced and Experimental
-[NOTE]
-Before proceeding with customization, export the automate domains from MiQ/CloudForms.
 
-=== Customizing the Migration Workflow 
-
-In this part of the training you will customize the migration workflow to perform extra steps.
-
-Pick one of the following use-case:
-
-. (easy) Modify automate to add a step in your statemachine to .... (tbd) 
-. (medium) Ansible pre-migration step:   Use ansible to add the VM name to a log file (tracking VM migrations)
-. (hard - bonus point) : Change CPU or Memory configuration of a VM after migration using Ansible or Automate.
-
+In case you may want to know more about the environmnet you can check the link:01-redhat_solutions-insfrastructure_migration_v2-advanced_experimental.adoc[Advanced and Experimental exercises] 
 
 == Troubleshooting the Migration Solution
 
-=== Network Communication
-. If network communication is severed between the source and target providers during migration, the migration will fail.  If the VM migration has begun import into the export domain in RHV, the faile dmigration will need to be cleaned up before attempting migration post failure.
-
-=== Logs 
-. The conversion log is stored in /tmp on conversion host.
-+
-[NOTE]
-On earlier conversion host configurations, logs can be found in /var/log/vdsm/import/
-+
-. On the MiQ/CloudForms appliance, logs are located under /var/www/miq/vmdb/log/automation.log
-
-=== Processes
-. Infrastructure Migration uses virt-v2v to perform VM migrations from source to target.  This process runs on the RHV conversion host and is part of virt-v2v-wrapper.py.  https://github.com/oVirt/ovirt-ansible-v2v-conversion-host/blob/master/files/virt-v2v-wrapper.py
-
-.. The launch of virt-v2v-wrapper.py is done through SSH, directly from CloudForms, using the net-ssh gem. The wrapper input is passed as standard input through the SSH channel and the output is collected. The wrapper immediately returns, so the SSH connection is short and less prone to network issues.
-
-.. Currently, CloudForms leverages the host credentials, that have to be provided through the WebUI: Infrastructure > Hosts > Configuration > Edit this host. These credentials are used to initiate the SSH channel. We use the root user account, as it is required to run the wrapper.
-
-=== Common Failures
-. Incorrect infrastructure mappings
-. RHV host credentials not set in MiQ/CloudForms
-. Incorrect attributes for import .csv file
-
-
-
-
+For troubleshooting the environment please read the link:01-redhat_solutions-insfrastructure_migration_v2-troubleshooting.adoc[Troubleshooting the Migration Solution] document  
 
