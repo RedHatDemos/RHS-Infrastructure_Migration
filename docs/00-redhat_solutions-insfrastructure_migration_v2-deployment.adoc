@@ -188,7 +188,7 @@ image::cloudforms_enable_git.png[CloudForms Enable Git]
 
 . To import the Domain, go to *Automation -> Automate -> Import/Export*.
 
-. In the *Import/Export* page, in the field for *Git URL* type `https://github.com/fdupont-redhat/v2v-automate.git`, no *Username* or *Password* needed. The checkbox *Verify Peer Certificate* may be left checked. Click *Submit*.
+. In the *Import/Export* page, in the field for *Git URL* type `https://github.com/RedHatDemos/v2v-automate.git`, no *Username* or *Password* needed. The checkbox *Verify Peer Certificate* may be left checked. Click *Submit*. (Alternative URL for git repo: `https://github.com/fdupont-redhat/v2v-automate.git`)
 +
 image::cloudforms_automate_import_1.png[CloudForms Automate Import 1]
  
