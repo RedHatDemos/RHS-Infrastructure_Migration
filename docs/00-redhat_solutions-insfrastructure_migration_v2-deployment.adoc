@@ -148,7 +148,7 @@ Once CloudForms has been reset to a just installed state, the Virtualization pro
 +
 image::cloudforms_add_providers_1.png[Add Providers 1]
 
-. In the page *Add New Infrastructure Provider* type in Name `VMware` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `admin` and in *Password* use the <provided_password>. Click *Validate*.
+. In the page *Add New Infrastructure Provider* type in Name `VMware` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `root` and in *Password* use the <provided_password>. Click *Validate*.
 +
 image::cloudforms_add_providers_2.png[Add Providers 2]
 
