@@ -160,7 +160,7 @@ image::cloudforms_add_providers_3.png[Add Providers 3]
 +
 image::cloudforms_add_providers_4.png[Add Providers 4]
 
-. Click on *Configuration -> Add a New Infrastructure Provider* again. In the page *Add New Infrastructure Provider* type, this time, Name `RHV` and choose in *Type* dropdown menu `Red Hat Virtualization`. Then under *Endpoints* in the space assigned as *Hostname* type `rhv.example.com`, deactivate *Verify TLS Certificates*, then in *Username* type `admin@internal` and in *Password* use the <provided_password>. Click *Validate*.
+. Click on *Configuration -> Add a New Infrastructure Provider* again. In the page *Add New Infrastructure Provider* type, this time, Name `RHV` and choose in *Type* dropdown menu `Red Hat Virtualization`. Then under *Endpoints* in the space assigned as *Hostname* type `rhvm.example.com`, deactivate *Verify TLS Certificates*, then in *Username* type `admin@internal` and in *Password* use the <provided_password>. Click *Validate*.
 +
 image::cloudforms_add_providers_5.png[Add Providers 5]
 
