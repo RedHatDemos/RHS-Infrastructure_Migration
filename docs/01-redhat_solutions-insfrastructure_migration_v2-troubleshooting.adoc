@@ -124,7 +124,14 @@ Filesystem      Size  Used Avail Use% Mounted on
 
 * If network communication is severed between the source and target providers during migration, the migration will fail.  If the VM migration has begun import into the export domain in RHV, the faile dmigration will need to be cleaned up before attempting migration post failure.
 
-* All RHEL machines are configured to use firewalld
+* Management machines such as *CloudForms* and *RHV-Manager* are configured to use firewalld. You may get the list of open services and ports this way:
+
+----
+[root@rhvm-e8fb ~]# firewall-cmd --list-services
+dhcpv6-client http ssh https
+[root@rhvm-e8fb ~]# firewall-cmd --list-ports
+6100/tcp
+----
 
 === Logs 
 . The conversion log is stored in /tmp on conversion host.
