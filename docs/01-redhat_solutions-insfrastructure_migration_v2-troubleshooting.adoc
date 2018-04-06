@@ -7,8 +7,124 @@
 
 == Troubleshooting the Migration Solution
 
+== Accessing the environment
+
+The environment can be accessed via ssh by connecting to the jump host or  `workstation-<GUID>.rhpds.opentlc.com` using ssh SSH, your OPENTLC login name and private SSH key.
+
+* Using a Unix/Linux system:
++
+----
+$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
+
+* Example for user 'batman' and GUID '1e37', using the default ssh private key:
++
+----
+$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1e37.rhpds.opentlc.com
+----
+
+* In the workstation there is a Proxy server (a.k.a. `squid`) that will use the internal DNS to work and reach all the internal machines. To use it, we can create an SSH tunnel that listens on `localhost` port `3128`
++
+----
+$ ssh -i /path/to/private_key -L localhost:3128:localhost:3128 <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
++ 
+[NOTE]
+This will redirect the port 3128 in our laptop to the port 3128 in the workstation where `squid` is listening
++
+Now by configuring the browser to access proxy in `localhost` port `3128` for all protocols, we will be running it as if it was directly inside the environment, consumin the internal DNS names.
++
+image::localhost_proxy_config.png[Localhost Proxy Config]
++
+All the names `*.example.com` are accesible now via browser:
+[cols="1,1,2",options="header"]
+|=======
+| Hostname | Internal IP | Description
+|`workstation.example.com` |`192.168.0.10` | Jump host and Ansible host
+|`storage.example.com` |`192.168.0.254` | NFS server
+|`cf.example.com` |`192.168.0.100` |  CloudForms server
+|`kvm0.example.com` |`192.168.0.40` | KVM hypervisor managed by Red Hat Virtualization
+|`kvm1.example.com` |`192.168.0.41` | KVM hypervisor managed by Red Hat Virtualization
+|`rhvm.example.com` |`192.168.0.35` | Red Hat Virtualization Manager server
+|`esx1.example.com` |`192.168.0.51` | ESXi hypervisor
+|`esx2.example.com` |`192.168.0.52` | ESXi hypervisor
+|`vcenter.example.com` |`192.168.0.50` |VMware vCenter server
+|=======
+
+== Administrative rights
+
+* Your user is ready to become `root` using `sudo`:
++
+----
+$ sudo -i
+----
+
+The user `root` in the `workstation` has a set of SSH keys exchanged with the rest of the machines in the environment.
+
+Ansible is configured in the workstation to be able to easily execute commands in all machines (including VMs).
+
+The Ansible hosts file `/etc/ansible/hosts` is as follows: 
+
+----
+[infra]
+workstation.example.com
+storage.example.com
+cf.example.com
+kvm0.example.com
+kvm1.example.com
+rhvm.example.com
+vcenter.example.com
+
+[app]
+lb.example.com
+jboss0.example.com
+jboss1.example.com
+db.example.com
+----
+
+An example is using ansible-console (and the password <to_be_provided> for vault) to check free space in root filesystem
+
+----
+[root@workstation-e8fb ~]# ansible-console infra
+Vault password: 
+Welcome to the ansible console.
+Type help or ? to list commands.
+
+root@infra (7)[f:5]$ df -h /
+cf.example.com | SUCCESS | rc=0 >>
+Filesystem                   Size  Used Avail Use% Mounted on
+/dev/mapper/vg_system-lv_os   11G  4,9G  5,7G  46% /
+
+storage.example.com | SUCCESS | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1       200G   99G  102G  50% /
+
+workstation.example.com | SUCCESS | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        10G  2,0G  8,1G  20% /
+
+kvm0.example.com | SUCCESS | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        20G  2,5G   18G  13% /
+
+kvm1.example.com | SUCCESS | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        20G  2,0G   19G  10% /
+
+rhvm.example.com | SUCCESS | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1        20G  4,9G   16G  25% /
+
+vcenter.example.com | SUCCESS | rc=0 >>
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda3       9.8G  5.2G  4.1G  56% /
+----
+
 === Network Communication
-. If network communication is severed between the source and target providers during migration, the migration will fail.  If the VM migration has begun import into the export domain in RHV, the faile dmigration will need to be cleaned up before attempting migration post failure.
+
+* If network communication is severed between the source and target providers during migration, the migration will fail.  If the VM migration has begun import into the export domain in RHV, the faile dmigration will need to be cleaned up before attempting migration post failure.
+
+* All RHEL machines are configured to use firewalld
 
 === Logs 
 . The conversion log is stored in /tmp on conversion host.
