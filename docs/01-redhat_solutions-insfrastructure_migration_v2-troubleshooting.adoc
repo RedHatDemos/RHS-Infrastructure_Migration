@@ -3,11 +3,9 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration
+== Red Hat Solutions: IT Optimization - Infrastructure Migration Troubleshooting
 
-== Troubleshooting the Migration Solution
-
-== Accessing the environment
+=== Accessing the environment
 
 The environment can be accessed via ssh by connecting to the jump host or  `workstation-<GUID>.rhpds.opentlc.com` using ssh SSH, your OPENTLC login name and private SSH key.
 
@@ -51,7 +49,7 @@ All the names `*.example.com` are accesible now via browser:
 |`vcenter.example.com` |`192.168.0.50` |VMware vCenter server
 |=======
 
-== Administrative rights
+=== Administrative rights
 
 * Your user is ready to become `root` using `sudo`:
 +
@@ -153,4 +151,15 @@ On earlier conversion host configurations, logs can be found in /var/log/vdsm/im
 . RHV host credentials not set in MiQ/CloudForms
 . Incorrect attributes for import .csv file
 
+== Break Fix
+. Create an incorrect Infrastructure mapping for VMs to be migrated
+.. Review logs on the MiQ/CloudForms appliance 
 
+. Create an import from .csv file with the incorrect VM ID's
+.. Create a new migration plan with the incorrect .csv file
+.. Import the .csv and initiate the migration
+... Review logs on the MiQ/CloudForms appliance
+
+. Hard power off the source VM's to be migrated
+.. Initiate a VM migration
+... Review logs on the conversion host and MiQ/CloudForms appliance for failure
