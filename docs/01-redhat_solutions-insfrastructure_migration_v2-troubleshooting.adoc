@@ -152,14 +152,14 @@ On earlier conversion host configurations, logs can be found in /var/log/vdsm/im
 . Incorrect attributes for import .csv file
 
 == Break Fix
-. Create an incorrect Infrastructure mapping for VMs to be migrated
-.. Review logs on the MiQ/CloudForms appliance 
+=== Create an incorrect Infrastructure mapping for VMs to be migrated
+. Review logs on the MiQ/CloudForms appliance 
 
-. Create an import from .csv file with the incorrect VM ID's
-.. Create a new migration plan with the incorrect .csv file
-.. Import the .csv and initiate the migration
-... Review logs on the MiQ/CloudForms appliance
+=== Create an import from .csv file with the incorrect VM ID's
+. Create a new migration plan with the incorrect .csv file
+. Import the .csv and initiate the migration
+.. Review logs on the MiQ/CloudForms appliance
 
-. Hard power off the source VM's to be migrated
-.. Initiate a VM migration
-... Review logs on the conversion host and MiQ/CloudForms appliance for failure
+=== Hard power off the source VM's to be migrated
+. Initiate a VM migration
+.. Review logs on the conversion host and MiQ/CloudForms appliance for failure
