@@ -203,7 +203,3 @@ After that, and if it all went OK, the installation:
 ----
 # ansible-playbook --inventory-file=inventory.yml transformation_host_enable.yml 
 ----
-
-== Running the Environment
-
-=== Starting CloudForms
