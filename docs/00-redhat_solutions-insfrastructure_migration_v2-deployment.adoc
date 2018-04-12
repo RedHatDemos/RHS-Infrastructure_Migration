@@ -13,6 +13,9 @@ The field experience in migrating VMs from propietary virtualization infrastruct
 
 This guide intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
 
+[WARNING] 
+This guide will not work properly in an environment previously used for the Infrastructure Migration Lab. A fresh new environment needs to be requested to follow this guide
+
 == Requirements
 
 What is needed to run the solution and, hopefully, why ... :-)
