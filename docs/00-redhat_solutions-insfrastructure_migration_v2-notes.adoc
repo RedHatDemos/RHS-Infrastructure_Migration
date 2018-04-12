@@ -13,23 +13,45 @@ The field experience in migrating VMs from propietary virtualization infrastruct
 
 This document intends to capture the information derived from the experience of building the solution and putting it into a reproducible environment.
 
-== Requirements
+=== Configuring Autostart for VMs in ESXi
 
-What is needed torun the solutiona nd, hopefully, why ... :-)
+----
+~ # vim-cmd vmsvc/getallvms
+Vmid    Name                File                  Guest OS      Version   Annotation
+8      jboss1   [Datastore] jboss1/jboss1.vmx   rhel7_64Guest   vmx-10              
+9      db       [Datastore] db/db.vmx           rhel7_64Guest   vmx-10              
+~ # vim-cmd hostsvc/autostartmanager/update_autostartentry 8 PowerOn 45 2 GuestShutDown 1 yes
+2Updated AutoStart order.
+~ # vim-cmd vmsvc/getallvms
+Vmid    Name                File                  Guest OS      Version   Annotation
+8      jboss1   [Datastore] jboss1/jboss1.vmx   rhel7_64Guest   vmx-10              
+9      db       [Datastore] db/db.vmx           rhel7_64Guest   vmx-10              
+~ # vim-cmd hostsvc/autostartmanager/get_autostartseq
+(vim.host.AutoStartManager.AutoPowerInfo) [
+   (vim.host.AutoStartManager.AutoPowerInfo) {
+      dynamicType = <unset>, 
+      key = 'vim.VirtualMachine:9', 
+      startOrder = 1, 
+      startDelay = 15, 
+      waitForHeartbeat = "yes", 
+      startAction = "PowerOn", 
+      stopDelay = 1, 
+      stopAction = "PowerOff", 
+   }, 
+   (vim.host.AutoStartManager.AutoPowerInfo) {
+      dynamicType = <unset>, 
+      key = 'vim.VirtualMachine:8', 
+      startOrder = 2, 
+      startDelay = 45, 
+      waitForHeartbeat = "yes", 
+      startAction = "PowerOn", 
+      stopDelay = 1, 
+      stopAction = "PowerOff", 
+   }
+]
+----
 
-=== Product requirements
-
-The minimum product versions required to run the solution are the following:
-[cols="1,1",options="header"]
-|=======
-|Product |Version
-|ManageIQ Nightly |4.6+ (CloudForms in the future)
-|Red Hat Virtualization |4.2.2+ beta
-|Red Hat Enterprise Linux (Hypervisor) |7.5 beta
-|VMware vSphere |5.5+
-|=======
-
-=== CloudForms requirements
+=== Building CloudForms
 
 CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
 
