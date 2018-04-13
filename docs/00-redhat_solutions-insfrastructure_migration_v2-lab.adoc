@@ -93,7 +93,7 @@ image::rhpds_order.png[RHPDS]
 
 [IMPORTANT]
 ====
-* It takes about 20 ~ 30 minutes for the demo to load completely and become accessible.
+* It takes about 20 ~ 25 minutes for the demo to load completely and become accessible.
 ** Wait for the full demo to load, even if some of its systems are marked "Up."
 * Watch for an email with information about how to access your demo environment.
 ** Make note of the email's contents: a list of hostnames, IP addresses, and your GUID.
