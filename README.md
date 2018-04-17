@@ -16,6 +16,8 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.5 Added V2V domain with required classes and methods
   0.6 Updated ManageIQ with Nightly Build 20180327
   0.7 Added unconfigure playbook
+  0.8 Fixed boot issues with VMs
+  0.9 Changed autostart options to make it work better
 ```
 
 

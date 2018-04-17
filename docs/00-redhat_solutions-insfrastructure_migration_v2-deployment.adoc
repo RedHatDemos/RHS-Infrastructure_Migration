@@ -3,15 +3,18 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration v2 Deployment
+== Infrastructure Migration v2 - Deployment Guide
 
 :numbered:
 
 == Overview
 
-The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is being built.
+The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is built, and included in the environment provided for this guide.
 
-This training intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
+This guide intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
+
+[WARNING] 
+This guide will not work properly in an environment previously used for the Infrastructure Migration Lab. A fresh new environment needs to be requested to follow this guide
 
 == Requirements
 
@@ -23,10 +26,10 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|Manage IQ |4.6+ (available in nighlty builds)
+|ManageIQ Nightly |4.6+ (CloudForms in the future)
 |Red Hat Virtualization |4.2.2+ beta
 |Red Hat Enterprise Linux (Hypervisor) |7.5 beta
-|VMware vSphere |5.5 or later
+|VMware vSphere |5.5+
 |=======
 
 === ManageIQ requirements
@@ -70,7 +73,7 @@ The packages are already available "offline" in the environment in:
 
 * http://storage.example.com/repos
 
-The following link::https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes_v2/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+The following https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
 === Conversion Host Requirements
 
@@ -108,7 +111,9 @@ image::migration_workflow.png[VM Migration Workflow]
 
 . *VM migration is complete* and status displayed in CloudForms.
 
-For more detail plese take a look at the link:images/migration_workflow_vm_conversion_rhv.png[full detailed vm migration and conversion workflow] 
+For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV] 
+
+If you have doubts on the steps taking place during the conversion, please read the link:01-redhat_solutions-insfrastructure_migration_v2-vm_conversion_faq.adoc[VM Conversion FAQ]
 
 == Deployment
 
@@ -134,7 +139,7 @@ Once the overview is done, we can proceed by running the playbook to unconfigure
 ----
 
 The playbook will stop the CloudForms services, will reset the database, and restart the services.
-+
+
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password.
 
@@ -146,7 +151,7 @@ Once CloudForms has been reset to a just installed state, the Virtualization pro
 +
 image::cloudforms_add_providers_1.png[Add Providers 1]
 
-. In the page *Add New Infrastructure Provider* type in Name `VMware` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `admin` and in *Password* use the <provided_password>. Click *Validate*.
+. In the page *Add New Infrastructure Provider* type in Name `VMware` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `root` and in *Password* use the <provided_password>. Click *Validate*.
 +
 image::cloudforms_add_providers_2.png[Add Providers 2]
 
@@ -158,7 +163,7 @@ image::cloudforms_add_providers_3.png[Add Providers 3]
 +
 image::cloudforms_add_providers_4.png[Add Providers 4]
 
-. Click on *Configuration -> Add a New Infrastructure Provider* again. In the page *Add New Infrastructure Provider* type, this time, Name `RHV` and choose in *Type* dropdown menu `Red Hat Virtualization`. Then under *Endpoints* in the space assigned as *Hostname* type `rhv.example.com`, deactivate *Verify TLS Certificates*, then in *Username* type `admin@internal` and in *Password* use the <provided_password>. Click *Validate*.
+. Click on *Configuration -> Add a New Infrastructure Provider* again. In the page *Add New Infrastructure Provider* type, this time, Name `RHV` and choose in *Type* dropdown menu `Red Hat Virtualization`. Then under *Endpoints* in the space assigned as *Hostname* type `rhvm.example.com`, deactivate *Verify TLS Certificates*, then in *Username* type `admin@internal` and in *Password* use the <provided_password>. Click *Validate*.
 +
 image::cloudforms_add_providers_5.png[Add Providers 5]
 
@@ -186,7 +191,7 @@ image::cloudforms_enable_git.png[CloudForms Enable Git]
 
 . To import the Domain, go to *Automation -> Automate -> Import/Export*.
 
-. In the *Import/Export* page, in the field for *Git URL* type `https://github.com/fdupont-redhat/v2v-automate.git`, no *Username* or *Password* needed. The checkbox *Verify Peer Certificate* may be left checked. Click *Submit*.
+. In the *Import/Export* page, in the field for *Git URL* type `https://github.com/RedHatDemos/v2v-automate.git`, no *Username* or *Password* needed. The checkbox *Verify Peer Certificate* may be left checked. Click *Submit*. (Alternative URL for git repo: `https://github.com/fdupont-redhat/v2v-automate.git`)
 +
 image::cloudforms_automate_import_1.png[CloudForms Automate Import 1]
  
@@ -217,7 +222,7 @@ In the `root` folder of the Worksation, used as *Ansible* main host, the followi
 |manageiq |https://github.com/fdupont-redhat/v2v-transformation_host-ansible.git |Main ManageIQ backend code (CloudForms Upstream)
 |=======
 
-The file `inventory.yml` is created, in the `v2v-transformation_host-ansible` folder, with the following content:
+The file `inventory_example.yml` is created, in the `v2v-transformation_host-ansible` folder, with the following content:
 
 ----
 all:
@@ -237,13 +242,13 @@ Then the playbooks are run in the `v2v-transformation_host-ansible` folder. To c
 
 ----
 # cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory.yml transformation_host_check.yml 
+# ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
 ----
 
 After that, and if it all went OK, the installation:
 
 ----
-# ansible-playbook --inventory-file=inventory.yml transformation_host_enable.yml 
+# ansible-playbook --inventory-file=inventory_example.yml transformation_host_enable.yml 
 ----
 
 === Conversion Host Configuration in CloudForms
@@ -291,12 +296,21 @@ image::conversion_host_2.png[Conversion Host 2]
 +
 image::conversion_host_8.png[Conversion Host 8]
 
-. Fill *Username* with `root` and Password with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
+. Fill *Username* with `root` and *Password* with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
 +
 image::conversion_host_9.png[Conversion Host 9]
 
 . Now the conversion host is ready.
 
-The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions].
+=== Testing the Environment
 
+The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions] using `kvm1` as the Conversion Host.
+
+== Advanced and Experimental
+
+In case you may want to know more about the environmnet you can check the link:01-redhat_solutions-insfrastructure_migration_v2-advanced_experimental.adoc[Advanced and Experimental exercises] 
+
+== Troubleshooting the Migration Solution
+
+For troubleshooting the environment please read the link:01-redhat_solutions-insfrastructure_migration_v2-troubleshooting.adoc[Troubleshooting the Migration Solution] document  
 
