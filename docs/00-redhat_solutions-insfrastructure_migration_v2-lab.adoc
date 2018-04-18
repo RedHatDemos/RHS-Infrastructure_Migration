@@ -334,7 +334,7 @@ image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 
 . In the *step 1* of the wizard, *General*, type a the name `ticket-monster-mapping` and click *next*.
 +
-* A description may be added to make it easy to, later on, recognice the usage of the mapping.
+* A description may be added to make it easy to, later on, recognize the usage of the mapping.
 +
 image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
 
@@ -368,7 +368,7 @@ image::migration_plan_1.png[Migration Plan 1]
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
-* A description may be added to make it easy to, later on, recognice the usage of the plan.
+* A description may be added to make it easy to, later on, recognize the usage of the plan.
 
 . In a different brower page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes/ticket_monster_migration.csv[ticket_monster_migration.csv]
 +
@@ -388,7 +388,7 @@ To get the VM ids via command line, the following commands can be run in ManageI
 irb> Vm.find_by(:name => "<VM_NAME>").id
 ----
 
-. In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then selec `ticket_monster_migration.csv` and click *Open*.
+. In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then select `ticket_monster_migration.csv` and click *Open*.
 +
 image::migration_plan_4.png[Migration Plan 4]
 
@@ -414,7 +414,7 @@ And each VM migration process in the Conversion Host:
 # tail -f /var/log/vdsm/import/*
 ----
 
-. CloudForms inerface shows migration status too
+. CloudForms interface shows migration status too
 +
 image::migration_running_1.png[Migration Running 1]
 
