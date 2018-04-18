@@ -321,7 +321,7 @@ image::conversion_host_9.png[Conversion Host 9]
 
 === Create an Infrastructure Mapping
 
-. Navigate to the *Compute -> Migration -> Ovewrview*.
+. Navigate to the *Compute -> Migration -> Overview*.
 +
 [NOTE]
 A login page may appear. Introduce the credentials used to login in ManageIQ/CloudForms (fixed in future release)
@@ -404,7 +404,7 @@ image::migration_plan_6.png[Migration Plan 6]
 +
 ----
 # ssh cf.example.com
-# tail -f /var/log/manageiq/automation.log
+# tail -f /var/www/miq/vmdb/log/automation.log
 ----
 +
 And each VM migration process in the Conversion Host:
