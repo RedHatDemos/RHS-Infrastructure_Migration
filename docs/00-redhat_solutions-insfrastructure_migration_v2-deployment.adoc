@@ -117,7 +117,7 @@ If you have doubts on the steps taking place during the conversion, please read 
 
 == Deployment
 
-=== ManageIQ Deployment
+=== CloudForms Deployment
 
 The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL. 
 
@@ -127,11 +127,11 @@ A CloudForms appliance has to be deployed. To do so, follow the official documen
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_vmware_vsphere/[Installing Red Hat CloudForms on VMware vSphere]
 
-In this lab we will have a ManageIQ instance, that was deployed using a link:http://manageiq.org/download/[nightly build], by downloading an appliance image and adding it to the environment.
+In this lab we will have a CloudForms instance, that was deployed using a nightly build, by downloading an appliance image and adding it to the environment.
 
 The environment is configured and an overview look at it is recommended before starting.
 
-Once the overview is done, we can proceed by running the playbook to unconfigure the deplyed CloudForms / ManageIQ:
+Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms / ManageIQ:
 
 ----
 # cd /root/RHS-Optimize_IT-Infrastructure_Migration/playbooks/
