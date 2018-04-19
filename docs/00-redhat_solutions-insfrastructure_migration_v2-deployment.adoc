@@ -241,17 +241,28 @@ all:
     kvm1.example.com:
 ----
 
-Then the playbooks are run in the `v2v-transformation_host-ansible` folder. To check:
+Then the playbooks are run in the `v2v-transformation_host-ansible` folder. 
+
+There is a `check` playbook that can be run and ensures that the installation is OK. You can run it before install to see how it reports errors:
 
 ----
 # cd /root/v2v-transformation_host-ansible
 # ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
 ----
 
-After that, and if it all went OK, the installation:
+
+After that, the installation of tools can be performed by running the `enable` playbook:
 
 ----
+# cd /root/v2v-transformation_host-ansible
 # ansible-playbook --inventory-file=inventory_example.yml transformation_host_enable.yml 
+----
+
+It may be time to check again and ensure the tool installation went OK:
+
+----
+# cd /root/v2v-transformation_host-ansible
+# ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
 ----
 
 === Conversion Host Configuration in CloudForms
