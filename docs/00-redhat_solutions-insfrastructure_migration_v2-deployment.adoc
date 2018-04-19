@@ -26,24 +26,19 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|ManageIQ Nightly |4.6+ (CloudForms in the future)
+|CloudForms Nightly |4.6+ 
 |Red Hat Virtualization |4.2.2+ beta
-|Red Hat Enterprise Linux (Hypervisor) |7.5 beta
+|Red Hat Enterprise Linux (Hypervisor) |7.5
 |VMware vSphere |5.5+
 |=======
 
-=== ManageIQ requirements
+=== CloudForms requirements
 
-CloudForms is the product built from the code of its upstream project ManageIQ. There will be references to ManageIQ as the place where the changes are performed to get them into the product. 
+CloudForms is deployed using a Nightly Build appliance. To save time a pre-deployed appliance is provided
 
-Initially ManageIQ will be deployed using the following appliance:
-http://manageiq.org/download/[Nightly]
+The CloudForms appliance will use:
 
-To save time a pre-deployed appliance is provided
-
-The ManageIQ appliance will use:
-
-* RHEL 7.4 
+* RHEL 7.5 
 * Software Collections 
 ** PostgreSQL 9.5
 
@@ -52,7 +47,7 @@ The ManageIQ appliance will use:
 Red Hat Virtualization, referred as RHV, is the product built from the code of its upstream project oVirt. 
 To be able to perform the migration the following versions are required:
 
-* RHEL 7.5 beta
+* RHEL 7.5 
 * RHV 4.2.2+ beta
 
 The code being included will reach the product once it's published as GA.
@@ -131,7 +126,7 @@ In this lab we will have a CloudForms instance, that was deployed using a nightl
 
 The environment is configured and an overview look at it is recommended before starting.
 
-Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms / ManageIQ:
+Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms:
 
 ----
 # cd /root/RHS-Optimize_IT-Infrastructure_Migration/playbooks/
