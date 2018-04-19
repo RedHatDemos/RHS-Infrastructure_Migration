@@ -201,7 +201,7 @@ It requires that the *Git Repositories Owner* is enabled as states some steps ab
 +
 image::cloudforms_automate_import_1.png[CloudForms Automate Import 1]
  
-. A page to speccify import details appears. In it the selection for *Branch/Tag* will be `Branch` and the selection in *Branches* will be `origin/master`. Click *Submit*.
+. A page to specify import details appears. In it the selection for *Branch/Tag* will be `Branch` and the selection in *Branches* will be `origin/master`. Click *Submit*.
 +
 image::cloudforms_automate_import_2.png[CloudForms Automate Import 2]
 
