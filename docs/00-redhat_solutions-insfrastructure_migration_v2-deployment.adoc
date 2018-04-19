@@ -143,6 +143,18 @@ The playbook will stop the CloudForms services, will reset the database, and res
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password.
 
+==== Enable Git Repositories
+
+Some logic to perform the VMs transformation is provided in a git repo.
+
+To enable, in CloudForms, the capability to import git repos, the neccesary role has to be activated, by following these steps:
+
+. Go to upper right corner, click in *Administrator* to get a drop down menu, and in it, click in *Configuration*.
+
+. In the *Configuration* page click in *Git Repositories Owner* to enable it, and then click *Save*
++
+image::cloudforms_enable_git.png[CloudForms Enable Git]
+
 ==== Add Virtualization Providers
 
 Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by following these steps:
@@ -179,15 +191,9 @@ This way the two Virtualization provided are managed by CloudForms. Take some ti
 
 ==== Adding the V2V Automation Domain
 
-Some logic to perform the VMs transformation tasks come bundled as a Domain provided by a git repo.
+Some logic to perform the VMs transformation tasks come bundled as a Domain, provided by a git repo.
 
-To enable, in CloudForms, the capability to import git repos, the neccesary role has to be activated, by following these steps:
-
-. Go to upper right corner, click in *Administrator* to get a drop down menu, and in it, click in *Configuration*.
-
-. In the *Configuration* page click in *Git Repositories Owner* to enable it, and then click *Save*
-+
-image::cloudforms_enable_git.png[CloudForms Enable Git]
+It requires that the *Git Repositories Owner* is enabled as states some steps above.
 
 . To import the Domain, go to *Automation -> Automate -> Import/Export*.
 
@@ -209,7 +215,6 @@ image::cloudforms_automate_import_4.png[CloudForms Automate Import 4]
 +
 [TIP]
 For more information on how to use this feature to create a CI/CD pipeline go to http://www.jung-christian.de/post/2017/11/continuous-integration-with-automate/
-
 
 === Conversion Host Installation
 
