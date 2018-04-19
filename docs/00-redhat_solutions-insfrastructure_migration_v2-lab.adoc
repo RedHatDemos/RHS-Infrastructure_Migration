@@ -393,6 +393,9 @@ To get the VM ids via command line, the following commands can be run in ManageI
 # bundle exec rails c
 irb> Vm.find_by(:name => "<VM_NAME>").id
 ----
++
+[WARNING]
+If the CloudForms environment has been reconfigured, the csv file may need ot be regenerated as the VM ids in CloudForms could have changed.
 
 . In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then select `ticket_monster_migration.csv` and click *Open*.
 +
