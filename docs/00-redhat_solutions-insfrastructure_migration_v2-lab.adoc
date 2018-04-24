@@ -327,14 +327,7 @@ image::conversion_host_9.png[Conversion Host 9]
 
 === Create an Infrastructure Mapping
 
-. Navigate to the *Compute -> Migration -> Overview*.
-+
-[NOTE]
-A login page may appear. Introduce the credentials used to login in ManageIQ/CloudForms (fixed in future release)
-+
-image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
-
-. Click on *Create Infrastructure Mapping*.
+. Navigate to the *Compute -> Migration -> Overview*. Click on *Create Infrastructure Mapping*.
 +
 image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 
