@@ -235,20 +235,21 @@ image::rhv_hypervisors_up.png[RHV Hypervisors up]
 +
 image::vsphere_web_client_0.png[vCenter Login]
 
-* Click on *Log in to vSphere Web Client*
-+
-image::vsphere_web_client_1.png[vSphere Web Client Login]
-
-.. Use `root` as the username to log in to vCenter.
-
-.. Click *Click on VMs and Templates*.
-+
-image::vsphere_web_client_2.png[vCenter]
-
 ** Flash Player is required.
 +
 [TIP]
 Modern browsers have flash player disabled by default. You may need to enable it for this page. Here are the link:01-redhat_solutions-insfrastructure_migration_v2-enable_flash.adoc[instructions to enable Adobe Flash]
+
+* Click on *Log in to vSphere Web Client*
++
+image::vsphere_web_client_1.png[vSphere Web Client Login]
++
+[WARNING]
+Use `root` as the username to log in to vCenter.
+
+* Click *Click on VMs and Templates*.
++
+image::vsphere_web_client_2.png[vCenter]
 
 .. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss0.example.com` and `db.example.com` are running. 
 +
