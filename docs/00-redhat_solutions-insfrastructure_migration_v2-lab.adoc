@@ -9,14 +9,14 @@
 
 == Overview
 
-This Lab Environment uses ManageIQ/Red Hat CloudForms, and the Infrastructure Migration plugin, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
+This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin), as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
  
-The initial configuration steps include:
+The provided configuration steps include:
 
-* Configuring the conversion hosts for the target provider (RHV)
-* Validating credentials for the conversion hosts in ManaeIQ/CloudForms
-* Assigned the appropriate tags for the conversion hosts in MiQ/CloudForms
-* .csv file creatiuon for the chosen VMs to be migrated
+* Configure the conversion hosts in the target provider (RHV)
+* Provide credentials for virtualization providers and conversion hosts in CloudForms
+* Assign tags for the conversion hosts in CloudForms
+* CSV file created for the chosen VMs to be migrated
 
 The providers are:
 
@@ -29,14 +29,14 @@ After this initial step, the resource equivalence between the two providers has 
 * Storage Domains
 * Networks
 
-To perform the migration a minimum of one *Conversion Host* has to be configured. In this case we will use the RHEL hypervisors as conversion hosts.
+To perform the migration one *Conversion Host* has beeen configured. In this case RHEL hypervisors were used as conversion hosts.
 
 Finally, a *Migration Plan* has to be executed to perform the final migration.
 
 .Goal
-* Migrate several VMs from vSphere to Red Hat Virtualization with a Red Hat Solution: Infrastructure Migration
+* Migrate several VMs from vSphere to Red Hat Virtualization, using Red Hat CloudForms as a broker, with a Red Hat Solution: Infrastructure Migration
 +
-NOTE: The source VM's are still maintained post migration and are not deleted. This allows for "failback" if a migration failure occurs.
+NOTE: The source VMs are still maintained post migration and are not deleted. This allows for "failback" if a migration failure occurs.
 
 Required versions of products used:
 
@@ -106,7 +106,7 @@ Be mindful of the runtime of your demo environment! It may take several hours to
 
 === Environment
 
-A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *GUID*.  
+A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *YOUR-GUID*.  
 
 The demo environment consists of the following systems:
 
