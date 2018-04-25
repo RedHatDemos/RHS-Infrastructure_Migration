@@ -192,7 +192,7 @@ To check the infrastructure machines the followinf command can be also used:
 +
 ----
 # ssh cf.example.com
-# tail -f /var/log/manageiq/automation.log
+# tail -f /var/www/miq/vmdb/log/automation.log
 ----
 +
 [TIP]
