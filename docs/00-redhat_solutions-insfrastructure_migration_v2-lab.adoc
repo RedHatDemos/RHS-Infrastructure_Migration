@@ -350,7 +350,7 @@ image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
-.  In the *step 4* of the wizard, *Networks*, select *Source Network* as `VM Network` and *Target Network* as `ovirtmgmt` and click *Add Mapping*, then click *next*.
+.  In the *step 4* of the wizard, *Networks*, select *Source Network* as `VM Network` and *Target Network* as `ovirtmgmt` and click *Add Mapping*, then click *create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
