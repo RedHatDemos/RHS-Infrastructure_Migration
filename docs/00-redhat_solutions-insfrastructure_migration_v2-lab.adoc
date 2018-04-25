@@ -71,7 +71,7 @@ Internet Explorer is not recommended.
 
 . Passwords to the services is referred as `<to_be_provided>`. Please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team] in case you didn't get them
 
-== Preparison
+== Preparation
 
 === Provision Your Demo Environment
 
