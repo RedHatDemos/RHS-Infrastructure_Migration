@@ -336,7 +336,7 @@ image::conversion_host_9.png[Conversion Host 9]
 +
 image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 
-. In the *step 1* of the wizard, *General*, type a the name `ticket-monster-mapping` and click *next*.
+. In the *step 1* of the wizard, *General*, type the name `ticket-monster-mapping` and click *next*.
 +
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 +
