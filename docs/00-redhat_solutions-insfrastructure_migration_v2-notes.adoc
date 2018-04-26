@@ -144,10 +144,10 @@ To perform the conversion task of the VMs during migration a conversion host is 
 
 The installation creates the user `miq` with home in `/home/miq` where all CloudForms software is deployed. This will change in the future to use the common paths.
 
-In the the home you will find the following folders with github origins:
+In the the home you will find the following directories with github origins:
 [cols="1,1,1",options="header"]
 |=======
-|Folder |Origin| Use
+|Directory |Origin| Use
 |manageiq |https://github.com/ManageIQ/manageiq.git |Main ManageIQ backend code (CloudForms Upstream)
 |manageiq-ui-classic |https://github.com/ManageIQ/manageiq-ui-classic.git |Main ManageIQ UI code (CloudForms Upstream)
 |miq_v2v_ui_plugin |https://github.com/priley86/miq_v2v_ui_plugin.git |Infra Migration Plugin for ManageIQ (CloudForms Upstream)
@@ -169,14 +169,14 @@ $ bundle exec rake evm:automate:import DOMAIN=V2V IMPORT_DIR=/tmp/automate PREVI
 
 We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts
 
-In the `root` folder of the Worksation, used as *Ansible* main host, the following repo is cloned:
+In the `root` directory of the Worksation, used as *Ansible* main host, the following repo is cloned:
 [cols="1,1,1",options="header"]
 |=======
-|Folder |Origin| Use
+|Directory |Origin| Use
 |manageiq |https://github.com/fdupont-redhat/v2v-transformation_host-ansible.git |Main ManageIQ backend code (CloudForms Upstream)
 |=======
 
-The file `inventory.yml` is created, in the `v2v-transformation_host-ansible` folder, with the following content:
+The file `inventory.yml` is created, in the `v2v-transformation_host-ansible` directory, with the following content:
 
 ----
 all:
