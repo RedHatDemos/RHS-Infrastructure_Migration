@@ -304,7 +304,7 @@ It can be done by establishing an SSH connection to the CloudForms server and wa
 The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
 +
 [TIP]
-The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/attributes/`.
+The csv files for attributes can be accessed in the machine `cf` under the directory `/mnt/migrate/import_csv/attributes/`.
 
 === Set VM Migration Tags
 
@@ -328,7 +328,7 @@ It can be done by establishing an SSH connection to the CloudForms server and wa
 The log entries can be also seen in the CloudFomrm web UI in *Automation -> Automate -> Log*.
 +
 [TIP]
-The csv files for attributes can be accessed in the machine `cf` under the folder `/mnt/migrate/import_csv/tags/`.
+The csv files for attributes can be accessed in the machine `cf` under the directory `/mnt/migrate/import_csv/tags/`.
 
 === Check Tags and Attributes
 
