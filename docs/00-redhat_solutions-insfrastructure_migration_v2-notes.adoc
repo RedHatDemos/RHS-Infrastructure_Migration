@@ -9,7 +9,7 @@
 
 == Overview
 
-The field experience in migrating VMs from propietary virtualization infrastructures to oven virtualization infrastructures has been consolidaest in several real life customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams a productized version of it is being built.
+The field experience in migrating VMs from propietary virtualization infrastructures to open virtualization infrastructures has been consolidated in several real life customized engagements. From the experience of these engagements, and with the involvement of Engineering and User Experience and Design teams, a productized version of it is being built.
 
 This document intends to capture the information derived from the experience of building the solution and putting it into a reproducible environment.
 
