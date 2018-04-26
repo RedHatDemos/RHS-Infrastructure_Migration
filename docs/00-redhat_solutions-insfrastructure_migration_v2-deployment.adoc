@@ -219,7 +219,7 @@ For more information on how to use this feature to create a CI/CD pipeline go to
 
 We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts. Host `kvm0` is already configured. We will proceed to install `kvm1`.
 
-In the `/root` directory of the Worksation, used as *Ansible* main host, the following repo is cloned:
+In the `/root` directory of the Workstation, used as *Ansible* main host, the following repo is cloned:
 [cols="1,1,1",options="header"]
 |=======
 |Directory |Origin| Use

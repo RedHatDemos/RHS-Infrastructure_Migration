@@ -169,7 +169,7 @@ $ bundle exec rake evm:automate:import DOMAIN=V2V IMPORT_DIR=/tmp/automate PREVI
 
 We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts
 
-In the `root` directory of the Worksation, used as *Ansible* main host, the following repo is cloned:
+In the `root` directory of the Workstation, used as *Ansible* main host, the following repo is cloned:
 [cols="1,1,1",options="header"]
 |=======
 |Directory |Origin| Use
