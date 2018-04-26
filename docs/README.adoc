@@ -15,6 +15,7 @@ Based in New code. Includes UI to perform migration. Beta.
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Infrastructure Migration v2 Lab Instructions]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Infrastructure Migration v2 Deployment]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/01-redhat_solutions-insfrastructure_migration_v2-troubleshooting.adoc[Infrastructure Migration v2 Troubleshooting]
+. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/01-redhat_solutions-insfrastructure_migration_v2-vm_conversion_faq.adoc[Infrastructure Migration v2 Frequently Asked Questions]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-notes.adoc[Infrastructure Migration v2 Notes]
 
 === Version 1
