@@ -358,7 +358,7 @@ image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 +
 image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
 
-In these steps an *Înfrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
+In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
 
 === Create an Migration Plan
 
@@ -382,7 +382,7 @@ image::migration_plan_3.png[Migration Plan 3]
 This step will be kept for massive migrations, however, a different interface to choose VMs to be migrated is expected in the near term
 +
 [TIP]
-To get the VM ids, for the CVS file, can be obtained from a web browser by accessing the following CloudForms URL (remember to change the GUID):  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
+To get the VM ids, for the CSV file, can be obtained from a web browser by accessing the following CloudForms URL (remember to change the GUID):  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
 +
 [TIP]
 To get the VM ids via command line, the following commands can be run in ManageIQ/CloudForms:
