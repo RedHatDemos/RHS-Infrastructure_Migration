@@ -226,7 +226,7 @@ In the `/root` directory of the Workstation, used as *Ansible* main host, the fo
 |v2v-transformation_host-ansible |https://github.com/fdupont-redhat/v2v-transformation_host-ansible.git |Conversion Hosts Playbooks (Enable/Disable/Check)
 |=======
 
-The file `inventory.example.yml` is created, in the `v2v-transformation_host-ansible` directory, with the following content:
+The file `inventory_example.yml` is created, in the `v2v-transformation_host-ansible` directory, with the following content:
 
 ----
 all:
@@ -248,7 +248,7 @@ There is a `check` playbook that can be run and ensures that the installation is
 
 ----
 # cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory.example.yml transformation_host_check.yml 
+# ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
 ----
 
 
@@ -256,14 +256,14 @@ After that, the installation of tools can be performed by running the `enable` p
 
 ----
 # cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory.example.yml transformation_host_enable.yml 
+# ansible-playbook --inventory-file=inventory_example.yml transformation_host_enable.yml 
 ----
 
 It may be time to check again and ensure the tool installation went OK:
 
 ----
 # cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory.example.yml transformation_host_check.yml 
+# ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
 ----
 
 === Conversion Host Configuration in CloudForms
