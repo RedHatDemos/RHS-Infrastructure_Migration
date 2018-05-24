@@ -20,6 +20,19 @@ This guide will not work properly in an environment previously used for the Infr
 
 What is needed to run the solution and, hopefully, why ... :-)
 
+=== Requirements to access and perform this lab
+
+* A computer with access to Internet :-)
+* Adobe Flash 15 or higher must be enabled in Firefox or Chromium used for vCenter connectivity
+* SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
+* Firefox 17 or higher, or Chromium / Chrome
++
+[NOTE]
+Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
++
+[NOTE]
+Internet Explorer is not recommended.
+
 === Product requirements
 
 The minimum product versions required to run the solution are the following:

@@ -59,7 +59,11 @@ Required versions of products used:
 * Firefox 17 or higher, or Chromium / Chrome
 +
 [NOTE]
+Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
++
+[NOTE]
 Internet Explorer is not recommended.
+
 
 === Obtaining or enabling access credentials
 
