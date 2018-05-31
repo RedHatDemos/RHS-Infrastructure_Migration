@@ -483,6 +483,11 @@ Choose the advanced setting: 19
 [root@cf-repl ~]# reboot
 ----
 
-* The rest of the CloudForms appliance configuration can be done following the link:00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Deplyment Guide] 
+* The rest of the CloudForms appliance configuration can be done following the link:00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Deployment Guide]. 
++
+[NOTE]
+As the Cloudforms appliance is completely unconfigured, running the ansible playbook `unconfigure.yml` will not be needed.
+ 
+
 
 
