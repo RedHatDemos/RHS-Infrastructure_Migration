@@ -180,5 +180,18 @@ image:ravello_blueprint_update_13.png[Ravello Blueprint Update 13]
 +
 image:ravello_blueprint_update_14.png[Ravello Blueprint Update 14]
 
+* Now we have the the CloudForms VM with an updated system disk and a second disk for the database. We click on the *Publish* button at the top to create the app.
++
+image:ravello_blueprint_update_15.png[Ravello Blueprint Update 15]
 
+* In the options dialog for publishing we select Optimize for *Performance*, and Location *US Southwest 1*. Then click *Publish*
++
+image:ravello_blueprint_update_16.png[Ravello Blueprint Update 16]
 
+* The new application is published and will get started. We will access it through the IP of the Workstation, to find it out select the Workstation VM and the Summary tab.
++
+image:ravello_blueprint_update_16.png[Ravello Blueprint Update 16]
+
+==== Configuring the New CloudForms instance
+
+TDB
