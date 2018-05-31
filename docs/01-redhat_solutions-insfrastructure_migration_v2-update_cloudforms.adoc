@@ -49,7 +49,12 @@ $ mkdir ravello
 $ mkdir ravello/images
 ----
 
-* Download the link:http://cloud.ravellosystems.com/static/pages/import-tool/import-tool-download-page.html[Ravello Upload Tool] and uncompress it to our working directory. The folder *ravello_cli* will be created with the tools to upload images.
+* Download the link:http://cloud.ravellosystems.com/static/pages/import-tool/import-tool-download-page.html[Ravello Import Tool] 
++
+image::ravello_import_tool.png[Ravello Import Tool]
+
+
+* Uncompress it to our working directory. The folder *ravello_cli* will be created with the tools to upload images.
 +
 ----
 $ cd ravello
