@@ -115,4 +115,70 @@ In Nightly Builds the references to the version can be the date of the build in 
 +
 image:ravello_import_vm_3.png[Ravello Import VM 3]
 
+==== Update Blueprint
+
+To update a blueprint, it has to be done in two steps. On step one we create an *application* that can be modified. On step two, once we have the modified application, we create a *blueprint* from it.
+
+* Navigate to *Library -> Blueprints* and find the blueprint to be updated. In this case *GLOBAL-SYSENG-DEV-infra_migration_beta_testing*.
++
+image:ravello_blueprint_update_1.png[Ravello Blueprint Update 1]
+
+* Open the blueprint. Click on *Create Application*
++
+image:ravello_blueprint_update_2.png[Ravello Blueprint Update 2]
+
+* Choose the name of application, in this case *GLOBAL-SYSENG-DEV-infra_migration_beta_testing-update_nightly* and click *create*
++
+image:ravello_blueprint_update_2.1.png[Ravello Blueprint Update 2.1]
+
+* Before publising the application we will modify the CloudForms VM. Click on the *+* button in the upper left corner and drag and drop the VM that we improted previously
++
+image:ravello_blueprint_update_3.png[Ravello Blueprint Update 3]
++
+[NOTE]
+In this example the Imported VM name is GLOBAL-SYSENG-DEV-cfme-20180521.ova
+ 
+* With the newly added VM selected, click on the *Disks* tab in the properties box on the right side of the screen. On the only disk in the tab click on *Save Disk to Library*
++
+image:ravello_blueprint_update_4.png[Ravello Blueprint Update 4]
+
+* Select the name for the disk. In this case we use *GLOBAL-SYSENG-DEV-cfme-20180521. Hard Disk 0*. Then click *Create*
++
+image:ravello_blueprint_update_5.png[Ravello Blueprint Update 5]
+
+* Once the disk is saved to library we get rid of the newly added VM. On the Lower right corner of the properties pane, click on *More* and then *Delete*. Then Click on *Delete* in te confirmation dialogue.
++
+image:ravello_blueprint_update_6.png[Ravello Blueprint Update 6]
++
+image:ravello_blueprint_update_7.png[Ravello Blueprint Update 7]
+
+* Now it's time to macke changes tothe CloudForms VM. We *select it* and in the properties pane on the right, we click on *disks*
++
+image:ravello_blueprint_update_8.png[Ravello Blueprint Update 8]
+
+* We delete both disks in the VM (all of them) by clickin on the *trashcan icon* in the upper right corner of each of them. The result is the following.
++
+image:ravello_blueprint_update_9.png[Ravello Blueprint Update 9]
+
+* We navigate in the properties pane, in the disks tab to *+Add -> Add Disk Based on Image*
++
+image:ravello_blueprint_update_10.png[Ravello Blueprint Update 10]
+
+* We search for the disk we created before *GLOBAL-SYSENG-DEV-cfme-20180521. Hard Disk 0*, choose it and click *Select*
++
+image:ravello_blueprint_update_11.png[Ravello Blueprint Update 11]
+
+* Once added, rename it to *root*, change the *Controller* to *VirtIO*, ensure it is *bootable*, and that *Skip CD boot* is selected.
++
+image:ravello_blueprint_update_12.png[Ravello Blueprint Update 12]
+
+* We navigate again in the properties pane, in the disks tab to *+Add -> Add Disk* to add a second disk (for the database)
++
+image:ravello_blueprint_update_13.png[Ravello Blueprint Update 13]
+
+* Once added, rename it to *db* and change the *Controller* to *VirtIO*. Then click on *Save*
++
+image:ravello_blueprint_update_14.png[Ravello Blueprint Update 14]
+
+
 
