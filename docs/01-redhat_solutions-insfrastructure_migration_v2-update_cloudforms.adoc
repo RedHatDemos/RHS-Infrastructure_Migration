@@ -1,0 +1,85 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Red Hat Solutions: IT Optimization - Infrastructure Migration
+
+== Update CloudForms
+
+This document describes how to update Cloudforms in the Ravello Blueprint for Infrastructure Migration Solution using nightly build images.
+
+=== Download CloudForms Nightly
+
+To obtain the CloudForms Nightly build we access the internal engineering builds.
+
+[cols="1,1",options="header"]
+|=======
+|Product |Version | URL
+|CloudForms Nightly |4.6+ | http://file.cloudforms.lab.eng.rdu2.redhat.com/builds/cfme/5.10/latest/
+|=======
+
+It is possible to update it to the upstream ManageIQ builds also by using the available URL
+
+[cols="1,1",options="header"]
+|=======
+|Product |Version | URL
+|ManageIQ Nightly |Gaprindashvili | http://manageiq.org/download/
+|=======
+
+Ravello consumes vSphere images easily, therefore we will download the *CFME vSphere* image (with paravirtual drivers where possible).
+
+One example of the images used successcuflly in Ravello blueprints is this one:
+http://file.cloudforms.lab.eng.rdu2.redhat.com/builds/cfme/5.10/20180521_152405/cfme-vsphere-paravirtual-5.10.0.0-nightly-20180521152405-1.x86_64.vsphere.ova
+
+=== Upload CloudForms image to Ravello
+
+To upload the image to Ravello from our Fedora workstation the following steps can be followed:
+
+* Lets create a working directory
++
+----
+$ mkdir ravello
+----
+
+* And a directory for the images
++
+----
+$ mkdir ravello/images
+----
+
+* Download the link:http://cloud.ravellosystems.com/static/pages/import-tool/import-tool-download-page.html[Ravello Upload Tool] and uncompress it to our working directory. The folder *ravello_cli* will be created with the tools to upload images.
++
+----
+$ cd ravello
+$ tar zxvf ~/Downloads/ravello_linux.tar.gz 
+$ ls
+ravello_cli  README 
+----
+
+* Rename the image with the prefix *GLOBAL-SYSENG-DEV* and move it to the images folder
++
+----
+$ mv ~/Downloads/cfme-vsphere-paravirtual-5.10.0.0-nightly-20180521152405-1.x86_64.vsphere.ova images/GLOBAL-SYSENG-DEV-cfme-vsphere-paravirtual-5.10.0.0-nightly-20180521152405-1.x86_64.vsphere.ova
+----
++
+[NOTE]
+It is very important to have the right prefix for the image as the permissions in Ravello are granted based on it. Without the proper prefix the image will not upload.
+
+* Upload the image using your credentials
++
+----
+./ravello_cli/ravello import images/GLOBAL-SYSENG-DEV-cfme-vsphere-paravirtual-5.10.0.0-nightly-20180423143942-1.x86_64.vsphere.ova  -u <your_ravello_username>@redhat.com
+Running Ravello import tool. Version: 2.1.100017
+Initialize upload...
+Enter password for username mperezco+gpte@redhat.com: 
+Upload status:
+[========================================>] 100%
+upload finished successfully
+----
++
+[NOTE]
+Remember to use your own Ravello username to upload. The password will be prompted.
+
+
+
