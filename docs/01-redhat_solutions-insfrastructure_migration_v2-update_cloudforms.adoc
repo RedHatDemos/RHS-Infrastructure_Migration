@@ -199,4 +199,290 @@ image:ravello_blueprint_update_16.png[Ravello Blueprint Update 16]
 
 ==== Configuring the New CloudForms instance
 
-TDB
+We have now a just deployed CludForms instance. As the network configuration is provided via DHCP, the hostname and IP are coherent with other documentation. We need to do the initial configuration. To do so, follow these staps.
+
+* Get Workstation public IP in Ravello by clicking in the *Summary* tab in the *Properties* pane
++
+image:ravello_workstation_ip.png[Ravello Blueprint Update 16]
+
+* SSH into workstation using the Lab password. 
++
+----
+$ ssh root@129.146.153.217
+The authenticity of host '129.146.153.217 (129.146.153.217)' can't be established.
+ECDSA key fingerprint is SHA256:ztRJAqdV6iu+yRrrP42PaGm107SEMPdYVjGXZuL3EAo.
+ECDSA key fingerprint is MD5:23:22:d1:14:fa:1d:84:29:ea:dd:02:9f:94:b8:a8:87.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '129.146.153.217' (ECDSA) to the list of known hosts.
+Last login: Mon May 21 22:29:09 2018 from workstation.example.com
+[root@workstation-repl ~]# 
+----
+
+* Remove the entries for CloudForms appliance in the ssh `known_hosts` file.
++
+----
+[root@workstation-repl ~]# ssh-keygen -R cf
+# Host cf found: line 44
+/root/.ssh/known_hosts updated.
+Original contents retained as /root/.ssh/known_hosts.old
+[root@workstation-repl ~]# ssh-keygen -R cf.example.com
+# Host cf.example.com found: line 44
+/root/.ssh/known_hosts updated.
+Original contents retained as /root/.ssh/known_hosts.old
+----
+
+* Copy SSH keys to CloudForms appliance, and access it. (Remember, the password is the default appliance one)
++
+----
+[root@workstation-repl ~]# ssh-copy-id cf.example.com
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host 'cf.example.com (192.168.0.100)' can't be established.
+ECDSA key fingerprint is SHA256:dLIP0yOYGPFLaKHc4+zS2x4QPk9uw1heG8+4rj2R8ZM.
+ECDSA key fingerprint is MD5:eb:91:63:b9:14:02:18:81:8f:80:3c:68:15:3a:5d:aa.
+Are you sure you want to continue connecting (yes/no)? yes
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@cf.example.com's password: 
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'cf.example.com'"
+and check to make sure that only the key(s) you wanted were added.
+
+[root@workstation-repl ~]# ssh cf.example.com
+Welcome to the Appliance Console
+
+For a menu, please type: appliance_console
+[root@cf-repl ~]# 
+----
++
+[NOTE]
+We may need to log in again, to the CloudForms appliance from Workstation, using the short name `cf` to have it added to `known_hosts`
+
+* Run `appliance_console`, and once the initial page is shown, press any key to continue. 
++
+----
+Welcome to the CFME Virtual Appliance.
+
+To modify the configuration, use a web browser to access the management page.
+
+Hostname:                cf-repl.rhpds.opentlc.com
+IPv4 Address:            192.168.0.100/255.255.0.0
+IPv4 Gateway:            192.168.0.2
+IPv6 Address:            
+IPV6 Gateway:            
+Primary DNS:             192.168.0.1
+Secondary DNS:           
+Search Order:            workgroup rhpds.opentlc.com
+MAC Address:             2c:c2:60:72:b7:cd
+Timezone:                America/New_York
+Local Database Server:   not initialized
+CFME Server:             not running
+CFME Database:           not configured
+Database/Region:         not configured
+External Auth:           not configured
+CFME Version:            5.10.0.0-pre-nightly
+
+
+Press any key to continue.
+----
+
+* In the appliance menu select *5* to configure the database
++
+----
+Advanced Setting
+
+1) Configure Network
+2) Set Timezone
+3) Set Date and Time
+4) Restore Database From Backup
+5) Configure Database
+6) Configure Database Replication
+7) Logfile Configuration
+8) Configure Application Database Failover Monitor
+9) Extend Temporary Storage
+10) Configure External Authentication (httpd)
+11) Update External Authentication Options
+12) Generate Custom Encryption Key
+13) Harden Appliance Using SCAP Configuration
+14) Stop EVM Server Processes
+15) Start EVM Server Processes
+16) Restart Appliance
+17) Shut Down Appliance
+18) Summary Information
+19) Quit
+
+Choose the advanced setting: 5
+----
+ 
+* In the *Configure Database* menu select *1* to create a new encryption key
++
+----
+Configure Database
+
+No encryption key found.
+For migrations, copy encryption key from a hardened appliance.
+For worker and multi-region setups, copy key from another appliance.
+If this is your first appliance, just generate one now.
+
+Encryption Key
+
+1) Create key
+2) Fetch key from remote machine
+
+Choose the encryption key: |1| 
+----
+
+* In the *Database Operation* manu select *1* to create an internal database
++
+----
+Database Operation
+
+1) Create Internal Database
+2) Create Region in External Database
+3) Join Region in External Database
+4) Reset Configured Database
+
+Choose the database operation: 1
+----
+
+* In the *database disk* menu the added device shall apear (usually /dev/vdb) to be selected pressing *1*. 
++
+----
+database disk
+
+1) /dev/vdb: 10240 MB
+2) Don't partition the disk
+
+Choose the database disk: |1|
+----
++
+[NOTE]
+If no new disk appears you may need to review the steps to add disks to the CloudForms VM.
+
+* When asked if this appliance will be a *standalone database server* press *N*
++
+----
+Should this appliance run as a standalone database server?
+
+NOTE:
+* The CFME application will not be running.
+* This is required when using highly available database deployments.
+* CAUTION: This is not reversible.
+
+? (Y/N): |N| 
+----
+
+* When asked about *region number* type *0* (zero)
++
+----
+Each database region number must be unique.
+Enter the database region number: 0
+----
+
+* Enter the lab password as the password for the database
++
+----
+Enter the database password on localhost: ********
+Enter the database password again: ********
+----
+
+* Wait for database initialization. When requested press any key to continue.
++
+----
+Activating the configuration using the following settings...
+Host:     localhost
+Username: root
+Database: vmdb_production
+Region:   0
+
+Initialize postgresql disk starting
+Initialize postgresql disk complete
+Initialize postgresql starting
+Initialize postgresql complete
+Checking for connections to the database...
+
+Create region starting
+Create region complete
+
+Configuration activated successfully.
+
+Press any key to continue.
+----
+
+* Once back to the main menu, we ensure the appliance is running by *Start EVM Server Processes* with option *15*
++
+----
+Advanced Setting
+
+1) Configure Network
+2) Set Timezone
+3) Set Date and Time
+4) Restore Database From Backup
+5) Configure Database
+6) Configure Database Replication
+7) Logfile Configuration
+8) Configure Application Database Failover Monitor
+9) Extend Temporary Storage
+10) Configure External Authentication (httpd)
+11) Update External Authentication Options
+12) Generate Custom Encryption Key
+13) Harden Appliance Using SCAP Configuration
+14) Stop EVM Server Processes
+15) Start EVM Server Processes
+16) Restart Appliance
+17) Shut Down Appliance
+18) Summary Information
+19) Quit
+
+Choose the advanced setting: 15
+----
++
+----
+Start EVM Server Processes
+
+
+Start CFME? (Y/N): Y
+
+Starting CFME Server...
+
+Press any key to continue.
+----
+
+* Time to leave the appliance with option *Quit*, number *19*
++
+----
+Advanced Setting
+
+1) Configure Network
+2) Set Timezone
+3) Set Date and Time
+4) Restore Database From Backup
+5) Configure Database
+6) Configure Database Replication
+7) Logfile Configuration
+8) Configure Application Database Failover Monitor
+9) Extend Temporary Storage
+10) Configure External Authentication (httpd)
+11) Update External Authentication Options
+12) Generate Custom Encryption Key
+13) Harden Appliance Using SCAP Configuration
+14) Stop EVM Server Processes
+15) Start EVM Server Processes
+16) Restart Appliance
+17) Shut Down Appliance
+18) Summary Information
+19) Quit
+
+Choose the advanced setting: 19
+----
+
+* Once in the command line we reboot the VM
++
+----
+[root@cf-repl ~]# reboot
+----
+
+* The rest of the CloudForms appliance configuration can be done following the link:00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Deplyment Guide] 
+
+
