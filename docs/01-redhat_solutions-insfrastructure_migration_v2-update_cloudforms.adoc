@@ -29,6 +29,7 @@ It is possible to update it to the upstream ManageIQ builds also by using the av
 
 Ravello consumes vSphere images easily, therefore we will download the *CFME vSphere* image (with paravirtual drivers where possible).
 
+[NOTE]
 One example of the images used successcuflly in Ravello blueprints is this one:
 http://file.cloudforms.lab.eng.rdu2.redhat.com/builds/cfme/5.10/20180521_152405/cfme-vsphere-paravirtual-5.10.0.0-nightly-20180521152405-1.x86_64.vsphere.ova
 
@@ -81,5 +82,37 @@ upload finished successfully
 [NOTE]
 Remember to use your own Ravello username to upload. The password will be prompted.
 
+=== Creating New Blueprint in Ravello
+
+To update the CloudForms instance in Ravello several steps need to be taken. To summarize it, we will create a new application from the previous blueprint, before publishing it we will add the uploaded VM, we will save the disk of the uploaded VM and use it to replace the one in the old CloudForms VM, and them remove the added VM. This way we won't need to reconfigure network addresses nor DNS names.
+
+Let's go through the preocess step by step.
+
+* Login in Ravello. https://cloud.ravellosystems.com
++
+image::ravello_login.png[Ravello Login]
++
+[NOTE] 
+If you don't have a login to Ravello, you may read these link:https://mojo.redhat.com/docs/DOC-1138617[Instructions] to request it.
+
+==== Importing Uploaded VM
+
+Once in Ravello we will import the previously uploaded VM, which contains the CloudForms Nightly build. (olr ManageIQ Nightly Build)
+
+* Navigate to *Library -> VMs* and find the uploaded VM.  Once selected click on *Edit & Verify VM*.+
+image:ravello_import_vm_1.png[Ravello Import VM 1]
++
+[NOTE]
+Our uploaded VM shows a gears icon because it was not fully imported, and the name is the one described in the OVA file.
+
+* In the *General Properties* pane on the right, establish the VM name referencing its version, and add the build version to the description. Then click *finish*
+image:ravello_import_vm_2.png[Ravello Import VM 2]
++
+[NOTE]
+In Nightly Builds the references to the version can be the date of the build in ISO 8601 format (or similar) to avoid confusion.
+
+* The VM list will show now the image, marked as verified, with the version number in the name
++
+image:ravello_import_vm_3.png[Ravello Import VM 3]
 
 
