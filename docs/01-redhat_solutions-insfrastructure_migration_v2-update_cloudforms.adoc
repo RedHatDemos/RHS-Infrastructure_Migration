@@ -13,7 +13,7 @@ This document describes how to update Cloudforms in the Ravello Blueprint for In
 
 To obtain the CloudForms Nightly build we access the internal engineering builds.
 
-[cols="1,1",options="header"]
+[cols="1,1,1",options="header"]
 |=======
 |Product |Version | URL
 |CloudForms Nightly |4.6+ | http://file.cloudforms.lab.eng.rdu2.redhat.com/builds/cfme/5.10/latest/
@@ -21,7 +21,7 @@ To obtain the CloudForms Nightly build we access the internal engineering builds
 
 It is possible to update it to the upstream ManageIQ builds also by using the available URL
 
-[cols="1,1",options="header"]
+[cols="1,1,1",options="header"]
 |=======
 |Product |Version | URL
 |ManageIQ Nightly |Gaprindashvili | http://manageiq.org/download/
