@@ -14,9 +14,9 @@ Based in New code. Includes UI to perform migration. Beta.
 
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Infrastructure Migration 1.0 Lab Guide]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Infrastructure Migration 1.0 Deployment Guide]
-. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/01-redhat_solutions-insfrastructure_migration_v2-troubleshooting.adoc[Infrastructure Migration 1.0 troubleshooting notes]
+. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/01-redhat_solutions-insfrastructure_migration_v2-troubleshooting.adoc[Infrastructure Migration 1.0 Troubleshooting notes]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-update_cloudforms.adoc[Infrastructure Migration 1.0 CloudForms appliance update guide ]
-. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-notes.adoc[Infrastructure Migration v2 Miscelaneous notes]
+. link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-notes.adoc[Infrastructure Migration 1.0 Miscelaneous notes]
 
 === Migration Factory
 
