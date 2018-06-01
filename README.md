@@ -7,7 +7,7 @@ Please, report issues with documentation and/or lab in the issues section of thi
 * [Red Hat Product Demo System](https://rhpds.redhat.com)
 * [Infrastructure Migration Lab Instructions](docs/00-redhat_solutions-insfrastructure_migration_lab.adoc)
 
-## Releases - Infratructure Migration Solution v1.0 tech preview
+## Releases - Infratructure Migration Solution 1.0 tech preview
 ```
   0.1 Deploy RHV 4.2.2 beta
   0.2 Deploy ManageIQ with new code
