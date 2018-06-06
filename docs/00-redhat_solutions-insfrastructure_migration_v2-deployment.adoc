@@ -138,7 +138,7 @@ As a reference on how to deploy a CloudForms appliace on RHV and vSphere the fol
 
 In this lab we will have a CloudForms instance, that was deployed using a nightly build, by downloading an appliance image and adding it to the environment.
 
-The environment is completely configuredi, and an overview look at it, is recommended before starting.
+The environment is completely configured, and an overview look at it, is recommended before starting.
 
 Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms:
 
