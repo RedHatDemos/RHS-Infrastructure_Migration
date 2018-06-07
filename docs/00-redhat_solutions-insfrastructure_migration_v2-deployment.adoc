@@ -130,7 +130,7 @@ If you have doubts on the steps taking place during the conversion, please read 
 The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL. 
 
 In this Deployment Lab, a Cloudforms appliance is already provided, so there is no need to deploy one.
-As a reference on how to deploy a CloudForms appliace on RHV and vSphere the following official documentation is available: 
+As a reference on how to deploy a CloudForms appliance on RHV and vSphere the following official documentation is available: 
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_red_hat_virtualization/[Installing Red Hat CloudForms on Red Hat Virtualization]
 
@@ -150,7 +150,7 @@ Once the overview is done, we can proceed by running, in `workstation`, the play
 The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm0` or the RHV setup.
 
 [NOTE]
-Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password.
+Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password (smartvm).
 
 ==== Enable Git Repositories
 
