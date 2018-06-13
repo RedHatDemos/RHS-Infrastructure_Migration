@@ -6,6 +6,7 @@ Please, report issues with documentation and/or lab in the issues section of thi
 
 * [Red Hat Product Demo System](https://rhpds.redhat.com)
 * [Infrastructure Migration Lab Instructions](docs/00-redhat_solutions-insfrastructure_migration_lab.adoc)
+* [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
 ## Releases - Infratructure Migration Solution 1.0 tech preview
 ```
