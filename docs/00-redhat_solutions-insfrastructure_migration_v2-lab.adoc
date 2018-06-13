@@ -10,8 +10,10 @@
 == Overview
 
 This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin), as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
- 
-The provided configuration steps include:
+
+Please watch this videos for an introduction: link:https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview[Virtualization and Infrastructure Migration Technical Overview (RH018)]
+
+In this environment the following configuration steps are already done:
 
 * Configure the conversion hosts in the target provider (RHV)
 * Provide credentials for virtualization providers and conversion hosts in CloudForms
