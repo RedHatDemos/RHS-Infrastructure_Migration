@@ -196,7 +196,7 @@ image::cloudforms_add_providers_6.png[Add Providers 6]
 +
 image::cloudforms_add_providers_7.png[Add Providers 7]
 
-This way the two Virtualization provided are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
+This way the two Virtualization providers are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
 
 [TIP]
 It is recommended to go to *Compute -> Infrastructure -> Providers* select both providers and click on *Configuration -> Refresh Relationships and Power States* before continuing to have all data from providers updated.
@@ -257,7 +257,7 @@ all:
 
 Then the playbooks are run in the `v2v-transformation_host-ansible` directory. 
 
-There is a `check` playbook that can be run and ensures that the installation is OK. You can run it before install to see how it reports errors:
+There is a `check` playbook that can be run and ensures that the installation is OK. You can run it before installing to see how errors are reported:
 
 ----
 # cd /root/v2v-transformation_host-ansible
