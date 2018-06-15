@@ -380,7 +380,7 @@ image::migration_plan_2.png[Migration Plan 2]
 +
 * A description may be added to make it easy to, later on, recognize the usage of the plan.
 
-. In a different brower page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes/ticket_monster_migration.csv[ticket_monster_migration.csv]
+. In a different browser page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes/ticket_monster_migration.csv[ticket_monster_migration.csv]
 +
 image::migration_plan_3.png[Migration Plan 3]
 +
