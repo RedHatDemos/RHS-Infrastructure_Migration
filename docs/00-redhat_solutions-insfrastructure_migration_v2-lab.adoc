@@ -13,6 +13,8 @@ This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration p
 
 Please watch this videos for an introduction: link:https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview[Virtualization and Infrastructure Migration Technical Overview (RH018)]
 
+The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]
+
 In this environment the following configuration steps are already done:
 
 * Configure the conversion hosts in the target provider (RHV)
@@ -75,7 +77,7 @@ Internet Explorer is not recommended.
 
 . Partners MUST request access to RHPDS by sending an email to open-program@redhat.com. 
 
-. Passwords to the services is referred as `<to_be_provided>`. Please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team] in case you didn't get them
+. Passwords to the services is referred as `<to_be_provided>`. The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
 
 == Preparation
 
