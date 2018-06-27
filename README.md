@@ -21,6 +21,7 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.9 Changed autostart options to make it work better
   0.10 Updated CF appliance (now CF, not MiQ)
   0.11 Fixes and corrections
+  0.12 Access to credentials
 ```
 
 
