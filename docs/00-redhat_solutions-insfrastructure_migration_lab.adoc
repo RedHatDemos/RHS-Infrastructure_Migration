@@ -18,6 +18,8 @@ Based in New code. Includes UI to perform migration. Beta.
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/01-redhat_solutions-insfrastructure_migration_v2-update_cloudforms.adoc[Infrastructure Migration 1.0 CloudForms appliance update guide ]
 . link:https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/docs/00-redhat_solutions-insfrastructure_migration_v2-notes.adoc[Infrastructure Migration 1.0 Miscelaneous notes]
 
+The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
+
 === Migration Factory
 
 Based in Migration Factory code. Does not include UI to perform migration. To be superseeded.
