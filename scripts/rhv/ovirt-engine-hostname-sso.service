@@ -1,6 +1,7 @@
 [Unit]
 Description=Add hostname to RHV SSO
 Before=ovirt-engine.service
+After=network.target network-online.target
 
 [Service]
 Type=oneshot
