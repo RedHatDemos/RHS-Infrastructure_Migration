@@ -13,14 +13,14 @@ infra_vsphere
 infra_other
 
 [infra_rhv]
-kvm0.example.com
-kvm1.example.com
 rhvm.example.com
+kvm1.example.com
+kvm2.example.com
 
 [infra_vsphere]
 #esx1.example.com
 #esx2.example.com
-vcenter.example.com
+#vcenter.example.com
 
 [infra_other]
 workstation.example.com

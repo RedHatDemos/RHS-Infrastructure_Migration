@@ -1,0 +1,21 @@
+:scrollbar:
+:data-uri:
+:toc2:
+:imagesdir: images
+
+== Red Hat Solutions: IT Optimization - Infrastructure Migration
+
+Infrastructure Migration has two versions, please use as needed.
+
+
+=== Infrastructure Migration Solution v1.0
+
+Based in New code. Includes UI to perform migration. Release Candidate.
+
+. link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.0 Lab Guide]
+. link:insfrastructure_migration-vm_conversion_faq.adoc[Infrastructure Migration 1.0 VM Conversion FAQ]
+. link:insfrastructure_migration-deployment_guide.adoc[Infrastructure Migration 1.0 Deployment Guide]
+. link:insfrastructure_migration-troubleshooting.adoc[Infrastructure Migration 1.0 Troubleshooting notes]
+. link:insfrastructure_migration-working_notes.adoc[Infrastructure Migration 1.0 Miscelaneous notes]
+
+The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].

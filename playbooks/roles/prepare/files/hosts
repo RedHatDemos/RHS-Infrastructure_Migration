@@ -1,18 +1,20 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-192.168.0.10 workstation.example.com workstation
-192.168.0.254 storage.example.com storage
-192.168.0.100 cf.example.com cf
-192.168.0.40 kvm0.example.com kvm0
-192.168.0.41 kvm1.example.com kvm1
-192.168.0.35 rhvm.example.com rhvm
-192.168.0.51 esx1.example.com esx1
-192.168.0.52 esx2.example.com esx2
-192.168.0.50 vcenter.example.com vcenter
+10.250.250.99 workstation.example.com workstation
+10.250.250.3 storage.example.com storage
+10.250.250.50 cf.example.com cf
+
+10.250.250.40 rhvm.example.com rhvm
+10.250.250.41 kvm1.example.com kvm1
+10.250.250.42 kvm2.example.com kvm2
+
+10.250.250.5 vcenter.example.com vcenter
+10.250.250.10 esx1.example.com esx1
+10.250.250.20 esx2.example.com esx2
   
-192.168.1.100 lb.example.com app.example.com app lb nginx
-192.168.1.110 jboss0.example.com jboss0
-192.168.1.111 jboss1.example.com jboss1
-192.168.1.120 db.example.com db
+10.250.250.100 lb.example.com app.example.com app lb nginx
+10.250.250.110 jboss0.example.com jboss0
+10.250.250.111 jboss1.example.com jboss1
+10.250.250.120 db.example.com db
 

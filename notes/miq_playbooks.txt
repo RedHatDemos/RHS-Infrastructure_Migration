@@ -1,4 +1,0 @@
-
-https://github.com/fdupont-redhat/v2v-demolab-ansible
-
-git clone https://github.com/fdupont-redhat/v2v-demolab-ansible.git
