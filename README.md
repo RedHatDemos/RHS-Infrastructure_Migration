@@ -4,7 +4,7 @@ This is currently work in progress. Please use it with caution.
 Please, report issues with documentation and/or lab in the issues section of this repo.
 
 * [Red Hat Product Demo System](https://rhpds.redhat.com)
-* [Infrastructure Migration Lab Instructions](docs)
+* [Infrastructure Migration Lab Instructions](doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
 ## Releases - Infratructure Migration Solution 1.0 tech preview
@@ -21,6 +21,8 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.10 Updated CF appliance (now CF, not MiQ)
   0.11 Fixes and corrections
   0.12 Access to credentials
-  0.13 Updated CF image 
+  0.13 Updated CF image
+  0.14 Updated RHV
+  0.15 Updated CF image
 ```
 
