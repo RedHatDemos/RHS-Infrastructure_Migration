@@ -126,8 +126,8 @@ image::architecture_diagram.png[Architecture Diagram]
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
-|`kvm0.example.com` |`192.168.0.40` | kvm0-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
+|`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
@@ -311,7 +311,7 @@ image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 +
 image::conversion_host_1.png[Conversion Host 1]
 
-. Click *kvm0*.
+. Click *kvm1.example.com*.
 +
 image::conversion_host_2.png[Conversion Host 2]
 
@@ -327,7 +327,7 @@ image::conversion_host_6.png[Conversion Host 6]
 +
 image::conversion_host_7.png[Conversion Host 7]
 
-. Select *Configuration -> Edit this item* (back in `kvm0`).
+. Select *Configuration -> Edit this item* (back in `kvm1.example.com`).
 +
 image::conversion_host_8.png[Conversion Host 8]
 
@@ -415,9 +415,17 @@ image::migration_plan_7.png[Migration Plan 7]
 
 === Launch Migration
 
-. CloudForms interface shows migration status too
+. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button in the *ticket-monster-plan-lb*.
 +
 image::migration_running_1.png[Migration Running 1]
+
+. The migration will get initiated. All data is gathered and preflight checks are executed.
++
+image::migration_running_2.png[Migration Running 2]
+
+. The plan gets auto-approved. Migration starts
++
+image::migration_running_3.png[Migration Running 3]
 
 . Now the migration is executing. We can see the orchestration process in Cloudforms logs
 +
@@ -429,21 +437,43 @@ image::migration_running_1.png[Migration Running 1]
 And each VM migration process in the Conversion Host:
 +
 ----
-# ssh kvm0.example.com
+# ssh kvm1.example.com
 # tail -f /var/log/vdsm/import/*
 ----
 
-. CloudForms interface shows migration status too
+. CloudForms Migration interface shows migration status too
 +
-image::migration_running_1.png[Migration Running 1]
+image::migration_running_4.png[Migration Running 4]
 
-. In RHV interface we can see starting to appear
+. Clicking on the running plan info box will display the detailed info of the status
 +
-image::migration_running_2.png[Migration Running 2]
+image::migration_running_5.png[Migration Running 5]
 
-. Migration finishes
+. Progress can be followed in this page or in the main Migration page
 +
-image::migration_running_3.png[Migration Running 3]
+image::migration_running_6.png[Migration Running 6]
+
+. For the time of the migration the load balancer, `lb` will be powered off migrated and then powered on.
++
+image::migration_running_7.png[Migration Running 7]
+
+. It is possible to check in *RHV* interface, in *Compute -> Virtual Machines* how the VM gets imported.
++
+image::migration_running_8.png[Migration Running 8]
+
+. Once the migration is finishing ...
++
+image::migration_running_9.png[Migration Running 9]
+
+. ... the VM gets powered up
++
+image::migration_running_10.png[Migration Running 10]
++
+image::migration_running_11.png[Migration Running 11]
+
+. The migration gets completed.
++
+image::migration_running_12.png[Migration Running 12]
 
 . Let's check if the VMs are up and running using the following command:
 +
@@ -453,8 +483,12 @@ image::migration_running_3.png[Migration Running 3]
 
 . It's time to check the *app* running and accesible via the URL https://app-<YOUR-GUID>.rhpds.opentlc.com
 +
-image::migration_running_5.png[Migration Running 5]
+image::migration_running_14.png[Migration Running 14]
 
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:00-redhat_solutions-insfrastructure_migration_v2-deployment.adoc[Deployment guide]. 
+. Migration can be reviewed in the Main Migration page in CloudForms
++
+image::migration_running_15.png[Migration Running 15]
+
+If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration_v2-deployment.adoc[Deployment guide]. 
 
 
