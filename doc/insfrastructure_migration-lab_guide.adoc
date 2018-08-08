@@ -380,44 +380,44 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan` and click *next*.
+. In the *step 1* of the wizard, *General*, select the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan-lb` and click *next*.
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
-* A description may be added to make it easy to, later on, recognize the usage of the plan.
+[NOTE]
+Keeping the default option will take us to the VM menu selector. For massive conversions a CSV file upload can be the right choice.
 
-. In a different browser page, download the CSV file with the VMs link:https://raw.githubusercontent.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/master/notes/ticket_monster_migration.csv[ticket_monster_migration.csv]
+. In the *step 2* of the wizard, *VMs*, select the *lb* virtual machine, as the one to be migrated.
 +
 image::migration_plan_3.png[Migration Plan 3]
 +
 [NOTE]
-This step will be kept for massive migrations, however, a different interface to choose VMs to be migrated is expected in the near term
-+
-[TIP]
-To get the VM ids, for the CSV file, can be obtained from a web browser by accessing the following CloudForms URL (remember to change the GUID):  https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/vms?expand=resources
-+
-[TIP]
-To get the VM ids via command line, the following commands can be run in ManageIQ/CloudForms:
----- 
-# cd /var/www/miq/vmdb
-# bundle exec rails c
-irb> Vm.find_by(:name => "<VM_NAME>").id
-----
-+
-[WARNING]
-If the CloudForms environment has been reconfigured, the csv file may need ot be regenerated as the VM ids in CloudForms could have changed.
+VM selector has a filter to help find a set of VMs within a long list.
 
-. In the *step 2* of the wizard, *VMs*, select the *Browse* to select a CSV file with the names of the VMs to be migrated. Then select `ticket_monster_migration.csv` and click *Open*.
+. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We won't use this in this demo. Click *Next*
 +
 image::migration_plan_4.png[Migration Plan 4]
 
-. The list of the VMs to be migrated shall appear in on screen. Review and click *create*.
+. In the *step 4* of the wizard, *Schedule*, select *Save migration plan to run later*. Click *Create*
 +
 image::migration_plan_5.png[Migration Plan 5]
++
+[NOTE]
+The migration plan can be run immediately, by choosing the other option. 
 
-. In the *step 3* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan is in progress` shall appear. Click *close*.
+. In the *step 5* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan has been saved` shall appear. Click *Close*.
 +
 image::migration_plan_6.png[Migration Plan 6]
+
+. Back to the migration paage we will see how the *Infrastructure Mapping* and *Migration Plan* are ready to be run
++
+image::migration_plan_7.png[Migration Plan 7]
+
+=== Launch Migration
+
+. CloudForms interface shows migration status too
++
+image::migration_running_1.png[Migration Running 1]
 
 . Now the migration is executing. We can see the orchestration process in Cloudforms logs
 +
