@@ -3,11 +3,11 @@
   "transport_method": "vddk",
   "vmware_fingerprint": "37:40:1F:AC:43:61:6D:52:D6:FA:06:81:3D:36:DA:21:D6:F7:2E:96",
   "vmware_uri": "vpx://root@vcenter.example.com/DC01/Cluster01/192.168.0.51?no_verify=1",
-  "vmware_password": "r3dh4t1!",
+  "vmware_password": "xxxxxxxx",
   "rhv_url": "https://rhvm.example.com/ovirt-engine/api",
   "rhv_cluster": "TrustedCluster",
   "rhv_storage": "VMStorageNFS",
-  "rhv_password": "r3dh4t1!",
+  "rhv_password": "xxxxxxxx",
   "source_disks": [
     "[Datastore] lb/lb.vmdk"
   ],
