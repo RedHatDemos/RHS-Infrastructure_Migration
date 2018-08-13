@@ -1,0 +1,43 @@
+---
+- name: Install Mod_Cluster
+  yum:
+    name: "@jbcs-httpd24"
+    state: latest
+  notify:
+    - Start Mod_Cluster
+
+- name: Enable Mod_Cluster
+  service: 
+    name: jbcs-httpd24-httpd
+    enabled: yes
+    state: started
+
+- name: Enable Mod_Cluster Firewalld ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+    immediate: yes
+  with_items:
+    - 80/tcp
+    - 443/tcp
+    - 6666/tcp
+    - 23364/udp
+
+#
+# SELinux boolean to enable connection Mod_Cluster-JBoss
+# setsebool -P httpd_can_network_connect 1
+#
+#- name: Set SELinux boolean to allow proxy to run
+#  seboolean:
+#    name: httpd_can_network_connect
+#    state: yes
+#    persistent: yes
+
+- name: Copy Mod_Cluster-JBoss config
+  copy:
+    src: mod_cluster.conf
+    dest: /opt/rh/jbcs-httpd24/root/etc/httpd/conf.d/mod_cluster.conf
+    backup: yes
+  notify:
+    - Reload Mod_Cluster

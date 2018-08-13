@@ -1,0 +1,10 @@
+---
+- name: Start Mod_Cluster
+  service:
+    name: jbcs-httpd24-httpd
+    state: started
+
+- name: Reload Mod_Cluster
+  service:
+    name: jbcs-httpd24-httpd
+    state: reloaded
