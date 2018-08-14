@@ -48,8 +48,8 @@ Required versions of products used:
 |=======
 |Product |Version
 |CloudForms |4.6.4+ 
-|Red Hat Virtualization |4.2.5+ beta
-|Red Hat Enterprise Linux (Hypervisor) |7.5 
+|Red Hat Virtualization |4.2.5+
+|Red Hat Enterprise Linux (Hypervisor) |7.5+
 |VMware vSphere |5.5+
 |=======
 
