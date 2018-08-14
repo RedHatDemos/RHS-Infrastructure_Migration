@@ -27,6 +27,7 @@
     state: enabled
     immediate: yes
   with_items:
+    - 8009/tcp
     - 8080/tcp
     - 8443/tcp
     - 9990/tcp
