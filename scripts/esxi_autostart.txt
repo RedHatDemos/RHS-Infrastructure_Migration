@@ -1,0 +1,48 @@
+~ # vim-cmd vmsvc/getallvms
+Vmid    Name                File                  Guest OS      Version   Annotation
+15     db       [Datastore] db_1/db.vmx         rhel7_64Guest   vmx-10              
+16     jboss0   [Datastore] jboss0/jboss0.vmx   rhel7_64Guest   vmx-10
+
+~ # vim-cmd hostsvc/autostartmanager/get_autostartseq
+(vim.host.AutoStartManager.AutoPowerInfo) [
+   (vim.host.AutoStartManager.AutoPowerInfo) {
+      dynamicType = <unset>, 
+      key = 'vim.VirtualMachine:16', 
+      startOrder = -1, 
+      startDelay = 15, 
+      waitForHeartbeat = "yes", 
+      startAction = "PowerOn", 
+      stopDelay = 1, 
+      stopAction = "GuestShutDown", 
+   }
+]
+
+~ # vim-cmd hostsvc/autostartmanager/update_autostartentry 15 PowerOn 5 1 GuestShutDown 5 yes
+1Updated AutoStart order.
+
+
+~ # vim-cmd hostsvc/autostartmanager/get_autostartseq
+(vim.host.AutoStartManager.AutoPowerInfo) [
+   (vim.host.AutoStartManager.AutoPowerInfo) {
+      dynamicType = <unset>, 
+      key = 'vim.VirtualMachine:15', 
+      startOrder = 1, 
+      startDelay = 5, 
+      waitForHeartbeat = "yes", 
+      startAction = "PowerOn", 
+      stopDelay = 5, 
+      stopAction = "GuestShutDown", 
+   }, 
+   (vim.host.AutoStartManager.AutoPowerInfo) {
+      dynamicType = <unset>, 
+      key = 'vim.VirtualMachine:16', 
+      startOrder = -1, 
+      startDelay = 15, 
+      waitForHeartbeat = "yes", 
+      startAction = "PowerOn", 
+      stopDelay = 1, 
+      stopAction = "GuestShutDown", 
+   }
+]
+
+ 
