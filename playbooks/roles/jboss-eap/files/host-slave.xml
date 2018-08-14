@@ -87,7 +87,9 @@
         </jvm>
     </jvms>
     <servers>
-        <server name="server-one" group="main-server-group"/>
+        <server name="server-one" group="main-server-group">
+            <socket-bindings socket-binding-group="full-ha-sockets" port-offset="0"/>
+        </server>
     </servers>
     <profile>
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>

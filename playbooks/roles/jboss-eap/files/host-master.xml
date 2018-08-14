@@ -85,7 +85,7 @@
     </jvms>
     <servers>
         <server name="server-two" group="main-server-group" auto-start="true">
-            <socket-bindings socket-binding-group="full-sockets" port-offset="0"/>
+            <socket-bindings socket-binding-group="full-ha-sockets" port-offset="0"/>
         </server>
     </servers>
     <profile>
