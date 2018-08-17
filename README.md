@@ -23,6 +23,7 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.12 Access to credentials
   0.13 Updated CF image
   0.14 Updated RHV
-  0.15 Updated CF image
+  0.15 Updated CF image 5.9.4.2-1
+  0.16 Updated CF image 5.9.4.4-1
 ```
 
