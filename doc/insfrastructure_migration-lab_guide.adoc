@@ -493,6 +493,6 @@ image::migration_running_15.png[Migration Running 15]
 [NOTE]
 To practice, a new *Migration Plan* for the rest of the VMs can be created using the available *Infrastructure Mapping*, completing the migration of the whole app. 
 
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration_v2-deployment.adoc[Deployment guide]. 
+If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide]. 
 
 
