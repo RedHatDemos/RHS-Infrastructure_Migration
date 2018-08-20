@@ -2,6 +2,7 @@
 #
 # Add to /etc/rc.local.d/local.sh  before "exit 0" to ensure all VMs start on boot
 # It can be used as standalone script also to poweron all VMs that are off
+# Check permissions 755 on it
 
 sleep 15
 
