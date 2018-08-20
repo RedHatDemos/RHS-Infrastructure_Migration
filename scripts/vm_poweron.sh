@@ -3,7 +3,7 @@
 # Add to /etc/rc.local.d/local.sh  before "exit 0" to ensure all VMs start on boot
 # It can be used as standalone script also to poweron all VMs that are off
 
-sleep 10
+sleep 15
 
 vmid_list=$(vim-cmd vmsvc/getallvms | awk '{print $1}' | grep -v Vmid)
 
