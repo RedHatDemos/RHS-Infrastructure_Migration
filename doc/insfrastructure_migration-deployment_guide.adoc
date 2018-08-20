@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.0 - Deployment Guide
+== Infrastructure Migration 1.0 GA - Deployment Guide
 
 :numbered:
 
@@ -12,6 +12,7 @@
 The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is built, and included in the environment provided for this guide.
 
 This guide intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
+For the *official documentation* of the solution please go link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index[here]
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
@@ -41,60 +42,33 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms Nightly |4.6+ 
-|Red Hat Virtualization |4.2.2+ beta
-|Red Hat Enterprise Linux (Hypervisor) |7.5
+|CloudForms |4.6.4+
+|Red Hat Virtualization |4.2.5+
+|Red Hat Enterprise Linux (Hypervisor) |7.5+
 |VMware vSphere |5.5+
 |=======
 
-=== CloudForms requirements
-
-CloudForms is deployed using a Nightly Build appliance. To save time a pre-deployed appliance is provided
-
-The CloudForms appliance will use:
-
-* RHEL 7.5 
-* Software Collections 
-** PostgreSQL 9.5
-
-=== RHV Requirements
-
-Red Hat Virtualization, referred as RHV, is the product built from the code of its upstream project oVirt. 
-To be able to perform the migration the following versions are required:
-
-* RHEL 7.5 
-* RHV 4.2.2+ beta
-
-The code being included will reach the product once it's published as GA.
-
-Meanwhile, the location of the packages used in this lab are the following:
+The packages will come through the official software channels. In this environment, the following local repos are provided instead:
 [cols="1,1,1",options="header"]
 |=======
 |Product |Origin| Use
-|RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server/$basearch/os/ |RHEL 7.5.z beta builds (Libvirt changes needed)
-|RHEL 7.5 optional |http://download.eng.bos.redhat.com/rel-eng/latest-RHEL-7.5/compose/Server-optional/$basearch/os/ | RHEL 7.5 optional packages beta builds
-|RHEL 7.5 extras |http://download.eng.bos.redhat.com/rel-eng/latest-EXTRAS-7-RHEL-7.5/compose/Server/$basearch/os/ | RHEL 7.5 extras packages beta builds
-|RHV Hypervisor packages for RHEL 7.5 |http://download.eng.bos.redhat.com/rel-eng/repos/rhevh-rhel-7.5-candidate/$basearch/ |RHV Hypervisor beta builds for RHEL 7.5
-|RHV Manager 4.2.2 |http://bob.eng.lab.tlv.redhat.com/builds/4.2/rhv-4.2.2-3/el$releasever |RHV Manager 4.2.2 beta builds
-|JBoss EAP 7.1 |http://download.devel.redhat.com/devel/candidates/JBEAP/composing/latest-JBEAP-7.1-RHEL-7/compose/Server/$basearch/os/ |RHV Manager depends on it
+|RHEL 7.5 | http://storage.example.com/repos/rhel-7-server-rpms |RHEL 7.5 (Libvirt updates needed)
+|RHEL 7.5 optional |  http://storage.example.com/repos/rhel-7-server-optional-rpms | RHEL 7.5 optional packages
+|RHEL 7.5 extras | http://storage.example.com/repos/rhel-7-server-extras-rpms | RHEL 7.5 extras packages beta
 |=======
 
-The packages are already available "offline" in the environment in:
-
-* http://storage.example.com/repos
-
-The following https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/notes/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+The following https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/scripts/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
 === Conversion Host Requirements
 
-To perform the conversion task of the VMs during migration a conversion host is required. One of the architectural choices is to use RHEL-H Hypervisors as conversion hosts, which is the one we will use here.
+To perform the conversion task of the VMs during migration a conversion host is required. One of the architectural choices is to use RHEL Hypervisors as conversion hosts, which is the one we will use here.
 
 [cols="1,1,1",options="header"]
 |=======
 |Product |Origin| Use
 |VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
-|VDDK RPMs |http://storage.example.com/repos/v2v-nbdkit-rpms |Virtual Disk Development Kit (VDDK) RPMs
-|VDDK SRPMs |http://storage.example.com/repos/v2v-nbdkit-src-rpms |Virtual Disk Development Kit (VDDK) SRPMs
+|nbdkit RPMs |http://storage.example.com/repos/v2v-nbdkit-rpms |Virtual Disk Development Kit (VDDK) RPMs
+|nbdkit SRPMs |http://storage.example.com/repos/v2v-nbdkit-src-rpms |Virtual Disk Development Kit (VDDK) SRPMs
 |=======
 
 == VM Migration Workflow
@@ -149,22 +123,14 @@ Once the overview is done, we can proceed by running, in `workstation`, the play
 # ansible-playbook unconfigure.yml 
 ----
 
-The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm0` or the RHV setup.
+The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1` or the RHV setup.
 
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password (smartvm).
 
-==== Enable Git Repositories
+==== Automation domain in CloudForms
 
-Some logic to perform the VMs transformation is provided in a git repo.
-
-To enable, in CloudForms, the capability to import git repos, the neccesary role has to be activated, by following these steps:
-
-. Go to upper right corner, click in *Administrator* to get a drop down menu, and in it, click in *Configuration*.
-
-. In the *Configuration* page click in *Git Repositories Owner* to enable it, and then click *Save*
-+
-image::cloudforms_enable_git.png[CloudForms Enable Git]
+TODO: Add a review on the automation domain
 
 ==== Add Virtualization Providers
 
@@ -203,45 +169,19 @@ This way the two Virtualization providers are managed by CloudForms. Take some t
 [TIP]
 It is recommended to go to *Compute -> Infrastructure -> Providers* select both providers and click on *Configuration -> Refresh Relationships and Power States* before continuing to have all data from providers updated.
 
-==== Adding the V2V Automation Domain
-
-Some logic to perform the VMs transformation tasks come bundled as a Domain, provided by a git repo.
-
-It requires that the *Git Repositories Owner* is enabled as states some steps above.
-
-. To import the Domain, go to *Automation -> Automate -> Import/Export*.
-
-. In the *Import/Export* page, in the field for *Git URL* type `https://github.com/RedHatDemos/v2v-automate.git`, no *Username* or *Password* needed. The checkbox *Verify Peer Certificate* may be left checked. Click *Submit*. (Alternative URL for git repo: `https://github.com/fdupont-redhat/v2v-automate.git`)
-+
-image::cloudforms_automate_import_1.png[CloudForms Automate Import 1]
- 
-. A page to specify import details appears. In it the selection for *Branch/Tag* will be `Branch` and the selection in *Branches* will be `origin/master`. Click *Submit*.
-+
-image::cloudforms_automate_import_2.png[CloudForms Automate Import 2]
-
-. The import will be done and a page informing with the message *Imported from git* will appear.
-+
-image::cloudforms_automate_import_3.png[CloudForms Automate Import 3]
-
-. Import can be verified by navigating to *Automation -> Automate -> Explorer* and seeing the `V2V (origin/master) (V2V) (Locked)` entry in the *Datastore*
-+
-image::cloudforms_automate_import_4.png[CloudForms Automate Import 4]
-+
-[TIP]
-For more information on how to use this feature to create a CI/CD pipeline go to http://www.jung-christian.de/post/2017/11/continuous-integration-with-automate/
-
 === Conversion Host Installation
 
-We will use both hypervisors, `kvm0` and `kvm1`, as conversion hosts. Host `kvm0` is already configured. We will proceed to install `kvm1`.
+We will use both hypervisors, `kvm1` and `kvm2`, as conversion hosts. Host `kvm1` is already configured. We will proceed to install `kvm2`.
 
-In the `/root` directory of the Workstation, used as *Ansible* main host, the following repo is cloned:
-[cols="1,1,1",options="header"]
-|=======
-|Directory |Origin| Use
-|v2v-transformation_host-ansible |https://github.com/fdupont-redhat/v2v-transformation_host-ansible.git |Conversion Hosts Playbooks (Enable/Disable/Check)
-|=======
+In the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks` directory of the RHV Manager, the playbooks to install a conversion host are available:
 
-The file `inventory_example.yml` is created, in the `v2v-transformation_host-ansible` directory, with the following content:
+----
+[root@workstation ~]# ssh rhvm
+[root@rhvm ~]# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks
+----
+
+
+An inventory file `conversion_hosts_inventory.yml` has to be created, with the following content:
 
 ----
 all:
@@ -253,17 +193,16 @@ all:
     v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
     v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
   hosts:
-#    kvm0.example.com:
-    kvm1.example.com:
+#    kvm1.example.com:
+    kvm2.example.com:
 ----
 
-Then the playbooks are run in the `v2v-transformation_host-ansible` directory. 
+Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` directory. 
 
 There is a `check` playbook that can be run and ensures that the installation is OK. You can run it before installing to see how errors are reported:
 
 ----
-# cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 
 
@@ -271,14 +210,14 @@ After that, the installation of tools can be performed by running the `enable` p
 
 ----
 # cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory_example.yml transformation_host_enable.yml 
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_enable.yml 
 ----
 
 It may be time to check again and ensure the tool installation went OK:
 
 ----
 # cd /root/v2v-transformation_host-ansible
-# ansible-playbook --inventory-file=inventory_example.yml transformation_host_check.yml 
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 
 === Conversion Host Configuration in CloudForms
@@ -287,7 +226,7 @@ It may be time to check again and ensure the tool installation went OK:
 +
 image::conversion_host_1.png[Conversion Host 1]
 
-. Click *kvm1*.
+. Click *kvm2*.
 +
 image::conversion_host_2.png[Conversion Host 2]
 
@@ -318,7 +257,7 @@ You may see the tags added under *Smart Management* in the host page.
 +
 image::conversion_host_1.png[Conversion Host 1]
 
-. Click *kvm1* again.
+. Click *kvm2* again.
 +
 image::conversion_host_2.png[Conversion Host 2]
 
@@ -334,7 +273,7 @@ image::conversion_host_9.png[Conversion Host 9]
 
 === Testing the Environment
 
-The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions] using `kvm1` as the Conversion Host.
+The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions] using `kvm2` as the Conversion Host.
 
 == Advanced and Experimental
 
