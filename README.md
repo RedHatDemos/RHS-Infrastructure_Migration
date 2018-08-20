@@ -26,5 +26,6 @@ Please, report issues with documentation and/or lab in the issues section of thi
   0.15 Updated CF image 5.9.4.2-1, 
   0.16 Reduced sizes of 2 VMs, updated to mod_cluster
   0.17 Updated CF image 5.9.4.4-1
+  0.18 Fixed Rewrite in LB and added script to ESXi to avoid faulty startup
 ```
 
