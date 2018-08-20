@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.0 - Lab Guide
+== Infrastructure Migration 1.0 GA - Lab Guide
 
 :numbered:
 
@@ -136,7 +136,7 @@ image::architecture_diagram.png[Architecture Diagram]
 * Deployment of the demo environment which includes the following VMs provisioned in the vSphere environment:
 ** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP
 ** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP
-** `lb` - a Red Hat Enterprise Linux 7 host running Nginx configured to proxy traffic to `jboss0` and `jboss1`
+** `lb` - a Red Hat Enterprise Linux 7 host running JBoss Core Service Apache HTTP server configured with mod_cluster to proxy traffic to `jboss0` and `jboss1`
 ** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL that the `jboss0` and `jboss1` application servers connect to
 
 * An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accesible.
@@ -180,7 +180,7 @@ jboss0.example.com | SUCCESS => {
 }
 ----
 + 
-There are 4 VMs in the vCenter environment hosting an app with Nginx as loadbalancer, two JBoss EAP in domain mode, and a Postgresql database.
+There are 4 VMs in the vCenter environment hosting an app with JBoss Core Services' Apache HTTP + modcluster as loadbalancer, two JBoss EAP 7 in domain mode, and a Postgresql database.
 To check only if these ones are running, you may use the following command:
 +
 ----
