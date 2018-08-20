@@ -5,11 +5,17 @@
 
 sleep 10
 
-vmid=$(vim-cmd vmsvc/getallvms | awk '{print $1}' | grep -v Vmid)
-state1=$(vim-cmd vmsvc/power.getstate "$vmid" | grep "off")
+vmid_list=$(vim-cmd vmsvc/getallvms | awk '{print $1}' | grep -v Vmid)
 
-if [ "$state1" == "Powered off" ]
-  then
+for vmid in $vmid_list; do
+
+  state1=$(vim-cmd vmsvc/power.getstate "$vmid" | grep "off")
+
+  if [ "$state1" == "Powered off" ]; then
     vim-cmd vmsvc/power.on "$vmid"
-fi
+  fi
+
+done
+
+exit 0
 
