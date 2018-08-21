@@ -16,7 +16,7 @@
         password: "{{ vcenter_password }}"
         validate_certs: False
         name: "{{ item }}"
-        state: rebootguest
+        state: poweredon
       delegate_to: localhost
       with_items:
         - db
