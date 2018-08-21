@@ -2,7 +2,13 @@
 - hosts: vcenter.example.com
   become: true
   tasks:
-    - name: Set powerstate of a virtual machine to poweroff by using UUID
+    - name: Wait for vcenter to be available
+      wait_for:
+        port: 9443
+        host: vcenter.example.com
+        delay: 10
+        connection: local
+    - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
         username: "{{ vcenter_username }}"
