@@ -25,7 +25,7 @@ reposync --download_path=${DOWNLOAD_PATH} \
 
 for REPODIR in $(ls ${DOWNLOAD_PATH}) ; do
     echo " --- "
-    echo " Updating {REPODIR}"
+    echo " Updating ${REPODIR}"
     echo " --- "
     cd ${DOWNLOAD_PATH}/${REPODIR}
     mv -fv productid ./repodata/
