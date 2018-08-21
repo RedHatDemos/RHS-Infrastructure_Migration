@@ -1,0 +1,15 @@
+- name: Set powerstate of a virtual machine to poweroff by using UUID
+  vmware_guest:
+    hostname: "{{ vcenter_ip }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: False
+    name: "{{ item }}"
+    state: rebootguest
+  delegate_to: localhost
+  with_items:
+    - db
+    - jboss0
+    - jboss1
+    - lb
+

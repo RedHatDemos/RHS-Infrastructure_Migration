@@ -1,0 +1,6 @@
+---
+
+vcenter_ip: <insert_ip>
+vcenter_username: <insert_username>
+vcenter_password: <insert_password>
+
