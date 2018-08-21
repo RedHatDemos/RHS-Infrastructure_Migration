@@ -26,6 +26,6 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
   0.16 Reduced sizes of 2 VMs, updated to mod_cluster
   0.17 Updated CF image 5.9.4.4-1
   0.18 Fixed Rewrite in LB and added script to ESXi to avoid faulty startup
-  0.19 Updated locla repos to enable deployment lab
+  0.19 Updated local repos to enable deployment lab
 ```
 
