@@ -7,11 +7,14 @@ echo " Configuring repos to be synced"
 echo " --- "
 subscription-manager repos --disable='*'\
                            --enable='rhel-7-server-rpms'\
-                           --enable='rhel-7-server-extras-rpms'\
-                           --enable='rhel-7-server-optional-rpms'\
-                           --enable='rhel-7-server-rhv-4-mgmt-agent-rpms'\
                            --enable='rhel-7-server-source-rpms'\
+                           --enable='rhel-7-server-extras-rpms'\
+                           --enable='rhel-7-server-supplementary-rpms'\
                            --enable='rhel-7-server-ansible-2-rpms'\
+                           --enable='jb-eap-7-for-rhel-7-server-rpms'\
+                           --enable='rhel-7-server-rhv-4-mgmt-agent-rpms'\
+                           --enable='rhel-7-server-rhv-4.2-manager-rpms'\
+                           --enable='rhel-7-server-rhv-4-manager-tools-rpms'\
                            --enable='rhel-7-server-rh-common-rpms' 
 
 echo " --- "
