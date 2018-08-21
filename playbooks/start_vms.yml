@@ -1,5 +1,5 @@
 ---
-- hosts: vcenter.example.com
+- hosts: workstation.example.com
   become: true
   tasks:
     - name: Wait for vcenter to be available
@@ -7,7 +7,8 @@
         port: 9443
         host: vcenter.example.com
         delay: 10
-        connection: local
+      vars:
+        ansible_connection: local
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
