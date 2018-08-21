@@ -1,7 +1,6 @@
 # Red Hat Solutions - Infrastructure Migration
 
-This is currently work in progress. Please use it with caution.
-Please, report issues with documentation and/or lab in the issues section of this repo.
+Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pulls](pull request) section, preferrably as ansible playbooks and/or ASCII doc files.
 
 * [Red Hat Product Demo System](https://rhpds.redhat.com)
 * [Infrastructure Migration Lab Guides](doc)
