@@ -25,6 +25,7 @@ reposync --download_path=${DOWNLOAD_PATH} \
     --download-metadata \
     --downloadcomps \
     --delete \
+    --source \
     --newest-only
 
 for REPODIR in $(ls ${DOWNLOAD_PATH} | grep rpms) ; do
