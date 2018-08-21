@@ -57,7 +57,7 @@ The packages will come through the official software channels. In this environme
 |RHEL 7.5 extras | http://storage.example.com/repos/rhel-7-server-extras-rpms | RHEL 7.5 extras packages beta
 |=======
 
-The following https://github.com/RedHatDemos/RHS-Optimize_IT-Infrastructure_Migration/blob/master/scripts/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+The following link:../scripts/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
 === Conversion Host Requirements
 
@@ -97,7 +97,7 @@ image::migration_workflow.png[VM Migration Workflow]
 
 For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV] 
 
-If you have doubts on the steps taking place during the conversion, please read the link:01-redhat_solutions-insfrastructure_migration_v2-vm_conversion_faq.adoc[VM Conversion FAQ]
+If you have doubts on the steps taking place during the conversion, please read the link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
 
 == Deployment
 
@@ -112,7 +112,11 @@ As a reference on how to deploy a CloudForms appliance on RHV and vSphere the fo
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_vmware_vsphere/[Installing Red Hat CloudForms on VMware vSphere]
 
-In this lab we will have a CloudForms instance, that was deployed using a nightly build, by downloading an appliance image and adding it to the environment.
+Also as a reference on how to configure the environment, the following official documentation is available:
+
+* link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index[Infrastructure Migration Solution - Official Documentation]
+
+In this lab we will have a CloudForms instance, that was deployed by downloading an appliance image and adding it to the environment.
 
 The environment is completely configured, and an overview look at it, is recommended before starting.
 
@@ -123,10 +127,10 @@ Once the overview is done, we can proceed by running, in `workstation`, the play
 # ansible-playbook unconfigure.yml 
 ----
 
-The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1` or the RHV setup.
+The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1`, the currently configured conversion host, or the RHV setup.
 
 [NOTE]
-Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the password reset to the default appliance password (smartvm).
+Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (smartvm).
 
 ==== Automation domain in CloudForms
 
@@ -196,17 +200,20 @@ all:
 #    kvm1.example.com:
     kvm2.example.com:
 ----
++
+[TIP]
+There is already a file created for you in the environment. The sample file is also available in the repo link:../scripts/conversion_hosts/conversion_hosts_inventory.yml[here]
 
 Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` directory. 
 
-There is a `check` playbook that can be run and ensures that the installation is OK. You can run it before installing to see how errors are reported:
+There is a `conversion_host_check.yml` playbook that can be run and ensures that the installation is OK. You can run it before installing to *see how errors are reported*, as we will be running it on an uninstalled conversion host:
 
 ----
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 
 
-After that, the installation of tools can be performed by running the `enable` playbook:
+After that, the installation of tools can be performed by running the `conversion_host_enable.yml` playbook:
 
 ----
 # cd /root/v2v-transformation_host-ansible
@@ -273,13 +280,13 @@ image::conversion_host_9.png[Conversion Host 9]
 
 === Testing the Environment
 
-The environment is ready to perform a migration. To test it, follow the link:00-redhat_solutions-insfrastructure_migration_v2-lab.adoc[Lab Instructions] using `kvm2` as the Conversion Host.
+The environment is ready to perform a migration. To test it, follow the link:insfrastructure_migration-lab_guide.adoc[Lab Instructions] using `kvm2` as the Conversion Host.
 
 == Advanced and Experimental
 
-In case you may want to know more about the environment you can check the link:01-redhat_solutions-insfrastructure_migration_v2-advanced_experimental.adoc[Advanced and Experimental exercises] 
+In case you may want to know more about the environment you can check the link:insfrastructure_migration-advanced_experimental.adoc[Advanced and Experimental exercises] 
 
 == Troubleshooting the Migration Solution
 
-For troubleshooting the environment please read the link:01-redhat_solutions-insfrastructure_migration_v2-troubleshooting.adoc[Troubleshooting the Migration Solution] document  
+For troubleshooting the environment please read the link:insfrastructure_migration-troubleshooting.adoc[Troubleshooting the Migration Solution] document  
 
