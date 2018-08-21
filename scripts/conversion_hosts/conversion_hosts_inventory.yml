@@ -4,7 +4,7 @@ all:
 #    v2v_repo_rpms_name: "v2v-nbdkit-rpms"
 #    v2v_repo_rpms_url: "http://storage.example.com/repos/v2v-nbdkit-rpms"
     v2v_repo_srpms_name: "v2v-nbdkit-src-rpms"
-    v2v_repo_srpms_url: "http://ftp.redhat.com/pub/redhat/linux/enterprise/7Server/en/RHEV/SRPMS/"
+    v2v_repo_srpms_url: "http://storage.example.com/repos/rhel-7-server-source-rpms"
     v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
     v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
   hosts:
