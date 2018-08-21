@@ -11,6 +11,7 @@ subscription-manager repos --disable='*'\
                            --enable='rhel-7-server-optional-rpms'\
                            --enable='rhel-7-server-rhv-4-mgmt-agent-rpms'\
                            --enable='rhel-7-server-source-rpms'\
+                           --enable='rhel-7-server-ansible-2-rpms'\
                            --enable='rhel-7-server-rh-common-rpms' 
 
 echo " --- "
