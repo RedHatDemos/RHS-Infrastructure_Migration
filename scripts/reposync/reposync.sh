@@ -23,7 +23,7 @@ reposync --download_path=${DOWNLOAD_PATH} \
     --delete \
     --newest-only
 
-for REPODIR in $(ls ${DOWNLOAD_PATH}) ; do
+for REPODIR in $(ls ${DOWNLOAD_PATH} | grep rpms) ; do
     echo " --- "
     echo " Updating ${REPODIR}"
     echo " --- "
