@@ -16,15 +16,3 @@ baseurl=http://storage.example.com/repos/rhel-7-server-ansible-2-rpms
 enabled=1
 gpgcheck=1
 
-[rhel-7-server-source-rpms]
-name=Local RHEL 7 Source
-baseurl=http://storage.example.com/repos/rhel-7-server-source-rpms
-enabled=1
-gpgcheck=1
-
-
-[rhel-7-server-rhv-4-mgmt-agent-source-rpms]
-name=Local RHV 4 management agents
-baseurl=http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms
-enabled=1
-gpgcheck=1
