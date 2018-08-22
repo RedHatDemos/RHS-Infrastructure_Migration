@@ -190,21 +190,18 @@ An inventory file `conversion_hosts_inventory.yml` has to be created, with the f
 ----
 all:
   vars:
-    v2v_repo_rpms_name: "v2v-nbdkit-rpms"
-    v2v_repo_rpms_url: "http://storage.example.com/repos/v2v-nbdkit-rpms"
-    v2v_repo_srpms_name: "v2v-nbdkit-src-rpms"
-    v2v_repo_srpms_url: "http://storage.example.com/repos/v2v-nbdkit-src-rpms"
+    v2v_repo_srpms_name: "rhel-7-server-rhv-4-mgmt-agent-source-rpms"
+    v2v_repo_srpms_url: "http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms"
     v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
     v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
   hosts:
-#    kvm1.example.com:
     kvm2.example.com:
 ----
 +
 [TIP]
-There is already a file created for you in the environment. The sample file is also available in the repo link:../scripts/conversion_hosts/conversion_hosts_inventory.yml[here]
+There is already a file created for you in the environment with some extra vars commented. The sample file is also available link:../scripts/conversion_hosts/conversion_hosts_inventory.yml[here]
 
-Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` directory. 
+Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` director of the RHV Manager, `rhvm`.
 
 There is a `conversion_host_check.yml` playbook that can be run and ensures that the installation is OK. You can run it before installing to *see how errors are reported*, as we will be running it on an uninstalled conversion host:
 
@@ -212,18 +209,17 @@ There is a `conversion_host_check.yml` playbook that can be run and ensures that
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 
-
 After that, the installation of tools can be performed by running the `conversion_host_enable.yml` playbook:
 
 ----
-# cd /root/v2v-transformation_host-ansible
+# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_enable.yml 
 ----
 
 It may be time to check again and ensure the tool installation went OK:
 
 ----
-# cd /root/v2v-transformation_host-ansible
+# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 
