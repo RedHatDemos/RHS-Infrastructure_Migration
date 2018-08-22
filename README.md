@@ -2,7 +2,11 @@
 
 Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pulls](pull request) section, preferrably as ansible playbooks and/or ASCII doc files.
 
-* [Red Hat Product Demo System](https://rhpds.redhat.com)
+## For TL;DR check this video
+[![IMS 1.0 Video](https://img.youtube.com/vi/SbAX-GsgHEM/0.jpg)](https://www.youtube.com/watch?v=SbAX-GsgHEM)
+
+## Go ahead, get your hands dirty!
+
 * [Infrastructure Migration Lab Guides](doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
