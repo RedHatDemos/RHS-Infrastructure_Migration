@@ -67,8 +67,7 @@ To perform the conversion task of the VMs during migration a conversion host is 
 |=======
 |Product |Origin| Use
 |VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
-|nbdkit RPMs |http://storage.example.com/repos/v2v-nbdkit-rpms |Virtual Disk Development Kit (VDDK) RPMs
-|nbdkit SRPMs |http://storage.example.com/repos/v2v-nbdkit-src-rpms |Virtual Disk Development Kit (VDDK) SRPMs
+|nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
 |=======
 
 == VM Migration Workflow
@@ -123,7 +122,7 @@ The environment is completely configured, and an overview look at it, is recomme
 Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms:
 
 ----
-# cd /root/RHS-Optimize_IT-Infrastructure_Migration/playbooks/
+# cd /root/RHS-Infrastructure_Migration/playbooks/
 # ansible-playbook unconfigure.yml 
 ----
 
@@ -138,7 +137,7 @@ TODO: Add a review on the automation domain
 
 ==== Add Virtualization Providers
 
-Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by following these steps:
+Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by login in with the default appliance password, and then following these steps:
 
 . Navigate, in *Cloudforms* to  *Compute -> Infrastructure -> Providers*. Click on *Configuration -> Add a New Infrastructure Provider*.
 +
