@@ -7,8 +7,6 @@
         port: 9443
         host: vcenter.example.com
         delay: 10
-      vars:
-        ansible_connection: local
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
