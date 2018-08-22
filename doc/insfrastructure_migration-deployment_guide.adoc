@@ -196,29 +196,32 @@ all:
   hosts:
     kvm2.example.com:
 ----
-+
+
 [TIP]
 There is already a file created for you in the environment with some extra vars commented. The sample file is also available link:../scripts/conversion_hosts/conversion_hosts_inventory.yml[here]
 
-Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` director of the RHV Manager, `rhvm`.
+Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` directory of the RHV Manager, `rhvm`.
 
 There is a `conversion_host_check.yml` playbook that can be run and ensures that the installation is OK. You can run it before installing to *see how errors are reported*, as we will be running it on an uninstalled conversion host:
 
 ----
+# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 
 After that, the installation of tools can be performed by running the `conversion_host_enable.yml` playbook:
 
 ----
-# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
+# pwd 
+/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_enable.yml 
 ----
 
 It may be time to check again and ensure the tool installation went OK:
 
 ----
-# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
+# pwd
+/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
 ----
 

@@ -381,7 +381,7 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan-lb` and click *next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan-lb` and click *next*.
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
