@@ -243,7 +243,7 @@ image::vsphere_web_client_0.png[vCenter Login]
 ** Flash Player is required.
 +
 [TIP]
-Modern browsers have flash player disabled by default. You may need to enable it for this page. Here are the link:01-redhat_solutions-insfrastructure_migration_v2-enable_flash.adoc[instructions to enable Adobe Flash]
+Modern browsers have flash player disabled by default. You  need to enable it to access and use the web manager interface in vSphere 5.5.
 
 * Click on *Log in to vSphere Web Client*
 +
