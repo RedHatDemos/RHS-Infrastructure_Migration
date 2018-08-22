@@ -28,5 +28,6 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
   0.18 Fixed Rewrite in LB and added script to ESXi to avoid faulty startup
   0.19 Updated local repos to enable deployment lab
   0.20 Fixed repos and config files for conversion hosts
+  0.21 Added ansible playbooks to start VMs. Autostart in vSphere didn't make it.
 ```
 
