@@ -21,4 +21,21 @@
         - jboss0
         - jboss1
         - lb
+    - name: Wait for db to be available
+      wait_for:
+        port: 5432
+        host: db.example.com
+        delay: 10
+    - name: Restart JBoss VMs
+      vmware_guest:
+        hostname: "{{ vcenter_ip }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: False
+        name: "{{ item }}"
+        state: restarted
+      delegate_to: localhost
+      with_items:
+        - jboss0
+        - jboss1
 
