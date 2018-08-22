@@ -7,6 +7,7 @@
         port: 9443
         host: vcenter.example.com
         delay: 10
+        timeout: 1200
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
