@@ -275,6 +275,8 @@ image::conversion_host_8.png[Conversion Host 8]
 image::conversion_host_9.png[Conversion Host 9]
 
 . Now the conversion host is ready.
++
+image::conversion_host_10.png[Conversion Host 10]
 
 === Testing the Environment
 
