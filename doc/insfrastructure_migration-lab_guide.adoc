@@ -11,7 +11,7 @@
 
 This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin), as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization. 
 
-Please watch this videos for an introduction: link:https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview[Virtualization and Infrastructure Migration Technical Overview (RH018)]
+Please watch this video for an introduction: link:https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview[Virtualization and Infrastructure Migration Technical Overview (RH018)]
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]
 
@@ -65,6 +65,7 @@ Required versions of products used:
 [NOTE]
 Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
 +
+
 
 === Obtaining or enabling access credentials
 
@@ -256,7 +257,7 @@ Use `root` as the username to log in to vCenter.
 +
 image::vsphere_web_client_2.png[vCenter]
 
-.. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss0.example.com` and `db.example.com` are running. 
+.. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss1.example.com` and `db.example.com` are running. 
 +
 image::vsphere_web_client_3.png[vCenter]
 
@@ -363,7 +364,7 @@ image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Network* as `vSphere\VMNetwork` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
+. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Network* as `vSphere\VM Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
