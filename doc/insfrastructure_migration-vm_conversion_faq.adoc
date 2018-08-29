@@ -97,4 +97,6 @@ https://github.com/fdupont-redhat/v2v-ansible-test-playbooks
 * How can an Ansible pre and post migration job be executed?
 
 By adding them to the migration plan in the appropriate step of the wizard
++
+image::migration_plan_4.png[Migration Plan 4]
 
