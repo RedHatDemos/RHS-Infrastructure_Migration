@@ -3,13 +3,14 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration
+== Infrastructure Migration 1.0 GA - Lab Guide
 
 == VM Conversion FAQ
 
 VM Conversion workflow
 
 image::migration_workflow_vm_conversion.png[VM Conversion Workflow]
+
 
 For more detail, and context, please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV]
 
@@ -77,7 +78,7 @@ If the conversion fails, an error message is set on the CloudForms task, so that
 
 * Is a NFS export share needed?
 
-Currently, yes. An effort is ongoing to remove that dependency and use the direct upload API of RHV. This would have the advantage to remove the import step, as it creates a fully functional virtual machine in the destination provider, by uploading its disks through the API. From CloudForms, the change will consist in a different input hash for the virt-v2v wrapper, that will then use the API.
+Currently, no. An effort was done to remove that dependency and use the direct upload API of RHV. This has the advantage to remove the import step, as it creates a fully functional virtual machine in the destination provider, by uploading its disks through the API. From CloudForms, the change with using NFS import, will consist in a different input hash for the virt-v2v wrapper, that will then use the API.
 
 * What happens if import fails?
 
@@ -89,9 +90,11 @@ The network interface is simply mapped to its destination network, as it is not 
 
 https://github.com/fdupont-redhat/v2v-automate/blob/master/V2V/Transformation/Infrastructure/VM/rhevm.class/__methods__/utils.rb
 
-We are working to move this code to the *ManageIQ oVirt* provider.
+A pre-migration playbook is available for testing, that will reconfigure network interfaces:
 
-* How can an Ansible post migration job be executed?
+https://github.com/fdupont-redhat/v2v-ansible-test-playbooks
 
-This feature is initially planned for June.
+* How can an Ansible pre and post migration job be executed?
+
+By adding them to the migration plan in the appropriate step of the wizard
 
