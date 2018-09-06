@@ -1,0 +1,7 @@
+---
+ovirt_url: "{{ vault_ovirt_url }}"
+ovirt_admin: "{{ vault_ovirt_admin }}"
+ovirt_password: "{{ vault_ovirt_password }}"
+unconfigure_vmlist:
+- test1
+- test2
