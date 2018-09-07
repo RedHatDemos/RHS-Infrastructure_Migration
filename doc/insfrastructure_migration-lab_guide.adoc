@@ -20,7 +20,6 @@ In this environment the following configuration steps are already done:
 * Configure the conversion hosts in the target provider (RHV)
 * Provide credentials for virtualization providers and conversion hosts in CloudForms
 * Assign tags for the conversion hosts in CloudForms
-* CSV file created for the chosen VMs to be migrated
 
 The providers are:
 
@@ -217,7 +216,7 @@ You must accept all of the self-signed SSL certificates.
 +
 image::ssl_cert_warning.png[SSL Cert Warning]
 +
-If the ticketmonster app is not running, please runn the following command in `workstation`:
+If the ticketmonster app is not running, please run the following command in `workstation`:
 +
 ----
 /usr/bin/ansible-playbook /root/RHS-Infrastructure_Migration/playbooks/start_vms.yml --extra-vars @/root/RHS-Infrastructure_Migration/playbooks/vars_vms.yml
@@ -497,8 +496,38 @@ image::migration_running_14.png[Migration Running 14]
 +
 image::migration_running_15.png[Migration Running 15]
 
-[NOTE]
-To practice, a new *Migration Plan* for the rest of the VMs can be created using the available *Infrastructure Mapping*, completing the migration of the whole app. 
+. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooint errors or just to check the migration details. It's worth nothing that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
++
+image::migration_log_access.png[Migration Log Access]
+
+.. Once the log is downloaded click to open:
++
+image::migration_log.png[Migration Log]
+
+
+. [Optional] Migrate the remaining application and database VMs from VMware to RHV.
+
+.. Navigate to **Compute**, **Migration** and choose **Create Migration Plan**. We will use the same infrastructure mapping previously created.
++
+image::multi_vm_migration_plan_1.png[Multiple VM Migration Plan 1]
+
+.. Skip pre/post playbooks and select the remaining VMs for migration
++
+image::multi_vm_migration_plan_2.png[Multiple VM Migration Plan 2]
+
+.. Select **Start the migration plan immediately** and clock **Create**.
++
+image::multi_vm_migration_plan_3.png[Multiple VM Migration Plan 3]
+
+.. Once the VMs complete migration verify they are running in RHV via the RHV admin console.
++
+image::multi_vm_migration_rhv.png[Multiple VM Migration RHV]
+
+.. Verify that the Ticket Monster app is running:
+
+* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and check it is running:
++
+image::app-ticketmonster-running.png[Ticket Monster Web App]
 
 If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide]. 
 
