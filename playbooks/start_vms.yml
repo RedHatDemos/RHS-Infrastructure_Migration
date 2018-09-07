@@ -2,7 +2,17 @@
 - hosts: workstation.example.com
   become: true
   tasks:
-    - name: Wait for vcenter to be available
+    - name: Wait for ESX and vCenter servers port 443 to be available
+      wait_for:
+        port: 443
+        host: "{{ item }}"
+        delay: 10
+        timeout: 1200
+      with_items:
+        - esx1.example.com
+        - esx2.example.com
+        - vcenter.example.com
+    - name: Wait for vCenter port 9443 to be available
       wait_for:
         port: 9443
         host: vcenter.example.com
