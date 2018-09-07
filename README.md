@@ -33,6 +33,11 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
   0.19 Updated local repos to enable deployment lab
   0.20 Fixed repos and config files for conversion hosts
   0.21 Added ansible playbooks to start VMs. Autostart in ESXi didn't make it.
+```
+
+## Testing Releases - Infratructure Migration Solution 1.0 GA
+```
   0.22 Changed metadata for automated labs
+  0.23 Updated CFME to 5.9.4.7-1
 ```
 
