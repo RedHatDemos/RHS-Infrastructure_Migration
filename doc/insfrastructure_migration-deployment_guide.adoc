@@ -233,7 +233,7 @@ image::conversion_host_1.png[Conversion Host 1]
 
 . Click *kvm2*.
 +
-image::conversion_host_2.png[Conversion Host 2]
+image::conversion_host_2b.png[Conversion Host 2]
 
 . Select *Policy -> Edit Tags*.
 +
@@ -264,7 +264,7 @@ image::conversion_host_1.png[Conversion Host 1]
 
 . Click *kvm2* again.
 +
-image::conversion_host_2.png[Conversion Host 2]
+image::conversion_host_2b.png[Conversion Host 2]
 
 . Select *Configuration -> Edit this item*.
 +
