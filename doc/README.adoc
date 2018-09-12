@@ -3,18 +3,16 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: IT Optimization - Infrastructure Migration
+== Red Hat Solutions: Infrastructure Migration
 
-Infrastructure Migration has two versions, please use as needed.
+Infrastructure Migration Solution is based in the Cloud Migration Factory page. This documentation is intended to be used to learn about the technical implementation of the solution.
 
 
 === Infrastructure Migration Solution v1.0
 
-Based in New code. Includes UI to perform migration. Release Candidate.
-
 . link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.0 Lab Guide]
-. link:insfrastructure_migration-vm_conversion_faq.adoc[Infrastructure Migration 1.0 VM Conversion FAQ]
 . link:insfrastructure_migration-deployment_guide.adoc[Infrastructure Migration 1.0 Deployment Guide]
+. link:insfrastructure_migration-vm_conversion_faq.adoc[Infrastructure Migration 1.0 VM Conversion FAQ]
 . link:insfrastructure_migration-troubleshooting.adoc[Infrastructure Migration 1.0 Troubleshooting notes]
 . link:insfrastructure_migration-working_notes.adoc[Infrastructure Migration 1.0 Miscellaneous notes]
 
