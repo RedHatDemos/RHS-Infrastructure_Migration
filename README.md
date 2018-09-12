@@ -7,7 +7,7 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Go ahead, get your hands dirty!
 
-* [Infrastructure Migration Lab Guides](doc)
+* [Infrastructure Migration Solution - Lab Guides](doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
 ## Releases - Infratructure Migration Solution 1.0 GA
