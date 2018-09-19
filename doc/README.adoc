@@ -8,12 +8,17 @@
 Infrastructure Migration Solution is based in the Cloud Migration Factory page. This documentation is intended to be used to learn about the technical implementation of the solution.
 
 
-=== Infrastructure Migration Solution v1.0
+=== Infrastructure Migration Solution v1.0 Lab Guides
 
 . link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.0 Lab Guide]
 . link:insfrastructure_migration-deployment_guide.adoc[Infrastructure Migration 1.0 Deployment Guide]
+
+
+The password to access lab services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
+
+=== Infrastructure Migration Solution v1.0 Supporting Documents
+. link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/[Infrastructure Migration 1.0 Official Documentation]
 . link:insfrastructure_migration-vm_conversion_faq.adoc[Infrastructure Migration 1.0 VM Conversion FAQ]
 . link:insfrastructure_migration-troubleshooting.adoc[Infrastructure Migration 1.0 Troubleshooting notes]
 . link:insfrastructure_migration-working_notes.adoc[Infrastructure Migration 1.0 Miscellaneous notes]
 
-The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
