@@ -49,4 +49,5 @@
       with_items:
         - jboss0
         - jboss1
+        - lb
 
