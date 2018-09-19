@@ -1,6 +1,6 @@
 # Red Hat Solutions - Infrastructure Migration
 
-Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pulls](pull request) section, preferrably as ansible playbooks and/or ASCII doc files.
+Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
 ## For TL;DR check this video
 [![IMS 1.0 Video](https://img.youtube.com/vi/SbAX-GsgHEM/0.jpg)](https://www.youtube.com/watch?v=SbAX-GsgHEM)
