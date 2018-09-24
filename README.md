@@ -39,5 +39,6 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 ```
   0.22 Changed metadata for automated labs
   0.23 Updated CFME to 5.9.4.7-1
+  0.24 Added CSV file for migration
 ```
 
