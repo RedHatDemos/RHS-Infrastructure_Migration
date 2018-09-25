@@ -379,9 +379,9 @@ image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
 
 In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
 
-=== Create an Migration Plan
+=== Create a Migration Plan
 
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Overview*, which is the finishing page from previous step.
+. Start in the CloudForms page accessed by navigating to *Compute -> Migration*, which is the finishing page from previous step.
 
 . Click on *Create Migration Plan*.
 +
@@ -416,7 +416,7 @@ The migration plan can be run immediately, by choosing the other option.
 +
 image::migration_plan_6.png[Migration Plan 6]
 
-. Back to the migration paage we will see how the *Infrastructure Mapping* and *Migration Plan* are ready to be run
+. Back to the migration page we will see how the *Infrastructure Mapping* and *Migration Plan* are ready to be run
 +
 image::migration_plan_7.png[Migration Plan 7]
 
