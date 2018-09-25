@@ -504,27 +504,50 @@ image::migration_log_access.png[Migration Log Access]
 +
 image::migration_log.png[Migration Log]
 
-
 . Migrate the remaining application servers and database VMs from VMware to RHV using a CSV file.
 
-.. Download the CSV file from link:https://github.com/RedHatDemos/RHS-Infrastructure_Migration/blob/master/scripts/ticket_monster_migration.csv[here]. And check that the content is the following:
+.. Download the CSV file from link:https://github.com/RedHatDemos/RHS-Infrastructure_Migration/blob/master/scripts/ticket_monster_migration.csv[here] and save it as `ticket_monster_migration.csv`. Check that the content is the following:
 +
 image:ticket_monster_csv_file.png[Multiple VM CSV File]
 +
 [TIP]
 CSV file format is specified in the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index#Creating_a_Migration_Plan[Official Documentation]
 
-.. Navigate to **Compute**, **Migration** and choose **Create Migration Plan**. We will use the same infrastructure mapping previously created.
+.. Navigate to *Compute -> Migration* and choose *Create Migration Plan*. We will select the same infrastructure mapping previously created, `ticket-monster-mapping`, and select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
 +
 image::multi_vm_migration_plan_1.png[Multiple VM Migration Plan 1]
 
-.. Skip pre/post playbooks and select the remaining VMs for migration
+.. In the *Import File* step, click on import and select the previously downloaded file `ticket_monster_migration.csv`
 +
 image::multi_vm_migration_plan_2.png[Multiple VM Migration Plan 2]
-
-.. Select **Start the migration plan immediately** and clock **Create**.
 +
 image::multi_vm_migration_plan_3.png[Multiple VM Migration Plan 3]
+
+.. The VM list will appear in the dialog. It is possible to modify the selection at this step but we will migrate the whole list. Click *Next*
++
+image::multi_vm_migration_plan_4.png[Multiple VM Migration Plan 4]
+
+.. In the *Advanced Options* step we will not apply any change. Click *Next*.
++
+image::multi_vm_migration_plan_5.png[Multiple VM Migration Plan 5]
+
+.. In the *Schedule* step we will *Save migration plan to run later*. The plan can later on be scheduled or directly run. Click *Next*.
++
+image::multi_vm_migration_plan_6.png[Multiple VM Migration Plan 6]
+
+.. *Results* page for the *Plan* will appear. Click *Close*
++
+image::multi_vm_migration_plan_7.png[Multiple VM Migration Plan 7]
+
+.. Back to the main *Migration* page, we can schedule or run the plan created. Click *Migrate*
++
+image::multi_vm_migration_plan_8.png[Multiple VM Migration Plan 8]
+
+.. The plan will get automatically approved and start immediatelly. The detailed status can be seen by clicking in the plan box. 
++
+image::multi_vm_migration_plan_9.png[Multiple VM Migration Plan 9]
++
+image::multi_vm_migration_plan_10.png[Multiple VM Migration Plan 10]
 
 .. Once the VMs complete migration verify they are running in RHV via the RHV admin console.
 +
@@ -537,5 +560,4 @@ image::multi_vm_migration_rhv.png[Multiple VM Migration RHV]
 image::app-ticketmonster-running.png[Ticket Monster Web App]
 
 If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide]. 
-
 
