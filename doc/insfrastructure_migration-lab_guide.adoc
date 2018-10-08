@@ -278,7 +278,7 @@ image::cloudforms_dashboard.png[CloudForms Dashboard]
 
 === Validate the Current Infrastructure in CloudForms
 
-. On the CloudForms web interface, go to *Compute -> Infrastructure -> Providers*.
+. Log in with user `admin` and the provided password in CloudForms. Once in the web interface, go to *Compute -> Infrastructure -> Providers*.
 +
 image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
 
