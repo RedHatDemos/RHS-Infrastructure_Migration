@@ -15,5 +15,5 @@ Please, add comments and suggestions, or report issues on documentation and/or l
 * [Infrastructure Migration Solution 1.0 - Lab Guides](https://github.com/RedHatDemos/RHS-Infrastructure_Migration/tree/ims_1.0/doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
-# Work in Progress
+## Work in Progress
 * [Infrastructure Migration Solution 1.1 - Lab Guides](https://github.com/RedHatDemos/RHS-Infrastructure_Migration/tree/ims_1.1/doc)
