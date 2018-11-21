@@ -3,8 +3,7 @@
 Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
 ## For TL;DR check this video
-TODO: Update video
-[![IMS 1.1 Video](https://img.youtube.com/vi/SbAX-GsgHEM/0.jpg)](https://www.youtube.com/watch?v=SbAX-GsgHEM)
+[![IMS 1.1 Video](https://img.youtube.com/vi/uBM-1mJxJ5g/0.jpg)](https://www.youtube.com/watch?v=uBM-1mJxJ5g)
 
 ## Go ahead, get your hands dirty!
 
