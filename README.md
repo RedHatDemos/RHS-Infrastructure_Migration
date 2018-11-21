@@ -13,6 +13,9 @@ TODO: Update video
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 alpha
 ```
-  0.2 Added OSP 13 with Director
+  0.5 Added Networks to RHV
+  0.4 Added OSP 13 with Director
+  0.3 Rearranged network
+  0.2 Added impi and director hosts
   0.1 Added Cloned environment from 1.0 to 1.1
 ```
