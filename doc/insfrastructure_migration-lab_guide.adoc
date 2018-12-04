@@ -44,10 +44,11 @@ Required versions of products used:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.6.4+ 
+|CloudForms |4.7.0+ 
 |Red Hat Virtualization |4.2.5+
 |Red Hat OpenStack Platform |13+
-|Red Hat Enterprise Linux (Hypervisor) |7.5+
+|Red Hat Enterprise Linux (Conversion Host) |7.5+
+|Conversion Host Image |1.7+
 |VMware vSphere |5.5+
 |=======
 
@@ -63,7 +64,6 @@ Required versions of products used:
 [NOTE]
 Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
 +
-
 
 === Obtaining or enabling access credentials
 
