@@ -85,7 +85,7 @@ image::rhpds_login.png[RHPDS]
 
 [start=2]
 . Go to *Services -> Catalogs*.
-. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration 1.0 GA*.
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration 1.1*.
 . On the right pane, click *Order*.
 +
 image::rhpds_catalog.png[RHPDS]
@@ -119,10 +119,10 @@ image::architecture_diagram.png[Architecture Diagram]
 .Networks
 
 * Networks used in the environment
-** `Admin` - 192.168.x.x/16
-** `Service` - 10.10.0.x/24
-** `Service/DMZ` - 10.9.0.x/24
-** `OSP Provisioning` - 10.100.0.x/24
+** `Admin` - `192.168.x.x/16` -> General adminitration and Storage network.
+** `Service` - `10.10.0.x/24` -> Internal network for the app to connect LB to EAP and to DB. 
+** `Service/DMZ` - `10.9.0.x/24` -> External network for the app. Also access to the user API for OSP and Horizon (Provider network)
+** `OSP Provisioning` - `10.100.0.x/24` -> OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.  
 
 [cols="1,1,1,2",options="header"]
 |=======
