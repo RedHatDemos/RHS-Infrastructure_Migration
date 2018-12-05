@@ -41,5 +41,3 @@ jboss1.example.com jboss_role=slave
 
 [app_db]
 db.example.com
-
-

@@ -1,0 +1,33 @@
+---
+# the repo is required to install the required version of the oVirt 4.2 SDK
+- name: setup oVirt repo (on localhost)
+  yum:
+    name: https://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm
+    state: present
+  delegate_to: localhost
+
+# this package is required by the ovirt_* ansible modules
+- name: make sure python-ovirt-engine-sdk4 >= 4.2.4 (on localhost)
+  yum:
+    name: python-ovirt-engine-sdk4 >= 4.2.4
+    state: latest
+  delegate_to: localhost
+
+- block:
+  - name: Obtain SSO token with using username/password credentials
+    ovirt_auth:
+      url: "{{ ovirt_url }}"
+      username: "{{ ovirt_admin }}"
+      password: "{{ ovirt_password }}"
+      insecure: true
+
+  - ovirt_vms:
+      auth: "{{ ovirt_auth }}"
+      state: absent
+      name: "{{ unconfigure_vmlist }}"
+
+  always:
+    - name: Always revoke the SSO token
+      ovirt_auth:
+        state: absent
+        ovirt_auth: "{{ ovirt_auth }}"
