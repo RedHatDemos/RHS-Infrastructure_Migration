@@ -12,6 +12,7 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 alpha
 ```
+  0.8 Reconfigure network interfaces in vSphere and VMs
   0.7 Updating CF to 5.9.5
   0.6 Added interfaces to CF and Workstation to access services
   0.5 Added Networks to RHV
