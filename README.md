@@ -12,6 +12,8 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 alpha
 ```
+  0.9 Fixed internal DNS Fixed interface naming in VMs Added configuration for conversion host in CF
+  0.8 Modified networks in vSphere
   0.7 Updating CF to 5.9.5
   0.6 Added interfaces to CF and Workstation to access services
   0.5 Added Networks to RHV
