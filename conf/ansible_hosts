@@ -10,6 +10,7 @@
 [infra:children]
 infra_rhv
 infra_vsphere
+infra_osp
 infra_other
 
 [infra_rhv]
@@ -20,7 +21,13 @@ kvm2.example.com
 [infra_vsphere]
 #esx1.example.com
 #esx2.example.com
-#vcenter.example.com
+vcenter.example.com
+
+[infra_osp]
+director.example.com
+controller.example.com
+compute0.example.com
+compute1.example.com
 
 [infra_other]
 workstation.example.com
