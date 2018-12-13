@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.0 GA - Deployment Guide
+== Infrastructure Migration 1.1 beta - Deployment Guide
 
 :numbered:
 
@@ -12,7 +12,7 @@
 The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is built, and included in the environment provided for this guide.
 
 This guide intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
-For the *official documentation* of the solution please go link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index[here]
+For the *official Infrastructure Migration Solution 1.0 documentation* please go link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index[here]
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
@@ -42,26 +42,37 @@ The minimum product versions required to run the solution are the following:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.6.4+
-|Red Hat Virtualization |4.2.5+
-|Red Hat Enterprise Linux (Hypervisor) |7.5+
+|CloudForms |4.7.0+
+|Red Hat Virtualization |4.2.7+
+|Red Hat Enterprise Linux (Hypervisor) |7.6+
+|Red Hat OpenStack Platform |13+
 |VMware vSphere |5.5+
 |=======
 
-The packages will come through the official software channels. In this environment, the following local repos are provided instead:
+The packages will come through the official software channels. In this environment, the following local repos are provided to work with, so no registration is needed:
 [cols="1,1,1",options="header"]
 |=======
 |Product |Origin| Use
-|RHEL 7.5 | http://storage.example.com/repos/rhel-7-server-rpms |RHEL 7.5 (Libvirt updates needed)
-|RHEL 7.5 optional |  http://storage.example.com/repos/rhel-7-server-optional-rpms | RHEL 7.5 optional packages
-|RHEL 7.5 extras | http://storage.example.com/repos/rhel-7-server-extras-rpms | RHEL 7.5 extras packages beta
+|RHEL 7 | http://storage.example.com/repos/rhel-7-server-rpms |RHEL 7.6 (virt-v2v updates needed)
+|JBoss EAP 7|  http://storage.example.com/repos/jb-eap-7-for-rhel-7-server-rpms | JBoss EAP 7 rpm packages (for RHV and for JBoss VMs)
+|RHEL 7 optional |  http://storage.example.com/repos/rhel-7-server-optional-rpms | RHEL 7.6 optional packages
+|RHEL 7 extras | http://storage.example.com/repos/rhel-7-server-extras-rpms | RHEL 7.6 extras packages
+|RHEL 7 supplementary | http://storage.example.com/repos/rhel-7-server-supplementary-rpms | RHEL 7.6 supplementary packages
+|RHV 4 Manager | http://storage.example.com/repos/rhel-7-server-rhv-4.2-manager-rpms | RHV Manager 4.2 packages
+|RHV 4 Manager Tools | http://storage.example.com/repos/rhel-7-server-rhv-4-manager-tools-rpms | RHV Manager 4.2 tools packages
+|RHV 4 Agents | http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-rpms | RHV 4 agents for RHEL
+|Ansible 2 | http://storage.example.com/repos/rhel-7-server-ansible-2-rpms | Ansible 2.x packages
+|RH Common | http://storage.example.com/repos/rhel-7-server-rh-common-rpms | RH common packages (agents)
 |=======
 
-The following link:../scripts/rhv_infra_migration.repo[repo file] is used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+The following link:../conf/[directory] contains repo files that can be used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
 === Conversion Host Requirements
 
-To perform the conversion task of the VMs during migration a conversion host is required. One of the architectural choices is to use RHEL Hypervisors as conversion hosts, which is the one we will use here.
+To perform the conversion task of the VMs during migration a conversion host is required. 
+
+For Red Hat Virtualization thearchitectural choices is to use RHEL Hypervisors as conversion hosts.
+For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
 
 [cols="1,1,1",options="header"]
 |=======

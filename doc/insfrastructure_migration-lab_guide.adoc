@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.1 GA - Lab Guide
+== Infrastructure Migration 1.1 beta - Lab Guide
 
 :numbered:
 
