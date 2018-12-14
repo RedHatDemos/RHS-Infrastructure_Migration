@@ -11,9 +11,16 @@
 192.168.0.51 esx1.example.com esx1
 192.168.0.52 esx2.example.com esx2
 192.168.0.50 vcenter.example.com vcenter
-  
-192.168.1.100 lb.example.com app.example.com app lb nginx
-192.168.1.110 jboss0.example.com jboss0
-192.168.1.111 jboss1.example.com jboss1
-192.168.1.120 db.example.com db
+
+10.9.0.100 app.example.com lb.example.com lb app
+#10.10.0.100 lb.example.com lb
+10.10.0.110 jboss0.example.com jboss0
+10.10.0.111 jboss1.example.com jboss1
+10.10.0.120 db.example.com db
+
+192.168.0.60 director.example.com director
+192.168.10.16 controller.example.com controller
+#10.100.0.110 controller.example.com controller
+10.100.0.111 compute0.example.com compute0
+10.100.0.101 compute1.example.com compute1
 
