@@ -1,0 +1,52 @@
+Image source:
+http://download.eng.bos.redhat.com/brewroot/packages/rhosp-v2v-appliance/14.0/20181214.1/images/
+
+Config notes form Fdupont:
+https://gist.github.com/fdupont-redhat/0661f6310e8ca0a1dab4b9016ea752e9#file-ims-create_conversion_host_on_openstack-md
+
+
+
+ssh director
+su - stack
+. overcloudrc
+curl http://storage.example.com/repos/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2 -O
+
+
+openstack image create --public --disk-format qcow2 --file images/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2 conversion_host
++------------------+---------------------------------------------------------------------------------+
+| Field            | Value                                                                           |
++------------------+---------------------------------------------------------------------------------+
+
+| container_format | bare                                                                            |
+| created_at       | 2018-12-14T09:45:41Z                                                            |
+| disk_format      | qcow2                                                                           |
+| file             | /v2/images/531e9a7e-4318-4e8f-99f4-97f40338d8f5/file                            |
+| id               | 531e9a7e-4318-4e8f-99f4-97f40338d8f5                                            |
+| min_disk         | 0                                                                               |
+| min_ram          | 0                                                                               |
+| name             | conversion_host                                                                 |
+| owner            | ccab9f6f73b64e2ba09a2a83408719cd                                                |
+| properties       | direct_url='file:///var/lib/glance/images/531e9a7e-4318-4e8f-99f4-97f40338d8f5' |
+| protected        | False                                                                           |
+| schema           | /v2/schemas/image                                                               |
+| size             | 1159257088                                                                      |
+| status           | active                                                                          |
+| tags             |                                                                                 |
+| updated_at       | 2018-12-14T09:45:48Z                                                            |
+| virtual_size     | None                                                                            |
+| visibility       | public                                                                          |
++------------------+---------------------------------------------------------------------------------+
+(overcloud) [stack@director ~]$ openstack image list
+
++--------------------------------------+-----------------+--------+
+| ID                                   | Name            | Status |
++--------------------------------------+-----------------+--------+
+| 531e9a7e-4318-4e8f-99f4-97f40338d8f5 | conversion_host | active |
+| 8b5f951a-7083-433e-9be9-77e7d5954d0e | rhel76          | active |
++--------------------------------------+-----------------+--------+
+
+
+"admin" user should be a member of the openstack project that is used as target "ticket-monster" ... 
+
+
+
