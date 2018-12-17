@@ -1,7 +1,6 @@
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-
 192.168.0.10 workstation.example.com workstation
 192.168.0.254 storage.example.com storage
 192.168.0.100 cf.example.com cf
@@ -12,15 +11,15 @@
 192.168.0.52 esx2.example.com esx2
 192.168.0.50 vcenter.example.com vcenter
 
-10.9.0.100 app.example.com lb.example.com lb app
-#10.10.0.100 lb.example.com lb
+10.9.0.100 app.example.com app
+10.10.0.100 lb.example.com lb
 10.10.0.110 jboss0.example.com jboss0
 10.10.0.111 jboss1.example.com jboss1
 10.10.0.120 db.example.com db
 
 192.168.0.60 director.example.com director
-192.168.10.16 controller.example.com controller
-#10.100.0.110 controller.example.com controller
-10.100.0.111 compute0.example.com compute0
-10.100.0.101 compute1.example.com compute1
+192.168.10.19 horizon.example.com horizon
+10.100.0.111 controller.example.com controller
+10.100.0.105 compute0.example.com compute0
+10.100.0.107 compute1.example.com compute1
 
