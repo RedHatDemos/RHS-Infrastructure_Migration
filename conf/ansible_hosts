@@ -25,9 +25,9 @@ vcenter.example.com
 
 [infra_osp]
 director.example.com
-controller.example.com
-compute0.example.com
-compute1.example.com
+controller.example.com ansible_user=heat-admin
+compute0.example.com ansible_user=heat-admin
+compute1.example.com ansible_user=heat-admin
 
 [infra_other]
 workstation.example.com
