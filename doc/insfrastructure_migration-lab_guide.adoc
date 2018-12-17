@@ -133,9 +133,10 @@ image::architecture_diagram.png[Architecture Diagram]
 |`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
+|`horizon.example.com` |`192.168.10.19` | horizon-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform web UI and User API Endpoint
 |`controller.example.com` |`10.100.0.111` | controller-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform controller
-|`compute0.example.com` |`10.100.0.112` | compute0-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
-|`compute1.example.com` |`10.100.0.113` | compute1-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
+|`compute0.example.com` |`10.100.0.105` | compute0-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
+|`compute1.example.com` |`10.100.0.107` | compute1-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
