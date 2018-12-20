@@ -69,6 +69,8 @@ The following link:../conf/[directory] contains repo files that can be used to c
 
 === Conversion Host Requirements
 
+==== Red Hat Virtualization
+
 To perform the conversion task of the VMs during migration a conversion host is required. 
 
 For Red Hat Virtualization thearchitectural choices is to use RHEL Hypervisors as conversion hosts.
@@ -81,7 +83,13 @@ For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be 
 |nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
 |=======
 
+==== Red Hat OpenStack Platform
+
+We will write requirements for OpenStack in this space. 
+
 == VM Migration Workflow
+
+=== Red Hat Virtualization
 
 image::migration_workflow.png[VM Migration Workflow]
 
@@ -108,6 +116,11 @@ This is a fragment of the link:https://access.redhat.com/documentation/en-us/red
 For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV] 
 
 If you have doubts on the steps taking place during the conversion, please read the link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
+
+=== Red Hat OpenStack Platform
+
+We will describe migration workflow for OpenStack in this space. 
+
 
 == Deployment
 
