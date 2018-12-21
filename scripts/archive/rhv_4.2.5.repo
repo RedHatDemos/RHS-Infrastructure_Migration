@@ -1,6 +1,0 @@
-[rhv-4.2.5]
-name=RHV 4.2.5
-baseurl=http://bob.eng.lab.tlv.redhat.com/builds/4.2/rhv-4.2.5-5/el7/
-enabled=1
-gpgcheck=0
-

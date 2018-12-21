@@ -1,6 +1,0 @@
-[libguestfs-preview]
-name=libguestfs-preview
-baseurl=https://people.redhat.com/~rjones/virt-v2v-RHEL-7.5-rhv-preview/
-enabled=1
-gpgcheck=0
-

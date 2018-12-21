@@ -1,3 +1,0 @@
-Name, Provider
-vmname, source_provider
-

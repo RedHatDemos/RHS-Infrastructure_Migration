@@ -1,8 +1,0 @@
----
-#
-#  Please ensure that JBoss EAP repos are configured. The following command woud do the trick.
-#  subscription-manager repos --disable='*' --enable='rhel-x86_64-server-7' --enable='rhel-x86_64-server-extras-7' --enable='rhel-x86_64-server-optional-7'
-#  
-- hosts: jboss[0:1].example.com
-  roles:
-    - jboss-eap

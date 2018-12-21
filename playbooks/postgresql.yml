@@ -1,4 +1,0 @@
----
-- hosts: db.example.com
-  roles:
-    - postgresql

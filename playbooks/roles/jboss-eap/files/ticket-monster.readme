@@ -1,1 +1,0 @@
-Ticket monster provided is compiled to use PostgreSQL as a backend by consuming the datasource configured by playbook

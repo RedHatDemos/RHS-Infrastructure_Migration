@@ -1,4 +1,0 @@
----
-- hosts: lb.example.com
-  roles:
-    - mod_cluster

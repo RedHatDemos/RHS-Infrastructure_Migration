@@ -1,2 +1,0 @@
-[root@db ~]# pg_dump -h localhost -p 5432 -U ticketmonster ticketmonster > ticketmonster.dump                                                                         v1.3.0
-[root@db ~]# pg_view -h localhost -p 5432 -U ticketmonster -d ticketmonster
