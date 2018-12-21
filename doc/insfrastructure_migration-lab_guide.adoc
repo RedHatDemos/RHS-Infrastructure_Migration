@@ -337,25 +337,54 @@ image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 
 === Check Conversion Hosts
 
-. On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
+*Conversion hosts* are the machines that will connect to the vCenter API, in the same fashion backup software would work, get the data from it, perfom the changes required, and send it to the RHV manager API or OSP User API Endopint.
++
+[WARNING]
+*Conversion hosts* used to be managed by using *tags* in *CloudForms* in version 1.0. For version 1.1 new database fields are being used to identify conversion hosts. 
++
+[TIP]
+The credentials that CloudForms uses to connect to Conversion Hosts are stored in the *Host* properties or in the *Provider* properties
+
+. Let's check the conversion host configuration by accesing the *rails console*
+
+* First connect to *CloudForms* via SSH from the `workstation`
++
+----
+# ssh cf.example.com
+----
+
+* Then go to the rails app folder and start the rails console
++
+----
+[root@cf ~]# vmdb
+[root@cf vmdb]# pwd
+/var/www/miq/vmdb
+[root@cf vmdb]# rails c
+irb(main):001:0> 
+----
+
+* Let's get the info on the conversion host `kvm1.example.com`
++
+----
+irb(main):001:0> ConversionHost.find_by(name: 'kvm1.example.com')
+PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, in use: 1, waiting_in_queue: 0
+=> #<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
+----
+
+* Let's get the info on the conversion host `conversion2`
++
+----
+irb(main):002:0> ConversionHost.find_by(name: 'conversion2')
+=> #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
+----
+
+. Now let's check the credentials in the UI. On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
 +
 image::conversion_host_1.png[Conversion Host 1]
 
 . Click *kvm1.example.com*.
 +
 image::conversion_host_2.png[Conversion Host 2]
-
-. Select *Policy -> Edit Tags*.
-+
-image::conversion_host_3.png[Conversion Host 3]
-
-. Check that *V2V - Transformation Host* has value *t* (for true) and that *V2V - Transformation Method* tag has value *VDDK*. Click *Cancel*.
-+
-image::conversion_host_6.png[Conversion Host 6]
-+
-* This values can also be seen in the *Smart Management* box in the host description
-+
-image::conversion_host_7.png[Conversion Host 7]
 
 . Select *Configuration -> Edit this item* (back in `kvm1.example.com`).
 +
