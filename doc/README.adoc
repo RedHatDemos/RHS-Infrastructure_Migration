@@ -5,7 +5,7 @@
 
 == Red Hat Solutions: Infrastructure Migration 1.1
 
-Infrastructure Migration Solution is based in the field experience of the Cloud Migration Factory. The tooling required is now included as features in differend projects (and products) to implement the VM migration tasks. The solution includes also proffesional services, training and much more please check link:http://red.ht/possibilities[http://red.ht/possibilities] for more info. This documentation is intended to be used to learn about the technical implementation of the solution.
+Infrastructure Migration Solution is based in the field experience of the Cloud Migration Factory. The tooling required is now included as features in differend projects (and products) to implement the VM migration tasks. The solution includes also proffesional services, training and much more please check link:http://red.ht/possibilities[http://red.ht/possibilities] for more info. This documentation is intended to be used to learn about the technical implementation of the solution, or demo it.
 
 === Infrastructure Migration Solution v1.1 Lab Guides
 
