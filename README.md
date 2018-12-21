@@ -8,7 +8,7 @@ https://red.ht/possibilities
 
 Please, add comments and suggestions, or report issues on documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
-## Go ahead, get your hands dirty with IMS v1.0
+## Go ahead, get your hands dirty with IMS 1.0
 * [Infrastructure Migration Solution 1.0 - Lab Guides](https://github.com/RedHatDemos/RHS-Infrastructure_Migration/tree/ims_1.0/doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
