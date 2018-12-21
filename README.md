@@ -1,4 +1,4 @@
-# Red Hat Solutions - Infrastructure Migration
+# Red Hat Solutions - Infrastructure Migration 1.1
 
 Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
@@ -12,7 +12,17 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 alpha
 ```
-  0.10 UPdated CFME to 5.10.0.28-1
+  0.20 Minor fixes
+  0.19 Configured conversion host for OSP
+  0.18 Fixed ip for apps.example.com. Renamed OSP resources
+  0.17 Created bigger conversion host, updated hosts on workstation. Added volume type. Infra mapping works. 
+  0.16 Increase CPU cores in Computes and add the Conversion host. Resizing of Director and Computes.
+  0.15 Redeployed OSP with new networking.
+  0.14 OSP deployed with public API on 192.168.10.16
+  0.13 CF reconfigured with prov. networks
+  0.12 Update CFME 5.10.0.29-1
+  0.11 Updated RHV and reconfigured conversion host.
+  0.10 Updated CFME to 5.10.0.28-1
   0.9 Fixed internal DNS Fixed interface naming in VMs Added configuration for conversion host in CF
   0.8 Reconfigure network interfaces in vSphere and VMs
   0.7 Updating CF to 5.9.5
