@@ -3,14 +3,13 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: Infrastructure Migration
+== Red Hat Solutions: Infrastructure Migration 1.1
 
-Infrastructure Migration Solution is based in the Cloud Migration Factory page. This documentation is intended to be used to learn about the technical implementation of the solution.
-
+Infrastructure Migration Solution is based in the field experience of the Cloud Migration Factory. The tooling required is now included as features in differend projects (and products) to implement the VM migration tasks. The solution includes also proffesional services, training and much more please check link:http://red.ht/possibilities[http://red.ht/possibilities] for more info. This documentation is intended to be used to learn about the technical implementation of the solution.
 
 === Infrastructure Migration Solution v1.1 Lab Guides
 
-. link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.1 Lab Guide]
+. link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.1 Migration Guide]
 . link:insfrastructure_migration-deployment_guide.adoc[Infrastructure Migration 1.1 Deployment Guide]
 
 The password to access lab services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
