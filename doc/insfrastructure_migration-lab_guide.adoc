@@ -447,27 +447,29 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 
 === Create a Migration Plan
 
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration*, which is the finishing page from previous step.
+. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
++
+image::migration_plan_0.png[Migration Plan 0]
 
 . Click on *Create Migration Plan*.
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-lb` and click *next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-app` and click *next*.
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
 [NOTE]
 Keeping the default option will take us to the VM menu selector. For massive conversions a CSV file upload can be the right choice.
 
-. In the *step 2* of the wizard, *VMs*, select the *lb* virtual machine, as the one to be migrated.
+. In the *step 2* of the wizard, *VMs*, select the *jboss0* and *jboss1*  virtual machines, as the ones to be migrated.
 +
 image::migration_plan_3.png[Migration Plan 3]
 +
 [NOTE]
-VM selector has a filter to help find a set of VMs within a long list.
+VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term `jboss`. 
 
-. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We won't use this in this demo. Click *Next*
+. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We won't use this feature just yet. Click *Next*
 +
 image::migration_plan_4.png[Migration Plan 4]
 
