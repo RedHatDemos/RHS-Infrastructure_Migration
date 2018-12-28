@@ -331,7 +331,7 @@ image::cloudforms_vms_2.png[CloudForms Virtual Machines 2]
 [NOTE]
 If you needed to validate providers, you may have to wait a few minutes and refresh the screen before the VMs show up.
 
-. Select the pane *VMs & Templates* and, in it, the *VMware* provider.
+. Select the pane *VMs & Templates* and, in it, the *vSphere* provider.
 
 . Only the VMs and Templates in vSphere will show.
 +
