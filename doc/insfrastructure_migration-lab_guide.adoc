@@ -411,7 +411,7 @@ image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 +
 image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-mapping` and click *next*.
+. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv` and click *next*.
 +
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 +
@@ -430,14 +430,18 @@ image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
 +
 * We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Network* as `vSphere\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
++
 image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
 * Finally we canmap the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
++
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
 . In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-mapping have been mapped.` shall appear. Click *close*.
 +
 image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
++
+image::infrastructure_mapping_8.png[Infrastructure Mapping 8]
 
 In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
 
