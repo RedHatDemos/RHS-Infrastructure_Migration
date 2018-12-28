@@ -317,6 +317,8 @@ Take into account that vCenter may take longer to start.
 . To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
 +
 image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
++
+image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 4]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 +
