@@ -480,7 +480,7 @@ image::migration_plan_5.png[Migration Plan 5]
 [NOTE]
 The migration plan can be run immediately, by choosing the other option. 
 
-. In the *step 5* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan has been saved` shall appear. Click *Close*.
+. In the *step 5* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app has been saved` shall appear. Click *Close*.
 +
 image::migration_plan_6.png[Migration Plan 6]
 
@@ -490,7 +490,7 @@ image::migration_plan_7.png[Migration Plan 7]
 
 === Launch Migration
 
-. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button in the *ticket-monster-plan-lb*.
+. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button in the *ticket-monster-plan-app*.
 +
 image::migration_running_1.png[Migration Running 1]
 
