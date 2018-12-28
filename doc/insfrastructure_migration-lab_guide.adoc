@@ -390,7 +390,9 @@ image::conversion_host_2.png[Conversion Host 2]
 
 . Select *Configuration -> Edit this item* (back in `kvm1.example.com`).
 +
-image::conversion_host_8.png[Conversion Host 8]
+image::conversion_host_8a.png[Conversion Host 8]
++
+image::conversion_host_8b.png[Conversion Host 8]
 
 . Check that *Username* has `root` and Password is set. You can click *Validate* to verify they are OK then the message "Credential validation was successful" will appear. This is needed to be able to connect to the conversion host and initiate the conversion.
 +
