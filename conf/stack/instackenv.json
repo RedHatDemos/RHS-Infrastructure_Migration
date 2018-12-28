@@ -1,0 +1,38 @@
+{
+    "nodes":[
+        {
+            "mac":[
+                "2c:c2:60:1b:43:9a"
+            ],
+            "name":"controller",
+            "arch":"x86_64",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"redhat",
+            "pm_addr":"10.10.10.150"
+        },
+       	{
+            "mac":[
+                "2c:c2:60:7c:87:7f"
+            ],
+            "name":"compute1",
+            "arch":"x86_64",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"redhat",
+            "pm_addr":"10.10.10.151"
+        },
+	{
+            "mac":[
+                "2c:c2:60:65:e7:b7"
+            ],
+            "name":"compute2",
+            "arch":"x86_64",
+            "pm_type":"ipmi",
+            "pm_user":"admin",
+            "pm_password":"redhat",
+            "pm_addr":"10.10.10.152"
+        }
+
+    ]
+}

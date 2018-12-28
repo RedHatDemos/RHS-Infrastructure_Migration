@@ -1,0 +1,56 @@
+#This file is an example of an environment file for defining the isolated
+#networks and related parameters.
+resource_registry:
+  # Network Interface templates to use (these files must exist). You can
+  # override these by including one of the net-*.yaml environment files,
+  # such as net-bond-with-vlans.yaml, or modifying the list here.
+  # Port assignments for the Controller
+  OS::TripleO::Controller::Net::SoftwareConfig:
+    ./single-nic-vlans/controller.yaml
+  # Port assignments for the Compute
+  OS::TripleO::Compute::Net::SoftwareConfig:
+    ./single-nic-vlans/compute.yaml
+  # Port assignments for the BlockStorage
+  OS::TripleO::BlockStorage::Net::SoftwareConfig:
+    /usr/share/openstack-tripleo-heat-templates/network/config/single-nic-vlans/cinder-storage.yaml
+  # Port assignments for the ObjectStorage
+  OS::TripleO::ObjectStorage::Net::SoftwareConfig:
+    /usr/share/openstack-tripleo-heat-templates/network/config/single-nic-vlans/swift-storage.yaml
+  # Port assignments for the CephStorage
+  OS::TripleO::CephStorage::Net::SoftwareConfig:
+    /usr/share/openstack-tripleo-heat-templates/network/config/single-nic-vlans/ceph-storage.yaml
+
+parameter_defaults:
+  # This section is where deployment-specific configuration is done
+  # CIDR subnet mask length for provisioning network
+  ControlPlaneSubnetCidr: '24'
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 192.168.0.60
+  EC2MetadataIp: 192.168.0.60  # Generally the IP of the Undercloud
+  # Customize the IP subnets to match the local environment
+  StorageMgmtNetCidr: '172.16.3.0/24'
+  InternalApiNetCidr: '172.16.2.0/24'
+  TenantNetCidr: '172.16.0.0/24'
+  ExternalNetCidr: '192.168.0.0/16'
+  # Customize the VLAN IDs to match the local environment
+  StorageMgmtNetworkVlanID: 10 
+  InternalApiNetworkVlanID: 20
+  TenantNetworkVlanID: 100
+  StorageMgmtAllocationPools: [{'start': '172.16.3.4', 'end': '172.16.3.250'}]
+  InternalApiAllocationPools: [{'start': '172.16.2.4', 'end': '172.16.2.250'}]
+  TenantAllocationPools: [{'start': '172.16.0.4', 'end': '172.16.0.250'}]
+  # Leave room if the external network is also used for floating IPs
+  ExternalAllocationPools: [{'start': '192.168.1.100', 'end': '192.168.1.200'}]
+  # Gateway routers for routable networks
+  ExternalInterfaceDefaultRoute: '192.168.0.2'
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["192.168.0.1","8.8.8.8"]
+  # List of Neutron network types for tenant networks (will be used in order)
+  NeutronNetworkType: 'vxlan,vlan'
+  # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
+  NeutronTunnelTypes: 'vxlan'
+  # Neutron VLAN ranges per network, for example 'datacentre:1:499,tenant:500:1000':
+  # NeutronNetworkVLANRanges: 'datacentre:209'
+  NeutronBridgeMappings: 'datacentre:br-ex,tenant:br-tenant'
+  NeutronExternalNetworkBridge: 'br-ex'
+  NeutronEnableIsolatedMetadata: True
