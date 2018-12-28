@@ -437,7 +437,7 @@ image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-mapping have been mapped.` shall appear. Click *close*.
+. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *close*.
 +
 image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
 +
@@ -453,7 +453,7 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-mapping`, add the name `ticket-monster-plan-lb` and click *next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-lb` and click *next*.
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
