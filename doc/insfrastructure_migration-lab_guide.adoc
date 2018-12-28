@@ -318,7 +318,7 @@ Take into account that vCenter may take longer to start.
 +
 image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
 +
-image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 4]
+image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 5]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 +
@@ -340,10 +340,10 @@ image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 === Check Conversion Hosts
 
 *Conversion hosts* are the machines that will connect to the vCenter API, in the same fashion backup software would work, get the data from it, perfom the changes required, and send it to the RHV manager API or OSP User API Endopint.
-+
+ 
 [WARNING]
 *Conversion hosts* used to be managed by using *tags* in *CloudForms* in version 1.0. For version 1.1 new database fields are being used to identify conversion hosts. 
-+
+ 
 [TIP]
 The credentials that CloudForms uses to connect to Conversion Hosts are stored in the *Host* properties or in the *Provider* properties
 
