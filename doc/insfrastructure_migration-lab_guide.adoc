@@ -513,7 +513,7 @@ And each VM migration process in the Conversion Host:
 +
 ----
 # ssh kvm1.example.com
-# tail -f /var/log/vdsm/import/*
+# tail -f /var/log/vdsm/import/v2v-import-*
 ----
 
 . CloudForms Migration interface shows migration status too
