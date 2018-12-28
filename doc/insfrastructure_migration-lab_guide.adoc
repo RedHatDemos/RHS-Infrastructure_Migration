@@ -403,7 +403,7 @@ image::conversion_host_9.png[Conversion Host 9]
 
 === Create an Infrastructure Mapping
 
-. Navigate to the *Compute -> Migration*.
+. Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
 +
 image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 
@@ -425,8 +425,14 @@ image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Network* as `vSphere\VM Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
+. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the netowrk used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
 +
+image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
++
+* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Network* as `vSphere\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
+image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
++
+* Finally we canmap the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
 . In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-mapping have been mapped.` shall appear. Click *close*.
