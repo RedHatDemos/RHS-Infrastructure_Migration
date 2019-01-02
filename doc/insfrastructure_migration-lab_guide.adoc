@@ -365,6 +365,7 @@ irb(main):001:0>
 ----
 
 * Let's get the list of the conversion hosts
++
 ----
 [root@cf vmdb]# rails c
 ** CFME 5.10.0.29, codename: Hammer
