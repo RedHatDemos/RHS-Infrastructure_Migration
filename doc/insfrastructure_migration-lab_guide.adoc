@@ -364,6 +364,53 @@ The credentials that CloudForms uses to connect to Conversion Hosts are stored i
 irb(main):001:0> 
 ----
 
+* Let's get the list of the conversion hosts
+----
+[root@cf vmdb]# rails c
+** CFME 5.10.0.29, codename: Hammer
+Loading production environment (Rails 5.0.7.1)
+irb(main):001:0> pp ConversionHost.all
+PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, in use: 1, waiting_in_queue: 0
+[#<ConversionHost:0x000000000affe560
+  id: 1,
+  name: "kvm1.example.com",
+  address: nil,
+  type: nil,
+  resource_type: "Host",
+  resource_id: 3,
+  version: nil,
+  max_concurrent_tasks: nil,
+  vddk_transport_supported: true,
+  ssh_transport_supported: false,
+  created_at: Wed, 12 Dec 2018 16:17:17 UTC +00:00,
+  updated_at: Wed, 12 Dec 2018 16:17:17 UTC +00:00,
+  concurrent_transformation_limit: nil,
+  cpu_limit: nil,
+  memory_limit: nil,
+  network_limit: nil,
+  blockio_limit: nil>,
+ #<ConversionHost:0x000000000affe2e0
+  id: 2,
+  name: "conversion2",
+  address: nil,
+  type: nil,
+  resource_type: "VmOrTemplate",
+  resource_id: 20,
+  version: nil,
+  max_concurrent_tasks: 5,
+  vddk_transport_supported: true,
+  ssh_transport_supported: nil,
+  created_at: Tue, 18 Dec 2018 14:45:14 UTC +00:00,
+  updated_at: Tue, 18 Dec 2018 14:45:43 UTC +00:00,
+  concurrent_transformation_limit: nil,
+  cpu_limit: nil,
+  memory_limit: nil,
+  network_limit: nil,
+  blockio_limit: nil>]
+=> #<ActiveRecord::Relation [#<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>, #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>]>
+
+----
+
 * Let's get the info on the conversion host `kvm1.example.com`
 +
 ----
