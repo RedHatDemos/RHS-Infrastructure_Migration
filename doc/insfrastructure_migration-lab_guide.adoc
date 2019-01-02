@@ -67,7 +67,6 @@ Required versions of products used:
 +
 [NOTE]
 Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
-+
 
 === Obtaining or enabling access credentials
 
