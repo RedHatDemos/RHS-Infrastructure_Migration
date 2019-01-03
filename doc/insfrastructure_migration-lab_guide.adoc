@@ -764,6 +764,13 @@ image::migration_plan_osp_7.png[Migration Plan 7]
 +
 image::migration_plan_osp_8.png[Migration Plan 8]
 
+. Once the migration is finished ...
++
+image::migration_running_osp_1.png[Migration Running 1]
+
+. We can find the instand in *OpenStack* in the *ticket-monster* project:
++
+image::migration_running_osp_2.png[Migration Running 2]
 
 == Running migrations using a CSV file
 
