@@ -724,6 +724,46 @@ image::infrastructure_mapping_osp_8.png[Infrastructure Mapping 8]
 
 In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat OpenStack Platform.
 
+== Migrating VMs to OSP with a Migration Plan
+
+=== Create and run the migration plan
+
+. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
++ 
+image::migration_plan_0.png[Migration Plan 0]
+
+. Click on *Create Migration Plan*.
++ 
+image::migration_plan_osp_1.png[Migration Plan 1]
+
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-osp`, add the name `ticket-monster-plan-lb` and click *next*.
++ 
+image::migration_plan_osp_2.png[Migration Plan 2]
+
+. In the *step 2* of the wizard, *VMs*, select the *lb* virtual machine, as the one to be migrated.
++ 
+image::migration_plan_osp_3.png[Migration Plan 3]
+
+. In the *step 3* of the wizard, *Instance Properties*, we can assign a specific OpenStack Flavor to the instance. We keep `m1.medium` for it and Click *Next*
++ 
+image::migration_plan_osp_4.png[Migration Plan 4]
+
+. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We won't use this feature just yet. Click *Next*
++ 
+image::migration_plan_osp_5.png[Migration Plan 5]
+
+. In the *step 5* of the wizard, *Schedule*, select *Start migration inmediately*. Click *Create*
++ 
+image::migration_plan_osp_6.png[Migration Plan 6]
+
+. In the *step 6* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app is in progress` shall appear. Click *Close*.
++
+image::migration_plan_osp_7.png[Migration Plan 7]
+
+. Back to the migration page we will see how the *Migration Plan* is already running
++
+image::migration_plan_osp_8.png[Migration Plan 8]
+
 
 == Running migrations using a CSV file
 
