@@ -787,48 +787,66 @@ CSV file format is specified in the link:https://access.redhat.com/documentation
 +
 image:ticket_monster_csv_db_file.png[Multiple VM CSV File]
 
-.. Navigate to *Compute -> Migration* and choose *Create Migration Plan*. We will select the same infrastructure mapping previously created, `ticket-monster-mapping-rhv`, and select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
+.. Navigate to *Compute -> Migration -> Migration Plans* and click on *Create Migration Plan*. We will select the same infrastructure mapping previously created, `ticket-monster-mapping-rhv`, and select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
 +
-image::multi_vm_migration_plan_1.png[Multiple VM Migration Plan 1]
+image::csv_migration_plan_1.png[CSV Migration Plan 1]
++
+image::csv_migration_plan_2.png[CSV Migration Plan 2]
 
 .. In the *Import File* step, click on import and select the previously downloaded, and modified, file `ticket_monster_migration_db.csv`
 +
-image::multi_vm_migration_plan_2.png[Multiple VM Migration Plan 2]
+image::csv_migration_plan_3.png[CSV Migration Plan 3]
 +
-image::multi_vm_migration_plan_3.png[Multiple VM Migration Plan 3]
+image::csv_migration_plan_4.png[CSV Migration Plan 4]
 
 .. The VM list will appear in the dialog. It is possible to modify the selection at this step but there is no need to. Click *Next*
 +
-image::multi_vm_migration_plan_4.png[Multiple VM Migration Plan 4]
+image::csv_migration_plan_5.png[CSV Migration Plan 5]
 +
 [TIP]
 A full migration can be done using the original sample file with a freshly instantiated environment.
 
 .. In the *Advanced Options* step we will not apply any change. Click *Next*.
 +
-image::multi_vm_migration_plan_5.png[Multiple VM Migration Plan 5]
+image::csv_migration_plan_6.png[CSV Migration Plan 6]
 
 .. In the *Schedule* step we will *Save migration plan to run later*. The plan can later on be scheduled or directly run. Click *Next*.
 +
-image::multi_vm_migration_plan_6.png[Multiple VM Migration Plan 6]
+image::csv_migration_plan_7.png[CSV Migration Plan 7]
 
 .. *Results* page for the *Plan* will appear. Click *Close*
 +
-image::multi_vm_migration_plan_7.png[Multiple VM Migration Plan 7]
+image::csv_migration_plan_8.png[CSV Migration Plan 8]
 
-.. Back to the main *Migration* page, we can schedule or run the plan created. Click *Migrate*
+.. Back to the main *Migration Plans* page, we can schedule or run the plan created. Click *Schedule*
 +
-image::multi_vm_migration_plan_8.png[Multiple VM Migration Plan 8]
+image::csv_migration_plan_9.png[CSV Migration Plan 9]
 
-.. The plan will get automatically approved and start immediatelly. The detailed status can be seen by clicking in the plan box. 
+.. Choose date and time (i.e. two minutes from current time).
 +
-image::multi_vm_migration_plan_9.png[Multiple VM Migration Plan 9]
+image::csv_migration_plan_10.png[CSV Migration Plan 10]
 +
-image::multi_vm_migration_plan_10.png[Multiple VM Migration Plan 10]
+image::csv_migration_plan_11.png[CSV Migration Plan 11]
++
+image::csv_migration_plan_12.png[CSV Migration Plan 12]
 
-.. Once the VMs complete migration verify they are running in RHV via the RHV admin console.
+.. The plan will get automatically approved and start at the chosen time. 
 +
-image::multi_vm_migration_rhv.png[Multiple VM Migration RHV]
+image::csv_migration_plan_13.png[CSV Migration Plan 13]
++
+image::csv_migration_plan_14.png[CSV Migration Plan 14]
+
+.. Migration will take place
++
+image::csv_migration_plan_15.png[CSV Migration Plan 15]
++
+image::csv_migration_plan_16.png[CSV Migration Plan 16]
+
+.. And VMs will be running in Red Hat Virtualization
++
+image::csv_migration_plan_17.png[CSV Migration Plan 17]
+
+
 
 .. Verify that the Ticket Monster app is running:
 
