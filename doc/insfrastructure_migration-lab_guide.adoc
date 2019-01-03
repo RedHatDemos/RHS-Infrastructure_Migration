@@ -143,7 +143,6 @@ The architecture of the deployment can be depicted as it follows:
 image::architecture_diagram.png[Architecture Diagram]
 
 .Networks
-
 Networks used in the environment
 
 [cols="1,1,2",options="header"]
@@ -156,7 +155,6 @@ Networks used in the environment
 |=======
 
 .Virtual Machines 
-
 This deployment of the migration environment includes the following VMs provisioned in the vSphere environment in order to be migrated:
 
 [cols="1,1,2",options="header"]
