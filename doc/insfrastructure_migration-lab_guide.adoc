@@ -367,6 +367,9 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 . Only the VMs and Templates in vSphere will show.
 +
 image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
++
+[TIP]
+This is a good way to check that the app VMs are up and running and start the sopped ones.
 
 === Check Conversion Hosts
 

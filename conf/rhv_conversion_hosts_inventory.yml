@@ -1,0 +1,27 @@
+all:
+  vars:
+    ansible_ssh_private_key_file: /etc/pki/ovirt-engine/keys/engine_id_rsa
+#    v2v_repo_rpms_name: "rhel-7-server-rhv-4-mgmt-agent-rpms"
+#    v2v_repo_rpms_url: "http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-rpms"
+    v2v_repo_srpms_name: "rhel-7-server-rhv-4-mgmt-agent-source-rpms"
+    v2v_repo_srpms_url: "http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms"
+    v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
+    v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
+    manageiq_url: "https://cf.example.com"
+    manageiq_username: "admin"
+    manageiq_password: "<to_be_provided>"
+    manageiq_zone_id: "1"
+    manageiq_providers:
+      - name: "RHV"
+        connection_configurations:
+          - endpoint:
+              role: "default"
+              verify_ssl: false
+  hosts:
+    kvm1.example.com:
+#    kvm2.example.com:
+      v2v_host_type: rhv
+      v2v_transport_methods:
+        - vddk
+      manageiq_provider_name: "RHV"
+
