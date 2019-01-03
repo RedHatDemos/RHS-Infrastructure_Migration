@@ -632,7 +632,7 @@ image::migration_running_5.png[Migration Running 5]
 +
 image::migration_running_6.png[Migration Running 6]
 
-. For the time of the migration the load balancer, `lb` will be powered off migrated and then powered on.
+. For the time of the migration the JBoss EAP servers, `jboss0` and `jboss1` will be powered off in `vSphere`, migrated and then powered on in `RHV`.
 +
 image::migration_running_7.png[Migration Running 7]
 
@@ -644,7 +644,7 @@ image::migration_running_8.png[Migration Running 8]
 +
 image::migration_running_9.png[Migration Running 9]
 
-. ... the VM gets powered up
+. ... the VMs get powered up
 +
 image::migration_running_10.png[Migration Running 10]
 +
