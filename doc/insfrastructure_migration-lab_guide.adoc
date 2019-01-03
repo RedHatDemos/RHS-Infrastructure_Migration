@@ -119,6 +119,7 @@ The demo environment consists of the following systems:
 
 image::blueprint.png[Blueprint]
 
+[cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
@@ -146,18 +147,17 @@ image::architecture_diagram.png[Architecture Diagram]
 * Networks used in the environment
 ** `Admin` - `192.168.x.x/16` -> General adminitration and Storage network.
 ** `Service` - `10.10.0.x/24` -> Internal network for the app to connect LB to EAP and to DB. 
-** `Service/DMZ` - `10.9.0.x/24` -> External DMZ network to publish the app. Also access to the user API for OSP and Horizon (Provider network)
+** `Servicer-DMZ` - `10.9.0.x/24` -> External DMZ network to publish the app. Also access to the user API for OSP and Horizon (Provider network)
 ** `OSP Provisioning` - `10.100.0.x/24` -> OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.  
 
-[cols="1,1,1,2",options="header"]
 
 .Virtual Machines to be migrated
 
 * Deployment of the demo environment which includes the following VMs provisioned in the vSphere environment:
-** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP
-** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP
-** `lb` - a Red Hat Enterprise Linux 7 host running JBoss Core Service Apache HTTP server configured with mod_cluster to proxy traffic to `jboss0` and `jboss1`
-** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL that the `jboss0` and `jboss1` application servers connect to
+** `jboss0` - a Red Hat Enterprise Linux 7 host running JBoss EAP, connected to the `Service` network.
+** `jboss1` - a Red Hat Enterprise Linux 7 host running JBoss EAP, connected to the `Service` network.
+** `lb` - a Red Hat Enterprise Linux 7 host running JBoss Core Service Apache HTTP server configured with mod_cluster to proxy traffic to `jboss0` and `jboss1`, connected to the `Service` and `Servicer-DMZ` networks.
+** `db` - a Red Hat Enterprise Linux 7 host running PostgreSQL providing service to `jboss0` and `jboss1` through the `Service` network.
 
 * An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accesible.
 
@@ -411,6 +411,9 @@ PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, 
 => #<ActiveRecord::Relation [#<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>, #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>]>
 
 ----
++
+[NOTE]
+This functionality is expected to be available through the web interface for version 1.2
 
 * Let's get the info on the conversion host `kvm1.example.com`
 +
