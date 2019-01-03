@@ -1,5 +1,5 @@
 Name, Provider
-lb, VMware
-jboss0, VMware
-jboss1, VMware
-db, VMware
+lb, vSphere
+jboss0, vSphere
+jboss1, vSphere
+db, vSphere
