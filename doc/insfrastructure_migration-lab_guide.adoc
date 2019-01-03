@@ -198,7 +198,7 @@ $ sudo -i
 +
 This command establishes a connection to all the machines in the environment (except ESXi servers). 
 In case the machines are up an running a success message, per each, will show up. 
-This is an example of a success message for the VM cf.example.com:
+This is an example of a success message for the VM `cf.example.com`:
 +
 ----
 cf.example.com | SUCCESS => {
@@ -245,7 +245,7 @@ You must accept all of the self-signed SSL certificates.
 +
 image::ssl_cert_warning.png[SSL Cert Warning]
 +
-If the ticketmonster app is not running, please run the following command in `workstation`:
+If the ticketmonster app is not running, you may run the following command in `workstation`:
 +
 ----
 # start_vms
@@ -295,7 +295,6 @@ image::vsphere_web_client_2.png[vCenter]
 +
 image::vsphere_web_client_3.png[vCenter]
 
-
 * *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
 +
 image::cloudforms_login.png[CloudForms Login]
@@ -304,6 +303,16 @@ image::cloudforms_login.png[CloudForms Login]
 You can also find these URLs in the email provided when you provisioned the demo environment.
 +
 image::cloudforms_dashboard.png[CloudForms Dashboard]
+
+
+* *OpenStack Horizon:* `http://horizon-<YOUR-GUID>.rhpds.opentlc.com`
++
+image::horizon_login.png[Horizon Login]
++
+[TIP]
+Horizon access still does not have https configured (sorry!)
++
+image::horizon_dashboard.png[Horizon Dashboard]
 
 === Validate the Current Infrastructure in CloudForms
 
