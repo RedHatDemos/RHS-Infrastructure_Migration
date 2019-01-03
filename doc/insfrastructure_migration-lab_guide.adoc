@@ -613,7 +613,7 @@ image::migration_running_3.png[Migration Running 3]
 # tail -f /var/www/miq/vmdb/log/automation.log
 ----
 +
-And each VM migration process in the Conversion Host:
+Once the pre-migration steps are finished and the conversion starts, each VM conversion process can be tracked in the Conversion Host:
 +
 ----
 # ssh kvm1.example.com
