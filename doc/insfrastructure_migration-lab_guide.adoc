@@ -628,7 +628,7 @@ image::migration_running_4.png[Migration Running 4]
 +
 image::migration_running_5.png[Migration Running 5]
 
-. Progress can be followed in this page or in the main Migration page
+. Progress can be followed in this page
 +
 image::migration_running_6.png[Migration Running 6]
 
