@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.1 beta - Lab Guide
+== Infrastructure Migration 1.1 beta - Migration Guide
 
 :numbered:
 
@@ -80,7 +80,7 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 == Preparation
 
-=== Provision Your Demo Environment
+=== Provision Your Migration Environment
 
 . Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials. 
 +
@@ -111,11 +111,11 @@ image::rhpds_order.png[RHPDS]
 [TIP]
 Be mindful of the runtime of your demo environment! It may take several hours to complete the demo, so you may need to extend the runtime. This is especially important in later steps when you are building virtual machines. For information on how to extend runtime and lifetime, see https://www.opentlc.com/lifecycle.
 
-=== Environment
+== Environment
 
-A full new demo environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *YOUR-GUID*.  
+A full new migration environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *YOUR-GUID*.  
 
-The demo environment consists of the following systems:
+The migration environment consists of the following systems:
 
 image::blueprint.png[Blueprint]
 
@@ -462,6 +462,7 @@ irb(main):002:0> ConversionHost.find_by(name: 'conversion2')
 => #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
 ----
 
+=== Check Credentials
 
 The credentials that CloudForms uses to connect to Conversion Hosts are stored in the *Host* properties or in the *Provider* properties
 
@@ -505,7 +506,7 @@ image::conversion_host_provider_5.png[Conversion Host Cloud Provider 5]
 
 . The conversion credentials for the Cloud Provider are ready.
 
-=== Create an Infrastructure Mapping
+== Create an Infrastructure Mapping (vSphere to RHV)
 
 . Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
 +
@@ -549,7 +550,7 @@ image::infrastructure_mapping_8.png[Infrastructure Mapping 8]
 
 In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
 
-=== Create a Migration Plan
+== Migrating VMs to RHV with a Migration Plan
 
 . Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
 +
@@ -676,28 +677,83 @@ image::migration_log_access.png[Migration Log Access]
 +
 image::migration_log.png[Migration Log]
 
+
+== Create an Infrastructure Mapping (vSphere to OpenStack)
+
+. Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
++
+image::infrastructure_mapping_osp_1.png[Infrastructure Mapping 1]
+
+. Click on *Create Infrastructure Mapping*.
++ 
+image::infrastructure_mapping_osp_2.png[Infrastructure Mapping 2]
+
+. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv` and click *next*.
++ 
+* A description may be added to make it easy to, later on, recognize the usage of the mapping.
++ 
+image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
+
+. In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *next*.
++ 
+image::infrastructure_mapping_osp_4.png[Infrastructure Mapping 4]
+
+. In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *next*.
++
+image::infrastructure_mapping_osp_5.png[Infrastructure Mapping 5]
+
+. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the netowrk used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*. 
++
+image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
++
+* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Network* as `vSphere\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
++
+image::infrastructure_mapping_osp_6b.png[Infrastructure Mapping 6]
++
+* Finally we canmap the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
++ 
+image::infrastructure_mapping_osp_6.png[Infrastructure Mapping 6]
+
+. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *close*.
++ 
+image::infrastructure_mapping_osp_7.png[Infrastructure Mapping 7]
++
+image::infrastructure_mapping_osp_8.png[Infrastructure Mapping 8]
+
+In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat OpenStack Platform.
+
+
+== Running migrations using a CSV file
+
 . Migrate the remaining application servers and database VMs from VMware to RHV using a CSV file.
 
-.. Download the CSV file from link:https://raw.githubusercontent.com/RedHatDemos/RHS-Infrastructure_Migration/master/scripts/ticket_monster_migration.csv[here] and save it as `ticket_monster_migration.csv`. Check that the content is the following:
+.. Download the CSV sample file from link:../conf/ticket_monster_migration_sample.csv[here] and save it as `ticket_monster_migration_db.csv`. Check that the content is the following:
 +
 image:ticket_monster_csv_file.png[Multiple VM CSV File]
 +
 [TIP]
 CSV file format is specified in the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index#Creating_a_Migration_Plan[Official Documentation]
 
-.. Navigate to *Compute -> Migration* and choose *Create Migration Plan*. We will select the same infrastructure mapping previously created, `ticket-monster-mapping`, and select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
+.. This sample file could be an example of a CMDB dump after processing. We may remove the lines we know we are not going to use, leaving only the header row and the `db` row. link:../conf/ticket_monster_migration_db.csv[Sample here].
++
+image:ticket_monster_csv_db_file.png[Multiple VM CSV File]
+
+.. Navigate to *Compute -> Migration* and choose *Create Migration Plan*. We will select the same infrastructure mapping previously created, `ticket-monster-mapping-rhv`, and select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
 +
 image::multi_vm_migration_plan_1.png[Multiple VM Migration Plan 1]
 
-.. In the *Import File* step, click on import and select the previously downloaded file `ticket_monster_migration.csv`
+.. In the *Import File* step, click on import and select the previously downloaded, and modified, file `ticket_monster_migration_db.csv`
 +
 image::multi_vm_migration_plan_2.png[Multiple VM Migration Plan 2]
 +
 image::multi_vm_migration_plan_3.png[Multiple VM Migration Plan 3]
 
-.. The VM list will appear in the dialog. It is possible to modify the selection at this step but we will migrate the whole list. Click *Next*
+.. The VM list will appear in the dialog. It is possible to modify the selection at this step but there is no need to. Click *Next*
 +
 image::multi_vm_migration_plan_4.png[Multiple VM Migration Plan 4]
++
+[TIP]
+A full migration can be done using the original sample file with a freshly instantiated environment.
 
 .. In the *Advanced Options* step we will not apply any change. Click *Next*.
 +
