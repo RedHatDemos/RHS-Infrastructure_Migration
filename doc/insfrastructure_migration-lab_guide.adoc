@@ -309,7 +309,7 @@ image::cloudforms_dashboard.png[CloudForms Dashboard]
 +
 image::horizon_login.png[Horizon Login]
 +
-[TIP]
+[NOTE]
 Horizon access still does not have https configured (sorry!)
 +
 image::horizon_dashboard.png[Horizon Dashboard]
@@ -334,6 +334,22 @@ Take into account that vCenter may take longer to start.
 image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
 +
 image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 5]
+
+. Time to go to *Compute -> Clouds -> Providers*.
++
+image::cloudforms_cloud_providers_1.png[CloudForms Clouds Providers 1]
+
+. If you see an exclamation mark (*!*), or a cross (*x*) in the provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
++
+image::cloudforms_cloud_providers_2.png[CloudForms Clouds Providers 2]
++
+image::cloudforms_cloud_providers_3.png[CloudForms Clouds Providers 3]
+
+. To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
++
+image::cloudforms_cloud_providers_4.png[CloudForms Clouds Providers 4]
++
+image::cloudforms_cloud_providers_5.png[CloudForms Clouds Providers 5]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 +
