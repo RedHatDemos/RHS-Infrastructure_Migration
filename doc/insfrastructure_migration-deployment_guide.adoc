@@ -119,6 +119,8 @@ If you have doubts on the steps taking place during the conversion, please read 
 
 === Red Hat OpenStack Platform
 
+image::osp_arch_diagram.png[OSP Migration Workflow]
+
 We will describe migration workflow for OpenStack in this space. 
 
 
