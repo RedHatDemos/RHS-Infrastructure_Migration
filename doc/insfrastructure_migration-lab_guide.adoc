@@ -506,7 +506,7 @@ image::migration_log.png[Migration Log]
 
 . Migrate the remaining application servers and database VMs from VMware to RHV using a CSV file.
 
-.. Download the CSV file from link:https://raw.githubusercontent.com/RedHatDemos/RHS-Infrastructure_Migration/master/scripts/ticket_monster_migration.csv[here] and save it as `ticket_monster_migration.csv`. Check that the content is the following:
+.. Download the CSV file from link:https://raw.githubusercontent.com/RedHatDemos/RHS-Infrastructure_Migration/ims_1.0/scripts/ticket_monster_migration.csv[here] and save it as `ticket_monster_migration.csv`. Check that the content is the following:
 +
 image:ticket_monster_csv_file.png[Multiple VM CSV File]
 +
