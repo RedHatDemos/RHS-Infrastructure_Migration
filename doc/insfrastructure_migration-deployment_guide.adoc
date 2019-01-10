@@ -135,7 +135,7 @@ image::osp_arch_diagram.png[OSP Migration Workflow]
 +
 [NOTE]
 ====
-Source virtual machines must be powered on for migration.
+Source virtual machines must be powered on for migration. OpenStack by design cannot create powered-off VMs.
 ====
 . If VDDK transformation is used, the ESXi host fingerprint is captured for authentication during the virtual machine conversion process.
 . Using the OpenStack Platform attributes defined for the target environment, CloudForms initiates communication with the conversion hosts.
