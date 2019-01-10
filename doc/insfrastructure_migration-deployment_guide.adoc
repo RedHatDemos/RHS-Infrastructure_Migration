@@ -182,7 +182,7 @@ Take into account that after CloudForms database reset, the users will be remove
 
 TODO: Add a review on the automation domain
 
-==== Add Virtualization Providers
+==== Red Hat Virtualization: Add Virtualization Providers
 
 Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by login in with the default appliance password, and then following these steps:
 
@@ -215,6 +215,26 @@ image::cloudforms_add_providers_6.png[Add Providers 6]
 image::cloudforms_add_providers_7.png[Add Providers 7]
 
 This way the two Virtualization providers are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
+
+==== Red Hat OpenStack Platform: Add Infrastructure Provider
+
+[NOTE]
+====
+The following steps can be done later, after a conversion host instance has been created in OpenStack.
+====
+. Navigate to *Compute* -> Infrastructure -> *Providers*
+. Click *Configuration* -> then click *Add a New Infrastructure Provider*
+. Enter the *Name* of the provider to add.
+. Select *OpenStack Platform Director* from the Type list.
+. Select the API Version of your OpenStack provider’s Keystone service from the list.
+. In the *Default* tab, under Endpoints, configure the host and authentication details of your OpenStack provider:
+.. Select a *Security Protocol* method
+.. Enter the Host Name or IP address of the provider.
+.. In the *Username* field, enter *'admin'* as the name of an OpenStack user with privileged access. Then, provide its corresponding password in the *Password* and *Confirm Password* fields.
+.. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
+. Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
+.. *Username* should be set to cloud-user.
+.. Upload the *ssh key* used for instance creation in OpenStack.
 
 [TIP]
 It is recommended to go to *Compute -> Infrastructure -> Providers* select both providers and click on *Configuration -> Refresh Relationships and Power States* before continuing to have all data from providers updated.
