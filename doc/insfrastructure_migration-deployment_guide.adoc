@@ -241,6 +241,8 @@ It is recommended to go to *Compute -> Infrastructure -> Providers* select both 
 
 === Conversion Host Installation
 
+==== Red Hat Virtualization
+
 We will use both hypervisors, `kvm1` and `kvm2`, as conversion hosts. Host `kvm1` is already configured. We will proceed to install `kvm2`.
 
 In the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks` directory of the RHV Manager, the playbooks to install a conversion host are available:
@@ -291,6 +293,17 @@ It may be time to check again and ensure the tool installation went OK:
 /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
 ----
+
+==== Red Hat OpenStack Platform
+
+Configuring the conversion hosts for migration involves the following key steps:
+
+. Downloading and copying the VDDK package
+. Creating an Ansible inventory file
+. Configuring the conversion hosts and adding them to CloudForms
+. Validating the configuration
+
+
 
 === Conversion Host Configuration in CloudForms
 
