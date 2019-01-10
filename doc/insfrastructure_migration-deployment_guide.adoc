@@ -9,14 +9,14 @@
 
 == Overview
 
-The field experience in migrating VMs from propietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is built, and included in the environment provided for this guide.
+The field experience in migrating VMs from proprietary virtualization infrastructures to Red Hat infrastructure providers has been completed in several customized engagements. From the experience of these engagements and with the involvement of Engineering and User Experience and Design teams, a productized version of it is built, and included in the environment provided for this guide.
 
 This guide intends to provide the information needed to perform a successful deployment of the Infrastructure Migration solution.
 For the *official Infrastructure Migration Solution 1.0 documentation* please go link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index[here]
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
-[WARNING] 
+[WARNING]
 This guide will not work properly in an environment previously used for the Infrastructure Migration Lab. A fresh new environment needs to be requested to follow this guide
 
 == Requirements
@@ -71,10 +71,9 @@ The following link:../conf/[directory] contains repo files that can be used to c
 
 ==== Red Hat Virtualization
 
-To perform the conversion task of the VMs during migration a conversion host is required. 
+To perform the conversion task of the VMs during migration a conversion host is required.
 
-For Red Hat Virtualization thearchitectural choices is to use RHEL Hypervisors as conversion hosts.
-For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
+For Red Hat Virtualization the architectural choices is to use RHEL Hypervisors as conversion hosts.
 
 [cols="1,1,1",options="header"]
 |=======
@@ -82,12 +81,21 @@ For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be 
 |VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
 |nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
 |=======
+{empty} +
 
 ==== Red Hat OpenStack Platform
 
-We will write requirements for OpenStack in this space. 
+For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
+VDDK SDK will have to be downloaded separately.
+
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|=======
 
 == VM Migration Workflow
+
 
 === Red Hat Virtualization
 
@@ -113,7 +121,7 @@ image::migration_workflow.png[VM Migration Workflow]
 [NOTE]
 This is a fragment of the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/#Migration_overview[ Official Infrastructure Migration Solution Official Documentation]. Refer to it for the most updated information.
 
-For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV] 
+For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV]
 
 If you have doubts on the steps taking place during the conversion, please read the link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
 
@@ -121,17 +129,29 @@ If you have doubts on the steps taking place during the conversion, please read 
 
 image::osp_arch_diagram.png[OSP Migration Workflow]
 
-We will describe migration workflow for OpenStack in this space. 
+. The Infrastructure Admin creates an *infrastructure mapping* and a virtual machine *migration plan* in CloudForms, and runs the migration plan.
 
+. CloudForms uses the migration plan to locate the virtual machines to be migrated.
++
+[NOTE]
+====
+Source virtual machines must be powered on for migration.
+====
+. If VDDK transformation is used, the ESXi host fingerprint is captured for authentication during the virtual machine conversion process.
+. Using the OpenStack Platform attributes defined for the target environment, CloudForms initiates communication with the conversion hosts.
+. The conversion host connects to the source datastore through the ESXi host, using virt-v2v-wrapper, and streams the disks to be converted to the target block storage, using virt-v2v. The conversion host creates volumes in the block storage, attaches them to itself, and converts the source disks.
+. Once the disks are converted, virt-v2v detaches the volumes from the conversion host. virt-v2v-wrapper creates the target instance in the OpenStack Platform environment with the converted disks, using the flavor and security group defined in the migration plan and the network(s) defined in the infrastructure mapping.
+. The disks mapped in the block storage are attached to the instance and the instance is powered on.
+. The migration process is complete and the migration plan’s status is displayed in CloudForms.
 
 == Deployment
 
 === CloudForms Deployment
 
-The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL. 
+The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL.
 
 In this Deployment Lab, a Cloudforms appliance is already provided, so there is no need to deploy one.
-As a reference on how to deploy a CloudForms appliance on RHV and vSphere the following official documentation is available: 
+As a reference on how to deploy a CloudForms appliance on RHV and vSphere the following official documentation is available:
 
 * link:https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/installing_red_hat_cloudforms_on_red_hat_virtualization/[Installing Red Hat CloudForms on Red Hat Virtualization]
 
@@ -149,7 +169,7 @@ Once the overview is done, we can proceed by running, in `workstation`, the play
 
 ----
 # cd /root/RHS-Infrastructure_Migration/playbooks/
-# ansible-playbook unconfigure.yml 
+# ansible-playbook unconfigure.yml
 ----
 
 The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1`, the currently configured conversion host, or the RHV setup.
@@ -232,15 +252,15 @@ There is a `conversion_host_check.yml` playbook that can be run and ensures that
 
 ----
 # cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
-# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
 ----
 
 After that, the installation of tools can be performed by running the `conversion_host_enable.yml` playbook:
 
 ----
-# pwd 
+# pwd
 /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
-# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_enable.yml 
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_enable.yml
 ----
 
 It may be time to check again and ensure the tool installation went OK:
@@ -248,7 +268,7 @@ It may be time to check again and ensure the tool installation went OK:
 ----
 # pwd
 /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
-# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml 
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
 ----
 
 === Conversion Host Configuration in CloudForms
@@ -310,9 +330,8 @@ The environment is ready to perform a migration. To test it, follow the link:ins
 
 == Advanced and Experimental
 
-In case you may want to know more about the environment you can check the link:insfrastructure_migration-advanced_experimental.adoc[Advanced and Experimental exercises] 
+In case you may want to know more about the environment you can check the link:insfrastructure_migration-advanced_experimental.adoc[Advanced and Experimental exercises]
 
 == Troubleshooting the Migration Solution
 
-For troubleshooting the environment please read the link:insfrastructure_migration-troubleshooting.adoc[Troubleshooting the Migration Solution] document  
-
+For troubleshooting the environment please read the link:insfrastructure_migration-troubleshooting.adoc[Troubleshooting the Migration Solution] document
