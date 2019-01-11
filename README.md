@@ -12,6 +12,8 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 alpha
 ```
+  0.22 Enabled nested virt in OSP Computes. Fixed config mistakes in CF. Cleanups.
+  0.21 Updating CFME to 5.10.0.31
   0.20 Minor fixes
   0.19 Configured conversion host for OSP
   0.18 Fixed ip for apps.example.com. Renamed OSP resources
