@@ -6,7 +6,7 @@
       wait_for:
         port: 443
         host: "{{ item }}"
-        delay: 10
+        delay: 20
         timeout: 1200
       with_items:
         - esx1.example.com
@@ -16,8 +16,13 @@
       wait_for:
         port: 9443
         host: vcenter.example.com
-        delay: 10
+        delay: 20
         timeout: 1200
+    - name: Wait for NFS to be available
+      wait_for:
+        port: 2049
+        host: storage.example.com
+        delay: 20
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
