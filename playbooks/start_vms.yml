@@ -2,6 +2,11 @@
 - hosts: workstation.example.com
   become: true
   tasks:
+    - name: Wait for NFS to be available
+      wait_for:
+        port: 2049
+        host: storage.example.com
+        delay: 20
     - name: Wait for ESX and vCenter servers port 443 to be available
       wait_for:
         port: 443
@@ -18,11 +23,6 @@
         host: vcenter.example.com
         delay: 20
         timeout: 1200
-    - name: Wait for NFS to be available
-      wait_for:
-        port: 2049
-        host: storage.example.com
-        delay: 20
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
