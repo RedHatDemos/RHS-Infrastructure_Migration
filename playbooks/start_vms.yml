@@ -37,6 +37,7 @@
         - jboss0
         - jboss1
         - lb
+      ignore_errors: yes
     - name: Wait for db to be available
       wait_for:
         port: 5432
@@ -55,4 +56,5 @@
         - jboss0
         - jboss1
         - lb
+      ignore_errors: yes
 
