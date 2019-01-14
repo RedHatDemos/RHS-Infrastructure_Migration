@@ -10,8 +10,10 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 * [Infrastructure Migration Solution - Lab Guides](doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
-## Enablement Environment - Infratructure Migration Solution 1.1 alpha
+## Enablement Environment - Infratructure Migration Solution 1.1 beta
 ```
+  0.25 Added security rules for TCP and ICMP in OSP
+  0.24 Ansible VM Autostarts resructured
   0.23 Disable nested virt in OSP. Fixed lb interfaces.
   0.22 Enabled nested virt in OSP Computes. Fixed config mistakes in CF. Cleanups.
   0.21 Updating CFME to 5.10.0.31
