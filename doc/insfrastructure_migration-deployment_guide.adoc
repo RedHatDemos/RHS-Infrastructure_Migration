@@ -96,7 +96,7 @@ Once the overview is done, we can proceed by running, in `workstation`, the play
 # ansible-playbook unconfigure.yml
 ----
 
-The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1`, the currently configured conversion host, or the RHV setup.
+The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1` or `conversion`, the currently configured conversion hosts, nor the RHV / RHOSP setup.
 
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (*smartvm*).
@@ -146,7 +146,7 @@ For Red Hat Virtualization the architectural choices is to use RHEL Hypervisors 
 |nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
 |=======
 
-==== Red Hat Virtualization: Add Virtualization Providers
+=== Red Hat Virtualization: Add Virtualization Providers
 
 Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by login in with the default appliance password, and then following these steps:
 
@@ -214,8 +214,8 @@ all:
               role: "default"
               verify_ssl: false
   hosts:
-    kvm1.example.com:
-#    kvm2.example.com:
+#    kvm1.example.com:
+    kvm2.example.com:
       v2v_host_type: rhv
       v2v_transport_methods:
         - vddk
