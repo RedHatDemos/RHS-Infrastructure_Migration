@@ -26,7 +26,7 @@ What is needed to run the solution and, hopefully, why ... :-)
 
 === Requirements to access and perform this lab
 
-* A computer with access to Internet :-)
+* A computer with access to the Internet :-)
 * Adobe Flash 15 or higher must be enabled in Firefox or Chromium used for vCenter connectivity
 * SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
 * Firefox 17 or higher, or Chromium / Chrome
@@ -70,7 +70,7 @@ The packages will come through the official software channels. In this environme
 
 === CloudForms Deployment
 
-The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, a Red Hat Virtualization environment with, at least one hypervisor running RHEL.
+The environment, as instantiated, is fully configured. In a simulated deployment we will have a pre-deployed VMware vSphere virtualization environment, a Red Hat Virtualization environment with, at least one hypervisor running RHEL.
 
 In this Deployment Lab, a Cloudforms appliance is already provided, so there is no need to deploy one.
 As a reference on how to deploy a CloudForms appliance on RHV and vSphere the following official documentation is available:
@@ -304,13 +304,13 @@ Loading production environment (Rails 5.0.7.1)
 irb(main):001:0> pp ConversionHost.all
 ----
 
-If not, we can manually configure it. WE may use this procedure to re-add `kvm1.example.com` procedure is the following:
+If not, we can manually configure it. We may use this procedure to re-add `kvm1.example.com` procedure is the following:
 
 ----
 irb> res = Host.find_by(name: 'kvm1.example.com')
 irb> conversion_host = ConversionHost.create(name: res.name, resource: res)
 ----
- 
+
 [TIP]
 Remember to use the name of the host as it is recognized in CloudForms
 
@@ -346,12 +346,12 @@ image::osp_arch_diagram.png[OSP Migration Workflow]
 +
 [NOTE]
 ====
-Source virtual machines must be powered on for migration. OpenStack by design cannot create powered-off VMs.
+Source virtual machines must be powered on for the migration. OpenStack by design cannot create powered-off VMs.
 ====
 . If VDDK transformation is used, the ESXi host fingerprint is captured for authentication during the virtual machine conversion process.
 . Using the OpenStack Platform attributes defined for the target environment, CloudForms initiates communication with the conversion hosts.
-. The conversion host connects to the source datastore through the ESXi host, using virt-v2v-wrapper, and streams the disks to be converted to the target block storage, using virt-v2v. The conversion host creates volumes in the block storage, attaches them to itself, and converts the source disks.
-. Once the disks are converted, virt-v2v detaches the volumes from the conversion host. virt-v2v-wrapper creates the target instance in the OpenStack Platform environment with the converted disks, using the flavor and security group defined in the migration plan and the network(s) defined in the infrastructure mapping.
+. The conversion host connects to the source datastore through the ESXi host, using `virt-v2v-wrapper`, and streams the disks to be converted to the target block storage, using `virt-v2v`. The conversion host creates volumes in the block storage, attaches them to itself, and converts the source disks.
+. Once the disks are converted, `virt-v2v` detaches the volumes from the conversion host. `virt-v2v-wrapper` creates the target instance in the OpenStack Platform environment with the converted disks, using the flavor and security group defined in the migration plan and the network(s) defined in the infrastructure mapping.
 . The disks mapped in the block storage are attached to the instance and the instance is powered on.
 . The migration process is complete and the migration plan’s status is displayed in CloudForms.
 
@@ -386,7 +386,7 @@ The following steps can be done later, after a conversion host instance has been
 .. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
 . Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
 .. *Username* should be set to `root`.
-.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`. 
+.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`.
 
 
 . Navigate to *Compute* -> *Clouds* -> *Providers*
@@ -402,7 +402,7 @@ The following steps can be done later, after a conversion host instance has been
 .. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
 . Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
 .. *Username* should be set to `root`.
-.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`. 
+.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`.
 
 
 
@@ -489,7 +489,7 @@ irb(main):001:0> pp ConversionHost.all
 ----
 
 
-=== RHOSP Conversion Host Configuration in CloudForms  
+=== RHOSP Conversion Host Configuration in CloudForms
 
 To manually configure a conversion host in CloudForms, we need to do some steps in Rails console. So first, let's connect to it:
 
