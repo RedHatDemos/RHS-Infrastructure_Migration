@@ -20,7 +20,7 @@ The password to access all services is available link:https://mojo.redhat.com/do
 [WARNING]
 This guide will not work properly in an environment previously used for the Infrastructure Migration Lab. A fresh new environment needs to be requested to follow this guide
 
-== Requirements
+== Base Requirements
 
 What is needed to run the solution and, hopefully, why ... :-)
 
@@ -66,86 +66,6 @@ The packages will come through the official software channels. In this environme
 |RH Common | http://storage.example.com/repos/rhel-7-server-rh-common-rpms | RH common packages (agents)
 |=======
 
-The following link:../conf/[directory] contains repo files that can be used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
-
-=== Conversion Host Requirements
-
-==== Red Hat Virtualization
-
-To perform the conversion task of the VMs during migration a conversion host is required.
-
-For Red Hat Virtualization the architectural choices is to use RHEL Hypervisors as conversion hosts.
-
-[cols="1,1,1",options="header"]
-|=======
-|Product |Origin| Use
-|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
-|nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
-|=======
-{empty} +
-
-==== Red Hat OpenStack Platform
-
-For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
-VDDK SDK will have to be downloaded separately.
-
-[cols="1,1,1",options="header"]
-|=======
-|Product |Origin| Use
-|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
-|V2V RHOSP Appliance| stack@director:/home/stack/images/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2
-|=======
-
-== VM Migration Workflow
-
-
-=== Red Hat Virtualization
-
-image::migration_workflow.png[VM Migration Workflow]
-
-
-. The Infrastructure Admin creates an *infrastructure mapping* and a virtual machine *migration plan* in CloudForms, and runs the migration plan.
-
-. CloudForms locates the virtual machines to be migrated based on the *infrastructure mapping*.
-
-. The ESXi host fingerprint is captured for authentication during the conversion process if the VDDK transport method is used. If SSH is used, a shared SSH key is used to connect to the ESX host where the virtual machine resides.
-
-. Using the RHV attributes for the target environment, CloudForms *initiates communication* with the RHV *conversion host*.
-
-. The RHV conversion host connects to the *source datastore* through the ESX host, using `virt-v2v-wrapper.py`, and streams the disk to be converted to the *target data domain* chosen in the infrastructure mapping using `virt-v2v`.
-
-. After the *disk is converted*, the target *virtual machine is created* in RHV. During creation, the target virtual machine uses the source virtual machine’s metadata to maintain the virtual machine’s attributes (tags, power state, MAC address, CPU count, memory, disks, and virtual machine name) after migration.
-
-. After the virtual machine is created, the *disk is attached* to the target virtual machine.
-
-. *VM migration is complete*. The status displayed in CloudForms during the whole process.
-
-[NOTE]
-This is a fragment of the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/#Migration_overview[ Official Infrastructure Migration Solution Official Documentation]. Refer to it for the most updated information.
-
-For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV]
-
-If you have doubts on the steps taking place during the conversion, please read the link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
-
-=== Red Hat OpenStack Platform
-
-image::osp_arch_diagram.png[OSP Migration Workflow]
-
-. The Infrastructure Admin creates an *infrastructure mapping* and a virtual machine *migration plan* in CloudForms, and runs the migration plan.
-
-. CloudForms uses the migration plan to locate the virtual machines to be migrated.
-+
-[NOTE]
-====
-Source virtual machines must be powered on for migration. OpenStack by design cannot create powered-off VMs.
-====
-. If VDDK transformation is used, the ESXi host fingerprint is captured for authentication during the virtual machine conversion process.
-. Using the OpenStack Platform attributes defined for the target environment, CloudForms initiates communication with the conversion hosts.
-. The conversion host connects to the source datastore through the ESXi host, using virt-v2v-wrapper, and streams the disks to be converted to the target block storage, using virt-v2v. The conversion host creates volumes in the block storage, attaches them to itself, and converts the source disks.
-. Once the disks are converted, virt-v2v detaches the volumes from the conversion host. virt-v2v-wrapper creates the target instance in the OpenStack Platform environment with the converted disks, using the flavor and security group defined in the migration plan and the network(s) defined in the infrastructure mapping.
-. The disks mapped in the block storage are attached to the instance and the instance is powered on.
-. The migration process is complete and the migration plan’s status is displayed in CloudForms.
-
 == Deployment
 
 === CloudForms Deployment
@@ -179,6 +99,52 @@ The playbook will stop the CloudForms services, will reset the database, and res
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (smartvm).
 
+
+The following link:../conf/[directory] contains repo files that can be used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
+
+== Enabling Red Hat Virtualization as Migration Target
+
+=== RHV Conversion Host Requirements
+
+To perform the conversion task of the VMs during migration a conversion host is required.
+
+For Red Hat Virtualization the architectural choices is to use RHEL Hypervisors as conversion hosts.
+
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
+|=======
+
+=== Red Hat Virtualization VM Migration Workflow
+
+image::migration_workflow.png[VM Migration Workflow]
+
+
+. The Infrastructure Admin creates an *infrastructure mapping* and a virtual machine *migration plan* in CloudForms, and runs the migration plan.
+
+. CloudForms locates the virtual machines to be migrated based on the *infrastructure mapping*.
+
+. The ESXi host fingerprint is captured for authentication during the conversion process if the VDDK transport method is used. If SSH is used, a shared SSH key is used to connect to the ESX host where the virtual machine resides.
+
+. Using the RHV attributes for the target environment, CloudForms *initiates communication* with the RHV *conversion host*.
+
+. The RHV conversion host connects to the *source datastore* through the ESX host, using `virt-v2v-wrapper.py`, and streams the disk to be converted to the *target data domain* chosen in the infrastructure mapping using `virt-v2v`.
+
+. After the *disk is converted*, the target *virtual machine is created* in RHV. During creation, the target virtual machine uses the source virtual machine’s metadata to maintain the virtual machine’s attributes (tags, power state, MAC address, CPU count, memory, disks, and virtual machine name) after migration.
+
+. After the virtual machine is created, the *disk is attached* to the target virtual machine.
+
+. *VM migration is complete*. The status displayed in CloudForms during the whole process.
+
+[NOTE]
+This is a fragment of the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/#Migration_overview[ Official Infrastructure Migration Solution Official Documentation]. Refer to it for the most updated information.
+
+For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV]
+
+If you have doubts on the steps taking place during the conversion, please read the link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
+
 ==== Red Hat Virtualization: Add Virtualization Providers
 
 Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by login in with the default appliance password, and then following these steps:
@@ -187,7 +153,7 @@ Once CloudForms has been reset to a just installed state, the Virtualization pro
 +
 image::cloudforms_add_providers_1.png[Add Providers 1]
 
-. In the page *Add New Infrastructure Provider* type in Name `VMware` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `root` and in *Password* use the <provided_password>. Click *Validate*.
+. In the page *Add New Infrastructure Provider* type in Name `vSphere` and choose in *Type* dropdown menu `VMware vCenter`. Then under *Endpoints* in the space assigned as *Hostname* type `vcenter.example.com`, in *Username* type `root` and in *Password* use the <provided_password>. Click *Validate*.
 +
 image::cloudforms_add_providers_2.png[Add Providers 2]
 
@@ -195,7 +161,7 @@ image::cloudforms_add_providers_2.png[Add Providers 2]
 +
 image::cloudforms_add_providers_3.png[Add Providers 3]
 
-. This will move to the *Infrastructure providers* page showing a message saying *Infrastructure Provider "VMware" was saved*.
+. This will move to the *Infrastructure providers* page showing a message saying *Infrastructure Provider "vSphere" was saved*.
 +
 image::cloudforms_add_providers_4.png[Add Providers 4]
 
@@ -213,32 +179,7 @@ image::cloudforms_add_providers_7.png[Add Providers 7]
 
 This way the two Virtualization providers are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
 
-==== Red Hat OpenStack Platform: Add Infrastructure Provider
-
-[NOTE]
-====
-The following steps can be done later, after a conversion host instance has been created in OpenStack.
-====
-. Navigate to *Compute* -> Infrastructure -> *Providers*
-. Click *Configuration* -> then click *Add a New Infrastructure Provider*
-. Enter the *Name* of the provider to add.
-. Select *OpenStack Platform Director* from the Type list.
-. Select the API Version of your OpenStack provider’s Keystone service from the list.
-. In the *Default* tab, under Endpoints, configure the host and authentication details of your OpenStack provider:
-.. Select a *Security Protocol* method
-.. Enter the Host Name or IP address of the provider.
-.. In the *Username* field, enter *'admin'* as the name of an OpenStack user with privileged access. Then, provide its corresponding password in the *Password* and *Confirm Password* fields.
-.. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
-. Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
-.. *Username* should be set to cloud-user.
-.. Upload the *ssh key* used for instance creation in OpenStack.
-
-[TIP]
-It is recommended to go to *Compute -> Infrastructure -> Providers* select both providers and click on *Configuration -> Refresh Relationships and Power States* before continuing to have all data from providers updated.
-
-=== Conversion Host Installation
-
-==== Red Hat Virtualization
+==== Red Hat Virtualization Conversion Host Installation
 
 We will use both hypervisors, `kvm1` and `kvm2`, as conversion hosts. Host `kvm1` is already configured. We will proceed to install `kvm2`.
 
@@ -291,55 +232,37 @@ It may be time to check again and ensure the tool installation went OK:
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
 ----
 
-==== Red Hat OpenStack Platform
+=== RHV Conversion Host Configuration in CloudForms
 
-Configuring the conversion hosts for migration involves the following key steps:
+To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it:
 
-. Downloading and copying the VDDK package
-. Creating an Ansible inventory file
-. Configuring the conversion hosts and adding them to CloudForms
-. Validating the configuration
+----
+# vmdb
+# rails c
+Now, that we are connected, we have two types of conversion host that we can create: a RHV host or an OpenStack instance. Let's see how to create them. The procedure is similar for both:
 
+irb> res = Host.find_by(name: 'my_rhv_host')
+irb> conversion_host = ConversionHost.create(name: res.name, resource: res)
+----
 
+Then, we can set the supported transport methods: VDDK and/or SSH, with VDDK preferred for performance.
 
-=== Conversion Host Configuration in CloudForms
+----
+irb> conversion_host.vddk_transport_supported = true
+irb> conversion_host.ssh_transport_supported = true
+We can also set the maximum number of concurrent migrations running on this conversion host:
 
-. On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
-+
-image::conversion_host_1.png[Conversion Host 1]
+irb> conversion_host.max_concurrent_tasks = 5
+And never forget to save the object to serialize it in the database:
 
-. Click *kvm2*.
-+
-image::conversion_host_2b.png[Conversion Host 2]
-
-. Select *Policy -> Edit Tags*.
-+
-image::conversion_host_3.png[Conversion Host 3]
-
-. Select *V2V - Transformation Host* and then select *t* (as true) for the assigned value.
-+
-image::conversion_host_4.png[Conversion Host 4]
-+
-image::conversion_host_5.png[Conversion Host 5]
-+
-* This sets this Host as *Conversion Host*.
-
-. Select the *V2V - Transformation Method* tag and select *VDDK* for the assigned value, then click *Save*.
-+
-image::conversion_host_6.png[Conversion Host 6]
-+
-* This sets the method that *Conversion Host* will use to migrate the *VMs*.
-+
-image::conversion_host_7.png[Conversion Host 7]
-+
-[NOTE]
-You may see the tags added under *Smart Management* in the host page.
+irb> conversion_host.save
+----
 
 . On the `cf` system, go back to *Compute -> Infrastructure -> Hosts*.
 +
 image::conversion_host_1.png[Conversion Host 1]
 
-. Click *kvm2* again.
+. Click *kvm2*.
 +
 image::conversion_host_2b.png[Conversion Host 2]
 
@@ -354,6 +277,101 @@ image::conversion_host_9.png[Conversion Host 9]
 . Now the conversion host is ready.
 +
 image::conversion_host_10.png[Conversion Host 10]
+
+
+
+== Enabling Red Hat OpenStack Platform as Migration Target
+
+=== Red Hat OpenStack Platform Conversion Host Requirements
+
+For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
+VDDK SDK will have to be downloaded separately.
+
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|V2V RHOSP Appliance| stack@director:/home/stack/images/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2
+|=======
+
+=== Red Hat OpenStack Platform VM Migration Workflow
+
+image::osp_arch_diagram.png[OSP Migration Workflow]
+
+. The Infrastructure Admin creates an *infrastructure mapping* and a virtual machine *migration plan* in CloudForms, and runs the migration plan.
+
+. CloudForms uses the migration plan to locate the virtual machines to be migrated.
++
+[NOTE]
+====
+Source virtual machines must be powered on for migration. OpenStack by design cannot create powered-off VMs.
+====
+. If VDDK transformation is used, the ESXi host fingerprint is captured for authentication during the virtual machine conversion process.
+. Using the OpenStack Platform attributes defined for the target environment, CloudForms initiates communication with the conversion hosts.
+. The conversion host connects to the source datastore through the ESXi host, using virt-v2v-wrapper, and streams the disks to be converted to the target block storage, using virt-v2v. The conversion host creates volumes in the block storage, attaches them to itself, and converts the source disks.
+. Once the disks are converted, virt-v2v detaches the volumes from the conversion host. virt-v2v-wrapper creates the target instance in the OpenStack Platform environment with the converted disks, using the flavor and security group defined in the migration plan and the network(s) defined in the infrastructure mapping.
+. The disks mapped in the block storage are attached to the instance and the instance is powered on.
+. The migration process is complete and the migration plan’s status is displayed in CloudForms.
+
+==== Red Hat OpenStack Platform: Add Infrastructure Provider
+
+[NOTE]
+====
+The following steps can be done later, after a conversion host instance has been created in OpenStack.
+====
+. Navigate to *Compute* -> Infrastructure -> *Providers*
+. Click *Configuration* -> then click *Add a New Infrastructure Provider*
+. Enter the *Name* of the provider to add.
+. Select *OpenStack Platform Director* from the Type list.
+. Select the API Version of your OpenStack provider’s Keystone service from the list.
+. In the *Default* tab, under Endpoints, configure the host and authentication details of your OpenStack provider:
+.. Select a *Security Protocol* method
+.. Enter the Host Name or IP address of the provider.
+.. In the *Username* field, enter *'admin'* as the name of an OpenStack user with privileged access. Then, provide its corresponding password in the *Password* and *Confirm Password* fields.
+.. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
+. Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
+.. *Username* should be set to cloud-user.
+.. Upload the *ssh key* used for instance creation in OpenStack.
+
+[TIP]
+It is recommended to go to *Compute -> Infrastructure -> Providers* select both providers and click on *Configuration -> Refresh Relationships and Power States* before continuing to have all data from providers updated.
+
+==== Red Hat OpenStack Platform  Conversion Host Installation
+
+Configuring the conversion hosts for migration involves the following key steps:
+
+. Downloading and copying the VDDK package
+. Creating an Ansible inventory file
+. Configuring the conversion hosts and adding them to CloudForms
+. Validating the configuration
+
+=== RHV Conversion Host Configuration in CloudForms
+
+To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it:
+
+----
+# vmdb
+# rails c
+Now, that we are connected, we have two types of conversion host that we can create: a RHV host or an OpenStack instance. Let's see how to create them. The procedure is similar for both:
+
+irb> res = Vm.find_by(name: 'conversion')
+irb> conversion_host = ConversionHost.create(name: res.name, resource: res)
+----
+
+Then, we can set the supported transport methods: VDDK and/or SSH, with VDDK preferred for performance.
+
+----
+irb> conversion_host.vddk_transport_supported = true
+irb> conversion_host.ssh_transport_supported = true
+We can also set the maximum number of concurrent migrations running on this conversion host:
+
+irb> conversion_host.max_concurrent_tasks = 5
+And never forget to save the object to serialize it in the database:
+
+irb> conversion_host.save
+----
+
+
 
 === Testing the Environment
 
