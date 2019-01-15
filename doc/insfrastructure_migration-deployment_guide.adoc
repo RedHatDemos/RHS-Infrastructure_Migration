@@ -276,6 +276,15 @@ It may be time to check again and ensure the tool installation went OK:
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
 ----
 
+Let's see if it got added to CF
+
+----
+[root@cf vmdb]# rails c
+** CFME 5.10.0.29, codename: Hammer
+Loading production environment (Rails 5.0.7.1)
+irb(main):001:0> pp ConversionHost.all
+----
+
 === RHV Conversion Host Configuration in CloudForms
 
 To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it using the `rails` console in CloudForms:
@@ -397,7 +406,7 @@ The following steps can be done later, after a conversion host instance has been
 
 
 
-=== Red Hat OpenStack Platform  Conversion Host Installation
+=== Red Hat OpenStack Platform Conversion Host Installation
 
 Configuring the conversion hosts for migration involves the following key steps:
 
@@ -406,15 +415,93 @@ Configuring the conversion hosts for migration involves the following key steps:
 . Configuring the conversion hosts and adding them to CloudForms
 . Validating the configuration
 
-=== RHOSP Conversion Host Configuration in CloudForms
+----
+[root@workstation ~]# ssh conversion
+[root@conversion ~]# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
+----
 
-To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it:
+
+An inventory file `conversion_hosts_inventory.yml` has to be created, with the following content:
 
 ----
+all:
+  vars:
+    ansible_ssh_private_key_file: /root/.ssh/id_rsa
+#    v2v_repo_rpms_name: "rhel-7-server-rhv-4-mgmt-agent-rpms"
+#    v2v_repo_rpms_url: "http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-rpms"
+#    v2v_repo_srpms_name: "rhel-7-server-rhv-4-mgmt-agent-source-rpms"
+#    v2v_repo_srpms_url: "http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms"
+    v2v_vddk_package_name: "VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
+    v2v_vddk_package_url: "http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz"
+    manageiq_url: "https://cf.example.com"
+    manageiq_username: "admin"
+    manageiq_password: "to_be_provided"
+    manageiq_zone_id: "1"
+    manageiq_providers:
+      - name: "OSP"
+        connection_configurations:
+          - endpoint:
+              role: "default"
+              verify_ssl: false
+  hosts:
+    conversion.example.com:
+      v2v_host_type: openstack
+      v2v_transport_methods:
+        - vddk
+      manageiq_provider_name: "OpenStack"
+----
+
+[NOTE]
+Do not forget to change the password `to_be_provided` for the one used to access CloudForms
+
+Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` directory of the Conversion Host Image, in this case deployed as `conversion`.
+
+There is a `conversion_host_check.yml` playbook that can be run and ensures that the installation is OK. You can run it before installing to *see how errors are reported*, as we will be running it on an uninstalled conversion host:
+
+----
+# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
+----
+
+After that, the installation of tools can be performed by running the `conversion_host_enable.yml` playbook:
+
+----
+# pwd
+/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_enable.yml
+----
+
+It may be time to check again and ensure the tool installation went OK:
+
+----
+# pwd
+/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/
+# ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
+----
+
+Also on the CloudForms side:
+
+----
+[root@cf vmdb]# rails c
+** CFME 5.10.0.29, codename: Hammer
+Loading production environment (Rails 5.0.7.1)
+irb(main):001:0> pp ConversionHost.all
+----
+
+
+=== RHOSP Conversion Host Configuration in CloudForms  
+
+To manually configure a conversion host in CloudForms, we need to do some steps in Rails console. So first, let's connect to it:
+
+----
+# ssh cf
 # vmdb
 # rails c
+----
+
 Now, that we are connected, we have two types of conversion host that we can create: a RHV host or an OpenStack instance. Let's see how to create them. The procedure is similar for both:
 
+----
 irb> res = Vm.find_by(name: 'conversion')
 irb> conversion_host = ConversionHost.create(name: res.name, resource: res)
 ----
