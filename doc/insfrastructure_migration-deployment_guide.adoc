@@ -283,6 +283,30 @@ Let's see if it got added to CF
 ** CFME 5.10.0.29, codename: Hammer
 Loading production environment (Rails 5.0.7.1)
 irb(main):001:0> pp ConversionHost.all
+PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, in use: 1, waiting_in_queue: 0
+[]
+=> #<ActiveRecord::Relation []>
+irb(main):002:0> pp ConversionHost.all
+[#<ConversionHost:0x0000000000a23e88
+  id: 1,
+  name: "kvm2.example.com",
+  address: nil,
+  type: nil,
+  resource_type: "Host",
+  resource_id: 4,
+  version: nil,
+  max_concurrent_tasks: nil,
+  vddk_transport_supported: true,
+  ssh_transport_supported: false,
+  created_at: Tue, 15 Jan 2019 14:44:53 UTC +00:00,
+  updated_at: Tue, 15 Jan 2019 14:44:53 UTC +00:00,
+  concurrent_transformation_limit: nil,
+  cpu_limit: nil,
+  memory_limit: nil,
+  network_limit: nil,
+  blockio_limit: nil>]
+=> #<ActiveRecord::Relation [#<ConversionHost id: 1, name: "kvm2.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 4, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2019-01-15 14:44:53", updated_at: "2019-01-15 14:44:53", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>]>
+
 ----
 
 === RHV Conversion Host Configuration in CloudForms
