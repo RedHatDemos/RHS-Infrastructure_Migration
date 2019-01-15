@@ -327,18 +327,6 @@ irb> conversion_host.save
 
 == Enabling Red Hat OpenStack Platform as Migration Target
 
-=== Red Hat OpenStack Platform Conversion Host Requirements
-
-For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
-VDDK SDK will have to be downloaded separately.
-
-[cols="1,1,1",options="header"]
-|=======
-|Product |Origin| Use
-|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
-|V2V RHOSP Appliance| stack@director:/home/stack/images/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2
-|=======
-
 === Red Hat OpenStack Platform VM Migration Workflow
 
 image::osp_arch_diagram.png[OSP Migration Workflow]
@@ -358,7 +346,19 @@ Source virtual machines must be powered on for migration. OpenStack by design ca
 . The disks mapped in the block storage are attached to the instance and the instance is powered on.
 . The migration process is complete and the migration plan’s status is displayed in CloudForms.
 
-==== Red Hat OpenStack Platform: Add Infrastructure Provider
+=== Red Hat OpenStack Platform Conversion Host Requirements
+
+For Red Hat OpenStack Platform, a Conversion Host Instance running RHEL will be used.
+VDDK SDK will have to be downloaded separately.
+
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|V2V RHOSP Appliance| stack@director:/home/stack/images/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2
+|=======
+
+=== Red Hat OpenStack Platform: Add Infrastructure Provider
 
 [NOTE]
 ====
@@ -381,7 +381,7 @@ The following steps can be done later, after a conversion host instance has been
 [TIP]
 It is recommended to go to *Compute -> Infrastructure -> Providers* select both providers and click on *Configuration -> Refresh Relationships and Power States* before continuing to have all data from providers updated.
 
-==== Red Hat OpenStack Platform  Conversion Host Installation
+=== Red Hat OpenStack Platform  Conversion Host Installation
 
 Configuring the conversion hosts for migration involves the following key steps:
 
@@ -390,7 +390,7 @@ Configuring the conversion hosts for migration involves the following key steps:
 . Configuring the conversion hosts and adding them to CloudForms
 . Validating the configuration
 
-=== RHV Conversion Host Configuration in CloudForms
+=== RHOSP Conversion Host Configuration in CloudForms
 
 To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it:
 
@@ -408,15 +408,16 @@ Then, we can set the supported transport methods: VDDK and/or SSH, with VDDK pre
 ----
 irb> conversion_host.vddk_transport_supported = true
 irb> conversion_host.ssh_transport_supported = true
+----
+
 We can also set the maximum number of concurrent migrations running on this conversion host:
 
+----
 irb> conversion_host.max_concurrent_tasks = 5
 And never forget to save the object to serialize it in the database:
 
 irb> conversion_host.save
 ----
-
-
 
 === Testing the Environment
 
