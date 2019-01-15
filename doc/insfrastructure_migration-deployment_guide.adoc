@@ -221,10 +221,10 @@ all:
         - vddk
       manageiq_provider_name: "RHV"
 ----
-+
+
 [NOTE]
 Do not forget to change the password `to_be_provided` for the one used to access CloudForms
-+
+
 [TIP]
 There is already a file created for you in the environment with some extra vars commented. The sample file is also available link:../scripts/conversion_hosts/conversion_hosts_inventory.yml[here]
 
@@ -301,6 +301,8 @@ And never forget to save the object to serialize it in the database:
 irb> conversion_host.save
 ----
 
+=== Adding Credentials to Conversion host
+
 . On the `cf` system, go back to *Compute -> Infrastructure -> Hosts*.
 +
 image::conversion_host_1.png[Conversion Host 1]
@@ -311,7 +313,7 @@ image::conversion_host_2b.png[Conversion Host 2]
 
 . Select *Configuration -> Edit this item*.
 +
-image::conversion_host_8.png[Conversion Host 8]
+image::conversion_host_8b.png[Conversion Host 8]
 
 . Fill *Username* with `root` and *Password* with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
 +
