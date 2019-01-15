@@ -451,7 +451,7 @@ all:
       manageiq_provider_name: "OpenStack"
 ----
 
-[NOTE]
+[WARNING]
 Do not forget to change the password `to_be_provided` for the one used to access CloudForms
 
 Then the playbooks are run in the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks/` directory of the Conversion Host Image, in this case deployed as `conversion`.
@@ -488,6 +488,11 @@ Loading production environment (Rails 5.0.7.1)
 irb(main):001:0> pp ConversionHost.all
 ----
 
+Or via CloudForms web UI:
+
+. Navigate to https://cf-UUID.rhpds.opentlc.com/api/cpnversion_hosts
+. Use CloudForms `admin` username and password to authenticate.
+. You will be presented with a JSON output listing all the conversion hosts.
 
 === RHOSP Conversion Host Configuration in CloudForms
 
