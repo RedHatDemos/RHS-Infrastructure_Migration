@@ -180,7 +180,30 @@ image::cloudforms_add_providers_7.png[Add Providers 7]
 
 This way the two Virtualization providers are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
 
-==== Red Hat Virtualization Conversion Host Installation
+=== Adding Credentials to Conversion host in RHV
+
+. On the `cf` system, go back to *Compute -> Infrastructure -> Hosts*.
++
+image::conversion_host_1.png[Conversion Host 1]
+
+. Click *kvm2*.
++
+image::conversion_host_2b.png[Conversion Host 2]
+
+. Select *Configuration -> Edit this item*.
++
+image::conversion_host_8b.png[Conversion Host 8]
+
+. Fill *Username* with `root` and *Password* with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
++
+image::conversion_host_9.png[Conversion Host 9]
+
+. Now the conversion host is ready.
++
+image::conversion_host_10.png[Conversion Host 10]
+
+
+=== Installing tools in Conversion Host in RHV, and configuring it
 
 We will use both hypervisors, `kvm1` and `kvm2`, as conversion hosts. Host `kvm1` is already configured. We will proceed to install `kvm2`.
 
@@ -300,29 +323,6 @@ And never forget to save the object to serialize it in the database:
 ----
 irb> conversion_host.save
 ----
-
-=== Adding Credentials to Conversion host
-
-. On the `cf` system, go back to *Compute -> Infrastructure -> Hosts*.
-+
-image::conversion_host_1.png[Conversion Host 1]
-
-. Click *kvm2*.
-+
-image::conversion_host_2b.png[Conversion Host 2]
-
-. Select *Configuration -> Edit this item*.
-+
-image::conversion_host_8b.png[Conversion Host 8]
-
-. Fill *Username* with `root` and *Password* with the provided one. Click *Validate*. Once the message "Credential validation was successful" appears click *Save*. This is needed to be able to connect to the conversion host and initiate the conversion.
-+
-image::conversion_host_9.png[Conversion Host 9]
-
-. Now the conversion host is ready.
-+
-image::conversion_host_10.png[Conversion Host 10]
-
 
 
 == Enabling Red Hat OpenStack Platform as Migration Target
