@@ -70,7 +70,7 @@ The packages will come through the official software channels. In this environme
 
 === CloudForms Deployment
 
-The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, and a Red Hat Virtualization environment with, at least one hypervisor running RHEL.
+The environment, as instantiated, is fully configured. In a simulated deployment we will have a predeployed VMware vSphere virtualization environment, a Red Hat Virtualization environment with, at least one hypervisor running RHEL.
 
 In this Deployment Lab, a Cloudforms appliance is already provided, so there is no need to deploy one.
 As a reference on how to deploy a CloudForms appliance on RHV and vSphere the following official documentation is available:
@@ -87,6 +87,8 @@ In this lab we will have a CloudForms instance, that was deployed by downloading
 
 The environment is completely configured, and an overview look at it, is recommended before starting.
 
+=== CloudForms Reset
+
 Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms:
 
 ----
@@ -97,25 +99,11 @@ Once the overview is done, we can proceed by running, in `workstation`, the play
 The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1`, the currently configured conversion host, or the RHV setup.
 
 [NOTE]
-Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (smartvm).
-
+Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (*smartvm*).
 
 The following link:../conf/[directory] contains repo files that can be used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
 == Enabling Red Hat Virtualization as Migration Target
-
-=== RHV Conversion Host Requirements
-
-To perform the conversion task of the VMs during migration a conversion host is required.
-
-For Red Hat Virtualization the architectural choices is to use RHEL Hypervisors as conversion hosts.
-
-[cols="1,1,1",options="header"]
-|=======
-|Product |Origin| Use
-|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
-|nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
-|=======
 
 === Red Hat Virtualization VM Migration Workflow
 
@@ -144,6 +132,19 @@ This is a fragment of the link:https://access.redhat.com/documentation/en-us/red
 For more detail please take a look at the link:images/migration_workflow_rhv.png[full detailed vm migration and conversion workflow for RHV]
 
 If you have doubts on the steps taking place during the conversion, please read the link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
+
+=== RHV Conversion Host Requirements
+
+To perform the conversion task of the VMs during migration a conversion host is required.
+
+For Red Hat Virtualization the architectural choices is to use RHEL Hypervisors as conversion hosts.
+
+[cols="1,1,1",options="header"]
+|=======
+|Product |Origin| Use
+|VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|nbdkit SRPMS |http://storage.example.com/repos/rhel-7-server-rhv-4-mgmt-agent-source-rpms |nbdkit Source RPMS
+|=======
 
 ==== Red Hat Virtualization: Add Virtualization Providers
 
@@ -190,7 +191,6 @@ In the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks` directory of the
 [root@rhvm ~]# cd /usr/share/ovirt-ansible-v2v-conversion-host/playbooks
 ----
 
-
 An inventory file `conversion_hosts_inventory.yml` has to be created, with the following content:
 
 ----
@@ -234,27 +234,49 @@ It may be time to check again and ensure the tool installation went OK:
 
 === RHV Conversion Host Configuration in CloudForms
 
-To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it:
+To create a conversion host, until we have an API endpoint for that, we need to do some steps in Rails console. So first, let's connect to it using the `rails` console in CloudForms:
 
 ----
+# ssh cf
 # vmdb
 # rails c
-Now, that we are connected, we have two types of conversion host that we can create: a RHV host or an OpenStack instance. Let's see how to create them. The procedure is similar for both:
+----
 
-irb> res = Host.find_by(name: 'my_rhv_host')
+Now, that we are connected, let's check if the conversion host is cofigured.
+
+----
+[root@cf vmdb]# rails c
+** CFME 5.10.0.29, codename: Hammer
+Loading production environment (Rails 5.0.7.1)
+irb(main):001:0> pp ConversionHost.all
+----
+
+If not, we can manually configure it.  The procedure is the following:
+
+----
+irb> res = Host.find_by(name: 'kvm2.example.com')
 irb> conversion_host = ConversionHost.create(name: res.name, resource: res)
 ----
++
+[TIP]
+Remember to use the name of the host as it is recognized in CloudForms
+
 
 Then, we can set the supported transport methods: VDDK and/or SSH, with VDDK preferred for performance.
 
 ----
 irb> conversion_host.vddk_transport_supported = true
-irb> conversion_host.ssh_transport_supported = true
+----
+
 We can also set the maximum number of concurrent migrations running on this conversion host:
 
+----
 irb> conversion_host.max_concurrent_tasks = 5
+----
+
 And never forget to save the object to serialize it in the database:
 
+----
 irb> conversion_host.save
 ----
 
