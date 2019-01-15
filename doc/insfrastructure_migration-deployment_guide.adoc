@@ -295,13 +295,13 @@ Loading production environment (Rails 5.0.7.1)
 irb(main):001:0> pp ConversionHost.all
 ----
 
-If not, we can manually configure it.  The procedure is the following:
+If not, we can manually configure it. WE may use this procedure to re-add `kvm1.example.com` procedure is the following:
 
 ----
-irb> res = Host.find_by(name: 'kvm2.example.com')
+irb> res = Host.find_by(name: 'kvm1.example.com')
 irb> conversion_host = ConversionHost.create(name: res.name, resource: res)
 ----
-+
+ 
 [TIP]
 Remember to use the name of the host as it is recognized in CloudForms
 
