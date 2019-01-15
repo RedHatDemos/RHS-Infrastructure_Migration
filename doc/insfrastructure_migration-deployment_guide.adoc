@@ -369,6 +369,8 @@ VDDK SDK will have to be downloaded separately.
 
 === Red Hat OpenStack Platform: Add Infrastructure Provider
 
+==== Adding Red Hat OpenStack Platform Director to Cloudforms
+
 [NOTE]
 ====
 The following steps can be done later, after a conversion host instance has been created in OpenStack.
@@ -397,6 +399,8 @@ image::cloudforms_add_providers_director_2.png[Add Providers Director 2]
 image::cloudforms_add_providers_director_3.png[Add Providers Director 3]
 +
 image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
+
+==== Adding Red Hat OpenStack Platform to Cloudforms
 
 . Navigate to *Compute* -> *Clouds* -> *Providers*
 . Click *Configuration* -> then click *Add a New Cloud Provider*
