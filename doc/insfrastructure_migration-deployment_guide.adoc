@@ -432,9 +432,9 @@ image::cloudforms_add_providers_osp_5.png[Add Providers OSP 5]
 .. *Username* should be set to `root`.
 .. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`. (Note: you will need to copy it to your own workstation) 
 +
-image::cloudforms_add_providers_director_3.png[Add Providers Director 3]
+image::cloudforms_add_providers_osp_6.png[Add Providers OSP 6]
 +
-image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
+image::cloudforms_add_providers_osp_7.png[Add Providers OSP 7]
 
 
 === Red Hat OpenStack Platform Conversion Host Installation
