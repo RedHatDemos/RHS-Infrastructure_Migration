@@ -179,10 +179,6 @@ The playbook will stop the CloudForms services, will reset the database, and res
 [NOTE]
 Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (smartvm).
 
-==== Automation domain in CloudForms
-
-TODO: Add a review on the automation domain
-
 ==== Red Hat Virtualization: Add Virtualization Providers
 
 Once CloudForms has been reset to a just installed state, the Virtualization providers have to be added to it. This can be done by login in with the default appliance password, and then following these steps:

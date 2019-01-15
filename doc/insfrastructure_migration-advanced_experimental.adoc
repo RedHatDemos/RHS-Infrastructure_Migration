@@ -5,16 +5,20 @@
 
 == Red Hat Solutions: IT Optimization - Infrastructure Migration
 
+
 == Advanced and Experimental exercices
 
 These are excercises that can break the environment.
 
-[NOTE]
-Before proceeding with customization, export the automate domains from MiQ/CloudForms.
+=== CloudForms Automate Domain
+
+TODO: Add info on automate domain used in Cloudforms
 
 === Customizing the Migration Workflow 
 
 In this part of the training you will customize the migration workflow to perform extra steps.
+[NOTE]
+Before proceeding with customization, export the automate domains from MiQ/CloudForms.
 
 Pick one of the following use-case:
 
@@ -24,3 +28,6 @@ Pick one of the following use-case:
 
 . (hard - bonus point) : Change CPU or Memory configuration of a VM after migration using Ansible or Automate.
 
+=== Customizing Pre and Post Playbooks
+
+TODO: Add pre/post playbooks and how to customize them
