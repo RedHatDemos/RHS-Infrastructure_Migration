@@ -93,6 +93,7 @@ VDDK SDK will have to be downloaded separately.
 |=======
 |Product |Origin| Use
 |VDDK SDK |http://storage.example.com/repos/VMware-vix-disklib-6.5.2-6195444.x86_64.tar.gz |Virtual Disk Development Kit (VDDK)
+|V2V RHOSP Appliance| stack@director:/home/stack/images/rhosp-v2v-appliance-14.0-20181214.1.x86_64.qcow2
 |=======
 
 == VM Migration Workflow
