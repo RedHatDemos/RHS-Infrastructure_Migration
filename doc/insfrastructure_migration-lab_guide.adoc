@@ -538,7 +538,7 @@ image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
 +
 image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
-* Finally we canmap the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
+* Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
@@ -768,7 +768,7 @@ image::migration_plan_osp_8.png[Migration Plan 8]
 +
 image::migration_running_osp_1.png[Migration Running 1]
 
-. We can find the instand in *OpenStack* in the *ticket-monster* project:
+. We can find the instance in *OpenStack* in the *ticket-monster* project:
 +
 image::migration_running_osp_2.png[Migration Running 2]
 
