@@ -437,7 +437,6 @@ image::cloudforms_add_providers_director_3.png[Add Providers Director 3]
 image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
 
 
-
 === Red Hat OpenStack Platform Conversion Host Installation
 
 Configuring the conversion hosts for migration involves the following key steps:
@@ -519,6 +518,9 @@ Also on the CloudForms side:
 Loading production environment (Rails 5.0.7.1)
 irb(main):001:0> pp ConversionHost.all
 ----
+
+[NOTE]
+In this version of the appliance the registration of it in CloudForms is not availabler, therefore, a manual registration will be required.  
 
 Or via CloudForms web UI:
 
