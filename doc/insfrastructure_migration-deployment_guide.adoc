@@ -394,7 +394,7 @@ image::cloudforms_add_providers_director_2.png[Add Providers Director 2]
 
 . Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
 .. *Username* should be set to `root`.
-.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`.
+.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`. (Note: you will need to copy it to your own workstation)
 +
 image::cloudforms_add_providers_director_3.png[Add Providers Director 3]
 +
@@ -403,7 +403,13 @@ image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
 ==== Adding Red Hat OpenStack Platform to Cloudforms
 
 . Navigate to *Compute* -> *Clouds* -> *Providers*
++
+image::cloudforms_add_providers_osp_1.png[Add Providers OSP 1]
+
 . Click *Configuration* -> then click *Add a New Cloud Provider*
++
+image::cloudforms_add_providers_osp_2.png[Add Providers OSP 2]
+
 . Enter the *Name* of the provider to add as `OpenStack`.
 . Select *OpenStack* from the Type list.
 . Select the API Version of your OpenStack provider’s Keystone service from the list. In this case `Keystone v3`
@@ -411,11 +417,24 @@ image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
 . In the *Default* tab, under Endpoints, configure the host and authentication details of your OpenStack provider:
 .. Select a *Security Protocol* method as `Non-SSL`
 .. Enter the Host Name or IP address of the provider: `horizon.example.com`.
-.. In the *Username* field, enter *'admin'* as the name of an OpenStack user with privileged access. Then, provide its corresponding password in the *Password* and *Confirm Password* fields.
-.. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
+.. In the *Username* field, enter `admin` as the name of an OpenStack user with privileged access. Then, provide its corresponding password in the *Password* and *Confirm Password* fields.
+.. Click *Validate* to confirm Red Hat CloudForms can connect to the OpenStack provider.
++
+image::cloudforms_add_providers_osp_3.png[Add Providers OSP 3]
+
+.. Once OSP provider is validated, click add 
++
+image::cloudforms_add_providers_osp_4.png[Add Providers OSP 4]
++
+image::cloudforms_add_providers_osp_5.png[Add Providers OSP 5]
+
 . Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
 .. *Username* should be set to `root`.
-.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`.
+.. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`. (Note: you will need to copy it to your own workstation) 
++
+image::cloudforms_add_providers_director_3.png[Add Providers Director 3]
++
+image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
 
 
 
