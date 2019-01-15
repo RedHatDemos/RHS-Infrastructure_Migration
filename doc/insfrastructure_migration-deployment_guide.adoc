@@ -375,6 +375,9 @@ The following steps can be done later, after a conversion host instance has been
 ====
 . Navigate to *Compute* -> *Infrastructure* -> *Providers*
 . Click *Configuration* -> then click *Add a New Infrastructure Provider*
++
+image::cloudforms_add_providers_director_1.png[Add Providers Director 1]
+
 . Enter the *Name* of the provider to add as `OpenStack Director`.
 . Select *OpenStack Platform Director* from the Type list.
 . Select the API Version of your OpenStack provider’s Keystone service from the list. In this case `Keystone v3`
@@ -384,10 +387,16 @@ The following steps can be done later, after a conversion host instance has been
 .. Enter the Host Name or IP address of the provider: `10.100.0.20`.
 .. In the *Username* field, enter *'admin'* as the name of an OpenStack user with privileged access. Then, provide its corresponding password in the *Password* and *Confirm Password* fields.
 .. Click Validate to confirm Red Hat CloudForms can connect to the OpenStack provider.
++
+image::cloudforms_add_providers_director_2.png[Add Providers Director 2]
+
 . Next we will configure *SSH access* to hosts which is needed later when enabling *conversion host* for OpenStack. Click on *RSA keypair* tab in the *Endpoints* section
 .. *Username* should be set to `root`.
 .. Upload the *ssh key* available in `workstation:/root/.ssh/id_rsa`.
-
++
+image::cloudforms_add_providers_director_3.png[Add Providers Director 3]
++
+image::cloudforms_add_providers_director_4.png[Add Providers Director 4]
 
 . Navigate to *Compute* -> *Clouds* -> *Providers*
 . Click *Configuration* -> then click *Add a New Cloud Provider*
