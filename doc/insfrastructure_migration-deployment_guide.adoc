@@ -207,6 +207,8 @@ image::conversion_host_10.png[Conversion Host 10]
 
 We will use both hypervisors, `kvm1` and `kvm2`, as conversion hosts. Host `kvm1` is already configured. We will proceed to install `kvm2`.
 
+The upstream playbooks an documenttion is available here: link:https://github.com/oVirt/ovirt-ansible-v2v-conversion-host/blob/master/docs/Ansible.md[ovirt-ansible-v2v-conversion-host]
+
 In the `/usr/share/ovirt-ansible-v2v-conversion-host/playbooks` directory of the RHV Manager, the playbooks to install a conversion host are available:
 
 ----
