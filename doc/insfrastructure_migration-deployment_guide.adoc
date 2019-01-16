@@ -178,7 +178,7 @@ image::cloudforms_add_providers_6.png[Add Providers 6]
 +
 image::cloudforms_add_providers_7.png[Add Providers 7]
 
-This way the two Virtualization providers are managed by CloudForms. Take some time to navigate the menues under *Compute -> Infrastructure*.
+This way the two Virtualization providers are managed by CloudForms. Take some time to navigate the menus under *Compute -> Infrastructure*.
 
 === Adding Credentials to Conversion host in RHV
 
@@ -246,7 +246,7 @@ all:
 ----
 
 [NOTE]
-Do not forget to change the password `to_be_provided` for the one used to access CloudForms
+Do not forget to change the password `to_be_provided` for the one used to access CloudForms.  Unless you changed the admin password after resetting the environment, this will be the default password for the CloudForms appliance.
 
 [TIP]
 There is already a file created for you in the environment with some extra vars commented. The sample file is also available link:../scripts/conversion_hosts/conversion_hosts_inventory.yml[here]
