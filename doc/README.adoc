@@ -11,6 +11,7 @@ Infrastructure Migration Solution is based in the field experience of the Cloud 
 
 . link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.1 Migration Guide]
 . link:insfrastructure_migration-deployment_guide.adoc[Infrastructure Migration 1.1 Deployment Guide]
+. link:insfrastructure_migration-advanced_experimental.adoc[Infrastructure Migration 1.1 Advanced / Experimental Guide]
 
 The password to access lab services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
