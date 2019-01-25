@@ -748,9 +748,12 @@ image::migration_plan_osp_3.png[Migration Plan 3]
 + 
 image::migration_plan_osp_4.png[Migration Plan 4]
 
-. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We won't use this feature just yet. Click *Next*
+. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. In the *pre-migration playbook service* we will select `migration-playbook-pre`, then select to use the *Pre-migration Service* for `lb` and click *Next*
 + 
 image::migration_plan_osp_5.png[Migration Plan 5]
++
+[NOTE]
+The `lb` has an specific network configuration in which the name of the interfaces in origin is diferent than in the destination. We will use this playbook to convert the configuration.
 
 . In the *step 5* of the wizard, *Schedule*, select *Start migration inmediately*. Click *Create*
 + 
