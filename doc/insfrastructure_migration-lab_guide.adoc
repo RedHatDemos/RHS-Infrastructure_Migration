@@ -455,11 +455,11 @@ PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, 
 => #<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
 ----
 
-* Let's get the info on the conversion host `conversion2`
+* Let's get the info on the conversion host `conversion`
 +
 ----
-irb(main):002:0> ConversionHost.find_by(name: 'conversion2')
-=> #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
+irb(main):002:0> ConversionHost.find_by(name: 'conversion')
+=> #<ConversionHost id: 2, name: "conversion", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
 ----
 
 === Check Credentials
