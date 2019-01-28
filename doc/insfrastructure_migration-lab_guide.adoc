@@ -424,7 +424,7 @@ PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, 
   blockio_limit: nil>,
  #<ConversionHost:0x000000000affe2e0
   id: 2,
-  name: "conversion2",
+  name: "conversion",
   address: nil,
   type: nil,
   resource_type: "VmOrTemplate",
@@ -445,7 +445,7 @@ PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, 
 ----
 +
 [NOTE]
-This functionality is expected to be available through the web interface for version 1.2
+This shows a list of the conversion hosts that, once the migration starts, will be contacted to start conversions. You hsould have two different ones, once with `resource_type` *host* (for RHV), and another one with resource type `resource_type` *VmOrTemplate* (for OSP). This functionality is expected to be available through the web interface for version 1.2
 
 * Let's get the info on the conversion host `kvm1.example.com`
 +
