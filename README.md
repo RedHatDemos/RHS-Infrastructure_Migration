@@ -12,6 +12,7 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 beta
 ```
+  0.26 Added pre-migration playbook for lb
   0.25 Added security rules for TCP and ICMP in OSP
   0.24 Ansible VM Autostarts resructured
   0.23 Disable nested virt in OSP. Fixed lb interfaces.
