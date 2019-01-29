@@ -359,6 +359,11 @@ And never forget to save the object to serialize it in the database:
 irb> conversion_host.save
 ----
 
+To delete the conversion host with `id` *1*, simply run the following in the rails console:
+
+----
+irb> ConversionHost.delete(1)
+----
 
 == Enabling Red Hat OpenStack Platform as Migration Target
 
