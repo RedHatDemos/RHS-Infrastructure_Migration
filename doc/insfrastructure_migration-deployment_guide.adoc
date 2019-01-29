@@ -587,10 +587,28 @@ We can also set the maximum number of concurrent migrations running on this conv
 
 ----
 irb> conversion_host.max_concurrent_tasks = 5
-And never forget to save the object to serialize it in the database:
+----
 
+And don't forget to save it in the database:
+
+----
 irb> conversion_host.save
 ----
+
+=== Adding Ansible Playbooks
+
+. Enable in the top right corner *Administrator | EVM -> Configuration* the *Embedded Ansible* role. 
++
+[TIP]
+In the *diagnostics* accordion, *workers* tab, the `Embedded Ansible Worker`must be running, otherwise the following steps will not be possible.
+
+. In *Automation -> Ansible -> Repositories*, click in *Configuration -> Add new Repository*. Use *name* `ansible-migration-repo` and the URL `https://github.com/mperezco/v2v-ansible-test-playbooks`. Select `update on launch` and click `add`
+
+. In *Automation -> Ansible -> Credentials*, click in *Configuration -> Add new Credential*. Use *name* `ticket-monster-vm-creds`, select *Type* `machine` and fill *Username* with `root` and the *Password* with the `to_be_provided` password.
+
+. TODO: Add Catalof Item. 
+
+
 
 === Testing the Environment
 
