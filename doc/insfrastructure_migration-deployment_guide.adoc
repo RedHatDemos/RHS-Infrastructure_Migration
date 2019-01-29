@@ -555,7 +555,7 @@ In this version of the appliance the registration of it in CloudForms is not ava
 
 Or via CloudForms web UI:
 
-. Navigate to https://cf-UUID.rhpds.opentlc.com/api/cpnversion_hosts
+. Navigate to https://cf-UUID.rhpds.opentlc.com/api/conversion_hosts
 . Use CloudForms `admin` username and password to authenticate.
 . You will be presented with a JSON output listing all the conversion hosts.
 
