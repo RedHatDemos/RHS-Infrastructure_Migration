@@ -595,7 +595,7 @@ And don't forget to save it in the database:
 irb> conversion_host.save
 ----
 
-==== Adding Ansible Playbooks
+== Adding Ansible Playbooks
 
 . Enable in the top right corner *Administrator | EVM -> Configuration* the *Embedded Ansible* role. 
 +
@@ -610,7 +610,7 @@ In the *diagnostics* accordion, *workers* tab, the `Embedded Ansible Worker`must
 
 
 
-==== Testing the Environment
+== Testing the Environment
 
 The environment is ready to perform a migration. To test it, follow the link:insfrastructure_migration-lab_guide.adoc[Lab Instructions] using `kvm2` as the Conversion Host.
 
