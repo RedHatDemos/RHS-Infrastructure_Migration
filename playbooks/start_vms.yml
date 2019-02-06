@@ -2,17 +2,22 @@
 - hosts: workstation.example.com
   become: true
   tasks:
+    - set_fact: 
+        conn_ok: false
+
     - name: Wait for vCenter port 9443 to be available
       wait_for:
         port: 9443
         host: vcenter.example.com
         delay: 20
         timeout: 1200
+
     - name: Wait for NFS to be available
       wait_for:
         port: 2049
         host: storage.example.com
         delay: 20
+
     - name: Wait for ESX and vCenter servers port 443 to be available
       wait_for:
         port: 443
@@ -23,39 +28,16 @@
         - esx1.example.com
         - esx2.example.com
         - vcenter.example.com
+
     - name: Start db
-      block:
-        - name: Start db virtual machine
-          vmware_guest:
-            hostname: "{{ vcenter_ip }}"
-            username: "{{ vcenter_username }}"
-            password: "{{ vcenter_password }}"
-            validate_certs: False
-            name: db
-            state: poweredon
-          delegate_to: localhost
-        - name: Check for db running
-          wait_for:
-            port: 5432
-            host: db.example.com
-            delay: 10
-        - set_fact:
-            conn_ok: true
-      rescue:
-        - name: Force off db virtual machine
-          vmware_guest:
-            hostname: "{{ vcenter_ip }}"
-            username: "{{ vcenter_username }}"
-            password: "{{ vcenter_password }}"
-            validate_certs: False
-            name: db
-            state: poweredoff
-          delegate_to: localhost
-        - set_fact:
-            conn_ok: false
-      until: conn_ok
+      include_tasks: loop_db_vms.yml
+      until: conn_ok == true
       retries: 20
       delay: 10
+
+    - debug:
+        var: conn_ok
+
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
