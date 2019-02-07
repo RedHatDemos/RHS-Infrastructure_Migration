@@ -14,7 +14,8 @@
     wait_for:
       port: 8443
       host: jboss1.example.com
-      delay: 10
+      delay: 3
+      timeout: 60
 
   rescue:
     - name: Force off jboss1 virtual machine
