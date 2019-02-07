@@ -31,4 +31,4 @@
         seconds: 10
 
     - name: Try again
-      include_tasks: loop_db_vms.yml
+      include_tasks: loop_db_vm.yml

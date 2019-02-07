@@ -30,7 +30,7 @@
         - vcenter.example.com
 
     - name: Start db
-      include_tasks: loop_db_vms.yml
+      include_tasks: loop_db_vm.yml
 
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
