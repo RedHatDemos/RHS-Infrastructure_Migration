@@ -32,7 +32,16 @@
     - name: Start db
       include_tasks: loop_db_vm.yml
 
-    - name: Set powerstate on for ticket-monster vms
+    - name: Start jboss0
+      include_tasks: loop_jboss0_vm.yml
+
+    - name: Start jboss1
+      include_tasks: loop_jboss1_vm.yml
+
+    - name: Start lb
+      include_tasks: loop_lb_vm.yml
+
+    - name: Check powerstate on for ticket-monster vms
       vmware_guest:
         hostname: "{{ vcenter_ip }}"
         username: "{{ vcenter_username }}"
@@ -42,6 +51,7 @@
         state: poweredon
       delegate_to: localhost
       with_items:
+        - db
         - jboss0
         - jboss1
         - lb
