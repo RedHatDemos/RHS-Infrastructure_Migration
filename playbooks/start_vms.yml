@@ -31,7 +31,7 @@
 
     - name: Start db
       include_tasks: loop_db_vms.yml
-      until: conn_ok == true
+      until: ansible_facts['conn_ok'] == true
       retries: 20
       delay: 10
 
