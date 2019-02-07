@@ -16,9 +16,6 @@
       host: db.example.com
       delay: 10
 
-  - set_fact:
-      conn_ok: true
-
   rescue:
     - name: Force off db virtual machine
       vmware_guest:
@@ -30,5 +27,8 @@
         state: poweredoff
       delegate_to: localhost
 
-    - set_fact:
-        conn_ok: false
+    - pause:
+        seconds: 10
+
+    - name: Try again
+      include_tasks: loop_db_vms.yml

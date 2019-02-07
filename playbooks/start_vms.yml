@@ -31,12 +31,6 @@
 
     - name: Start db
       include_tasks: loop_db_vms.yml
-      until: ansible_facts['conn_ok'] == true
-      retries: 20
-      delay: 10
-
-    - debug:
-        var: conn_ok
 
     - name: Set powerstate on for ticket-monster vms
       vmware_guest:
