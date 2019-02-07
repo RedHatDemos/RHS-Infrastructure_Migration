@@ -32,4 +32,3 @@
 
     - set_fact:
         conn_ok: false
-
