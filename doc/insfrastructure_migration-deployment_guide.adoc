@@ -602,12 +602,59 @@ irb> conversion_host.save
 [TIP]
 In the *diagnostics* accordion, *workers* tab, the `Embedded Ansible Worker`must be running, otherwise the following steps will not be possible.
 
-. In *Automation -> Ansible -> Repositories*, click in *Configuration -> Add new Repository*. Use *name* `ansible-migration-repo` and the URL `https://github.com/mperezco/v2v-ansible-test-playbooks`. Select `update on launch` and click `add`
-
 . In *Automation -> Ansible -> Credentials*, click in *Configuration -> Add new Credential*. Use *name* `ticket-monster-vm-creds`, select *Type* `machine` and fill *Username* with `root` and the *Password* with the `to_be_provided` password.
++
+image::cf-ansible_add_credentials_1.png[Ansible Add Credentials 1]
++
+image::cf-ansible_add_credentials_2.png[Ansible Add Credentials 2]
++
+image::cf-ansible_add_credentials_3.png[Ansible Add Credentials 3]
++
+image::cf-ansible_add_credentials_4.png[Ansible Add Credentials 4]
++
+image::cf-ansible_add_credentials_5.png[Ansible Add Credentials 5]
 
-. TODO: Add Catalog Item. 
+. In *Automation -> Ansible -> Repositories*, click in *Configuration -> Add new Repository*. Use *name* `ansible-migration-repo` and the URL `https://github.com/mperezco/v2v-ansible-test-playbooks`. Select `update on launch` and click `add`
++
+image::cf-ansible_add_repository_1.png[Ansible Add Repository 1]
++
+image::cf-ansible_add_repository_2.png[Ansible Add Repository 2]
++
+image::cf-ansible_add_repository_3.png[Ansible Add Repository 3]
++
+image::cf-ansible_add_repository_4.png[Ansible Add Repository 4]
++
+image::cf-ansible_add_repository_5.png[Ansible Add Repository 5]
 
+. In *Automation -> Ansible -> Playbooks* we can check that the content of the repo has been added and is available
++
+image::cf-ansible_check_playbooks_1.png[Ansible Check Repository 1]
++
+image::cf-ansible_check_playbooks_2.png[Ansible Check Repository 2]
+
+. To make the playbooks available in CloudForms, we will add a *Catalog Item*. Go to *Services -> Catalogs* 
++
+image::cf-add_catalog_item_1.png[CF Add Catalog Item 1]
+
+. Click on *Configuration -> Add a new Catalog Item*
++
+image::cf-add_catalog_item_2.png[CF Add Catalog Item 2]
+
+. Select as `Catalog item Type` *Ansible Playbook*
++
+image::cf-add_catalog_item_3.png[CF Add Catalog Item 3]
+
+. Insert *Name* as `rhel-premigrate-playbook`, and add a proper *Description*. Then in the *Provisioning* tab select: *Repository* -> `ansible-migration-repo` ; *Playbook* -> `pre_migration_rhel.yml` ; *Machine Credential* -> `ticket-monster-vm-creds` ...
++
+image::cf-add_catalog_item_4.png[CF Add Catalog Item 4]
+
+. Continue the selection with *Logging Output* and *Verbosity*. In *Dialog* select *Create New* and add a name like `migration-dialog`. Click *Add*
++
+image::cf-add_catalog_item_5.png[CF Add Catalog Item 5]
+
+. The *Catalog Item* will be added
++
+image::cf-add_catalog_item_6.png[CF Add Catalog Item 6]
 
 
 == Testing the Environment
