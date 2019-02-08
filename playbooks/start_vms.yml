@@ -51,6 +51,7 @@
         name: "{{ item }}"
         state: poweredon
       delegate_to: localhost
+      ignore_errors: yes
       with_items:
         - db
         - jboss0

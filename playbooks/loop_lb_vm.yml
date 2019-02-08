@@ -28,6 +28,7 @@
         name: lb
         state: poweredoff
       delegate_to: localhost
+      ignore_errors: yes
 
     - pause:
         seconds: 10
