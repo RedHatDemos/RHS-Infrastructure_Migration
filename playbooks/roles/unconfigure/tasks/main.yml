@@ -2,6 +2,31 @@
 # tasks file for rhel
 #
 
+- file: 
+    path: /etc/tower/SECRET_KEY
+    state: absent
+
+- name: Remove Ansible key from database
+  command: /var/www/miq/vmdb/bin/rails r 'MiqDatabase.first.ansible_secret_key  = nil'
+  args:
+    chdir: /var/www/miq/vmdb
+
+- name: Remove Ansible key from database
+  command: /var/www/miq/vmdb/bin/rails r 'MiqDatabase.first.ansible_database_authentication.destroy'
+  args:
+    chdir: /var/www/miq/vmdb
+
+- name: Remove Ansible key from database
+  command: /var/www/miq/vmdb/bin/rails r 'ManageIQ::Providers::EmbeddedAnsible::Provider.first.destroy'
+  args:
+    chdir: /var/www/miq/vmdb
+
+- name: Drop Ansible Database in PostgreSQL
+  command: /opt/rh/rh-postgresql95/root/usr/bin/psql  -d vmdb_production -c 'DROP DATABASE awx'
+
+- name: Drop Ansible Role in PostgreSQL
+  command: /opt/rh/rh-postgresql95/root/usr/bin/psql  -d vmdb_production -c 'DROP ROLE awx'
+
 - name: Stop EVM services
   service:
     name: '{{ item }}'
