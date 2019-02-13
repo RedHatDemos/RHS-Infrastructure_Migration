@@ -4,7 +4,7 @@
 :toclevels: 3
 :imagesdir: images
 
-== Infrastructure Migration 1.1 beta - Deployment Guide
+== Infrastructure Migration 1.1 GA - Deployment Guide
 
 :numbered:
 
