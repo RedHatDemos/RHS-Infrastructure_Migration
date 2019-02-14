@@ -6,17 +6,17 @@
     path: /etc/tower/SECRET_KEY
     state: absent
 
-- name: Remove Ansible key from database
+- name: Remove Ansible key from CloudForms
   command: /var/www/miq/vmdb/bin/rails r 'MiqDatabase.first.ansible_secret_key  = nil'
   args:
     chdir: /var/www/miq/vmdb
 
-- name: Remove Ansible key from database
+- name: Remove Ansible auth from CloudForms
   command: /var/www/miq/vmdb/bin/rails r 'MiqDatabase.first.ansible_database_authentication.destroy'
   args:
     chdir: /var/www/miq/vmdb
 
-- name: Remove Ansible key from database
+- name: Remove Ansible provider from CloudForms
   command: /var/www/miq/vmdb/bin/rails r 'ManageIQ::Providers::EmbeddedAnsible::Provider.first.destroy'
   args:
     chdir: /var/www/miq/vmdb
