@@ -12,6 +12,7 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 beta
 ```
+  0.29 Ansible updates to CF cleanup
   0.28 Update CF to 5.10.0.33 GA; Added interface in service network to CF; Ignore errors in start_vms
   0.27 New playbook for auto startup of VMs
   0.26 Added pre-migration playbook for lb
