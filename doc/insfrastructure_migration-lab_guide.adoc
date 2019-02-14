@@ -784,7 +784,7 @@ image::migration_running_osp_2.png[Migration Running 2]
 image:ticket_monster_csv_file.png[Multiple VM CSV File]
 +
 [TIP]
-CSV file format is specified in the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html-single/infrastructure_migration_solution_guide/index#Creating_a_Migration_Plan[Official Documentation]
+CSV file format is specified in the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.1/html/infrastructure_migration_solution_guide/migrating_the_infrastructure#Creating_and_running_a_migration_plan[Official Documentation]
 
 .. This sample file could be an example of a CMDB dump after processing. We may remove the lines we know we are not going to use, leaving only the header row and the `db` row. link:../conf/ticket_monster_migration_db.csv[Sample here].
 +
