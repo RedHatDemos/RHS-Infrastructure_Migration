@@ -3,7 +3,7 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.1 beta - Migration Guide
+== Infrastructure Migration 1.1 GA - Migration Guide
 
 :numbered:
 
@@ -88,7 +88,7 @@ image::rhpds_login.png[RHPDS]
 
 [start=2]
 . Go to *Services -> Catalogs*.
-. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration 1.1 Alpha*.
+. Under *All Services -> Red Hat Solutions*, select *Infrastructure Migration 1.1 GA*.
 . On the right pane, click *Order*.
 +
 image::rhpds_catalog.png[RHPDS]
