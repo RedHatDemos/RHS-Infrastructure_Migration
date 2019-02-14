@@ -359,6 +359,10 @@ And never forget to save the object to serialize it in the database:
 irb> conversion_host.save
 ----
 
+[NOTE]
+Remember to add the credentials to access `kvm1.example.com`, in the *Compute -> Infrastructure -> Hosts* so it can be accessed to run the VM conversion.
+
+
 To delete the conversion host with `id` *1*, simply run the following in the rails console:
 
 ----
