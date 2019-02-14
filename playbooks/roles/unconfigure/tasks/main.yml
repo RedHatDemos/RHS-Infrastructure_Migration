@@ -21,12 +21,6 @@
   args:
     chdir: /var/www/miq/vmdb
 
-- name: Drop Ansible Database in PostgreSQL
-  command: /opt/rh/rh-postgresql95/root/usr/bin/psql  -d vmdb_production -c 'DROP DATABASE awx'
-
-- name: Drop Ansible Role in PostgreSQL
-  command: /opt/rh/rh-postgresql95/root/usr/bin/psql  -d vmdb_production -c 'DROP ROLE awx'
-
 - name: Stop EVM services
   service:
     name: '{{ item }}'
@@ -34,6 +28,12 @@
   with_items:
     - evm-watchdog.service
     - evmserverd.service
+
+- name: Drop Ansible Database in PostgreSQL
+  command: /opt/rh/rh-postgresql95/root/usr/bin/psql  -d vmdb_production -c 'DROP DATABASE awx'
+
+- name: Drop Ansible Role in PostgreSQL
+  command: /opt/rh/rh-postgresql95/root/usr/bin/psql  -d vmdb_production -c 'DROP ROLE awx'
 
 - name: Reset CloudForms database
   command: rake evm:db:reset
