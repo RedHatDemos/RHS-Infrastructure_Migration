@@ -202,6 +202,8 @@ image::conversion_host_9.png[Conversion Host 9]
 +
 image::conversion_host_10.png[Conversion Host 10]
 
+[NOTE]
+Remember to add also the credentials to access `kvm1.example.com`, as well as for `esx1.example.com` and `esx1.example.com`.
 
 === Installing tools in Conversion Host in RHV, and configuring it
 
@@ -358,9 +360,6 @@ And never forget to save the object to serialize it in the database:
 ----
 irb> conversion_host.save
 ----
-
-[NOTE]
-Remember to add the credentials to access `kvm1.example.com`, in the *Compute -> Infrastructure -> Hosts* so it can be accessed to run the VM conversion.
 
 
 To delete the conversion host with `id` *1*, simply run the following in the rails console:
