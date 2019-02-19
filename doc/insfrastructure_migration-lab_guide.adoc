@@ -530,7 +530,7 @@ image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the netowrk used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
+. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the netowrk used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
 +
 image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
 +
@@ -671,7 +671,7 @@ image::migration_running_14.png[Migration Running 14]
 +
 image::migration_running_15.png[Migration Running 15]
 
-. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooint errors or just to check the migration details. It's worth nothing that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
+. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
 +
 image::migration_log_access.png[Migration Log Access]
 
