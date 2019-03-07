@@ -10,8 +10,9 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 * [Infrastructure Migration Solution - Lab Guides](doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
-## Enablement Environment - Infratructure Migration Solution 1.1 beta
+## Enablement Environment - Infratructure Migration Solution 1.1 GA
 ```
+  0.30 Fixed Ip in workstation (issues with DHCP)
   0.29 Ansible updates to CF cleanup
   0.28 Update CF to 5.10.0.33 GA; Added interface in service network to CF; Ignore errors in start_vms
   0.27 New playbook for auto startup of VMs
