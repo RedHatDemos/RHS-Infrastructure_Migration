@@ -226,7 +226,7 @@ image::conversion_host_9b.png[Conversion Host 9]
 image::conversion_host_10.png[Conversion Host 10]
 
 [NOTE]
-Remember to add also the credentials to access `kvm1.example.com`, as well as for `esx1.example.com` and `esx1.example.com`.
+Remember to add also the credentials to access `kvm1.example.com`, as well as for `esx1.example.com` and `esx2.example.com`.
 
 === Installing tools in Conversion Host in RHV, and configuring it
 
