@@ -303,9 +303,10 @@ It may be time to check again and ensure the tool installation went OK:
 # ansible-playbook --inventory-file=conversion_hosts_inventory.yml conversion_host_check.yml
 ----
 
-Let's see if it got added to CF
+Let's see if it got added to CloudForms. First ssh into `cf.example.com` then, once there, run:
 
 ----
+[root@cf ~]# vmdb
 [root@cf vmdb]# rails c
 ** CFME 5.10.0.29, codename: Hammer
 Loading production environment (Rails 5.0.7.1)
