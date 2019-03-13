@@ -1,0 +1,10 @@
+https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.0/html/infrastructure_migration_solution_guide/migration#Automating_pre_and_post_migration_tasks_with_ansible
+
+https://access.redhat.com/documentation/en-us/red_hat_cloudforms/4.6/html/managing_providers/automation_management_providers#ansible-inside
+
+Enable Ansible in Cloudforms.
+
+Use the git repo
+https://github.com/fdupont-redhat/v2v-ansible-test-playbooks
+
+

@@ -118,8 +118,11 @@ We continue by running, in `workstation`, the playbook to unconfigure the deploy
 
 The playbook will stop the CloudForms services, will reset the database, and restart the services. The playbook won't unconfigure `kvm1` or `conversion`, the currently configured conversion hosts, nor the RHV / RHOSP setup.
 
-[NOTE]
-Take into account that after CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (*smartvm*).
+After CloudForms database reset, the users will be removed and the `admin` will have the *password reset* to the default appliance password (*smartvm*). We shall change that default password to the provided one by clicking in `update password` in the CloudForms login screen and filling up the new password fields:
+
+image::cf_reset_password_1.png[CF Reset Password 1]
+image::cf_reset_password_2.png[CF Reset Password 1]
+
 
 The following link:../conf/[directory] contains repo files that can be used to consume the packages in the environment for the Manager, as well as for the Hypervisors, which are RHEL based.
 
