@@ -89,7 +89,27 @@ The environment is completely configured, and an overview look at it, is recomme
 
 === CloudForms Reset
 
-Once the overview is done, we can proceed by running, in `workstation`, the playbook to unconfigure the deployed CloudForms:
+Once the overview is done, we can proceed by accessing, via SSH, the `workstation`. Use SSH your OPENTLC login name and private SSH key.
+
+* Using a Unix/Linux system:
++
+----
+$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
+
+* Example for user 'batman' and GUID '1e37', using the default ssh private key:
++
+----
+$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1e37.rhpds.opentlc.com
+----
+
+. Become `root` using the provided password:
++
+----
+$ sudo -i
+----
+
+We continue by running, in `workstation`, the playbook to unconfigure the deployed CloudForms:
 
 ----
 # cd /root/RHS-Infrastructure_Migration/playbooks/
