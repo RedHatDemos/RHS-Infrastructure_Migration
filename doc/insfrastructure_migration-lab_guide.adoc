@@ -816,7 +816,7 @@ A full migration can be done using the original sample file with a freshly insta
 +
 image::csv_migration_plan_6.png[CSV Migration Plan 6]
 
-.. In the *Schedule* step we will *Save migration plan to run later*. The plan can later on be scheduled or directly run. Click *Next*.
+.. In the *Schedule* step we will *Save migration plan to run later*. The plan can later on be scheduled or directly run. Click *Create*.
 +
 image::csv_migration_plan_7.png[CSV Migration Plan 7]
 
