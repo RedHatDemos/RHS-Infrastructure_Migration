@@ -258,6 +258,9 @@ If the ticketmonster app is not running, you may run the following command in `w
 +
 [NOTE]
 You must accept all of the self-signed SSL certificates.
++
+[TIP]
+The password `to_be_provided` is the same one previously specified
 
 * *Red Hat Virtualization Manager:* `https://rhvm-<YOUR-GUID>.rhpds.opentlc.com`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
