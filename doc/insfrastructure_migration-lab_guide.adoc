@@ -525,23 +525,23 @@ image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 +
 image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
 
-. In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *next*.
+. In the *step 2* of the wizard, *Map Compute*, select *Source Provider \ Datacenter \ Cluster* as `vSphere\DC01\Cluster01` and *Target Provider \ Datacenter \ Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *next*.
 +
 image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 
-. In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *next*.
+. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\DC01\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *next*.
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the netowrk used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
+. In the *step 4* of the wizard, *Map Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the network used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
 +
 image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
 +
-* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Network* as `vSphere\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
+* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
 +
 image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
-* Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
+* Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
