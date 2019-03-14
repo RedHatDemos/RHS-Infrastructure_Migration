@@ -129,6 +129,7 @@ image::blueprint.png[Blueprint]
 |`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`horizon.example.com` |`192.168.10.19` | horizon-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform web UI and User API Endpoint
+|`director.example.com` |`192.168.0.60` | director-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform Director (Undercloud)
 |`controller.example.com` |`10.100.0.111` | controller-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform controller
 |`compute0.example.com` |`10.100.0.105` | compute0-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
 |`compute1.example.com` |`10.100.0.107` | compute1-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
