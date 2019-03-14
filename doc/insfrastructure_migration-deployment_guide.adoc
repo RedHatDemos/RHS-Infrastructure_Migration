@@ -630,7 +630,7 @@ image::cf_enable_embedded_ansible_1.png[Enable Embedded Ansible 1]
 +
 image::cf_enable_embedded_ansible_2.png[Enable Embedded Ansible 2]
 
-.The procedure to enable *Embedded Ansible* takes from 7 to 9 minutes (great moment to graba coffee!!). You may check when the feature is fully enabled, and the service running, in the *diagnostics* accordion -> *workers* tab. The `Embedded Ansible Worker` must appear there as running, otherwise the following steps will not be possible.
+. The procedure to enable *Embedded Ansible* takes from 7 to 9 minutes (great moment to graba coffee!!). You may check when the feature is fully enabled, and the service running, in the *diagnostics* accordion -> *workers* tab. The `Embedded Ansible Worker` must appear there as running, otherwise the following steps will not be possible.
 +
 image::cf_enable_embedded_ansible_3.png[Enable Embedded Ansible 3]
 
