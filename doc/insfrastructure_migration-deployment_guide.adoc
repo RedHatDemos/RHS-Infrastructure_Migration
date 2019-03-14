@@ -50,7 +50,7 @@ The minimum product versions required to run the solution are the following:
 |VMware vSphere |5.5+
 |=======
 
-The packages will come through the official software channels. In this environment, the following local repos are provided to work with, so no registration is needed:
+In a real-world escenario deployment, the software to install in the machines would be obtained through the official software channels, by subscribing them to Red Hat's CDN, or Red Hat Satellite. In this environment, to avoid having to register the machines, the following internal software repos are provided to work with instead:
 [cols="1,1,1",options="header"]
 |=======
 |Product |Origin| Use
