@@ -12,6 +12,7 @@ Please, report issues with documentation and/or lab in the [issues](issues) sect
 
 ## Enablement Environment - Infratructure Migration Solution 1.1 GA
 ```
+  0.31 Fixed Ip in workstation (issues with cloud-init + DHCP)
   0.30 Fixed Ip in workstation (issues with DHCP)
   0.29 Ansible updates to CF cleanup
   0.28 Update CF to 5.10.0.33 GA; Added interface in service network to CF; Ignore errors in start_vms
