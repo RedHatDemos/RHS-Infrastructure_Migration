@@ -60,7 +60,7 @@ Required versions of products used:
 
 === Base requirements
 
-* A computer with access to Internet :-)
+* A computer with access to the Internet :-)
 * Adobe Flash 15 or higher must be enabled in Firefox or Chromium used for vCenter connectivity
 * SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
 * Firefox 17 or higher, or Chromium / Chrome
@@ -76,7 +76,7 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 . Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com. 
 
-. Passwords to the services is referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
+. Passwords to the services are referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
 
 == Preparation
 
@@ -148,9 +148,9 @@ Networks used in the environment
 [cols="1,1,2",options="header"]
 |=======
 | Network Name | IP range | Description
-| `Admin` | `192.168.x.x/16` | General adminitration and Storage network.
+| `Admin` | `192.168.x.x/16` | General administration and storage network.
 | `Service` | `10.10.0.x/24` | Internal network for the app to connect LB to EAP and to DB. 
-| `Servicer-DMZ` | `10.9.0.x/24` | External DMZ network to publish the app. Also access to the user API for OSP and Horizon (Provider network)
+| `Servicer-DMZ` | `10.9.0.x/24` | External DMZ network to publish the app. Also access to the user API for OSP and Horizon (provider network)
 | `OSP Provisioning` | `10.100.0.x/24` | OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.  
 |=======
 
@@ -166,7 +166,7 @@ This deployment of the migration environment includes the following VMs provisio
 | `db.example.com` | 10.10.0.120 | Red Hat Enterprise Linux 7 host running PostgreSQL providing service to `jboss0` and `jboss1` through the `Service` network.
 |=======
 
-* An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accesible.
+* An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accessible.
 
 == Getting Started
 
@@ -220,7 +220,7 @@ To check only if these ones are running, you may use the following command:
 ----
 + 
 [NOTE]
-As this environment is quite big, and it is generated and powered up for you on a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. You may need to manually start up or reboot some of them. Please review everything is running before proceeding forward.
+As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. You may need to manually start up or reboot some of them. Please review everything is running before proceeding forward.
 
 . Establish an SSH connection to the CloudForms server and monitor `automation.log`:
 +
@@ -372,11 +372,11 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 +
 [TIP]
-This is a good way to check that the app VMs are up and running and start the sopped ones.
+This is a good way to check that the app VMs are up and running and start the stopped ones.
 
 === Check Conversion Hosts
 
-*Conversion hosts* are the machines that will connect to the vCenter API, in the same fashion backup software would work, get the data from it, perfom the changes required, and send it to the RHV manager API or OSP User API Endopint.
+*Conversion hosts* are the machines that will connect to the vCenter API, in a similar fashion backup software would work, stream the data from it, perfom the changes required, and send it to the RHV manager API or OSP User API Endopint. An important thing to note is that the data is never copied onto a conversion host. It is being converted on-the-fly and saved as a separate volume. 
  
 [WARNING]
 *Conversion hosts* used to be managed by using *tags* in *CloudForms* in Infrastructure Migration Solution version *1.0*. For version *1.1*, tags are deprecated and new *database entries* are being used to identify them. 
@@ -446,10 +446,6 @@ PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, 
 => #<ActiveRecord::Relation [#<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>, #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>]>
 
 ----
-+
-[NOTE]
-This shows a list of the conversion hosts that, once the migration starts, will be contacted to start conversions. You hsould have two different ones, once with `resource_type` *host* (for RHV), and another one with resource type `resource_type` *VmOrTemplate* (for OSP). This functionality is expected to be available through the web interface for version 1.2
-
 * Let's get the info on the conversion host `kvm1.example.com`
 +
 ----
@@ -464,6 +460,11 @@ PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, 
 irb(main):002:0> ConversionHost.find_by(name: 'conversion')
 => #<ConversionHost id: 2, name: "conversion", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
 ----
+. With versions 1.1 and higher, we can check the conversion host configuration by accesing the CloudForms API
+* *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/conversion_hosts`
++
+[NOTE]
+This shows a list of the conversion hosts that, once the migration starts, will be contacted to start conversions. You should have two different ones, one with `resource_type` *host* (for RHV), and another one with resource type `resource_type` *VmOrTemplate* (for OSP). This functionality is expected to be available through the web interface for version 1.2
 
 === Check Credentials
 
@@ -812,7 +813,7 @@ image::csv_migration_plan_5.png[CSV Migration Plan 5]
 [TIP]
 A full migration can be done using the original sample file with a freshly instantiated environment.
 
-.. In the *Advanced Options* step we will not apply any change. Click *Next*.
+.. In the *Advanced Options* step we will not apply any changes. Click *Next*.
 +
 image::csv_migration_plan_6.png[CSV Migration Plan 6]
 
