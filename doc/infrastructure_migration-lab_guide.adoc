@@ -515,9 +515,12 @@ image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
 +
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 
-. In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Provider\Project* as `OpenStack\ticket-monster` and click *Add Mapping*, then click *next*.
+. In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Provider\Project* as `OpenStack\ticket-monster` and click *Add Mapping*.
 +
 image::infrastructure_mapping_osp_4.png[Infrastructure Mapping 4]
+image::infrastructure_mapping_osp_4a.png[Infrastructure Mapping 4a]
++
+Then click *next*.
 
 . In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `OpenStack\default_store` and click *Add Mapping*, then click *next*.
 +
