@@ -132,7 +132,7 @@ This deployment of the migration environment includes the following VMs provisio
 
 +
 ----
-$ ssh -i /path/to/private_key lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
+$ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
 . Become `root` using the provided password:
