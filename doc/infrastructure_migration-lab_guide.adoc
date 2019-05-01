@@ -570,7 +570,7 @@ image::migration_plan_osp_3.png[Migration Plan 3]
 +
 image::migration_plan_osp_4.png[Migration Plan 4]
 
-. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. In the *pre-migration playbook service* we will select `migration-playbook-pre`, then select to use the *Pre-migration Service* for `lb` and click *Next*
+. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. In the *pre-migration playbook service* we will select `rhel-premigrate-playbook`, then select to use the *Pre-migration Service* for `lb` and click *Next*
 +
 image::migration_plan_osp_5.png[Migration Plan 5]
 +
