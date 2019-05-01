@@ -526,7 +526,7 @@ Then click *next*.
 +
 image::infrastructure_mapping_osp_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with. We will start by mapping the network used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `OpenStack\service` and click *Add Mapping*.
+. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with. We will start by mapping the network used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `OpenStack\service` and click *Add Mapping*.
 +
 image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
 +
