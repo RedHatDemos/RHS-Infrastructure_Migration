@@ -380,7 +380,7 @@ image::migration_plan_0.png[Migration Plan 0]
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-app` and click *next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-app` and click *Next*.
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
