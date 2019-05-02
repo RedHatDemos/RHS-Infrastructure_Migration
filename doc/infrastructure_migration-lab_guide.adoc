@@ -334,17 +334,17 @@ image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 +
 image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv`, select as *Target Provider* `Red Hat Virtualization`  and click *next*.
+. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv`, select as *Target Provider* `Red Hat Virtualization`  and click *Next*.
 +
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 +
 image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
 
-. In the *step 2* of the wizard, *Map Compute*, select *Source Provider \ Datacenter \ Cluster* as `vSphere\DC01\Cluster01` and *Target Provider \ Datacenter \ Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *next*.
+. In the *step 2* of the wizard, *Map Compute*, select *Source Provider \ Datacenter \ Cluster* as `vSphere\DC01\Cluster01` and *Target Provider \ Datacenter \ Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *Next*.
 +
 image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 
-. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\DC01\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *next*.
+. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\DC01\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *Next*.
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
@@ -458,7 +458,7 @@ image::migration_running_6.png[Migration Running 6]
 +
 image::migration_running_7.png[Migration Running 7]
 
-. It is possible to check in *RHV* interface, in *Compute -> Virtual Machines* how the VM gets imported.
+. It is possible to check in the *RHV* admin portal under *Compute -> Virtual Machines* to monitor the status for the VM import as part of the migration process.
 +
 image::migration_running_8.png[Migration Running 8]
 
