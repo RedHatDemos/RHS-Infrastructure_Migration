@@ -303,7 +303,7 @@ image::cloudforms_cloud_providers_4.png[CloudForms Clouds Providers 4]
 +
 image::cloudforms_cloud_providers_5.png[CloudForms Clouds Providers 5]
 
-. Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs & Templates*.
+. Go to *Compute -> Infrastructure -> Virtual Machines -> All VMs & Templates*.
 +
 image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
 
