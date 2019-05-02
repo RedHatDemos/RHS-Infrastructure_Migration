@@ -356,7 +356,7 @@ image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
 +
 image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
-* Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
+* Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *Create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
