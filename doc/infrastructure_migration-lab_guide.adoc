@@ -509,7 +509,7 @@ image::infrastructure_mapping_osp_1.png[Infrastructure Mapping 1]
 +
 image::infrastructure_mapping_osp_2.png[Infrastructure Mapping 2]
 
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-osp`, select as *Target Provider* `Red Hat OpenStack Platform`, and click *next*.
+. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-osp`, select as *Target Provider* `Red Hat OpenStack Platform`, and click *Next*.
 +
 image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
 +
@@ -520,9 +520,9 @@ image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
 image::infrastructure_mapping_osp_4.png[Infrastructure Mapping 4]
 image::infrastructure_mapping_osp_4a.png[Infrastructure Mapping 4a]
 +
-Then click *next*.
+Then click *Next*.
 
-. In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `OpenStack\default_store` and click *Add Mapping*, then click *next*.
+. In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `OpenStack\default_store` and click *Add Mapping*, then click *Next*.
 +
 image::infrastructure_mapping_osp_5.png[Infrastructure Mapping 5]
 
@@ -534,11 +534,11 @@ image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
 +
 image::infrastructure_mapping_osp_6b.png[Infrastructure Mapping 6]
 +
-* Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `OpenStack\Admin` and click *Add Mapping*, then click *create*.
+* Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `OpenStack\Admin` and click *Add Mapping*, then click *Create*.
 +
 image::infrastructure_mapping_osp_6.png[Infrastructure Mapping 6]
 
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-osp have been mapped.` shall appear. Click *close*.
+. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-osp have been mapped.` shall appear. Click *Close*.
 +
 image::infrastructure_mapping_osp_7.png[Infrastructure Mapping 7]
 +
