@@ -360,7 +360,7 @@ image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
 
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *close*.
+. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *Close*.
 +
 image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
 +
