@@ -100,8 +100,7 @@ The architecture of the deployment can be depicted with the following image:
 
 image::architecture_diagram.png[Architecture Diagram]
 
-* Networks
-Networks used in the environment
+* Networks used in the environment
 
 [cols="1,1,2",options="header"]
 |=======
@@ -113,6 +112,7 @@ Networks used in the environment
 |=======
 
 * Virtual Machines
++
 This deployment of the migration environment includes the following VMs provisioned in the vSphere environment in order to be migrated:
 
 [cols="1,1,2",options="header"]
@@ -124,15 +124,15 @@ This deployment of the migration environment includes the following VMs provisio
 | `db.example.com` | 10.10.0.120 | Red Hat Enterprise Linux 7 host running PostgreSQL providing service to `jboss0` and `jboss1` through the `Service` network.
 |=======
 
-* An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accessible.
+* An external service is configured as `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*` pointing to the Load Balancer to make the Ticket Monster app accessible.
 
 == Getting Started
 
-. Once the system is running, use SSH to access your demo server using the private SSH key of `lab-user`.
+. Once the system is running, use SSH to access your demo server using the private SSH key of `labuser`.
 
 +
 ----
-$ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
+$ ssh labuser@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
 . Become `root` using the provided password:
@@ -188,7 +188,7 @@ The log entries can be also seen in the CloudForms web UI in *Automation -> Auto
 
 . Verify that the Ticket Monster app is running:
 
-* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and check it is running:
+* Point your browser to `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*` and check it is running:
 +
 image::app-ticketmonster-running.png[Ticket Monster app running]
 [NOTE]
@@ -213,7 +213,7 @@ You must accept all of the self-signed SSL certificates.
 [TIP]
 The password `to_be_provided` is the same one previously specified
 
-* *Red Hat Virtualization Manager:* `https://rhvm-<YOUR-GUID>.rhpds.opentlc.com`
+* *Red Hat Virtualization Manager:* `*\https://rhvm-<YOUR-GUID>.rhpds.opentlc.com*`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
 +
 image::rhv_login.png[RHV Login]
@@ -225,7 +225,7 @@ As this is nested virtualization, sometimes the CPU type of the hypervisor is ch
 +
 image::rhv_hypervisors_up.png[RHV Hypervisors up]
 
-* *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
+* *vCenter:* `*\https://vcenter-<YOUR-GUID>.rhpds.opentlc.com*`
 +
 image::vsphere_web_client_0.png[vCenter Login]
 
@@ -249,7 +249,7 @@ image::vsphere_web_client_2.png[vCenter]
 +
 image::vsphere_web_client_3.png[vCenter]
 
-* *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
+* *CloudForms:* `*\https://cf-<YOUR-GUID>.rhpds.opentlc.com*`
 +
 image::cloudforms_login.png[CloudForms Login]
 +
@@ -259,7 +259,7 @@ After logging in you will be presented with the CloudForms Dashboard.
 image::cloudforms_dashboard.png[CloudForms Dashboard]
 
 
-* *OpenStack Horizon:* `http://horizon-<YOUR-GUID>.rhpds.opentlc.com`
+* *OpenStack Horizon:* `*\http://horizon-<YOUR-GUID>.rhpds.opentlc.com*`
 +
 image::horizon_login.png[Horizon Login]
 +
@@ -359,6 +359,11 @@ image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 * Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *Create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
++
+* This is what the final network mapping should look like
++
+image::infrastructure_mapping_6c.png[Infrastructure Mapping 6]
+
 
 . In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *Close*.
 +
@@ -482,7 +487,7 @@ image::migration_running_12.png[Migration Running 12]
 # ansible app -m ping
 ----
 
-. It's time to check the *app* running and accesible via the URL https://app-<YOUR-GUID>.rhpds.opentlc.com
+. It's time to check the *app* running and accesible via the URL `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*`
 +
 image::migration_running_14.png[Migration Running 14]
 
@@ -537,6 +542,10 @@ image::infrastructure_mapping_osp_6b.png[Infrastructure Mapping 6]
 * Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `OpenStack\Admin` and click *Add Mapping*, then click *Create*.
 +
 image::infrastructure_mapping_osp_6.png[Infrastructure Mapping 6]
++
+* This is what the final network mapping should look like. Click *Create* to finish.
++
+image::infrastructure_mapping_osp_6c.png[Infrastucture Mapping 6]
 
 . In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-osp have been mapped.` shall appear. Click *Close*.
 +
@@ -558,7 +567,7 @@ image::migration_plan_0.png[Migration Plan 0]
 +
 image::migration_plan_osp_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-osp`, add the name `ticket-monster-plan-lb` and click *next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-map-osp`, add the name `ticket-monster-plan-lb` and click *Next*.
 +
 image::migration_plan_osp_2.png[Migration Plan 2]
 
@@ -577,11 +586,11 @@ image::migration_plan_osp_5.png[Migration Plan 5]
 [NOTE]
 The `lb` has an specific network configuration in which the name of the interfaces in origin is diferent than in the destination. We will use this playbook to convert the configuration.
 
-. In the *step 5* of the wizard, *Schedule*, select *Start migration inmediately*. Click *Create*
+. In the *step 5* of the wizard, *Schedule*, select *Start migration immediately*. Click *Create*
 +
 image::migration_plan_osp_6.png[Migration Plan 6]
 
-. In the *step 6* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app is in progress` shall appear. Click *Close*.
+. In the *step 6* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-lb is in progress` will appear. Click *Close*.
 +
 image::migration_plan_osp_7.png[Migration Plan 7]
 
@@ -677,11 +686,10 @@ image::csv_migration_plan_16.png[CSV Migration Plan 16]
 image::csv_migration_plan_17.png[CSV Migration Plan 17]
 
 
-
 .. Verify that the Ticket Monster app is running:
 
-* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and check it is running:
+* Point your browser to `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*` and check it is running:
 +
 image::app-ticketmonster-running.png[Ticket Monster Web App]
 
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide].
+If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:infrastructure_migration-deployment_guide.adoc[Deployment guide].
