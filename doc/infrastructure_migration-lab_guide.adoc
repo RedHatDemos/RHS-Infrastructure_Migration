@@ -128,11 +128,11 @@ This deployment of the migration environment includes the following VMs provisio
 
 == Getting Started
 
-. Once the system is running, use SSH to access your demo server using the private SSH key of `labuser`.
+. Once the system is running, use SSH to access your bastion workstation using `lab-user`.
 
 +
 ----
-$ ssh labuser@workstation-<YOUR-GUID>.rhpds.opentlc.com
+$ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
 . Become `root` using the provided password:
