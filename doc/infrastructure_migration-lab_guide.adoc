@@ -692,4 +692,4 @@ image::csv_migration_plan_17.png[CSV Migration Plan 17]
 +
 image::app-ticketmonster-running.png[Ticket Monster Web App]
 
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:infrastructure_migration-deployment_aguide.adoc[Deployment guide].
+If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide].
