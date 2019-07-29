@@ -1,12 +1,12 @@
 Mod_Cluster Role
 =========
 
-A role to deploy, and configure a Mod_Cluster + Apache HTTPD webserver as load balancer in RHEL7 / CentOS7
+A role to deploy, and configure a Mod_Cluster + Apache HTTPD webserver as load balancer in RHEL7
 
 Requirements
 ------------
 
-The system to run this role has to be subscribed (if RHEL), and configured with the base, optional and extras repos. Then add EPEL.
+The system to run this role has to be subscribed, and configured with the base, optional and extras repos.
 
 
 It can be done in RHEL with the following commands (once subscribed):
