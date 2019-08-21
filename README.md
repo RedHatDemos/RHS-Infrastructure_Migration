@@ -1,8 +1,8 @@
-# Red Hat Solutions - Infrastructure Migration 1.2
+# Infrastructure Migration Solution (IMS) and Convert2RHEL
 
 Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
-## IMS 1.2 and Convert2RHEL demo
+## Video recording demo
 [![IMS 1.2 Video](https://i9.ytimg.com/vi/2eXfQ37W8o4/mq3.jpg?sqp=CJyG9uoF&rs=AOn4CLDSi-c33wjvo5ZDkBkKJ2MWRkkVKA)](https://www.youtube.com/watch?v=2eXfQ37W8o4&feature=youtu.be)
 
 ## Go ahead, get your hands dirty!
