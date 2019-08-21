@@ -1,16 +1,16 @@
-# Red Hat Solutions - Infrastructure Migration 1.1
+# Red Hat Solutions - Infrastructure Migration 1.2
 
 Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
 ## For TL;DR check this video
-[![IMS 1.1 Video](https://img.youtube.com/vi/uBM-1mJxJ5g/0.jpg)](https://www.youtube.com/watch?v=uBM-1mJxJ5g)
+[![IMS 1.2 Video](https://img.youtube.com/vi/uBM-1mJxJ5g/0.jpg)](https://www.youtube.com/watch?v=2eXfQ37W8o4&feature=youtu.be)
 
 ## Go ahead, get your hands dirty!
 
 * [Infrastructure Migration Solution - Lab Guides](doc)
 * [Video Introduction: Virtualization and Infrastructure Migration Technical Overview RH018](https://www.redhat.com/en/services/training/rh018-virtualization-and-infrastructure-migration-technical-overview)
 
-## Enablement Environment - Infratructure Migration Solution 1.1 GA
+## Enablement Environment - Infratructure Migration Solution 1.2 GA
 ```
   0.31 Fixed Ip in workstation (issues with cloud-init + DHCP)
   0.30 Fixed Ip in workstation (issues with DHCP)
