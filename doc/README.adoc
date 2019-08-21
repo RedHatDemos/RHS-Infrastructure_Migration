@@ -8,9 +8,8 @@ In this lab, you will learn how you can automatically migrate workloads using IM
 
 === Lab Guides
 
-. link:insfrastructure_migration-lab_guide.adoc[Migration Guide]
-. link:insfrastructure_migration-deployment_guide.adoc[Deployment Guide]
-. link:insfrastructure_migration-advanced_experimental.adoc[Advanced / Experimental Guide]
+. link:lab1.adoc[Lab #1 (basic) - Migrating a VM]
+. link:lab2.adoc[Lab #2 (advanced) - Deploying the solution]
 
 The password to access lab services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
