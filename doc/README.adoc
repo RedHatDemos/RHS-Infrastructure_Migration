@@ -3,21 +3,20 @@
 :toc2:
 :imagesdir: images
 
-== Red Hat Solutions: Infrastructure Migration 1.1
+== Infrastructure Migration Solution (IMS) and Convert2RHEL lab
 
-Infrastructure Migration Solution is based in the field experience of the Cloud Migration Factory. The tooling required is now included as features in differend projects (and products) to implement the VM migration tasks. The solution includes also proffesional services, training and much more please check link:http://red.ht/possibilities[http://red.ht/possibilities] for more info. This documentation is intended to be used to learn about the technical implementation of the solution, or demo it.
+In this lab, you will learn how you can automatically migrate workloads using IMS, Ansible and Convert2RHEL from non-supported or third-party OS on VMware to a fully supported Red Hat stack (RHEL on RHV).   We will also ugprade the OS to RHEL8, all that from one simple automated process.
 
-=== Infrastructure Migration Solution v1.1 Lab Guides
+=== Lab Guides
 
-. link:insfrastructure_migration-lab_guide.adoc[Infrastructure Migration 1.1 Migration Guide]
-. link:insfrastructure_migration-deployment_guide.adoc[Infrastructure Migration 1.1 Deployment Guide]
-. link:insfrastructure_migration-advanced_experimental.adoc[Infrastructure Migration 1.1 Advanced / Experimental Guide]
+. link:insfrastructure_migration-lab_guide.adoc[Migration Guide]
+. link:insfrastructure_migration-deployment_guide.adoc[Deployment Guide]
+. link:insfrastructure_migration-advanced_experimental.adoc[Advanced / Experimental Guide]
 
 The password to access lab services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
-=== Infrastructure Migration Solution v1.1 Supporting Documents
-. link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.1/html-single/[Infrastructure Migration 1.1 Official Documentation]
-. link:insfrastructure_migration-vm_conversion_faq.adoc[Infrastructure Migration 1.1 VM Conversion FAQ]
-. link:insfrastructure_migration-troubleshooting.adoc[Infrastructure Migration 1.1 Troubleshooting notes]
-. link:insfrastructure_migration-working_notes.adoc[Infrastructure Migration 1.1 Miscellaneous notes]
-
+=== Other Supporting Documents
+. link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution[IMS Official Documentation]
+. link:insfrastructure_migration-vm_conversion_faq.adoc[VM Conversion FAQ]
+. link:insfrastructure_migration-troubleshooting.adoc[Troubleshooting notes]
+. link:insfrastructure_migration-working_notes.adoc[Miscellaneous notes]
