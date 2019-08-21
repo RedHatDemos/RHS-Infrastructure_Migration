@@ -1,6 +1,5 @@
 :scrollbar:
 :data-uri:
-:toc2:
 :imagesdir: images
 
 == Infrastructure Migration Solution (IMS) and Convert2RHEL lab
