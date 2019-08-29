@@ -235,6 +235,12 @@ image::poweron.png[poweron, 50]
 [NOTE]
 Our VMs must be ON for the migration as we will use a pre-migration Ansible playbook.   This pre-migration playbook will fail if your VMs are not powered on.   Powered OFF VMs can be migrate when no pre-migration playbooks are required.
 
+. Finally, have a look at the current operating systems running on VMware.  The following icons are used to identify RHEL, Oracle Linux and CentOS.   Currently, your *oracledb* VM should be running *Oracle Linux 7*.   And your *tomcat* VM should be running *CentOS*
++
+image::operating_systems.png[Operating systems]
+
+[NOTE]
+Later in this lab, we will use a post migration playbook running the Convert2RHEL tool to convert our VMs to RHEL.   This playbook also makes it possible to run the leap tool to automatically upgrade your VM to RHEL8.  That said, we will skip this step for this lab in order to save time as migrating to RHEL8 would require the installation of multiple packages.
 
 == Create an Infrastructure Mapping (vSphere to RHV)
 
@@ -324,13 +330,27 @@ image::migration_plan_7.png[Migration Plan 7]
 +
 image::migration_running_1.png[Migration Running 1]
 
-. The migration will get initiated. All data is gathered and preflight checks are executed.
+. The migration will get initiated.  Now we'll have to wait for the migration to be completed.  You can either grab a coffee, take a break or go to the troubleshooting section *here* to learn more while this is running.
 +
 image::migration_running_2b.png[Migration Running 2]
 +
-[NOTE]
-Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
 
+. Success, your migration has been completed.
++
+image::migration_running_3b.png[Migration Running 2]
+[NOTE]
+Additionally the migration logs can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
+
+
+. Finally, let's confirm that our VMs are now running RHEL on RHV.  Go back to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.  And filter only the RHV VMs by clicking on the provider (as previously done for VMWare).
++
+image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
+
+. Your *oracledb* and *tomcat* VMs should have the following icon.  Congratulations! you are now running your workload on a fully supported Red Hat stack.
++
+image::RHELonRHVicon.png[RHEL on RHV]
+[NOTE]
+Note that those VMs still also exist on the VMware side but they are just powered off.   You can now delete them if you'd like or keep them as a backup.   As you can see, you can also easily rollback in case of any issue by restarting those VMs on VMWare.
 
 
 == Create an Infrastructure Mapping (vSphere to OpenStack)
