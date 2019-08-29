@@ -3,43 +3,29 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.1 GA - Migration Guide
+== Infrastructure Migration Solution - Lab 1 Guide
 
 :numbered:
 
 == Overview
 
-This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin) included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV) and Red Hat OpenStack Platform (OSP). 
+
+In this lab, you will learn how to use the Infrastructure Migration Solution (IMS) available in Red Hat CloudForms, to migrate virtual machines from VMware to Red Hat Virtualization (RHV) or Red Hat Openstack.
+We will also demonstrate how to use Ansible playbooks to perform additional tasks (pre or post migration).
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]
 
-In this environment the following configuration steps are already done:
+This lab environment has been pre-configured to allow you to execute quickly your migrations.   Here are the configuration steps already done:
 
-* Configure the conversion hosts in the target providers (RHV and OSP)
-* Provide credentials for virtualization providers and conversion hosts in CloudForms
-* Assign tags for the conversion hosts in CloudForms
-* Configured Ansible hosts file in `workstation` and ssh keys exchanged (`/root/.ssh/id_rsa`)
+* Configuration of all providers in CloudForms (VMware, RHV and Openstack)
+* Configuration of the conversion hosts for each target providers (RHV and OSP)
+* Configuration of Ansible playbooks required for this lab
 
-The providers are:
 
-* Source - VMware vSphere
-* Targets - Red Hat Virtualization and Red Hat OpenStack Platform
 
-After this initial step, the resource equivalence between the two providers, involved in each migration, has to be defined in an *Infrastucture Mapping* including:
-
-* Clusters
-* Storage Domains
-* Networks
-
-To perform the migration one *Conversion Host* has been configured for each target provider (RHV / OSP). 
-
-* In the RHV case the one of the RHEL hypervisors is configured as conversion host
-* In the OSP case an instance running in the `conversion` project is configured as conversion host
-
-Finally, a *Migration Plan* has to be executed to perform the final migration.
-
-.Goal
-* Migrate several VMs from VMware vSphere to Red Hat Virtualization and Red Hat OpenStack Platform, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution
+=== Goal
+* Migrate several VMs from VMware vSphere to Red Hat Virtualization and Red Hat OpenStack Platform, using Red Hat Infrastructure Migration Solution
+* Convert the operating system of some OEL and CentOS VMs to RHEL using a post-migration Ansible playbook
 +
 NOTE: The source VMs are not deleted, only powered off once the migration is done. This measure can also be used as "rollback" in case a migration failure occurs.
 
@@ -48,7 +34,7 @@ Required versions of products used:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.7.0+ 
+|CloudForms |4.7.0+
 |Red Hat Virtualization |4.2.5+
 |Red Hat OpenStack Platform |13+
 |Red Hat Enterprise Linux (Conversion Host) |7.6+
@@ -60,8 +46,6 @@ Required versions of products used:
 
 === Base requirements
 
-* A computer with access to the Internet :-)
-* Adobe Flash 15 or higher must be enabled in Firefox or Chromium used for vCenter connectivity
 * SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
 * Firefox 17 or higher, or Chromium / Chrome
 +
@@ -70,11 +54,11 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 === Obtaining or enabling access credentials
 
-. First time login?, forgot login or password? Go to https://www.opentlc.com/account 
+. First time login?, forgot login or password? Go to https://www.opentlc.com/account
 
-. Note, your username should NOT have an *@* in it. 
+. Note, your username should NOT have an *@* in it.
 
-. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com. 
+. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com.
 
 . Passwords to the services are referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
 
@@ -82,7 +66,7 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 === Provision Your Migration Environment
 
-. Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials. 
+. Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials.
 +
 image::rhpds_login.png[RHPDS]
 
@@ -113,7 +97,7 @@ Be mindful of the runtime of your demo environment! It may take several hours to
 
 == Environment
 
-A full new migration environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *YOUR-GUID*.  
+A full new migration environment is deployed on every request. To make the environment unique a 4 character identifier is assigned to it (i.e. `1e37`), this identifier is referred in this documentation as *YOUR-GUID*.
 
 The migration environment consists of the following systems:
 
@@ -149,154 +133,26 @@ Networks used in the environment
 |=======
 | Network Name | IP range | Description
 | `Admin` | `192.168.x.x/16` | General administration and storage network.
-| `Service` | `10.10.0.x/24` | Internal network for the app to connect LB to EAP and to DB. 
+| `Service` | `10.10.0.x/24` | Internal network for the app to connect LB to EAP and to DB.
 | `Servicer-DMZ` | `10.9.0.x/24` | External DMZ network to publish the app. Also access to the user API for OSP and Horizon (provider network)
-| `OSP Provisioning` | `10.100.0.x/24` | OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.  
+| `OSP Provisioning` | `10.100.0.x/24` | OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.
 |=======
 
-* Virtual Machines 
+* Virtual Machines
 This deployment of the migration environment includes the following VMs provisioned in the vSphere environment in order to be migrated:
 
 [cols="1,1,2",options="header"]
 |=======
 | Name | IPs | Description
-| `jboss0.example.com` | 10.10.0.110 | Red Hat Enterprise Linux 7 host running JBoss EAP, connected to the `Service` network.
-| `jboss1.example.com` | 10.10.0.111 | Red Hat Enterprise Linux 7 host running JBoss EAP, connected to the `Service` network.
-| `lb.example.com` | 10.10.0.100 , 10.9.0.100 | Red Hat Enterprise Linux 7 host running JBoss Core Service Apache HTTP server configured with mod_cluster to proxy traffic to `jboss0` and `jboss1`, connected to the `Service` and `Servicer-DMZ` networks.
-| `db.example.com` | 10.10.0.120 | Red Hat Enterprise Linux 7 host running PostgreSQL providing service to `jboss0` and `jboss1` through the `Service` network.
+| `oracledb.example.com` | 10.10.0.160 | Oracle Linux 7
+| `tomcat.example.com` | 10.10.0.180 | Centos 7
 |=======
 
 * An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accessible.
 
 == Getting Started
 
-. Once the system is running, use SSH to access your demo server using your OPENTLC login name and private SSH key.
-
-* Using a Unix/Linux system:
-+
-----
-$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
-----
-
-* Example for user 'batman' and GUID '1e37', using the default ssh private key:
-+
-----
-$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1e37.rhpds.opentlc.com
-----
-
-. Become `root` using the provided password:
-+
-----
-$ sudo -i
-----
-
-. Check the status of the whole environment, from the `workstation`, using ansible:
-+
-----
-# ansible all -m ping
-----
-+
-This command establishes a connection to all the machines in the environment (except ESXi servers). 
-In case the machines are up an running a success message, per each, will show up. 
-This is an example of a success message for the VM `cf.example.com`:
-+
-----
-cf.example.com | SUCCESS => {
-    "changed": false, 
-    "ping": "pong"
-}
-----
-+ 
-To check the infrastructure machines the following command can be also used:
-+
-----
-# ansible infra -m ping
-----
-There are 4 VMs in the vCenter environment hosting an app with JBoss Core Services' Apache HTTP + modcluster as loadbalancer, two JBoss EAP 7 in domain mode, and a Postgresql database.
-To check only if these ones are running, you may use the following command:
-+
-----
-# ansible app -m ping
-----
-+ 
-[NOTE]
-As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. You may need to manually start up or reboot some of them. Please review everything is running before proceeding forward.
-
-. Establish an SSH connection to the CloudForms server and monitor `automation.log`:
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-[TIP]
-The log entries are very long, so it helps if you stretch this window as wide as possible.
-+
-[NOTE]
-The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
-
-. Verify that the Ticket Monster app is running:
-
-* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and check it is running:
-+
-image::app-ticketmonster-running.png[Ticket Monster app running]
-[NOTE]
-You must accept all of the self-signed SSL certificates.
-+
-image::ssl_cert_warning.png[SSL Cert Warning]
-+
-If the ticketmonster app is not running, you may run the following command in `workstation`:
-+
-----
-# start_vms
-----
-
-. Prepare to manage the environment. From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
-
-* *Username*: `admin`
-* *Password*: `<to_be_provided>`
-+
-[NOTE]
-You must accept all of the self-signed SSL certificates.
-+
-[TIP]
-The password `to_be_provided` is the same one previously specified
-
-* *Red Hat Virtualization Manager:* `https://rhvm-<YOUR-GUID>.rhpds.opentlc.com`
-.. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
-+
-image::rhv_login.png[RHV Login]
-
-.. Verify that the Cluster is up and Hypervisors are active
-+
-[TIP]
-As this is nested virtualization, sometimes the CPU type of the hypervisor is changed. 
-+
-image::rhv_hypervisors_up.png[RHV Hypervisors up]
-
-* *vCenter:* `https://vcenter-<YOUR-GUID>.rhpds.opentlc.com`
-+
-image::vsphere_web_client_0.png[vCenter Login]
-
-** Flash Player is required.
-+
-[TIP]
-Modern browsers have flash player disabled by default. You  need to enable it to access and use the web manager interface in vSphere 5.5.
-
-* Click on *Log in to vSphere Web Client*
-+
-image::vsphere_web_client_1.png[vSphere Web Client Login]
-+
-[WARNING]
-Use `root` as the username to log in to vCenter.
-
-* Click *Click on VMs and Templates*.
-+
-image::vsphere_web_client_2.png[vCenter]
-
-.. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss1.example.com` and `db.example.com` are running. 
-+
-image::vsphere_web_client_3.png[vCenter]
+Log into Cloudforms using the following URL
 
 * *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
 +
@@ -308,16 +164,9 @@ You can also find these URLs in the email provided when you provisioned the demo
 image::cloudforms_dashboard.png[CloudForms Dashboard]
 
 
-* *OpenStack Horizon:* `http://horizon-<YOUR-GUID>.rhpds.opentlc.com`
-+
-image::horizon_login.png[Horizon Login]
-+
-[NOTE]
-Horizon access still does not have https configured (sorry!)
-+
-image::horizon_dashboard.png[Horizon Dashboard]
+=== Fix the provider authentication in CloudForms
 
-=== Validate the Current Infrastructure in CloudForms
+This step is required to address an issue with our lab environment.   Please note that you typically don't have to do this in a normal production environment.
 
 . Log in with user `admin` and the provided password in CloudForms. Once in the web interface, go to *Compute -> Infrastructure -> Providers*.
 +
@@ -341,6 +190,7 @@ image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Provi
 . Time to go to *Compute -> Clouds -> Providers*.
 +
 image::cloudforms_cloud_providers_1.png[CloudForms Clouds Providers 1]
+
 
 . If you see an exclamation mark (*!*), or a cross (*x*) in the provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
 +
@@ -371,144 +221,20 @@ If you needed to validate providers, you may have to wait a few minutes and refr
 +
 image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
 +
-[TIP]
-This is a good way to check that the app VMs are up and running and start the stopped ones.
+[IMPORTANT]
+*BE CAREFUL - Make sure that all VMs running on vSphere are up and running (GREEN ICON).  If some of them are powered OFF (RED ICON) , select all of them and power them ON using the power button: Power / Power ON*
 
-=== Check Conversion Hosts
-
-*Conversion hosts* are the machines that will connect to the vCenter API, in a similar fashion backup software would work, stream the data from it, perfom the changes required, and send it to the RHV manager API or OSP User API Endopint. An important thing to note is that the data is never copied onto a conversion host. It is being converted on-the-fly and saved as a separate volume. 
- 
-[WARNING]
-*Conversion hosts* used to be managed by using *tags* in *CloudForms* in Infrastructure Migration Solution version *1.0*. For version *1.1*, tags are deprecated and new *database entries* are being used to identify them. 
- 
-. Let's check the conversion host configuration by accesing the *rails console*
-
-* First connect to *CloudForms* via SSH from the `workstation`
+. Power OFF VMs icon
 +
-----
-# ssh cf.example.com
-----
+image::poweroff.png[poweroff, 50]
 
-* Then go to the rails app folder and start the rails console
+. Power ON VMs icon  -> Make sure all VMs on vSphere are ON
 +
-----
-[root@cf ~]# vmdb
-[root@cf vmdb]# pwd
-/var/www/miq/vmdb
-[root@cf vmdb]# rails c
-irb(main):001:0> 
-----
+image::poweron.png[poweron, 50]
 
-* Let's get the list of the conversion hosts
-+
-----
-[root@cf vmdb]# rails c
-** CFME 5.10.0.29, codename: Hammer
-Loading production environment (Rails 5.0.7.1)
-irb(main):001:0> pp ConversionHost.all
-PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, in use: 1, waiting_in_queue: 0
-[#<ConversionHost:0x000000000affe560
-  id: 1,
-  name: "kvm1.example.com",
-  address: nil,
-  type: nil,
-  resource_type: "Host",
-  resource_id: 3,
-  version: nil,
-  max_concurrent_tasks: nil,
-  vddk_transport_supported: true,
-  ssh_transport_supported: false,
-  created_at: Wed, 12 Dec 2018 16:17:17 UTC +00:00,
-  updated_at: Wed, 12 Dec 2018 16:17:17 UTC +00:00,
-  concurrent_transformation_limit: nil,
-  cpu_limit: nil,
-  memory_limit: nil,
-  network_limit: nil,
-  blockio_limit: nil>,
- #<ConversionHost:0x000000000affe2e0
-  id: 2,
-  name: "conversion",
-  address: nil,
-  type: nil,
-  resource_type: "VmOrTemplate",
-  resource_id: 20,
-  version: nil,
-  max_concurrent_tasks: 5,
-  vddk_transport_supported: true,
-  ssh_transport_supported: nil,
-  created_at: Tue, 18 Dec 2018 14:45:14 UTC +00:00,
-  updated_at: Tue, 18 Dec 2018 14:45:43 UTC +00:00,
-  concurrent_transformation_limit: nil,
-  cpu_limit: nil,
-  memory_limit: nil,
-  network_limit: nil,
-  blockio_limit: nil>]
-=> #<ActiveRecord::Relation [#<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>, #<ConversionHost id: 2, name: "conversion2", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>]>
-
-----
-* Let's get the info on the conversion host `kvm1.example.com`
-+
-----
-irb(main):001:0> ConversionHost.find_by(name: 'kvm1.example.com')
-PostgreSQLAdapter#log_after_checkout, connection_pool: size: 5, connections: 1, in use: 1, waiting_in_queue: 0
-=> #<ConversionHost id: 1, name: "kvm1.example.com", address: nil, type: nil, resource_type: "Host", resource_id: 3, version: nil, max_concurrent_tasks: nil, vddk_transport_supported: true, ssh_transport_supported: false, created_at: "2018-12-12 16:17:17", updated_at: "2018-12-12 16:17:17", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
-----
-
-* Let's get the info on the conversion host `conversion`
-+
-----
-irb(main):002:0> ConversionHost.find_by(name: 'conversion')
-=> #<ConversionHost id: 2, name: "conversion", address: nil, type: nil, resource_type: "VmOrTemplate", resource_id: 20, version: nil, max_concurrent_tasks: 5, vddk_transport_supported: true, ssh_transport_supported: nil, created_at: "2018-12-18 14:45:14", updated_at: "2018-12-18 14:45:43", concurrent_transformation_limit: nil, cpu_limit: nil, memory_limit: nil, network_limit: nil, blockio_limit: nil>
-----
-. With versions 1.1 and higher, we can check the conversion host configuration by accesing the CloudForms API
-* *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com/api/conversion_hosts`
-+
 [NOTE]
-This shows a list of the conversion hosts that, once the migration starts, will be contacted to start conversions. You should have two different ones, one with `resource_type` *host* (for RHV), and another one with resource type `resource_type` *VmOrTemplate* (for OSP). This functionality is expected to be available through the web interface for version 1.2
+Our VMs must be ON for the migration as we will use a pre-migration Ansible playbook.   This pre-migration playbook will fail if your VMs are not powered on.   Powered OFF VMs can be migrate when no pre-migration playbooks are required.
 
-=== Check Credentials
-
-The credentials that CloudForms uses to connect to Conversion Hosts are stored in the *Host* properties or in the *Provider* properties
-
-. Now let's check the credentials in the UI. On the `cf` system, go to *Compute -> Infrastructure -> Hosts*.
-+
-image::conversion_host_1.png[Conversion Host 1]
-
-. Click *kvm1.example.com*.
-+
-image::conversion_host_2.png[Conversion Host 2]
-
-. Select *Configuration -> Edit this item* (back in `kvm1.example.com`).
-+
-image::conversion_host_8a.png[Conversion Host 8]
-+
-image::conversion_host_8b.png[Conversion Host 8]
-
-. Check that *Username* has `root` and Password is set. You can click *Validate* to verify they are OK then the message "Credential validation was successful" will appear. This is needed to be able to connect to the conversion host and initiate the conversion.
-+
-image::conversion_host_9.png[Conversion Host 9]
-
-. The conversion host is ready.
-
-. Time to check credentials in `OpenStack` *Cloud Provider*,  go to *Compute -> Clouds -> Providers*.
-+
-image::conversion_host_provider_1.png[Conversion Host Cloud Provider 1]
-
-. Click *OpenStack*.
-+
-image::conversion_host_provider_2.png[Conversion Host Cloud Provider 2]
-
-. Select *Configuration -> Edit this Cloud Provider* (while in `OpenStack` provider page).
-+
-image::conversion_host_provider_3.png[Conversion Host Cloud Provider 3]
-+
-image::conversion_host_provider_4.png[Conversion Host Cloud Provider 4]
-
-. Check the *RSA key pair* tab in which the *Username* is `root` and the `Private Key` is already configured.
-+
-image::conversion_host_provider_5.png[Conversion Host Cloud Provider 5]
-
-. The conversion credentials for the Cloud Provider are ready.
 
 == Create an Infrastructure Mapping (vSphere to RHV)
 
@@ -520,39 +246,29 @@ image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 +
 image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv`, select as *Target Provider* `Red Hat Virtualization`  and click *next*.
+. In the *step 1* of the wizard, *General*, type your first mapping name, example `VMware to RHV`, select as *Target Provider* `Red Hat Virtualization`  and click *next*.
 +
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 +
-image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
+image::infrastructure_mapping_3b.png[Infrastructure Mapping 3]
 
-. In the *step 2* of the wizard, *Map Compute*, select *Source Provider \ Datacenter \ Cluster* as `vSphere\DC01\Cluster01` and *Target Provider \ Datacenter \ Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *next*.
+. In the *step 2* of the wizard, *Map Compute*, select your VMware cluster and your RHV cluster, click *Add Mapping*, then click *next*.
 +
 image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 
-. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\DC01\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *next*.
+. In the *step 3* of the wizard, *Map Storage*, select the NFS storage on both sides, click *Add Mapping*, then click *next*.
 +
-image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
+image::infrastructure_mapping_5b.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Map Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the network used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
+. In the *step 4* of the wizard, *Map Networks*, 3 different networks must be mapped.  You will have to map your service network, your service-dmz network and your management network.  Then click *Add Mapping*.   The screenshot below shows all the mapping as they should be on your screen once completed.
 +
-image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
-+
-* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
-+
-image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
-+
-* Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *create*.
-+
-image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
+image::infrastructure_mapping_6c.png[Infrastructure Mapping 6]
 
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *close*.
+. In the *step 5* of the wizard, *Results*, you get a confirmation that your new infrastructure mapping has been completed. Click *close*.
 +
 image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
-+
-image::infrastructure_mapping_8.png[Infrastructure Mapping 8]
 
-In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
+In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.   This mapping information will be used later when migrating VMs to appropriately migrate your VMs to the right clusters, storages and networks without having to ask this information for every VM migration.
 
 == Migrating VMs to RHV with a Migration Plan
 
@@ -566,32 +282,35 @@ image::migration_plan_0.png[Migration Plan 0]
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-app` and click *next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* your just created.   Then enter a name for your migration plan and click *next*.
 +
-image::migration_plan_2.png[Migration Plan 2]
+image::migration_plan_2b.png[Migration Plan 2]
 +
 [NOTE]
 Keeping the default option will take us to the VM menu selector. For massive conversions a CSV file upload can be the right choice.
 
-. In the *step 2* of the wizard, *VMs*, select the *jboss0* and *jboss1*  virtual machines, as the ones to be migrated.
+. In the *step 2* of the wizard, *VMs*, select the *oracledb* and *tomcat*  virtual machines, as the ones to be migrated.
 +
 image::migration_plan_3.png[Migration Plan 3]
 +
 [NOTE]
-VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term `jboss`. 
+VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term.
 
-. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We won't use this feature just yet. Click *Next*
+. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed before or after the migration.  For this use-case, as our VMs are using static IP, we will need to use the *ForceNIC* playbook as a pre-migration step to keep our network configuration on RHV.   We will also use a post-migration playbook named *Convert2RHEL* to automatically convert our OEL and CentOS VMs to RHEL after the migration is completed.   Make sure to have selected all the options as showed in the screenshot below, then click *Next*
 +
-image::migration_plan_4.png[Migration Plan 4]
+image::migration_plan_4c.png[Migration Plan 4]
++
+[NOTE]
+Our original VM on vSphere will only be powered off.  If anything goes wrong while converting my VM to RHEL, I can simply rollback by powering ON my original VM on VMWare.
 
 . In the *step 4* of the wizard, *Schedule*, select *Save migration plan to run later*. Click *Create*
 +
 image::migration_plan_5.png[Migration Plan 5]
 +
 [NOTE]
-The migration plan can be run immediately, by choosing the other option. 
+The migration plan can be run immediately, by choosing the other option.
 
-. In the *step 5* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app has been saved` shall appear. Click *Close*.
+. In the *step 5* of the wizard, *Results*, your migration plan has now been saved. Click *Close*.
 +
 image::migration_plan_6.png[Migration Plan 6]
 
@@ -607,81 +326,11 @@ image::migration_running_1.png[Migration Running 1]
 
 . The migration will get initiated. All data is gathered and preflight checks are executed.
 +
-image::migration_running_2.png[Migration Running 2]
+image::migration_running_2b.png[Migration Running 2]
++
+[NOTE]
+Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
 
-. The plan gets auto-approved. Migration starts
-+
-image::migration_running_3.png[Migration Running 3]
-
-. Now the migration is executing. We can see the orchestration process in Cloudforms logs
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-Once the pre-migration steps are finished and the conversion starts, each VM conversion process can be tracked in the Conversion Host:
-+
-----
-# ssh kvm1.example.com
-# tail -f /var/log/vdsm/import/v2v-import-*
-----
-
-. CloudForms Migration interface shows migration status too
-+
-image::migration_running_4.png[Migration Running 4]
-
-. Clicking on the running plan info box will display the detailed info of the status
-+
-image::migration_running_5.png[Migration Running 5]
-
-. Progress can be followed in this page
-+
-image::migration_running_6.png[Migration Running 6]
-
-. For the time of the migration the JBoss EAP servers, `jboss0` and `jboss1` will be powered off in `vSphere`, migrated and then powered on in `RHV`.
-+
-image::migration_running_7.png[Migration Running 7]
-
-. It is possible to check in *RHV* interface, in *Compute -> Virtual Machines* how the VM gets imported.
-+
-image::migration_running_8.png[Migration Running 8]
-
-. Once the migration is finishing ...
-+
-image::migration_running_9.png[Migration Running 9]
-
-. ... the VMs get powered up
-+
-image::migration_running_10.png[Migration Running 10]
-+
-image::migration_running_11.png[Migration Running 11]
-
-. The migration gets completed.
-+
-image::migration_running_12.png[Migration Running 12]
-
-. Let's check if the VMs are up and running using the following command:
-+
-----
-# ansible app -m ping
-----
-
-. It's time to check the *app* running and accesible via the URL https://app-<YOUR-GUID>.rhpds.opentlc.com
-+
-image::migration_running_14.png[Migration Running 14]
-
-. Migration can be reviewed in the Main Migration page in CloudForms
-+
-image::migration_running_15.png[Migration Running 15]
-
-. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
-+
-image::migration_log_access.png[Migration Log Access]
-
-.. Once the log is downloaded click to open:
-+
-image::migration_log.png[Migration Log]
 
 
 == Create an Infrastructure Mapping (vSphere to OpenStack)
@@ -691,24 +340,24 @@ image::migration_log.png[Migration Log]
 image::infrastructure_mapping_osp_1.png[Infrastructure Mapping 1]
 
 . Click on *Create Infrastructure Mapping*.
-+ 
++
 image::infrastructure_mapping_osp_2.png[Infrastructure Mapping 2]
 
 . In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-osp`, select as *Target Provider* `Red Hat OpenStack Platform`, and click *next*.
-+ 
++
 image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
-+ 
++
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 
 . In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Provider\Project* as `OpenStack\ticket-monster` and click *Add Mapping*, then click *next*.
-+ 
++
 image::infrastructure_mapping_osp_4.png[Infrastructure Mapping 4]
 
 . In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `OpenStack\default_store` and click *Add Mapping*, then click *next*.
 +
 image::infrastructure_mapping_osp_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with. We will start by mapping the network used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `OpenStack\service` and click *Add Mapping*. 
+. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with. We will start by mapping the network used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `OpenStack\service` and click *Add Mapping*.
 +
 image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
 +
@@ -717,11 +366,11 @@ image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
 image::infrastructure_mapping_osp_6b.png[Infrastructure Mapping 6]
 +
 * Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `OpenStack\Admin` and click *Add Mapping*, then click *create*.
-+ 
++
 image::infrastructure_mapping_osp_6.png[Infrastructure Mapping 6]
 
 . In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-osp have been mapped.` shall appear. Click *close*.
-+ 
++
 image::infrastructure_mapping_osp_7.png[Infrastructure Mapping 7]
 +
 image::infrastructure_mapping_osp_8.png[Infrastructure Mapping 8]
@@ -733,34 +382,34 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 === Create and run the migration plan
 
 . Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
-+ 
++
 image::migration_plan_0.png[Migration Plan 0]
 
 . Click on *Create Migration Plan*.
-+ 
++
 image::migration_plan_osp_1.png[Migration Plan 1]
 
 . In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-osp`, add the name `ticket-monster-plan-lb` and click *next*.
-+ 
++
 image::migration_plan_osp_2.png[Migration Plan 2]
 
 . In the *step 2* of the wizard, *VMs*, select the *lb* virtual machine, as the one to be migrated.
-+ 
++
 image::migration_plan_osp_3.png[Migration Plan 3]
 
 . In the *step 3* of the wizard, *Instance Properties*, we can assign a specific OpenStack Flavor to the instance. We keep `m1.medium` for it and Click *Next*
-+ 
++
 image::migration_plan_osp_4.png[Migration Plan 4]
 
 . In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. In the *pre-migration playbook service* we will select `rhel-premigrate-playbook`, then select to use the *Pre-migration Service* for `lb` and click *Next*
-+ 
++
 image::migration_plan_osp_5.png[Migration Plan 5]
 +
 [NOTE]
 The `lb` has an specific network configuration in which the name of the interfaces in origin is diferent than in the destination. We will use this playbook to convert the configuration.
 
 . In the *step 5* of the wizard, *Schedule*, select *Start migration inmediately*. Click *Create*
-+ 
++
 image::migration_plan_osp_6.png[Migration Plan 6]
 
 . In the *step 6* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app is in progress` shall appear. Click *Close*.
@@ -837,7 +486,7 @@ image::csv_migration_plan_11.png[CSV Migration Plan 11]
 +
 image::csv_migration_plan_12.png[CSV Migration Plan 12]
 
-.. The plan will get automatically approved and start at the chosen time. 
+.. The plan will get automatically approved and start at the chosen time.
 +
 image::csv_migration_plan_13.png[CSV Migration Plan 13]
 +
@@ -861,5 +510,4 @@ image::csv_migration_plan_17.png[CSV Migration Plan 17]
 +
 image::app-ticketmonster-running.png[Ticket Monster Web App]
 
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide]. 
-
+If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide].
