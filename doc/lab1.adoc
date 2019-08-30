@@ -10,21 +10,20 @@
 == Overview
 
 
-In this lab, you will learn how to use the Infrastructure Migration Solution (IMS) available in Red Hat CloudForms, to migrate virtual machines from VMware to Red Hat Virtualization (RHV) or Red Hat Openstack.
-We will also demonstrate how to use Ansible playbooks to perform additional tasks (pre or post migration).
+In this lab, you will learn how to use the Infrastructure Migration Solution (IMS) available in Red Hat CloudForms, to migrate virtual machines from VMware to Red Hat Virtualization (RHV). We will also demonstrate how to use Ansible playbooks to perform additional tasks (pre or post migration). One of these tasks will be to convert some OEL and CentOS operating systems to RHEL.
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]
 
 This lab environment has been pre-configured to allow you to execute quickly your migrations.   Here are the configuration steps already done:
 
-* Configuration of all providers in CloudForms (VMware, RHV and Openstack)
-* Configuration of the conversion hosts for each target providers (RHV and OSP)
+* Configuration of all providers in CloudForms (VMware and RHV)
+* Configuration of the conversion hosts
 * Configuration of Ansible playbooks required for this lab
 
 
 
-=== Goal
-* Migrate several VMs from VMware vSphere to Red Hat Virtualization and Red Hat OpenStack Platform, using Red Hat Infrastructure Migration Solution
+=== Goals of this lab
+* Migrate several VMs from VMware vSphere to Red Hat Virtualization using Red Hat Infrastructure Migration Solution
 * Convert the operating system of some OEL and CentOS VMs to RHEL using a post-migration Ansible playbook
 +
 NOTE: The source VMs are not deleted, only powered off once the migration is done. This measure can also be used as "rollback" in case a migration failure occurs.
@@ -148,11 +147,51 @@ This deployment of the migration environment includes the following VMs provisio
 | `tomcat.example.com` | 10.10.0.180 | Centos 7
 |=======
 
-* An external service is configured as https://app-<YOUR-GUID>.rhpds.opentlc.com pointing to the Load Balancer to make the Ticket Monster app accessible.
 
 == Getting Started
 
-Log into Cloudforms using the following URL
+
+
+. Once the system is running, use SSH to access your demo server using your OPENTLC login name and private SSH key.
+
+* Using a Unix/Linux system:
++
+----
+$ ssh -i /path/to/private_key <YOUR-OpenTLC-USERNAME-redhat.com>@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
+
+* Example for user 'batman' and GUID '1e37', using the default ssh private key:
++
+----
+$ ssh -i ~/.ssh/id_rsa batman-redhat.com@workstation-1e37.rhpds.opentlc.com
+----
+
+. Become `root` using the provided password:
++
+----
+$ sudo -i
+----
+
+. Check the status of the whole environment, from the `workstation`, using ansible:
++
+----
+# ansible infra -m ping
+----
++
+This command establishes a connection to all the machines in the environment (except ESXi servers).
+In case the machines are up an running a success message, per each, will show up.
+This is an example of a success message for the VM `cf.example.com`:
++
+----
+cf.example.com | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+----
++
+
+
+Once your machines are all up and running, keep your terminal open for later and log into Cloudforms from your browser using the following URL
 
 * *CloudForms:* `https://cf-<YOUR-GUID>.rhpds.opentlc.com`
 +
@@ -174,73 +213,47 @@ image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Provi
 
 . If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
 +
-image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
+image::cloudforms_infrastructure_providers_2b.png[CloudForms Infrastructure Providers 2]
 +
-image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Providers 3]
+image::cloudforms_infrastructure_providers_3b.png[CloudForms Infrastructure Providers 3]
 +
 [TIP]
 Take into account that vCenter may take longer to start.
 
 . To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
 +
-image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
+image::cloudforms_infrastructure_providers_4b.png[CloudForms Infrastructure Providers 4]
 +
-image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 5]
-
-. Time to go to *Compute -> Clouds -> Providers*.
-+
-image::cloudforms_cloud_providers_1.png[CloudForms Clouds Providers 1]
-
-
-. If you see an exclamation mark (*!*), or a cross (*x*) in the provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
-+
-image::cloudforms_cloud_providers_2.png[CloudForms Clouds Providers 2]
-+
-image::cloudforms_cloud_providers_3.png[CloudForms Clouds Providers 3]
-
-. To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
-+
-image::cloudforms_cloud_providers_4.png[CloudForms Clouds Providers 4]
-+
-image::cloudforms_cloud_providers_5.png[CloudForms Clouds Providers 5]
+image::cloudforms_infrastructure_providers_5b.png[CloudForms Infrastructure Providers 5]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.
 +
 image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
 
-. All VMs, Orphaned VMs and Templates in both RHV and vSphere show as entities in CloudForms.
-+
-image::cloudforms_vms_2.png[CloudForms Virtual Machines 2]
-+
-[NOTE]
-If you needed to validate providers, you may have to wait a few minutes and refresh the screen before the VMs show up.
-
 . Select the pane *VMs & Templates* and, in it, the *vSphere* provider.
 
 . Only the VMs and Templates in vSphere will show.
 +
-image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
+image::cloudforms_vms_3b.png[CloudForms Virtual Machines 3]
+
+. Select all your VMs and power them up using the *Power On* button.
++
+image::cloudforms_vms_4.png[CloudForms Virtual Machines 4]
+
+. Click on the refresh button every few seconds until they are all UP.
++
+image::cloudforms_vms_5.png[CloudForms Virtual Machines 5]
+
 +
 [IMPORTANT]
-*BE CAREFUL - Make sure that all VMs running on vSphere are up and running (GREEN ICON).  If some of them are powered OFF (RED ICON) , select all of them and power them ON using the power button: Power / Power ON*
+*BE CAREFUL* - Our VMs must be ON for the migration as we will use a pre-migration Ansible playbook.   This pre-migration playbook will fail if your VMs are not powered on.   Powered OFF VMs can be migrate when no pre-migration playbooks are required.
 
-. Power OFF VMs icon
-+
-image::poweroff.png[poweroff, 50]
-
-. Power ON VMs icon  -> Make sure all VMs on vSphere are ON
-+
-image::poweron.png[poweron, 50]
-
-[NOTE]
-Our VMs must be ON for the migration as we will use a pre-migration Ansible playbook.   This pre-migration playbook will fail if your VMs are not powered on.   Powered OFF VMs can be migrate when no pre-migration playbooks are required.
-
-. Finally, have a look at the current operating systems running on VMware.  The following icons are used to identify RHEL, Oracle Linux and CentOS.   Currently, your *oracledb* VM should be running *Oracle Linux 7*.   And your *tomcat* VM should be running *CentOS*
+. Have a look at the current operating systems running on VMware.  The following icons are used to identify RHEL, Oracle Linux and CentOS.   Currently, your *oracledb* VM should be running *Oracle Linux 7*.   And your *tomcat* VM should be running *CentOS*.   Those are the VMs we will migrate over the RHV while converting their operating systems to RHEL at the same time.
 +
 image::operating_systems.png[Operating systems]
 
-[NOTE]
-Later in this lab, we will use a post migration playbook running the Convert2RHEL tool to convert our VMs to RHEL.   This playbook also makes it possible to run the leap tool to automatically upgrade your VM to RHEL8.  That said, we will skip this step for this lab in order to save time as migrating to RHEL8 would require the installation of multiple packages.
+
+
 
 == Create an Infrastructure Mapping (vSphere to RHV)
 
@@ -297,7 +310,7 @@ Keeping the default option will take us to the VM menu selector. For massive con
 
 . In the *step 2* of the wizard, *VMs*, select the *oracledb* and *tomcat*  virtual machines, as the ones to be migrated.
 +
-image::migration_plan_3.png[Migration Plan 3]
+image::migration_plan_3b.png[Migration Plan 3]
 +
 [NOTE]
 VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term.
@@ -320,214 +333,58 @@ The migration plan can be run immediately, by choosing the other option.
 +
 image::migration_plan_6.png[Migration Plan 6]
 
-. Back to the migration page we will see how the *Infrastructure Mapping* and *Migration Plan* are ready to be run
-+
-image::migration_plan_7.png[Migration Plan 7]
+
+
 
 === Launch Migration
 
-. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button in the *ticket-monster-plan-app*.
+. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button.
 +
-image::migration_running_1.png[Migration Running 1]
+image::migration_running_1b.png[Migration Running 1]
 
-. The migration will get initiated.  Now we'll have to wait for the migration to be completed.  You can either grab a coffee, take a break or go to the troubleshooting section *here* to learn more while this is running.
+. The migration will get initiated.  Now we'll have to wait for the migration to be completed.  This can be a fairly long process (~1 hour) as we are migrating both the VM and the operating system at the same time.
 +
 image::migration_running_2b.png[Migration Running 2]
 +
 
-. Success, your migration has been completed.
+
+=== Troubleshooting a Migration
+
+. coming soon...
+
+=== Successful Migration, Final Review
+
+. Assuming everything went well, you should have the following result.
 +
 image::migration_running_3b.png[Migration Running 2]
 [NOTE]
-Additionally the migration logs can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
+Feel free to review the logs using the *Download Log* button.
 
 
-. Finally, let's confirm that our VMs are now running RHEL on RHV.  Go back to *Compute -> Infrastructure -> Virtual Machines -> VMs -> All VMs*.  And filter only the RHV VMs by clicking on the provider (as previously done for VMWare).
+. Let's confirm that our VMs have been converted to RHEL.  From your terminal, SSH to your tomcat VM:
 +
-image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
-
-. Your *oracledb* and *tomcat* VMs should have the following icon.  Congratulations! you are now running your workload on a fully supported Red Hat stack.
+----
+[root@workstation-repl ~]# ssh tomcat
+----
 +
-image::RHELonRHVicon.png[RHEL on RHV]
-[NOTE]
-Note that those VMs still also exist on the VMware side but they are just powered off.   You can now delete them if you'd like or keep them as a backup.   As you can see, you can also easily rollback in case of any issue by restarting those VMs on VMWare.
-
-
-== Create an Infrastructure Mapping (vSphere to OpenStack)
-
-. Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
+. There are multiple ways to validate you are running RHEL.
 +
-image::infrastructure_mapping_osp_1.png[Infrastructure Mapping 1]
-
-. Click on *Create Infrastructure Mapping*.
+----
+[root@tomcat ~]# cat /etc/os-release
+----
 +
-image::infrastructure_mapping_osp_2.png[Infrastructure Mapping 2]
-
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-osp`, select as *Target Provider* `Red Hat OpenStack Platform`, and click *next*.
+. or
 +
-image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
+----
+[root@tomcat ~]# cat /etc/os-release
+----
 +
-* A description may be added to make it easy to, later on, recognize the usage of the mapping.
-
-. In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Provider\Project* as `OpenStack\ticket-monster` and click *Add Mapping*, then click *next*.
+. or
 +
-image::infrastructure_mapping_osp_4.png[Infrastructure Mapping 4]
-
-. In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `OpenStack\default_store` and click *Add Mapping*, then click *next*.
+----
+[root@tomcat ~]# rpm -q redhat-release-server
+----
+. In all cases, you should see that you are now running RHEL 7.   Run the same command for *oracledb*.
 +
-image::infrastructure_mapping_osp_5.png[Infrastructure Mapping 5]
-
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with. We will start by mapping the network used by VMs to connect yto each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `OpenStack\service` and click *Add Mapping*.
-+
-image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
-+
-* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Network* as `vSphere\App-DMZ-DPortGroup` and *Target Network* as `OpenStack\DMZ` and click *Add Mapping*.
-+
-image::infrastructure_mapping_osp_6b.png[Infrastructure Mapping 6]
-+
-* Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `OpenStack\Admin` and click *Add Mapping*, then click *create*.
-+
-image::infrastructure_mapping_osp_6.png[Infrastructure Mapping 6]
-
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-osp have been mapped.` shall appear. Click *close*.
-+
-image::infrastructure_mapping_osp_7.png[Infrastructure Mapping 7]
-+
-image::infrastructure_mapping_osp_8.png[Infrastructure Mapping 8]
-
-In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat OpenStack Platform.
-
-== Migrating VMs to OSP with a Migration Plan
-
-=== Create and run the migration plan
-
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
-+
-image::migration_plan_0.png[Migration Plan 0]
-
-. Click on *Create Migration Plan*.
-+
-image::migration_plan_osp_1.png[Migration Plan 1]
-
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-osp`, add the name `ticket-monster-plan-lb` and click *next*.
-+
-image::migration_plan_osp_2.png[Migration Plan 2]
-
-. In the *step 2* of the wizard, *VMs*, select the *lb* virtual machine, as the one to be migrated.
-+
-image::migration_plan_osp_3.png[Migration Plan 3]
-
-. In the *step 3* of the wizard, *Instance Properties*, we can assign a specific OpenStack Flavor to the instance. We keep `m1.medium` for it and Click *Next*
-+
-image::migration_plan_osp_4.png[Migration Plan 4]
-
-. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. In the *pre-migration playbook service* we will select `rhel-premigrate-playbook`, then select to use the *Pre-migration Service* for `lb` and click *Next*
-+
-image::migration_plan_osp_5.png[Migration Plan 5]
-+
-[NOTE]
-The `lb` has an specific network configuration in which the name of the interfaces in origin is diferent than in the destination. We will use this playbook to convert the configuration.
-
-. In the *step 5* of the wizard, *Schedule*, select *Start migration inmediately*. Click *Create*
-+
-image::migration_plan_osp_6.png[Migration Plan 6]
-
-. In the *step 6* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app is in progress` shall appear. Click *Close*.
-+
-image::migration_plan_osp_7.png[Migration Plan 7]
-
-. Back to the migration page we will see how the *Migration Plan* is already running
-+
-image::migration_plan_osp_8.png[Migration Plan 8]
-
-. Once the migration is finished ...
-+
-image::migration_running_osp_1.png[Migration Running 1]
-
-. We can find the instance in *OpenStack* in the *ticket-monster* project:
-+
-image::migration_running_osp_2.png[Migration Running 2]
-
-== Running migrations using a CSV file
-
-. Migrate the remaining application servers and database VMs from VMware to RHV using a CSV file.
-
-.. Download the CSV sample file from link:../conf/ticket_monster_migration_sample.csv[here] and save it as `ticket_monster_migration_db.csv`. Check that the content is the following:
-+
-image:ticket_monster_csv_file.png[Multiple VM CSV File]
-+
-[TIP]
-CSV file format is specified in the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.1/html/infrastructure_migration_solution_guide/migrating_the_infrastructure#Creating_and_running_a_migration_plan[Official Documentation]
-
-.. This sample file could be an example of a CMDB dump after processing. We may remove the lines we know we are not going to use, leaving only the header row and the `db` row. link:../conf/ticket_monster_migration_db.csv[Sample here].
-+
-image:ticket_monster_csv_db_file.png[Multiple VM CSV File]
-
-.. Navigate to *Compute -> Migration -> Migration Plans* and click on *Create Migration Plan*. We will select the same infrastructure mapping previously created, `ticket-monster-mapping-rhv`, and select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
-+
-image::csv_migration_plan_1.png[CSV Migration Plan 1]
-+
-image::csv_migration_plan_2.png[CSV Migration Plan 2]
-
-.. In the *Import File* step, click on import and select the previously downloaded, and modified, file `ticket_monster_migration_db.csv`
-+
-image::csv_migration_plan_3.png[CSV Migration Plan 3]
-+
-image::csv_migration_plan_4.png[CSV Migration Plan 4]
-
-.. The VM list will appear in the dialog. It is possible to modify the selection at this step but there is no need to. Click *Next*
-+
-image::csv_migration_plan_5.png[CSV Migration Plan 5]
-+
-[TIP]
-A full migration can be done using the original sample file with a freshly instantiated environment.
-
-.. In the *Advanced Options* step we will not apply any changes. Click *Next*.
-+
-image::csv_migration_plan_6.png[CSV Migration Plan 6]
-
-.. In the *Schedule* step we will *Save migration plan to run later*. The plan can later on be scheduled or directly run. Click *Create*.
-+
-image::csv_migration_plan_7.png[CSV Migration Plan 7]
-
-.. *Results* page for the *Plan* will appear. Click *Close*
-+
-image::csv_migration_plan_8.png[CSV Migration Plan 8]
-
-.. Back to the main *Migration Plans* page, we can schedule or run the plan created. Click *Schedule*
-+
-image::csv_migration_plan_9.png[CSV Migration Plan 9]
-
-.. Choose date and time (i.e. two minutes from current time).
-+
-image::csv_migration_plan_10.png[CSV Migration Plan 10]
-+
-image::csv_migration_plan_11.png[CSV Migration Plan 11]
-+
-image::csv_migration_plan_12.png[CSV Migration Plan 12]
-
-.. The plan will get automatically approved and start at the chosen time.
-+
-image::csv_migration_plan_13.png[CSV Migration Plan 13]
-+
-image::csv_migration_plan_14.png[CSV Migration Plan 14]
-
-.. Migration will take place
-+
-image::csv_migration_plan_15.png[CSV Migration Plan 15]
-+
-image::csv_migration_plan_16.png[CSV Migration Plan 16]
-
-.. And VMs will be running in Red Hat Virtualization
-+
-image::csv_migration_plan_17.png[CSV Migration Plan 17]
-
-
-
-.. Verify that the Ticket Monster app is running:
-
-* Point your browser to https://app-<YOUR-GUID>.rhpds.opentlc.com and check it is running:
-+
-image::app-ticketmonster-running.png[Ticket Monster Web App]
-
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide].
+This should also show that you've been migrating from OEL to RHEL.
+. CONGRATULATION, you are now running a fully supported Red Hat stack.
