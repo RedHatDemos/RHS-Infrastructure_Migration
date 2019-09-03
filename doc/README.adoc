@@ -2,14 +2,14 @@
 :data-uri:
 :imagesdir: images
 
-== Infrastructure Migration Solution (IMS) and Convert2RHEL lab
+== the Infrastructure Migration Solution (IMS) and Convert2RHEL lab
 
 In this lab, you will learn how you can automatically migrate workloads using IMS, Ansible and Convert2RHEL from non-supported or third-party OS on VMware to a fully supported Red Hat stack (RHEL on RHV).   We will also ugprade the OS to RHEL8, all that from one simple automated process.
 
 === Lab Guides
 
 . link:lab1.adoc[Lab #1 (basic) - Migrating a VM]
-. link:lab2.adoc[Lab #2 (advanced) - Deploying the solution]
+. link:lab2.adoc[Lab #2 (advanced) - Deploying the solution] *(under construction)*
 
 The password to access lab services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here].
 
