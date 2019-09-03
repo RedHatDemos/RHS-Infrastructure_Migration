@@ -342,15 +342,58 @@ image::migration_plan_6.png[Migration Plan 6]
 +
 image::migration_running_1b.png[Migration Running 1]
 
-. The migration will get initiated.  Now we'll have to wait for the migration to be completed.  This can be a fairly long process (~1 hour) as we are migrating both the VM and the operating system at the same time.
+. The migration will get initiated.  Now we'll have to wait for the migration to be completed.  This can be a fairly long process (~1 hour) as we are migrating both the VM and the operating system at the same time.  In the next section, we will look at what's going on while the migration is finishing.
 +
 image::migration_running_2b.png[Migration Running 2]
 +
 
 
-=== Troubleshooting a Migration
+=== Monitoring or troubleshooting your migration
 
-. coming soon...
+. While our migration plan is getting executed, let's understand what's going on.   CloudForms is the high level orchestrator of the overall plan.  But the migrations are actually getting done by some RHV hosts that have been pre-configured for you as conversion hosts during the installation process.   When enabling a RHV host to become a conversion host, multiple additional packages are installed like the v2v-tooling, a v2v wrapper script, a VMware library *(VDDK)*, etc.
++
+image::ims_diagram.png[IMS diagram]
++
+. For each VM getting migrated, CloudForms will send a request to our V2V-wrapper over SSH on one of the conversion hosts available.  This V2V-wrapper than uses our v2v command line tool to execute the migration, while passing as an argument the VMware VDDK library to increase the performance of our migration.   The V2V-wrapper also track and report back to CloudForms the status of our migration.
++
+image::ims_diagram2.png[IMS diagram2]
++
+.  A download button is available in the UI to receive the logs of our v2v-wrapper or v2v tool.  That said, when monitoring a currently running migration, it might be easier to just SSH on the conversion host and tail our logs directly on this server.  First, we need to find out on which conversion host our migration is currently running.  Click on the tooltip icon to reveal this information.
++
+image::ims_find_logs.png[IMS find logs]
++
+. This tool tip info provides the conversion host information *(kvm1.example.com)* and the log path *(/var/log/vdsm/import/...)*.   Now, all we have to do is SSH on this conversion host and tail our logs.
++
+----
+[root@workstation-repl ~]# ssh kvm1.example.com
+
+[root@kvm1 ~]# cd /var/log/vdsm/import/
+[root@kvm1 import]# tail -f v2v-import-...log
+----
++
+. Have a look at this folder, you will find all the logs generaged by the v2v tool *(.log)* and also the v2v-wrapper *(-wrapper.log)*.
++
+[NOTE]
+Migrations are load-balanced between all your conversion hosts.  You might have to SSH to another conversion host to see your other logs.
+
+. CloudForms also provide logs for the overall migration plan.   If you would like to see those logs, you can SSH on the CloudForms appliance itself from your workstation
++
+----
+[root@workstation-repl ~]# ssh cf.example.com
+Welcome to the Appliance Console
+
+For a menu, please type: appliance_console
+Web console: https://cf.example.com:9090/ or https://192.168.0.100:9090/
+
+Last login: Fri Aug 30 15:37:28 2019 from 192.168.0.10
+[root@cf ~]# vmdb
+[root@cf vmdb]# cd log
+[root@cf log]# tail -f automation.log
+----
++
+. At this time, the Ansible logs are only available from the UI download button once the playbook has been executed completely.   We are hoping to have real-time log output available in CloudForms 5.1
++
+
 
 === Successful Migration, Final Review
 
