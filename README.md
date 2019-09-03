@@ -3,7 +3,7 @@
 Please, report issues with documentation and/or lab in the [issues](issues) section of this repo. Feel free to propose updates and changes in the [pull request](pulls) section, preferrably as ansible playbooks and/or ASCII doc files.
 
 ## Video recording demo
-[![IMS 1.2 Video](https://i9.ytimg.com/vi/2eXfQ37W8o4/mq3.jpg?sqp=CJyG9uoF&rs=AOn4CLDSi-c33wjvo5ZDkBkKJ2MWRkkVKA)](https://www.youtube.com/watch?v=2eXfQ37W8o4&feature=youtu.be)
+[![IMS 1.2 Video](https://github.com/RedHatDemos/RHS-Infrastructure_Migration/tree/ims_1.2/doc/images/demo_icon.png)](https://www.youtube.com/watch?v=2eXfQ37W8o4&feature=youtu.be)
 
 ## Go ahead, get your hands dirty!
 
