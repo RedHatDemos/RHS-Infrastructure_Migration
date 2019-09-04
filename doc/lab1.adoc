@@ -35,7 +35,6 @@ Required versions of products used:
 |Product |Version
 |CloudForms |4.7.0+
 |Red Hat Virtualization |4.2.5+
-|Red Hat OpenStack Platform |13+
 |Red Hat Enterprise Linux (Conversion Host) |7.6+
 |Conversion Host Image |1.7+
 |VMware vSphere |5.5+
@@ -100,7 +99,7 @@ A full new migration environment is deployed on every request. To make the envir
 
 The migration environment consists of the following systems:
 
-image::blueprint.png[Blueprint]
+image::blueprint2.png[Blueprint]
 
 [cols="1,1,1,2",options="header"]
 |=======
@@ -111,33 +110,15 @@ image::blueprint.png[Blueprint]
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
-|`horizon.example.com` |`192.168.10.19` | horizon-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform web UI and User API Endpoint
-|`director.example.com` |`192.168.0.60` | director-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform Director (Undercloud)
-|`controller.example.com` |`10.100.0.111` | controller-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform controller
-|`compute0.example.com` |`10.100.0.105` | compute0-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
-|`compute1.example.com` |`10.100.0.107` | compute1-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
 |`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
 |=======
 
-The architecture of the deployment can be depicted as it follows:
 
-image::architecture_diagram.png[Architecture Diagram]
 
-* Networks
-Networks used in the environment
+*Virtual Machines*
 
-[cols="1,1,2",options="header"]
-|=======
-| Network Name | IP range | Description
-| `Admin` | `192.168.x.x/16` | General administration and storage network.
-| `Service` | `10.10.0.x/24` | Internal network for the app to connect LB to EAP and to DB.
-| `Servicer-DMZ` | `10.9.0.x/24` | External DMZ network to publish the app. Also access to the user API for OSP and Horizon (provider network)
-| `OSP Provisioning` | `10.100.0.x/24` | OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.
-|=======
-
-* Virtual Machines
 This deployment of the migration environment includes the following VMs provisioned in the vSphere environment in order to be migrated:
 
 [cols="1,1,2",options="header"]
