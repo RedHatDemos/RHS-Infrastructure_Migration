@@ -14,7 +14,7 @@ In this lab, you will learn how to use the Infrastructure Migration Solution (IM
 
 The password to access all services is available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]
 
-This lab environment has been pre-configured to allow you to execute quickly your migrations.   Here are the configuration steps already done:
+This lab environment has been pre-configured to allow you to execute your migrations quickly.   Here are the configuration steps already done:
 
 * Configuration of all providers in CloudForms (VMware and RHV)
 * Configuration of the conversion hosts
@@ -52,11 +52,13 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 === Obtaining or enabling access credentials
 
-. First time login?, forgot login or password? Go to https://www.opentlc.com/account
+This lab could be performed in a classroom (whether virtual or physical), in which case the proctors running the lab will provide instructions on how to get your own instance.
 
-. Note, your username should NOT have an *@* in it.
+If you plan to run it on a personal basis to learn, demo or simply "taste it" you may take these points into account: 
 
-. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com.
+. First time login?, forgot login or password? Go to https://www.opentlc.com/account (Note, your username should NOT have an *@* in it.)
+
+. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com. 
 
 . Passwords to the services are referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
 
@@ -131,7 +133,23 @@ This deployment of the migration environment includes the following VMs provisio
 
 == Getting Started
 
+**RHTE**
 
+. Once the environment is up and running, and we have it assigned to ourselves, we use SSH to test access to it, by connecting to the `workstation`.  The SSH path is provided in the GUID grabber tool.
++
+----
+$ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
+----
++
+. Once you check that you can connect to workstation, become `root` using the provided password:
++
+----
+$ sudo -i
+----
+
+Now that you have accessed the `workstation` machine and become `root`, you can check the rest of the infrastructure.
+
+**RHPDS**
 
 . Once the system is running, use SSH to access your demo server using your OPENTLC login name and private SSH key.
 
@@ -238,7 +256,7 @@ image::operating_systems.png[Operating systems]
 
 == Create an Infrastructure Mapping (vSphere to RHV)
 
-. Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
+. Navigate to the *Migration -> Infrastructure Mappings*.
 +
 image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
 
@@ -274,7 +292,7 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 
 === Create the migration plan
 
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
+. Start in the CloudForms page accessed by navigating to *Migration -> Migration Plans*.
 +
 image::migration_plan_0.png[Migration Plan 0]
 
@@ -296,7 +314,7 @@ image::migration_plan_3b.png[Migration Plan 3]
 [NOTE]
 VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term.
 
-. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed before or after the migration.  For this use-case, as our VMs are using static IP, we will need to use the *ForceNIC* playbook as a pre-migration step to keep our network configuration on RHV.   We will also use a post-migration playbook named *Convert2RHEL* to automatically convert our OEL and CentOS VMs to RHEL after the migration is completed.   Make sure to have selected all the options as showed in the screenshot below, then click *Next*
+. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed before or after the migration.  For this use-case, as our VMs are using static IP, we will need to use the *Force NIC Names* playbook as a pre-migration step to keep our network configuration on RHV.   We will also use a post-migration playbook named *Convert2RHEL* to automatically convert our OEL and CentOS VMs to RHEL after the migration is completed.   Make sure to have selected all the options as showed in the screenshot below, then click *Next*
 +
 image::migration_plan_4c.png[Migration Plan 4]
 +
@@ -319,7 +337,7 @@ image::migration_plan_6.png[Migration Plan 6]
 
 === Launch Migration
 
-. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button.
+. To launch the migration, while in the *Migration Plans* page, click on the *Migrate* button.
 +
 image::migration_running_1b.png[Migration Running 1]
 
@@ -335,7 +353,7 @@ image::migration_running_2b.png[Migration Running 2]
 +
 image::ims_diagram.png[IMS diagram]
 +
-. For each VM getting migrated, CloudForms will send a request to our V2V-wrapper over SSH on one of the conversion hosts available.  This V2V-wrapper than uses our v2v command line tool to execute the migration, while passing as an argument the VMware VDDK library to increase the performance of our migration.   The V2V-wrapper also track and report back to CloudForms the status of our migration.
+. For each VM getting migrated, CloudForms will send a request to our V2V-wrapper over SSH on one of the conversion hosts available.  This v2v-wrapper uses our v2v command line tool to execute the migration, while passing as an argument the VMware VDDK library to increase the performance of our migration.   The v2v-wrapper also track and report back to CloudForms the status of our migration.
 +
 image::ims_diagram2.png[IMS diagram2]
 +
