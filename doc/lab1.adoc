@@ -54,11 +54,11 @@ Grammarly plugin for Chrome causes problems when managing CloudForms. Please dea
 
 This lab could be performed in a classroom (whether virtual or physical), in which case the proctors running the lab will provide instructions on how to get your own instance.
 
-If you plan to run it on a personal basis to learn, demo or simply "taste it" you may take these points into account: 
+If you plan to run it on a personal basis to learn, demo or simply "taste it" you may take these points into account:
 
 . First time login?, forgot login or password? Go to https://www.opentlc.com/account (Note, your username should NOT have an *@* in it.)
 
-. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com. 
+. Red Hat Partners can also request access to the Red Hat Product Demo System (link:https://rhpds.redhat.com[RHPDS]) by sending an email to open-program@redhat.com.
 
 . Passwords to the services are referred as `<to_be_provided>`. The credentials to access all services are available link:https://mojo.redhat.com/docs/DOC-1174612-accessing-red-hat-solutions-lab-in-rhpds[here]. If you can't access it please contact GPTE or the link:https://mojo.redhat.com/community/marketing/vertical-marketing/horizontal-solutions/people[Horizontal Solutions Team].
 
@@ -282,7 +282,7 @@ image::infrastructure_mapping_5b.png[Infrastructure Mapping 5]
 +
 image::infrastructure_mapping_6c.png[Infrastructure Mapping 6]
 
-. In the *step 5* of the wizard, *Results*, you get a confirmation that your new infrastructure mapping has been completed. Click *close*.
+. In the *step 5* of the wizard, *Results*, you get a confirmation that your new infrastructure mapping has been completed. Click *close*.   After the wizard is closed, you should see your mapping listed.
 +
 image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
 
