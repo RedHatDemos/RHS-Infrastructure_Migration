@@ -64,6 +64,16 @@ If you plan to run it on a personal basis to learn, demo or simply "taste it" yo
 
 == Preparation
 
+**RHTE**
+
+
+This step 3 (preparation) is for RHPDS users only.   Please note that for RHTE, a GUID grabber link will be provided for you to pick-up an already provisioned environment.
+
+
+Please choose the following lab :  *R2029 - Infrastructure Migration Solution (IMS) and Convert2RHEL*
+
+The activation key will also be provided by the instructor.
+
 === Provision Your Migration Environment
 
 . Log in to the link:https://rhpds.redhat.com/[Red Hat Product Demo System] with your provided credentials.
