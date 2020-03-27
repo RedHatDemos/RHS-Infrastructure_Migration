@@ -3,19 +3,19 @@
 :toc2:
 :imagesdir: images
 
-== Infrastructure Migration 1.1 GA - Migration Guide
+== Infrastructure Migration 1.2 GA - Migration Guide
 
 :numbered:
 
 == Overview
 
-This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin) included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV) and Red Hat OpenStack Platform (OSP).
+This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin) included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV). During the migration, supported OSes can be converted to RHEL and get registered to Satellite for seamless management automatically. 
 
 The password and user accounts to access all services is provided by the lab administrators.
 
 In this environment the following configuration steps are already done:
 
-* Configure the conversion hosts in the target providers (RHV and OSP)
+* Configure the conversion hosts in the target provider (Red Hat Virtualization)
 * Provide credentials for virtualization providers and conversion hosts in CloudForms
 * Assign tags for the conversion hosts in CloudForms
 * Configured Ansible hosts file in `workstation` and ssh keys exchanged (`/root/.ssh/id_rsa`)
@@ -23,7 +23,12 @@ In this environment the following configuration steps are already done:
 The providers are:
 
 * Source - VMware vSphere
-* Targets - Red Hat Virtualization and Red Hat OpenStack Platform
+* Target - Red Hat Virtualization
+
+Infrastructure management provided by:
+
+* Red Hat Satellite 6.6
+* CloudForms Management Engine
 
 After this initial step, the resource equivalence between the two providers, involved in each migration, has to be defined in an *Infrastucture Mapping* including:
 
@@ -31,29 +36,27 @@ After this initial step, the resource equivalence between the two providers, inv
 * Storage Domains
 * Networks
 
-To perform the migration one *Conversion Host* has been configured for each target provider (RHV / OSP).
+To perform the migration one *Conversion Host* has been configured for the target provider.
 
 * In the RHV case the one of the RHEL hypervisors is configured as conversion host
-* In the OSP case an instance running in the `conversion` project is configured as conversion host
 
 Finally, a *Migration Plan* has to be executed to perform the final migration.
 
 .Goal
-* Migrate several VMs from VMware vSphere to Red Hat Virtualization and Red Hat OpenStack Platform, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution
+* Migrate and convert several VMs from VMware vSphere to Red Hat Virtualization, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution
 +
 NOTE: The source VMs are not deleted, only powered off once the migration is done. This measure can also be used as "rollback" in case a migration failure occurs.
 
-Required versions of products used:
+Versions of products used:
 
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |4.7.0+
-|Red Hat Virtualization |4.2.5+
-|Red Hat OpenStack Platform |13+
+|CloudForms |5.11.0
+|Red Hat Virtualization |4.3.3
 |Red Hat Enterprise Linux (Conversion Host) |7.6+
 |Conversion Host Image |1.7+
-|VMware vSphere |5.5+
+|VMware vSphere |6.7
 |=======
 
 == Requirements to access and perform this lab
@@ -61,12 +64,11 @@ Required versions of products used:
 === Base requirements
 
 * A computer with access to the Internet :-)
-* Adobe Flash 15 or higher must be enabled in Firefox or Chromium used for vCenter connectivity
 * SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
 * Firefox 17 or higher, or Chromium / Chrome
 +
 [NOTE]
-Grammarly plugin for Chrome causes problems when managing CloudForms. Please deactivate it while doing this lab.
+Grammarly plugin for Chrome may cause problems when managing CloudForms. Please deactivate it while doing this lab.
 
 == Environment
 
