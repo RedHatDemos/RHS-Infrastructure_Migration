@@ -76,7 +76,7 @@ A full new migration environment is deployed on every request. To make the envir
 
 The migration environment consists of the following systems:
 
-image::blueprint.png[Blueprint]
+image::blueprint1.png[Blueprint]
 
 [cols="1,1,1,2",options="header"]
 |=======
