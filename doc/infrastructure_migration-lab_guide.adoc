@@ -78,20 +78,17 @@ The migration environment consists of the following systems:
 
 image::blueprint1.png[Blueprint]
 
+
 [cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
+|`satellite.example.com` |`192.168.0.31` |  cf-<YOUR-GUID>.rhpds.opentlc.com |Satellite 6.6 server
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
-|`horizon.example.com` |`192.168.10.19` | horizon-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform web UI and User API Endpoint
-|`director.example.com` |`192.168.0.60` | director-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform Director (Undercloud)
-|`controller.example.com` |`10.100.0.111` | controller-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform controller
-|`compute0.example.com` |`10.100.0.105` | compute0-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
-|`compute1.example.com` |`10.100.0.107` | compute1-<YOUR-GUID>.rhpds.opentlc.com |Red Hat OpenStack Platform compute
 |`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
@@ -100,7 +97,7 @@ image::blueprint1.png[Blueprint]
 
 The architecture of the deployment can be depicted with the following image:
 
-image::architecture_diagram.png[Architecture Diagram]
+***Add Some Architecture image here***
 
 * Networks used in the environment
 
@@ -110,7 +107,6 @@ image::architecture_diagram.png[Architecture Diagram]
 | `Admin` | `192.168.x.x/16` | General administration and storage network.
 | `Service` | `10.10.0.x/24` | Internal network for the app to connect LB to EAP and to DB.
 | `Servicer-DMZ` | `10.9.0.x/24` | External DMZ network to publish the app. Also access to the user API for OSP and Horizon (provider network)
-| `OSP Provisioning` | `10.100.0.x/24` | OpenStack provisioning network (includes Director and PXE), as well as access to the Admin API endpoint and control plane.
 |=======
 
 * Virtual Machines
@@ -231,11 +227,7 @@ image::rhv_hypervisors_up.png[RHV Hypervisors up]
 +
 image::vsphere_web_client_0.png[vCenter Login]
 
-** Flash Player is required.
 +
-[TIP]
-Modern browsers have flash player disabled by default. You  need to enable it to access and use the web manager interface in vSphere 5.5.
-
 * Click on *Log in to vSphere Web Client*
 +
 image::vsphere_web_client_1.png[vSphere Web Client Login]
@@ -260,16 +252,6 @@ After logging in you will be presented with the CloudForms Dashboard.
 +
 image::cloudforms_dashboard.png[CloudForms Dashboard]
 
-
-* *OpenStack Horizon:* `*\http://horizon-<YOUR-GUID>.rhpds.opentlc.com*`
-+
-image::horizon_login.png[Horizon Login]
-+
-
-When logged in you will be taken to the dashboard of OpenStack or the last visited page in the Horizon.
-+
-image::horizon_dashboard.png[Horizon Dashboard]
-
 === Validate the Current Infrastructure in CloudForms
 
 . Log in with user `admin` and the provided password in CloudForms. Once in the web interface, go to *Compute -> Infrastructure -> Providers*.
@@ -288,22 +270,6 @@ image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Provi
 image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
 +
 image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 5]
-
-. Time to go to *Compute -> Clouds -> Providers*.
-+
-image::cloudforms_cloud_providers_1.png[CloudForms Clouds Providers 1]
-
-. If you see an exclamation mark (*!*), or a cross (*x*) in the provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
-+
-image::cloudforms_cloud_providers_2.png[CloudForms Clouds Providers 2]
-+
-image::cloudforms_cloud_providers_3.png[CloudForms Clouds Providers 3]
-
-. To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
-+
-image::cloudforms_cloud_providers_4.png[CloudForms Clouds Providers 4]
-+
-image::cloudforms_cloud_providers_5.png[CloudForms Clouds Providers 5]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> All VMs & Templates*.
 +
@@ -504,109 +470,6 @@ image::migration_log_access.png[Migration Log Access]
 .. Once the log is downloaded click to open:
 +
 image::migration_log.png[Migration Log]
-
-
-== Create an Infrastructure Mapping (vSphere to OpenStack)
-
-. Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
-+
-image::infrastructure_mapping_osp_1.png[Infrastructure Mapping 1]
-
-. Click on *Create Infrastructure Mapping*.
-+
-image::infrastructure_mapping_osp_2.png[Infrastructure Mapping 2]
-
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-osp`, select as *Target Provider* `Red Hat OpenStack Platform`, and click *Next*.
-+
-image::infrastructure_mapping_osp_3.png[Infrastructure Mapping 3]
-+
-* A description may be added to make it easy to, later on, recognize the usage of the mapping.
-
-. In the *step 2* of the wizard, *Clusters*, select *Source Cluster* as `vSphere\DC01\Cluster01` and *Target Provider\Project* as `OpenStack\ticket-monster` and click *Add Mapping*.
-+
-image::infrastructure_mapping_osp_4.png[Infrastructure Mapping 4]
-image::infrastructure_mapping_osp_4a.png[Infrastructure Mapping 4a]
-+
-Then click *Next*.
-
-. In the *step 3* of the wizard, *Datastores*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with, select *Source Datastore* as `vSphere\Datastore` and *Target Datastore* as `OpenStack\default_store` and click *Add Mapping*, then click *Next*.
-+
-image::infrastructure_mapping_osp_5.png[Infrastructure Mapping 5]
-
-. In the *step 4* of the wizard, *Networks*, and having selected *Cluster01 (ticket-monster)* as the cluster to work with. We will start by mapping the network used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Network* as `vSphere\App-Internal-DPortGroup` and *Target Network* as `OpenStack\service` and click *Add Mapping*.
-+
-image::infrastructure_mapping_osp_6a.png[Infrastructure Mapping 6]
-+
-* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Network* as `vSphere\App-DMZ-DPortGroup` and *Target Network* as `OpenStack\DMZ` and click *Add Mapping*.
-+
-image::infrastructure_mapping_osp_6b.png[Infrastructure Mapping 6]
-+
-* Finally we can map the management network. To do so, select *Source Network* as `vSphere\Management Network` and *Target Network* as `OpenStack\Admin` and click *Add Mapping*, then click *Create*.
-+
-image::infrastructure_mapping_osp_6.png[Infrastructure Mapping 6]
-+
-* This is what the final network mapping should look like. Click *Create* to finish.
-+
-image::infrastructure_mapping_osp_6c.png[Infrastucture Mapping 6]
-
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-osp have been mapped.` shall appear. Click *Close*.
-+
-image::infrastructure_mapping_osp_7.png[Infrastructure Mapping 7]
-+
-image::infrastructure_mapping_osp_8.png[Infrastructure Mapping 8]
-
-In these steps an *Infrastructure Mapping* has been created in order to simplify source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat OpenStack Platform.
-
-== Migrating VMs to OSP with a Migration Plan
-
-=== Create and run the migration plan
-
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
-+
-image::migration_plan_0.png[Migration Plan 0]
-
-. Click on *Create Migration Plan*.
-+
-image::migration_plan_osp_1.png[Migration Plan 1]
-
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-map-osp`, add the name `ticket-monster-plan-lb` and click *Next*.
-+
-image::migration_plan_osp_2.png[Migration Plan 2]
-
-. In the *step 2* of the wizard, *VMs*, select the *lb* virtual machine, as the one to be migrated.
-+
-image::migration_plan_osp_3.png[Migration Plan 3]
-
-. In the *step 3* of the wizard, *Instance Properties*, we can assign a specific OpenStack Flavor to the instance. We keep `m1.medium` for it and Click *Next*
-+
-image::migration_plan_osp_4.png[Migration Plan 4]
-
-. In the *step 4* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. In the *pre-migration playbook service* we will select `rhel-premigrate-playbook`, then select to use the *Pre-migration Service* for `lb` and click *Next*
-+
-image::migration_plan_osp_5.png[Migration Plan 5]
-+
-[NOTE]
-The `lb` has an specific network configuration in which the name of the interfaces in origin is diferent than in the destination. We will use this playbook to convert the configuration.
-
-. In the *step 5* of the wizard, *Schedule*, select *Start migration immediately*. Click *Create*
-+
-image::migration_plan_osp_6.png[Migration Plan 6]
-
-. In the *step 6* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-lb is in progress` will appear. Click *Close*.
-+
-image::migration_plan_osp_7.png[Migration Plan 7]
-
-. Back to the migration page we will see how the *Migration Plan* is already running
-+
-image::migration_plan_osp_8.png[Migration Plan 8]
-
-. Once the migration is finished ...
-+
-image::migration_running_osp_1.png[Migration Running 1]
-
-. We can find the instance in *OpenStack* in the *ticket-monster* project:
-+
-image::migration_running_osp_2.png[Migration Running 2]
 
 == Running migrations using a CSV file
 
