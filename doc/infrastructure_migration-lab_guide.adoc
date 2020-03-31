@@ -160,12 +160,6 @@ To check the infrastructure machines the following command can be also used:
 ----
 # ansible infra -m ping
 ----
-There are 4 VMs in the vCenter environment hosting an app with JBoss Core Services' Apache HTTP + modcluster as loadbalancer, two JBoss EAP 7 in domain mode, and a Postgresql database.
-To check only if these ones are running, you may use the following command:
-+
-----
-# ansible app -m ping
-----
 +
 [NOTE]
 As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. You may need to manually start up or reboot some of them. Please review everything is running before proceeding forward.
@@ -182,22 +176,6 @@ The log entries are very long, so it helps if you stretch this window as wide as
 +
 [NOTE]
 The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
-
-. Verify that the Ticket Monster app is running:
-
-* Point your browser to `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*` and check it is running:
-+
-image::app-ticketmonster-running.png[Ticket Monster app running]
-[NOTE]
-You must accept all of the self-signed SSL certificates.
-+
-image::ssl_cert_warning.png[SSL Cert Warning]
-+
-If the ticketmonster app is not running, you may run the following command in `workstation`:
-+
-----
-# start_vms
-----
 
 . Prepare to manage the environment. From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
 
@@ -454,10 +432,6 @@ image::migration_running_12.png[Migration Running 12]
 # ansible app -m ping
 ----
 
-. It's time to check the *app* running and accesible via the URL `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*`
-+
-image::migration_running_14.png[Migration Running 14]
-
 . Migration can be reviewed in the Main Migration page in CloudForms
 +
 image::migration_running_15.png[Migration Running 15]
@@ -470,90 +444,4 @@ image::migration_log_access.png[Migration Log Access]
 +
 image::migration_log.png[Migration Log]
 
-== Running migrations using a CSV file
 
-. Migrate the remaining application servers and database VMs from VMware to RHV using a CSV file.
-
-.. Download the CSV sample file from link:../conf/ticket_monster_migration_sample.csv[here] and save it as `ticket_monster_migration_db.csv`. Check that the content is the following:
-+
-image:ticket_monster_csv_file.png[Multiple VM CSV File]
-+
-[TIP]
-CSV file format is specified in the link:https://access.redhat.com/documentation/en-us/red_hat_infrastructure_migration_solution/1.1/html/infrastructure_migration_solution_guide/migrating_the_infrastructure#Creating_and_running_a_migration_plan[Official Documentation]
-
-.. This sample file could be an example of a CMDB dump after processing. We may remove the lines we know we are not going to use, leaving only the header row and the `db` row. link:../conf/ticket_monster_migration_db.csv[Sample here].
-+
-image:ticket_monster_csv_db_file.png[Multiple VM CSV File]
-
-.. Navigate to *Compute -> Migration -> Migration Plans* and click on *Create Migration Plan*.
-
-+
-image::csv_migration_plan_1.png[CSV Migration Plan 1]
-
-.. We will select the same infrastructure mapping previously created, `ticket-monster-mapping-rhv`, and name the new plan `ticket-monster-plan-db`. +
-Select *Import CSV file with a list of VMs to be migrated*. Click *Next*.
-
-+
-image::csv_migration_plan_2.png[CSV Migration Plan 2]
-
-.. In the *Import File* step, click on import and select the previously downloaded, and modified, file `ticket_monster_migration_db.csv`
-+
-image::csv_migration_plan_3.png[CSV Migration Plan 3]
-+
-image::csv_migration_plan_4.png[CSV Migration Plan 4]
-
-.. The VM list will appear in the dialog. It is possible to modify the selection at this step but there is no need to. Click *Next*
-+
-image::csv_migration_plan_5.png[CSV Migration Plan 5]
-+
-[TIP]
-A full migration can be done using the original sample file with a freshly instantiated environment.
-
-.. In the *Advanced Options* step we will not apply any changes. Click *Next*.
-+
-image::csv_migration_plan_6.png[CSV Migration Plan 6]
-
-.. In the *Schedule* step we will *Save migration plan to run later*. The plan can later on be scheduled or directly run. Click *Create*.
-+
-image::csv_migration_plan_7.png[CSV Migration Plan 7]
-
-.. *Results* page for the *Plan* will appear. Click *Close*
-+
-image::csv_migration_plan_8.png[CSV Migration Plan 8]
-
-.. Back to the main *Migration Plans* page, we can schedule or run the plan created. Click *Schedule*
-+
-image::csv_migration_plan_9.png[CSV Migration Plan 9]
-
-.. Choose date and time (i.e. two minutes from current time).
-+
-image::csv_migration_plan_10.png[CSV Migration Plan 10]
-+
-image::csv_migration_plan_11.png[CSV Migration Plan 11]
-+
-image::csv_migration_plan_12.png[CSV Migration Plan 12]
-
-.. The plan will get automatically approved and start at the chosen time.
-+
-image::csv_migration_plan_13.png[CSV Migration Plan 13]
-+
-image::csv_migration_plan_14.png[CSV Migration Plan 14]
-
-.. Migration will take place
-+
-image::csv_migration_plan_15.png[CSV Migration Plan 15]
-+
-image::csv_migration_plan_16.png[CSV Migration Plan 16]
-
-.. And VMs will be running in Red Hat Virtualization
-+
-image::csv_migration_plan_17.png[CSV Migration Plan 17]
-
-
-.. Verify that the Ticket Monster app is running:
-
-* Point your browser to `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*` and check it is running:
-+
-image::app-ticketmonster-running.png[Ticket Monster Web App]
-
-If you want a deeper knowledge on how the whole Infrastructure Migration works, you may want to read the link:insfrastructure_migration-deployment_guide.adoc[Deployment guide].
