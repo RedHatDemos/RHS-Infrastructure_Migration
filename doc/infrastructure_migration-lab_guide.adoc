@@ -64,7 +64,7 @@ Versions of products used:
 === Base requirements
 
 * A computer with access to the Internet :-)
-* SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] or built-in bash in Windows 10 can be used)
+* SSH client (for Microsoft Windows users, link:https://www.putty.org/[Putty] application or built-in bash in Windows 10 are both good choices)
 * Firefox 17 or higher, or Chromium / Chrome
 +
 [NOTE]
@@ -97,7 +97,7 @@ image::blueprint1.png[Blueprint]
 
 The architecture of the deployment can be depicted with the following image:
 
-***Add Some Architecture image here***
+image::architecture_diagram1.png[Architecture Diagram]
 
 * Networks used in the environment
 
@@ -176,7 +176,8 @@ The log entries are very long, so it helps if you stretch this window as wide as
 [NOTE]
 The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
 
-. Prepare to manage the environment. From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
+. Prepare to manage the environment. 
+From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
 
 * *Username*: `admin`
 * *Password*: `<to_be_provided>`
@@ -184,8 +185,6 @@ The log entries can be also seen in the CloudForms web UI in *Automation -> Auto
 [NOTE]
 You must accept all of the self-signed SSL certificates.
 +
-[TIP]
-The password `to_be_provided` is the same one previously specified
 
 * *Red Hat Virtualization Manager:* `*\https://rhvm-<YOUR-GUID>.rhpds.opentlc.com*`
 .. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
@@ -204,18 +203,18 @@ image::rhv_hypervisors_up.png[RHV Hypervisors up]
 image::vsphere_web_client_0.png[vCenter Login]
 
 +
-* Click on *Log in to vSphere Web Client*
+* Click on *LAUNCH VSPHERE CLIENT (HTML5)* to get to the login screen
 +
 image::vsphere_web_client_1.png[vSphere Web Client Login]
 +
 [WARNING]
-Use `root` as the username to log in to vCenter.
+Use `administrator@vsphere.local` as the username to log in to vCenter.
 
 * Click *Click on VMs and Templates*.
 +
 image::vsphere_web_client_2.png[vCenter]
 
-.. Click *VMs and Templates* and verify that the 4 VMs `lb.example.com`, `jboss0.example.com`, `jboss1.example.com` and `db.example.com` are running.
+.. Click *VMs and Templates*, expand the Datacenter on the left pane, and verify that the 3 VMs `hana`, `oracledb` and `tomcat` are running.
 +
 image::vsphere_web_client_3.png[vCenter]
 
@@ -234,49 +233,37 @@ image::cloudforms_dashboard.png[CloudForms Dashboard]
 +
 image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
 
-. If you see an exclamation mark (*!*), or a cross (*x*) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
+. You should see a green tick mark in the provider boxes as shown in the screenshot below. 
+If you by any chance, see an exclamation mark (*!*), or a cross ([red]#*x*#) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
 +
 image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
-+
-image::cloudforms_infrastructure_providers_3.png[CloudForms Infrastructure Providers 3]
-+
 
 . To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
 +
 image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
 +
-image::cloudforms_infrastructure_providers_5.png[CloudForms Infrastructure Providers 5]
 
 . Go to *Compute -> Infrastructure -> Virtual Machines -> All VMs & Templates*.
 +
 image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
 
 . All VMs, Orphaned VMs and Templates in both RHV and vSphere show as entities in CloudForms.
+We can currently see the VMs deployed and running, as well as the ones which are shut down within our environment. 
 +
 image::cloudforms_vms_2.png[CloudForms Virtual Machines 2]
 +
 [NOTE]
-If you needed to validate providers, you may have to wait a few minutes and refresh the screen before the VMs show up.
-
-. Select the pane *VMs & Templates* and, in it, the *vSphere* provider.
-
-. Only the VMs and Templates in vSphere will show.
-+
-image::cloudforms_vms_3.png[CloudForms Virtual Machines 3]
-+
-[TIP]
-This is a good way to check that the app VMs are up and running and start the stopped ones.
-
+If you had to initiate the re-validion of the providers in previous steps, you may have to wait a few minutes and refresh the screen before the VMs show up.
 
 == Create an Infrastructure Mapping (vSphere to RHV)
 
-. Navigate to the *Compute -> Migration -> Infrastructure Mappings*.
+. Navigate to the *Migration -> Infrastructure Mappings*.
 +
-image::infrastructure_mapping_1.png[Infrastructure Mapping 1]
+image::infrastructure_mapping_0.png[Infrastructure Mapping 1]
 
 . Click on *Create Infrastructure Mapping*.
 +
-image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
+image::infrastructure_mapping_1.png[Infrastructure Mapping 2]
 
 . In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv`, select as *Target Provider* `Red Hat Virtualization`  and click *Next*.
 +
