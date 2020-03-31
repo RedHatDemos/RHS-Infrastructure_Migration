@@ -64,7 +64,7 @@ Versions of products used:
 === Base requirements
 
 * A computer with access to the Internet :-)
-* SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] is recommended)
+* SSH client (for Microsoft Windows users link:https://www.putty.org/[Putty] or built-in bash in Windows 10 can be used)
 * Firefox 17 or higher, or Chromium / Chrome
 +
 [NOTE]
@@ -85,7 +85,7 @@ image::blueprint1.png[Blueprint]
 |`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
-|`satellite.example.com` |`192.168.0.31` |  cf-<YOUR-GUID>.rhpds.opentlc.com |Satellite 6.6 server
+|`satellite.example.com` |`192.168.0.31` |  satellite-<YOUR-GUID>.rhpds.opentlc.com |Satellite 6.6 server
 |`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
 |`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
 |`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
@@ -111,18 +111,17 @@ The architecture of the deployment can be depicted with the following image:
 
 * Virtual Machines
 +
-This deployment of the migration environment includes the following VMs provisioned in the vSphere environment in order to be migrated:
+This deployment of the migration environment includes the following VMs provisioned and running in the vSphere environment in order to be migrated:
 
 [cols="1,1,2",options="header"]
 |=======
 | Name | IPs | Description
-| `jboss0.example.com` | 10.10.0.110 | Red Hat Enterprise Linux 7 host running JBoss EAP, connected to the `Service` network.
-| `jboss1.example.com` | 10.10.0.111 | Red Hat Enterprise Linux 7 host running JBoss EAP, connected to the `Service` network.
-| `lb.example.com` | 10.10.0.100 , 10.9.0.100 | Red Hat Enterprise Linux 7 host running JBoss Core Service Apache HTTP server configured with mod_cluster to proxy traffic to `jboss0` and `jboss1`, connected to the `Service` and `Servicer-DMZ` networks.
-| `db.example.com` | 10.10.0.120 | Red Hat Enterprise Linux 7 host running PostgreSQL providing service to `jboss0` and `jboss1` through the `Service` network.
+| `hana.example.com` | 10.10.0.130 | Red Hat Enterprise Linux 7 host running SAP HANA on .
+| `oracledb.example.com` | 10.10.0.160 | Oracle DB running on Oracle Linux 7 host.
+| `tomcat.example.com` | 10.10.0.180 | CentOS Linux 7 host running Tomcat.
 |=======
 
-* An external service is configured as `*\https://app-<YOUR-GUID>.rhpds.opentlc.com*` pointing to the Load Balancer to make the Ticket Monster app accessible.
+{sp}+
 
 == Getting Started
 
