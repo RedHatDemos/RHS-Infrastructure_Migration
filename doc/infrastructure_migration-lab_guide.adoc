@@ -105,8 +105,7 @@ The architecture of the deployment can be depicted with the following image:
 |=======
 | Network Name | IP range | Description
 | `Admin` | `192.168.x.x/16` | General administration and storage network.
-| `Service` | `10.10.0.x/24` | Internal network for the app to connect LB to EAP and to DB.
-| `Servicer-DMZ` | `10.9.0.x/24` | External DMZ network to publish the app. Also access to the user API for OSP and Horizon (provider network)
+| `Service` | `10.10.0.x/24` | Internal network for the VMs delivering services to users.
 |=======
 
 * Virtual Machines
