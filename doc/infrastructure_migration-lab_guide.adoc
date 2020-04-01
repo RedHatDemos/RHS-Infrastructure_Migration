@@ -265,40 +265,38 @@ image::infrastructure_mapping_0.png[Infrastructure Mapping 1]
 +
 image::infrastructure_mapping_1.png[Infrastructure Mapping 2]
 
-. In the *step 1* of the wizard, *General*, type the name `ticket-monster-map-rhv`, select as *Target Provider* `Red Hat Virtualization`  and click *Next*.
+. In the *step 1* of the wizard, *General*, type the name `VMware to RHV`, select as *Target Provider* `Red Hat Virtualization`  and click *Next*.
 +
 * A description may be added to make it easy to, later on, recognize the usage of the mapping.
 +
 image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
 
-. In the *step 2* of the wizard, *Map Compute*, select *Source Provider \ Datacenter \ Cluster* as `vSphere\DC01\Cluster01` and *Target Provider \ Datacenter \ Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *Next*.
+. In the *step 2* of the wizard, *Map Compute*, select *Source Provider \ Datacenter \ Cluster* as `vSphere\Datacenter\VMCluster` and *Target Provider \ Datacenter \ Cluster* as `RHV\CoolDataCenter\TrustedCluster` and click *Add Mapping*, then click *Next*.
 +
 image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 
-. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\DC01\Datastore` and *Target Datastore* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *Next*.
+. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\Datacenter\NFS-Storage` and *Target Datastores* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *Next*.
 +
 image::infrastructure_mapping_5.png[Infrastructure Mapping 5]
 
-. In the *step 4* of the wizard, *Map Networks*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with. We will start by mapping the network used by VMs to connect to each other (i.e. JBoss EAP to the Database). We select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\App-Internal-DPortGroup` and *Target Network* as `RHV\service` and click *Add Mapping*.
+. In the *step 4* of the wizard, *Map Networks*, *Cluster01 (TrustedCluster)* will be selected as the cluster to work with. 
+We will start by mapping the network used by VMs to connect to each other. This describes which source networks on VMware map to the destination
+network after the migration to RHV. 
+We select *Source Provider \ Datacenter \ Network* as `vSphere \ Datacenter \ Net-Service` and *Target Network* as `RHV\service` and click *Add Mapping*.
 +
 image::infrastructure_mapping_6a.png[Infrastructure Mapping 6]
 +
-* We will continue by mapping the network used by VMs to expose services to the internet(i.e. the Load Balancer exposing the Ticket Monster app). We select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\App-DMZ-DPortGroup` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
+* We will continue by mapping the network used by VMs to expose services to the internet. We select *Source Provider \ Datacenter \ Network* as `vSphere\Datacenter\Net-Service-DMZ` and *Target Network* as `RHV\service-dmz` and click *Add Mapping*.
 +
 image::infrastructure_mapping_6b.png[Infrastructure Mapping 6]
 +
-* Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\DC01\Management Network` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *Create*.
+* Finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\Datacenter\Net-Management` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *Create*.
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping 6]
-+
-* This is what the final network mapping should look like
-+
-image::infrastructure_mapping_6c.png[Infrastructure Mapping 6]
 
-
-. In the *step 5* of the wizard, *Results*, a message `All mappings in ticket-monster-map-rhv have been mapped.` shall appear. Click *Close*.
-+
-image::infrastructure_mapping_7.png[Infrastructure Mapping 7]
+. In the *step 5* of the wizard, *Results*, a message `All mappings in VMware to RHV have been mapped.` will appear. 
+ The only thing left to do is to click on *Close* on the last page of the wizard.
+After the wizard closes, you will be presented with a finished mapping, as shown in the next screenshot.
 +
 image::infrastructure_mapping_8.png[Infrastructure Mapping 8]
 
@@ -308,7 +306,7 @@ In these steps an *Infrastructure Mapping* has been created in order to simplify
 
 === Create the migration plan
 
-. Start in the CloudForms page accessed by navigating to *Compute -> Migration -> Migration Plans*.
+. Start in the CloudForms page accessed by navigating to *Migration -> Migration Plans*.
 +
 image::migration_plan_0.png[Migration Plan 0]
 
@@ -316,118 +314,136 @@ image::migration_plan_0.png[Migration Plan 0]
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `ticket-monster-rhv`, add the name `ticket-monster-plan-app` and click *Next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `VMware to RHV`, add the name `Summit 2020 Lab` and click *Next*.
 +
 image::migration_plan_2.png[Migration Plan 2]
 +
 [NOTE]
-Keeping the default option will take us to the VM menu selector. For massive conversions a CSV file upload can be the right choice.
+Keeping the default option will take us to the VM menu selector. 
+For massive conversions, there is an option to use a CSV file upload which may be a better choice.
 
-. In the *step 2* of the wizard, *VMs*, select the *jboss0* and *jboss1*  virtual machines, as the ones to be migrated.
+. In the *step 2* of the wizard, *VMs*, we will choose the 3 VMs to be migrated to RHV. 
+Please select *hana*, *oracledb* and *tomcat*  virtual machines, as the ones to be migrated.
 +
 image::migration_plan_3.png[Migration Plan 3]
 +
 [NOTE]
-VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term `jboss`.
+VM selector has a filter to help find a set of VMs within a long list. We may try filtering by the term `tomcat` for example.
 
-. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. We will do this in a later part of the lab. For now, click *Next*
+. In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. 
+Since we have two servers which are running distributions we would like to convert to RHEL during the conversion, we will enable *post* playbooks for those. 
+Click on a *Select postmigration playbook service* drop-down and choose `PostMigration - Convert2RHEL`
+
 +
 image::migration_plan_4.png[Migration Plan 4]
 
-. In the *step 4* of the wizard, *Schedule*, select *Save migration plan to run later*. Click *Create*
+In the same step make sure we select the VMs that need to be converted. Those are `oracledb` ( currently running Oracle Linux) and `tomcat` ( currently running CentOS).
+
+image::migration_plan_4a.png[Migration Plan 4a]
+
+. In the *step 4* of the wizard, *Schedule*, select *Start migration immediately* and click *Create*.
+The wizard will close and the migration of the VMs will start immediately. 
 +
 image::migration_plan_5.png[Migration Plan 5]
-+
-[NOTE]
-The migration plan can be run immediately, by choosing the other option.
 
-. In the *step 5* of the wizard, *Results*, the message `Migration Plan: ticket-monster-plan-app has been saved` shall appear. Click *Close*.
+[NOTE]
+The migration plan can be scheduled to be ran at a later time, by choosing the other option.
+
+. In the *step 5* of the wizard, *Results*, the message `Migration Plan: 'Summit 2020 Lab' is in progress` will be displayed. Click *Close*.
 +
 image::migration_plan_6.png[Migration Plan 6]
 
-. Back to the migration page we will see how the *Infrastructure Mapping* and *Migration Plan* are ready to be run
-+
-image::migration_plan_7.png[Migration Plan 7]
+=== Monitor the Migration
 
-=== Launch Migration
-
-. To launch the migration, while in the *Compute -> Migration* page, click on the *Migrate* button in the *ticket-monster-plan-app*.
-+
-image::migration_running_1.png[Migration Running 1]
-
-. The migration will get initiated. All data is gathered and preflight checks are executed.
-+
-image::migration_running_2.png[Migration Running 2]
-
-. The plan gets auto-approved. Migration starts
+. As soon as you clicked close, you would be presented with a page showing the migration plans In Progress
 +
 image::migration_running_3.png[Migration Running 3]
 
 . Now the migration is executing. It takes some time for the pre-migration steps to be finished and the conversion process to start.
-We can see the orchestration process in CloudForms logs
+If we wished to, we can see the orchestration process in CloudForms logs.
+From the workstation terminal you can SSH into CloudForms and tail the logs. 
+Word of caution: the automation.log is storing a lot of logs and can present a huge amount of scrolling text. 
 +
 ----
 # ssh cf.example.com
 # tail -f /var/www/miq/vmdb/log/automation.log
 ----
 +
-Once the pre-migration steps are finished and the conversion starts, each VM conversion process can be tracked in the Conversion Host:
+Once the pre-migration steps are finished and the conversion starts, each VM conversion process can be tracked in the Conversion Host.
+Our conversion hosts are kvm1 and kvm2. So, for example we could do:
 +
 ----
 # ssh kvm1.example.com
-# tail -f /var/log/vdsm/import/v2v-import-*
+# [root@kvm1 ~]# tail -f /var/log/vdsm/import/v2v-import-*.log
 ----
 
-. CloudForms Migration interface shows migration status too
-+
-image::migration_running_4.png[Migration Running 4]
-
-. Clicking on the running plan info box will display the detailed info of the status
+. CloudForms Migration interface shows migration status too.
+Clicking on the running plan info box with the name `Summit 2020 Lab` will display the detailed info of the status:
 +
 image::migration_running_5.png[Migration Running 5]
 
-. Progress can be followed in this page
-+
-image::migration_running_6.png[Migration Running 6]
+. The total migration of our VMs will take approximately `55-60` minutes, depending on the load on the cloud servers supporting the environment.
+Post-migration playbooks should start in about 19 minutes for the first VM. 
+The VMs being migrated will be powered off for the cold migration. + 
+It is possible to check in the *RHV* admin portal under *Compute -> Virtual Machines* to monitor the status for the VM import as part of the migration process.
+If the VM list is empty, it means that none of the VMs have been created in the destination yet. The disk conversion is running however and the VMs will start showing up sequentially after the disk conversion has been completed. + 
+In about 30 minutes you will see different VMs having a different stage of migration. Completing post migration playbooks, or powering on. 
 
-. For the time of the migration the JBoss EAP servers, `jboss0` and `jboss1` will be powered off in `vSphere`, migrated and then powered on in `RHV`.
-+
-image::migration_running_7.png[Migration Running 7]
-
-. It is possible to check in the *RHV* admin portal under *Compute -> Virtual Machines* to monitor the status for the VM import as part of the migration process.
 +
 image::migration_running_8.png[Migration Running 8]
 
-. Once the migration is finishing ...
+. These machines will be now visible in the WEB UI of the Red Hat Virtualization as well as powered on and running. 
 +
 image::migration_running_9.png[Migration Running 9]
 
-. ... the VMs get powered up
+. The RHEL VM, `hana` has been migrated, while the `tomcat` are running their Convert2RHEL plabooks, and are being registered to Satellite. 
 +
 image::migration_running_10.png[Migration Running 10]
+
+. The last of the VMs is powered on inside RHV and is being converted to RHEL as well
 +
 image::migration_running_11.png[Migration Running 11]
 
-. The migration gets completed.
+. CloudForms is now showing us that the migration has been completed successfully. 
+The final view of the Migration Page should look something like this:
 +
-image::migration_running_12.png[Migration Running 12]
+image::migration_running_finish.png[Migration Finished]
 
 . Let's check if the VMs are up and running using the following command:
 +
 ----
-# ansible app -m ping
+# [root@workstation-repl ~]# ansible apps -m ping
+hana.example.com | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+oracledb.example.com | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+tomcat.example.com | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
 ----
 
 . Migration can be reviewed in the Main Migration page in CloudForms
 +
-image::migration_running_15.png[Migration Running 15]
+image::migration_running_finish2.png[Migration Running 15]
 
-. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
+. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. The logs are in plain text format. +
+To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
 +
-image::migration_log_access.png[Migration Log Access]
+image::migration_log.png[Migration Log Access]
 
-.. Once the log is downloaded click to open:
-+
-image::migration_log.png[Migration Log]
 
 
