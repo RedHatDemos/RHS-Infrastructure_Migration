@@ -440,7 +440,7 @@ tomcat.example.com | SUCCESS => {
 +
 image::migration_running_finish2.png[Migration Running 15]
 
-. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. The logs are in plain text format. +
+. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. The logs are in plain text format and can be quite large, so the download can take some time. +
 To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
 +
 image::migration_log.png[Migration Log Access]
