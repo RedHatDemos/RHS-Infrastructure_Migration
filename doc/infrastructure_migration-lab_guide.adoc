@@ -380,29 +380,18 @@ Clicking on the running plan info box with the name `Migrate OracleDB` will disp
 +
 image::migration_running_5.png[Migration Running 5]
 
-. The total migration of our VMs will take approximately `55-60` minutes, depending on the load on the cloud servers supporting the environment.
-Post-migration playbooks should start in about 19 minutes for the first VM. 
-The VMs being migrated will be powered off for the cold migration. + 
-It is possible to check in the *RHV* admin portal under *Compute -> Virtual Machines* to monitor the status for the VM import as part of the migration process.
-If the VM list is empty, it means that none of the VMs have been created in the destination yet. The disk conversion is running however and the VMs will start showing up sequentially after the disk conversion has been completed. + 
-In about 30 minutes you will see different VMs having a different stage of migration. Completing post migration playbooks, or powering on. 
-
+. The total migration of oracledb VM will take approximately `55-60` minutes, depending on the load on the cloud servers supporting the environment.
+The VMs being migrated are powered off during the migration process. + 
+It is possible to check in the *RHV* admin portal under *Compute -> Virtual Machines* and monitor the status for the VM import as part of the migration.
 +
-image::migration_running_8.png[Migration Running 8]
+image::migration_running_6.png[Migration Running 8]
 
-. These machines will be now visible in the WEB UI of the Red Hat Virtualization as well as powered on and running. 
+. After about `35` minutes, the VM has finished with migration and is starting playbooks which will execute the conversion to RHEL. 
+At this point it should already be visible in the list of VMs in RHV Web UI.
+The oracledb VM will be now visible in the WEB UI of the Red Hat Virtualization as being powered up or already running. 
 +
-image::migration_running_9.png[Migration Running 9]
-
-. The RHEL VM, `hana` has been migrated, while the `tomcat` are running their Convert2RHEL plabooks, and are being registered to Satellite. 
-+
-image::migration_running_10.png[Migration Running 10]
-
-. The last of the VMs is powered on inside RHV and is being converted to RHEL as well
-+
-image::migration_running_11.png[Migration Running 11]
-
-. CloudForms is now showing us that the migration has been completed successfully. 
+image::migration_running_rhv.png[Migration Running 9]
+. It takes around `10` minutes for the playbook to complete on the `oracledb` VM. CloudForms is now showing us that the migration has been completed successfully. 
 The final view of the Migration Page should look something like this:
 +
 image::migration_running_finish.png[Migration Finished]
