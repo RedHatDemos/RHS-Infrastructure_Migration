@@ -9,16 +9,18 @@
 
 == Overview
 
-This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin (a.k.a. v2v-plugin) included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV). During the migration, supported OSes can be converted to RHEL and get registered to Satellite for seamless management automatically. 
+This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV). During the migration, supported OSes can be converted to RHEL and get registered to Satellite for seamless management automatically. Additionally,
+the migrated and registered VMs can be included in Red Hat Insights inventory. Red Hat Insights helps your infrastructure by proactively identifying and suggesting remediation steps to increase security, performance and stability.  
 
 The password and user accounts to access all services is provided by the lab administrators.
 
-In this environment the following configuration steps are already done:
+This environment consists of the following systems deployed, along with the necessary configuration:
 
-* Configure the conversion hosts in the target provider (Red Hat Virtualization)
-* Provide credentials for virtualization providers and conversion hosts in CloudForms
-* Assign tags for the conversion hosts in CloudForms
-* Configured Ansible hosts file in `workstation` and ssh keys exchanged (`/root/.ssh/id_rsa`)
+* Deployed RHV and VMware providers, Cloud Forms and Satellite.
+* Configured the conversion hosts in the target provider (Red Hat Virtualization)
+* Credentials for virtualization providers and conversion hosts in CloudForms are added
+* Assigned tags for the conversion hosts in CloudForms
+* Registered Satellite to Red Hat Insights
 
 The providers are:
 
@@ -36,16 +38,15 @@ After this initial step, the resource equivalence between the two providers, inv
 * Storage Domains
 * Networks
 
-To perform the migration one *Conversion Host* has been configured for the target provider.
+To perform the migration two *Conversion Hosts* were configured for the target provider. The roles of *Conversion Hosts* are fulfilled by RHV hypervisors. In the case of this lab those are kvm1.example.com and kvm2.example.com.
 
-* In the RHV case the one of the RHEL hypervisors is configured as conversion host
-
-Finally, a *Migration Plan* has to be executed to perform the final migration.
+We will have to configure the needed *Infrastructure Mapping* and finally, add a *Migration Plan* to perform the final migration.
 
 .Goal
-* Migrate and convert several VMs from VMware vSphere to Red Hat Virtualization, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution
+* Migrate and convert several VMs from VMware vSphere to Red Hat Virtualization, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution. 
+* Remediate issues found by Insights, by running included remediation ansible playbooks.
 +
-NOTE: The source VMs are not deleted, only powered off once the migration is done. This measure can also be used as "rollback" in case a migration failure occurs.
+NOTE: The source VMs are never deleted, only powered off once the migration is done. This measure can also be used as "rollback" in case of a potential migration failure.
 
 Versions of products used:
 
@@ -64,19 +65,20 @@ Versions of products used:
 === Base requirements
 
 * A computer with access to the Internet :-)
-* SSH client (for Microsoft Windows users, link:https://www.putty.org/[Putty] application or built-in bash in Windows 10 are both good choices)
+* SSH client (for Microsoft Windows users, link:https://www.putty.org/[Putty] application or built-in bash in Windows 10, are both good choices)
 * Firefox 17 or higher, or Chromium / Chrome
-* To fully experience this lab, it is necessary to set up proxy for the duration. +
-You can do so by setting a proxy in your browser, or using a FoxyProxy plugin.
+* To fully experience this lab, it is necessary to set up proxy for the duration. 
+- That said, you _can_ do the lab _without a proxy_, but you will not be able to access some parts of the environment. This could affect your lab experience somewhat. 
+* You can set up a proxy by changing it in your browser, or using a FoxyProxy plugin.
 When setting the proxy up, use `workstation-*YOUR-GUID*.rhpds.opentlc.com` as the proxy server for all protocols to access the environment.
 
 
 [NOTE]
-Grammarly plugin for Chrome may cause problems when managing CloudForms. Please deactivate it while doing this lab.
+Grammarly plugin for Chrome may cause problems when managing CloudForms. If you have it in your browser, please deactivate it while doing this lab.
 
 == Environment
 
-A completely clean environment will be deployed for your use. To make the environment unique and distinguishable between attendees, a 4 character identifier is assigned to it (i.e. `1e37`). This identifier will be referred to, within the documentation as *YOUR-GUID*. Make sure you have this number at hand throughout the lab.
+A completely clean environment is deployed for your use. To make the environment unique and distinguishable between attendees, a 4 character identifier is assigned to it (i.e. `1e37`). This identifier will be referred to, within the documentation as *YOUR-GUID*. Make sure you have this number at hand throughout the lab.
 
 The migration environment consists of the following systems:
 
@@ -86,14 +88,14 @@ image::blueprint1.png[Blueprint]
 [cols="1,1,1,2",options="header"]
 |=======
 | Hostname | Internal IP | External name | Description
-|`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host and Ansible host
+|`workstation.example.com` |`192.168.0.10` | workstation-<YOUR-GUID>.rhpds.opentlc.com |Jump host, proxy and Ansible host
 |`storage.example.com` |`192.168.0.254` | workstation-<YOUR-GUID>.rhpds.opentlc.com | NFS server
 |`cf.example.com` |`192.168.0.100` |  cf-<YOUR-GUID>.rhpds.opentlc.com |CloudForms server
 |`satellite.example.com` |`192.168.0.31` |  satellite-<YOUR-GUID>.rhpds.opentlc.com |Satellite 6.6 server
-|`rhvm.example.com` |`192.168.0.35` | rhvm-<YOUR-GUID>.rhpds.opentlc.com |Red Hat Virtualization Manager server
-|`kvm1.example.com` |`192.168.0.41` | kvm1-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
-|`kvm2.example.com` |`192.168.0.42` | kvm2-<YOUR-GUID>.rhpds.opentlc.com |KVM hypervisor managed by Red Hat Virtualization
-|`vcenter.example.com` |`192.168.0.50` | vcenter-<YOUR-GUID>.rhpds.opentlc.com |VMware vCenter server
+|`rhvm.example.com` |`192.168.0.35` | Only Through Proxy |Red Hat Virtualization Manager server
+|`kvm1.example.com` |`192.168.0.41` | N/A  |KVM hypervisor managed by Red Hat Virtualization
+|`kvm2.example.com` |`192.168.0.42` | N/A |KVM hypervisor managed by Red Hat Virtualization
+|`vcenter.example.com` |`192.168.0.50` | Only Through Proxy |VMware vCenter server
 |`esx1.example.com` |`192.168.0.51` | N/A |ESXi hypervisor
 |`esx2.example.com` |`192.168.0.52` | N/A |ESXi hypervisor
 |=======
@@ -119,23 +121,23 @@ This deployment of the migration environment includes the following VMs provisio
 [cols="1,1,2",options="header"]
 |=======
 | Name | IPs | Description
-| `hana.example.com` | 10.10.0.130 | Red Hat Enterprise Linux 7 host running SAP HANA on .
+| `hana.example.com` | 10.10.0.130 | SAP HANA running on Red Hat Enterprise Linux 7 host.
 | `oracledb.example.com` | 10.10.0.160 | Oracle DB running on Oracle Linux 7 host.
-| `tomcat.example.com` | 10.10.0.180 | CentOS Linux 7 host running Tomcat.
+| `tomcat.example.com` | 10.10.0.180 | Tomcat running on CentOS Linux 7 host.
 |=======
 
 {sp}+
 
 == Getting Started
 
-. Once the system is running, use SSH to access your bastion workstation using `lab-user`.
+. Once the system is running, use SSH to access your bastion workstation using `labuser`, and the hostname workstation-`*YOUR_GUID*`.rhpds.opentlc.com
 
 +
 ----
-$ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
+$ ssh labuser@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
 
-. Become `root` using the provided password:
+. Become `root` using sudo:
 +
 ----
 $ sudo -i
@@ -144,54 +146,46 @@ $ sudo -i
 . Check the status of the whole environment, from the `workstation`, using ansible:
 +
 ----
-# ansible all -m ping
+# ansible all -m ping -o
 ----
 +
-This command establishes a connection to all the machines in the environment (except ESXi servers).
-In case the machines are up an running a success message, per each, will show up.
+This establishes a connection to each of the machines in the environment to check if it is reachable.
+In case the machines are up an running a success message for each host in the list will be displayed.
 This is an example of a success message for the VM `cf.example.com`:
 +
 ----
-cf.example.com | SUCCESS => {
-    "changed": false,
-    "ping": "pong"
-}
+cf.example.com | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/libexec/platform-python"}, "changed": false, "ping": "pong"}
 ----
 +
-To check the infrastructure machines the following command can be also used:
+To check only the infrastructure machines the following command can be also used:
 +
 ----
-# ansible infra -m ping
+# ansible infra -m ping -o
 ----
 +
-[NOTE]
-As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. You may need to manually start up or reboot some of them. Please review everything is running before proceeding forward.
-
-. Establish an SSH connection to the CloudForms server and monitor `automation.log`:
-+
-----
-# ssh cf.example.com
-# tail -f /var/www/miq/vmdb/log/automation.log
-----
-+
-[TIP]
-The log entries are very long, so it helps if you stretch this window as wide as possible.
-+
-[NOTE]
-The log entries can be also seen in the CloudForms web UI in *Automation -> Automate -> Log*.
+[NOTE] 
+As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. You may need to manually start up or reboot some of them. Please review everything is running before proceeding forward. If you run into any issues, please reach out to lab instructors, they will be happy to help!     
 
 . Prepare to manage the environment. 
 From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted):
 
 * *Username*: `admin`
 * *Password*: `<to_be_provided>`
-+
+
 [NOTE]
 You must accept all of the self-signed SSL certificates.
-+
 
-* *Red Hat Virtualization Manager:* `*\https://rhvm-<YOUR-GUID>.rhpds.opentlc.com*`
-.. Navigate to and click *Administration Portal* and log in using `admin`, `<to_be_provided>`, and `internal`.
+=== *Red Hat Virtualization Manager:* 
+
+Address of WEB UI: `*\https://rhvm-<YOUR-GUID>.rhpds.opentlc.com*`
+Use the following credentials:
+
+* username: admin
+* password: <to be provided>
+
+In order to access the RHV Manager, you *have to use proxy*. If you did not configure proxy, please do so now. If you do not intend to use the proxy, this is the part of the lab which you would need to skip. In that case go to section 4.3
+
+.. Navigate to and click *Administration Portal* and log in using the provided credentials. Leave *** as `internal`.
 +
 image::rhv_login.png[RHV Login]
 
@@ -202,11 +196,18 @@ As this is nested virtualization, sometimes the CPU type of the hypervisor is ch
 +
 image::rhv_hypervisors_up.png[RHV Hypervisors up]
 
-* *vCenter:* `*\https://vcenter-<YOUR-GUID>.rhpds.opentlc.com*`
+=== *VMware vCenter:* 
+Address of WEB UI: `*\https://vcenter-<YOUR-GUID>.rhpds.opentlc.com*`
+
+Use the following credentials:
+
+- username: `administrator@vsphere.local`
+- password: <to be provided>
+
+In order to access the vCenter, you *have to use proxy*. If you did not configure proxy, please do so now. If you do not intend to use the proxy, this is the part of the lab which you would need to skip. In that case go to section 4.3
 +
 image::vsphere_web_client_0.png[vCenter Login]
 
-+
 * Click on *LAUNCH VSPHERE CLIENT (HTML5)* to get to the login screen
 +
 image::vsphere_web_client_1.png[vSphere Web Client Login]
@@ -222,7 +223,17 @@ image::vsphere_web_client_2.png[vCenter]
 +
 image::vsphere_web_client_3.png[vCenter]
 
-* *CloudForms:* `*\https://cf-<YOUR-GUID>.rhpds.opentlc.com*`
+=== *CloudForms:* 
+Address of WEB UI: `*\https://cf-<YOUR-GUID>.rhpds.opentlc.com*`
+
+Use the following credentials:
+
+- username : admin
+- password: <to be provided>
+
++
+[NOTE]
+If you did not configure your browser for access via proxy, this is where you need to continue from.
 +
 image::cloudforms_login.png[CloudForms Login]
 +
@@ -231,6 +242,10 @@ After logging in you will be presented with the CloudForms Dashboard.
 +
 image::cloudforms_dashboard.png[CloudForms Dashboard]
 
+[NOTE]
+When using the CloudForms interface, try to *_avoid using the Back_* button in your browser. It can lead you to a page you did not expect. 
+Using the navigation bar on the left, or breadcrumb navigation on the top is always a better choice. 
+
 === Validate the Current Infrastructure in CloudForms
 
 . Log in with user `admin` and the provided password in CloudForms. Once in the web interface, go to *Compute -> Infrastructure -> Providers*.
@@ -238,11 +253,11 @@ image::cloudforms_dashboard.png[CloudForms Dashboard]
 image::cloudforms_infrastructure_providers_1.png[CloudForms Infrastructure Providers 1]
 
 . You should see a green tick mark in the provider boxes as shown in the screenshot below. 
-If you by any chance, see an exclamation mark (*!*), or a cross ([red]#*x*#) in a provider, check the provider's box, go to *Authentication -> Re-check Authentication Status*.
+If you by any chance, see an exclamation mark (*!*), or a cross ([red]#*x*#) in a provider, tick the provider's selection box, then go to *Authentication -> Re-check Authentication Status*.
 +
 image::cloudforms_infrastructure_providers_2.png[CloudForms Infrastructure Providers 2]
 
-. To have proper information on all the resources available, check the provider's box, go to *Configuration -> Refresh Relationships and Power States*.
+. To have proper information on all the resources available, tick the provider's box, then go to *Configuration -> Refresh Relationships and Power States*.
 +
 image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Providers 4]
 +
@@ -251,13 +266,13 @@ image::cloudforms_infrastructure_providers_4.png[CloudForms Infrastructure Provi
 +
 image::cloudforms_vms_1.png[CloudForms Virtual Machines 1]
 
-. All VMs, Orphaned VMs and Templates in both RHV and vSphere show as entities in CloudForms.
-We can currently see the VMs deployed and running, as well as the ones which are shut down within our environment. 
+. All VMs and Templates in both RHV and vSphere show as entities in CloudForms.
+We can currently see the VMs deployed and running, as well as the ones which are powered off in our environment. 
 +
 image::cloudforms_vms_2.png[CloudForms Virtual Machines 2]
 +
 [NOTE]
-If you had to initiate the re-validion of the providers in previous steps, you may have to wait a few minutes and refresh the screen before the VMs show up.
+If you had to initiate the re-validation of the providers in previous steps, you may have to wait a few minutes and refresh the screen before the VMs show up.
 
 == Create an Infrastructure Mapping (vSphere to RHV)
 
@@ -318,26 +333,26 @@ image::migration_plan_0.png[Migration Plan 0]
 +
 image::migration_plan_1.png[Migration Plan 1]
 
-. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `VMware to RHV`, add the name `Migrate OracleDB` and click *Next*.
+. In the *step 1* of the wizard, *General*, select in the drop down menu the *Infrastructure Mapping* to be used, `VMware to RHV`, add the name `Summit 2020 Lab` and click *Next*.
 +
 image::migration_plan_2_db.png[Migration Plan 2]
 +
 [NOTE]
-Keeping the default option will take us to the VM menu selector. In this step we will be migrating only the oracledb virtual machine.
-For massive conversions, there is an option to use a CSV file upload which may be a better choice.
+Keeping the default option will take us to the VM menu selector. In this step we will be migrating the `oracledb`, `hana` and `tomcat` virtual machines.
+For massive conversions, there is an option to use a CSV file upload, which is a better option in those cases.
 
-. In the *step 2* of the wizard, *VMs*, we will choose the 1 VMs to be migrated to RHV. 
-Please select, *oracledb* virtual machine, as the one to be migrated.
+. In the *step 2* of the wizard, *VMs*, we will choose the 3 VMs to be migrated to RHV. 
+Please select, *oracledb*, *hana* and *tomcat* virtual machines to be migrated.
 +
 image::migration_plan_3_db.png[Migration Plan 3]
 
 . In the *step 3* of the wizard, *Advanced Options*, we can assign *Pre* and *Post* migration playbooks to be executed during the migration. 
-Since we have a server which are running a distribution we would like to convert to RHEL during the conversion, we will enable *post* playbooks for it. 
+Since we have a couple of servers which are running distributions we would like to convert to RHEL during the conversion, we will enable *post* playbooks for them. 
 Click on a *Select postmigration playbook service* drop-down and choose `PostMigration - Convert2RHEL`
 +
 image::migration_plan_4_db.png[Migration Plan 4]
 
-In the same step make sure we select the VM that need to be converted. That would be `oracledb` ( currently running Oracle Linux).
+In the same step make sure we select the VMs that need to be converted. Those are `oracledb` and `tomcat` (currently running Oracle Linux and CentOS, respectively).
 
 . In the *step 4* of the wizard, *Schedule*, select *Start migration immediately* and click *Create*.
 The wizard will close and the migration of the VMs will start immediately. 
@@ -345,7 +360,7 @@ The wizard will close and the migration of the VMs will start immediately.
 image::migration_plan_5.png[Migration Plan 5]
 
 [NOTE]
-The migration plan can be scheduled to be ran at a later time, by choosing the other option. We will cover this step in the next exercise in the lab.
+The migration plan can be scheduled to be ran at a later time, by choosing the other option.
 
 . In the *step 5* of the wizard, *Results*, the message `Migration Plan: 'Migrate OracleDB' is in progress` will be displayed. Click *Close*.
 +
@@ -353,14 +368,17 @@ image::migration_plan_6_db.png[Migration Plan 6]
 
 === Monitor the Migration
 
-. As soon as you clicked close, you would be presented with a page showing the migration plans In Progress
+. As soon as you click the close button, you are be presented with a page showing the migration plans In Progress
 +
 image::migration_running_1.png[Migration Running 3]
 
 . Now the migration is executing. It takes some time for the pre-migration steps to be finished and the conversion process to start.
-If we wished to, we can see the orchestration process in CloudForms logs.
-From the workstation terminal you can SSH into CloudForms and tail the logs. 
-Word of caution: the automation.log is storing a lot of logs and can present a huge amount of scrolling text. 
+If we wished to, we could see the orchestration process in CloudForms logs.
+From the workstation terminal you can SSH into CloudForms and tail the logs at on cf.example.com in the following directory: `/var/www/miq/vmdb/log/automation.log`. 
++
+You can tail this file with `tail -f /var/www/miq/vmdb/log/automation.log`.
+ +
+Word of caution: the `automation.log` is storing a lot of logs and can present a huge amount of scrolling text. 
 +
 ----
 # ssh cf.example.com
@@ -376,7 +394,7 @@ Our conversion hosts are kvm1 and kvm2. So, for example we could do:
 ----
 
 . CloudForms Migration interface shows migration status too.
-Clicking on the running plan info box with the name `Migrate OracleDB` will display the detailed info of the status:
+Clicking on the running plan info box with the name `Summit 2020 Lab` will display the detailed info of the status:
 +
 image::migration_running_5.png[Migration Running 5]
 
@@ -399,7 +417,7 @@ image::migration_running_finish.png[Migration Finished]
 . Let's check if the VMs are up and running using the following command:
 +
 ----
-# [root@workstation-repl ~]# ansible apps -m ping
+# [root@workstation-repl ~]# ansible apps -m ping -o
 hana.example.com | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/bin/python"
