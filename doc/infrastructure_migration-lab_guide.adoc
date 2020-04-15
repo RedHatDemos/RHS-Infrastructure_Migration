@@ -407,7 +407,7 @@ image::migration_plan_5.png[Migration Plan 5]
 
 === Monitor the Migration
 
-. As soon as you click the close button, you are be presented with a page showing the migration plans In Progress
+. After you click the close button, you are be presented with a page showing the migration plans In Progress. It may take up to a minute for the progress box to start updating.
 +
 image::migration_running_1.png[Migration Running 3]
 
@@ -438,8 +438,9 @@ some amount of time and might differ from what you currently see on the screen:
 +
 image::migration_running_2.png[Migration Running 2]
 
-. As far as migration goes, `hana` will be migrated and powered on first, since it has already been running RHEL in the source environment. 
-The other two machines, `tomcat` and `oracledb` will need more time. The longest migration time is needed by the most complex VM deployment, and that is OracleDB running on Oracle Linux. + 
+. As far as migration goes, `hana` is the only one which will not need to be converted. This means that it will get migrated and be running in the destination as first.
+The other two machines, `tomcat` and `oracledb` will need more time, because after converting the disk to RHV, the OS still needs some time for the conversion to RHEL. 
+The longest migration time is needed by the most complex VM deployment, and that is OracleDB running on Oracle Linux. + 
 The total migration time is approximately `55-60` minutes, depending on the load on the cloud servers supporting the environment at the moment.
 A thing to note is that the VMs being migrated are powered off during the migration process. + 
 This can be seen if you navigate to *Compute -> Infrastructure -> Virtual Machines* in CloudForms. You may see double entries in the CloudForms UI, but those are both migrated and source machines presented on the different providers. They can be differentiated by the icon in the lower left corner of each VM.
@@ -461,41 +462,164 @@ The final view of the Migration Page should look something like this:
 +
 image::migration_running_finish.png[Migration Finished]
 
-. Let's check if the VMs are up and running using the following command:
+. Let's check if the VMs are up and running. Go to workstation VM and execute the following command:
 +
 ----
 # [root@workstation-repl ~]# ansible apps -m ping -o
-hana.example.com | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "ping": "pong"
-}
-oracledb.example.com | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "ping": "pong"
-}
-tomcat.example.com | SUCCESS => {
-    "ansible_facts": {
-        "discovered_interpreter_python": "/usr/bin/python"
-    },
-    "changed": false,
-    "ping": "pong"
-}
+
+oracledb.example.com | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "ping": "pong"}
+hana.example.com | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "ping": "pong"}
+tomcat.example.com | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "ping": "pong"}
+
+[root@workstation-repl ~]#
 ----
 
-. Migration can be reviewed in the Main Migration page in CloudForms
+. We can see that all of the VMs are operational and accessible. We can do a migration review within CloudForms as well
+If you go to the main Migration Plans page of CloudForms you should see something similar to the following screenshot:
 +
-image::migration_running_finish2.png[Migration Running 15]
+image::migration_finished_1.png[Migration Finished 1]
++
+Here you can see that the migration has completed successfully, along with the details about INfrastructure Mapping used and total time for the migration.
 
-. Additionally the migration log can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the VM being migrated this log will not be available. The logs are in plain text format and can be quite large, so the download can take some time. +
-To access the log navigate to Completed Plans, and click **Download Log** and then **Migration log** next to the desired VM.
+. Additionally the migration logs can be downloaded and accessed post VM migration. This is useful for troubleshooting errors or just to check the migration details. It's worth mentioning that if the migration fails prior to the start of VM disk conversion, this log will not be available. The logs are in plain text format and can be quite large, so the download can take some time. +
+To access the log just click on the plan we just migrated, choose a VM from the list and click **Download Log**. From the drop-down you can choose which log you would like to download.
 +
 image::migration_log.png[Migration Log Access]
 
+== Insights and Remediation
+
+Now that we have all of our VMs converted and automatically registered to a local Satellite server, we can use the insights to examine the systems.
+The Insights dashboard, Inventory and Planner will help us discover, analyze and fix the problems found in the environment. 
+
+=== Logging into Satellite and checking status
+. First, we have to log in to our Satellite 6 server. 
+The host address is `satellite.example.com`, the username is `admin` and password is the one provided by lab presenters.
+
+. After you log in you will be taken to the Satellite Overview. 
+At the left navigation menu, close to the bottom there will be an Insights link. Click on it to be taken to Insights details page. 
+All of the systems listed there have been subscribed to this Satellite and have `insights-client` installed on them. 
+
+image::satellite_menu_insights.png[Satellite Insights]
+
+. After clicking on the menu, you will be taken to Insights Overview. Here you can see that all the hosts we migrated are listed there. 
+And to the right side of it, there are some actions we could take to make the systems more reliable and stable. By using a proactive remediation we can fix 
+the flaws in the systems' configuration which could potentially lead to outages, downtime or security issues. 
++
+image::insights_dash.png[Insights Dashboard]
++
+Now that we know that there are things to be improved in our environment, we can go through the next steps. 
+We will see how we can use Satellite, Insights and Ansible to quickly fix the issues detected. 
+
+=== Insights Inventory and Planner
+
+. On the left menu, hover over Insights and then click on Inventory. 
++
+image::insights_inv.png[Insights Inventory]
++
+. This will present an inventory page which allows us to check the issues Insights has marked detected as possible problems.
+In the table we can see the list of hostnames, along with number of actions Insights is capable of executing. 
++
+image::insights_inv2.png[Insights Inventory2]
++
+. You can use the links in that table, either hostnames or number of actions to explore the suggested actions by Insights. 
+We can use `tomcat` to bring up an example of this. Click on the hostname and it should pop up a window with a more detailed description of the action. 
++
+image::insights_inv3.png[]
+
+. This is a simple enough fix, which can be done manually. But what we will do is create plans which can include multiple fixes, and run them to let Insights and Ansible fix the selected issues for us. 
+For this - we need a plan!
+
+And plan is what we are going to make. Well, plans rather since we will fix systems belonging to different groups separately. 
+`tomcat` as our _application server_ will be fixed separately, and our database `oracledb` will be fixed as an _infrastructure server_ remediation with a separate plan.
+There are many ways to do this, so we will pick one for you and explain the steps:
+
+. Click on X to close the overview of the fix, if you hadn't done so already. Since we mentioned we needed a plan, we can go directly to Planner to help us create some. 
+On the left hand menu, hover over Insights and click on Planner.
++
+image::insights_planner.png[]
++
+. An empty page will load since there are no plans created yet. We will fix that momentarily. Click on the *Create a Plan* in the upper right corner:
++
+image::insights_planner2.png[]
++
+. A dialog will appear which will as us to provide some information regarding the remediation plan we are creating. *Create new plan* is selected by default, so we will leave it that way. 
+For the first plan we will set the plan name as `tomcat`, and make sure we click on a radio button to select *Specific System*, and choose `tomcat.example.com` from the drop-down menu.
++
+image::insights_planner3.png[]
++
+. Select the checkbox with actions you want to execute, or if you wish all of the actions to be included in the plan select the top left box.
+We are going to use all of the actions available, so please click the checkbox in the top left of the table. 
+After that, go ahead and click *Save*.
++
+image::insights_planner4.png[]
++
+. To minimize the plan window click on the small arrows in the upper right corner. 
++
+image::insights_planner5.png[]
++
+We are done, we can continue creating the rest of the plans in the same manner. 
+
+Let's create another plan for `oracledb` remediation. 
+The steps are the same as what we just did for `tomcat`, but this time we do it for `oracledb`:
+
+.. Click on *Create a plan*
+.. Give it a name, say "OracleDB"
+.. Click on radio-button for *Specific System*
+.. Choose `oracledb.example.com`
+.. Click on checkbox in the top of the table of Actions, this should select all and 
+.. Click *Save*
+.. Minimize with little arrow icon on the upper right. 
+
+When done, you should have a page looking like the following screenshot. Both plans are available and ready to be executed. 
+
+image::insights_planner5.png[]
+
+=== Running remediation and confirming fixes
+
+Now that we have plans in place, we can go into each of those and let it execute its automatic remediation playbooks. 
+We can start with OracleDB. 
+
+. Click on the box with OracleDB and you will be presented with the final view of the plan we made. 
+You could use a little pencil in the top corner to enter the edit mode and modify the plan when needed.
+However, we do not have any other actions to assign to this system, so we can go ahead and click on *Run Playbook* at the bottom.
++
+image::run_playbooks.png[]
++
+After a couple of seconds a new screen will appear showing the progress of the remediation.
++
+image::run_playbooks2.png[]
++
+. The playbook should complete in less then a minute, and will present a screen with a report. 
++
+image::run_playbooks3.png[]
++
+If you wish you can examine the playbook run by scrolling to the bottom and selecting *Host task* from the drop-down menu of Actions.
++
+image::run_playbooks4.png[]
++
+. If you do, do not forget to come back to planner, by clicking on *Insights -> Planner*. We have one more plan to execute. 
++
+Our automated remediation fixed most of the issues in the performance on the `oracledb` host. 
+There was one setting it could not change automatically, and that one is still being listed.
++
+The good news is that it is not just being listed, it inludes the recommended manual steps required to correct the issue found.
+We can see these steps if we click on the hostname either in Insights Overview or in Planner. 
++
+. For `tomcat` we will repeat the steps used for running the remediation on `oracledb`
++
+image::run_playbooks5.png[]
++
+Let's repeat the steps for remediation of `tomcat`:
++
+.. Click on `tomcat` plan
+.. Scroll down to *Run Playbook*
+.. Click on it and wait for the progress window to load
++
+When finished the planner will show all of the issues for tomcat resolved, and no actions to take in the plan. 
++
+image::run_finished.png[]
 
 
+*CONGRATULATIONS* 
+
+you have reached the end of this lab. 
