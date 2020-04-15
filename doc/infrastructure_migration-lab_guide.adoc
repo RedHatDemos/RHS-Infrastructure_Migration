@@ -608,7 +608,7 @@ We can see these steps if we click on the hostname either in Insights Overview o
 . For `tomcat` we will repeat the steps used for running the remediation on `oracledb`
 +
 image::run_playbooks5.png[]
-+
+
 Let's repeat the steps for remediation of `tomcat`:
 
 .. Click on `tomcat` plan
