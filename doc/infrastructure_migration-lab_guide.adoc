@@ -610,13 +610,14 @@ We can see these steps if we click on the hostname either in Insights Overview o
 image::run_playbooks5.png[]
 +
 Let's repeat the steps for remediation of `tomcat`:
-+
+
 .. Click on `tomcat` plan
 .. Scroll down to *Run Playbook*
 .. Click on it and wait for the progress window to load
-+
+
+
 When finished the planner will show all of the issues for tomcat resolved, and no actions to take in the plan. 
-+
+
 image::run_finished.png[]
 
 
