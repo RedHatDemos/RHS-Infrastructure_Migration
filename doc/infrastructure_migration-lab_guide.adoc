@@ -73,6 +73,7 @@ Versions of products used:
 
 ==== Proxy and FoxyProxy plugin setup
 
+To make the environment unique and distinguishable between attendees, a 5 character identifier is assigned to it (i.e. `r1e37`). This identifier will be referred to, within the documentation as *<YOUR-GUID>*. + 
 You can set up a proxy by it in your browser to `workstation-*<YOUR-GUID>*.rhpds.opentlc.com`, port 3128. +
 Using FoxyProxy is described in more details below.
 When setting the proxy up, the proxy server should be used for all protocols in order to access the environment.
@@ -100,7 +101,8 @@ Grammarly plugin for Chrome may cause problems when managing CloudForms. If you 
 
 == Environment
 
-A completely clean environment is deployed for your use. To make the environment unique and distinguishable between attendees, a 4 character identifier is assigned to it (i.e. `1e37`). This identifier will be referred to, within the documentation as *<YOUR-GUID>*. Make sure you have this number at hand throughout the lab.
+A completely clean environment is deployed for your use. To make the environment unique and distinguishable between attendees, a 5 character identifier is assigned to it (i.e. `r1e37`). This identifier will be referred to, within the documentation as *<YOUR-GUID>*. 
+So if we say to use `cf-<YOUR-GUID>.example.com`, that would translate to `cf-r1e37.example.com`, for example. Make sure you have this number at hand throughout the lab.
 
 The migration environment consists of the following systems:
 
