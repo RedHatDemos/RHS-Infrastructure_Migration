@@ -154,8 +154,10 @@ This deployment of the migration environment includes the following VMs provisio
 == Getting Started
 
 . Once the system is running, use SSH to access your bastion workstation using `lab-user`, and the hostname `workstation-*YOUR_GUID*.rhpds.opentlc.com`
++ 
+_The password to log in will be provided by the lab instructors._
 
-+
++ 
 ----
 $ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
 ----
