@@ -1,5 +1,5 @@
 #!/bin/bash 
-hosts=(hana oracledb tomcat)
+hosts=(oracledb tomcat)
 guid=$(hostname -s | awk -F - '{print $2}')
 
 echo ""
@@ -11,5 +11,6 @@ do
     ssh root@$hostname.example.com "hostnamectl --transient set-hostname $hostname-$guid.example.com"
     ssh root@$hostname.example.com "hostnamectl set-hostname $hostname-$guid.example.com"
     sed -i "s/$hostname/$hostname-$guid/g" /etc/hosts
+    systemctl restart dnsmasq
 done
 echo ""

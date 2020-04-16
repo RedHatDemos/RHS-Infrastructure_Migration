@@ -1,0 +1,32 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+192.168.0.10 workstation.example.com workstation
+10.9.0.10 workstation-9.example.com workstation-9
+10.10.0.10 workstation-10.example.com workstation-10
+
+192.168.0.254 storage.example.com storage
+192.168.0.100 cf.example.com cf
+192.168.0.31 satellite.example.com satellite
+192.168.0.41 kvm1.example.com kvm1
+192.168.0.42 kvm2.example.com kvm2
+192.168.0.35 rhvm.example.com rhvm
+192.168.0.51 esx1.example.com esx1
+192.168.0.52 esx2.example.com esx2
+192.168.0.50 vcenter.example.com vcenter
+  
+10.9.0.100 app.example.com app
+10.10.0.7 rhel7.example.com rhel7
+10.10.0.8 shareddisk1.example.com shareddisk1
+10.10.0.9 shareddisk2.example.com shareddisk2
+10.10.0.12 freebsd.example.com freebsd
+10.10.0.100 lb.example.com lb
+10.10.0.110 jboss0.example.com jboss0
+10.10.0.111 jboss1.example.com jboss1
+10.10.0.120 db.example.com db
+10.10.0.130 hana-repl.example.com hana
+10.10.0.160 oracledb-repl.example.com oracledb
+10.10.0.180 tomcat-repl.example.com tomcat
+10.10.0.181 weblogic.example.com weblogic
+10.10.0.182 websphere.example.com websphere
+10.10.0.190 mssql.example.com mssql
