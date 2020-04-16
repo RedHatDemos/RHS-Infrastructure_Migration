@@ -19,7 +19,6 @@ This environment consists of the following systems deployed, along with the nece
 * Deployed RHV and VMware providers, Cloud Forms and Satellite.
 * Configured the conversion hosts in the target provider (Red Hat Virtualization)
 * Credentials for virtualization providers and conversion hosts in CloudForms are added
-* Assigned tags for the conversion hosts in CloudForms
 * Registered Satellite to Red Hat Insights
 
 The providers are:
@@ -30,7 +29,7 @@ The providers are:
 Infrastructure management provided by:
 
 * Red Hat Satellite 6.6
-* CloudForms Management Engine
+* Red Hat CloudForms 5.0.0
 
 At the beginning, the resource equivalence between the two providers involved in each migration, has to be defined in an *Infrastucture Mapping* including:
 
@@ -42,7 +41,7 @@ To perform the migration two *Conversion Hosts* were configured for the target p
 
 .Goal
 * Migrate and convert several VMs from VMware vSphere to Red Hat Virtualization, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution. 
-* Remediate issues found by Insights, by running included remediation ansible playbooks.
+* Remediate issues found by Insights, by running included remediation Ansible playbooks.
 
 We will have to configure the needed *Infrastructure Mapping* and finally, add a *Migration Plan* to perform the final migration.
 
@@ -54,10 +53,10 @@ Versions of products used:
 [cols="1,1",options="header"]
 |=======
 |Product |Version
-|CloudForms |5.11.4
+|Red Hat CloudForms |5.0.0
 |Red Hat Virtualization |4.3.3
 |Red Hat Enterprise Linux (Conversion Host) |7.6+
-|Conversion Host Image |1.7+
+|Conversion Host Image |1.14+
 |VMware vSphere |6.7
 |=======
 
@@ -74,7 +73,7 @@ Versions of products used:
 ==== Proxy and FoxyProxy plugin setup
 
 To make the environment unique and distinguishable between attendees, a 5 character identifier is assigned to it (i.e. `r1e37`). This identifier will be referred to, within the documentation as *<YOUR-GUID>*. + 
-You can set up a proxy by it in your browser to `workstation-*<YOUR-GUID>*.rhpds.opentlc.com`, port 3128. +
+You can set up a proxy by pointing it in your browser to `workstation-*<YOUR-GUID>*.rhpds.opentlc.com`, port 3128. +
 Using FoxyProxy is described in more details below.
 When setting the proxy up, the proxy server should be used for all protocols in order to access the environment.
 
@@ -325,11 +324,11 @@ image::infrastructure_mapping_2.png[Infrastructure Mapping 2]
 +
 image::infrastructure_mapping_3.png[Infrastructure Mapping 3]
 
-. In the *step 3* of the wizard, *Map Storage*, and having selected *Cluster01 (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\Datacenter\NFS-Storage` and *Target Datastores* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *Next*.
+. In the *step 3* of the wizard, *Map Storage*, and having selected *VMCluster (TrustedCluster)* as the cluster to work with, select *Source Provider \ Datacenter \ Datastore* as `vSphere\Datacenter\NFS-Storage` and *Target Datastores* as `RHV\VMStorageNFS` and click *Add Mapping*, then click *Next*.
 +
 image::infrastructure_mapping_4.png[Infrastructure Mapping 4]
 
-. In the *step 4* of the wizard, *Map Networks*, *Cluster01 (TrustedCluster)* will be selected as the cluster to work with. 
+. In the *step 4* of the wizard, *Map Networks*, *VMCluster (TrustedCluster)* will be selected as the cluster to work with. 
 We will start by mapping the network used by VMs to connect to each other. This describes which source networks on VMware map to the destination
 network after the migration to RHV. 
 We select *Source Provider \ Datacenter \ Network* as `vSphere \ Datacenter \ Net-Service` and *Target Network* as `RHV\service` and click *Add Mapping*.
@@ -342,7 +341,7 @@ We will continue by mapping the network used by VMs to expose services to the in
 +
 image::infrastructure_mapping_5b.png[Infrastructure Mapping 6]
 +
-And finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\Datacenter\Net-Management` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*, then click *Create*.
+And finally we can map the management network. To do so, select *Source Provider \ Datacenter \ Network* as `vSphere\Datacenter\Net-Management` and *Target Network* as `RHV\ovirtmgmt` and click *Add Mapping*.
 +
 image::infrastructure_mapping_5c.png[Infrastructure Mapping 6]
 +
@@ -350,9 +349,9 @@ The final Network Mapping should look like the following screenshot:
 +
 image::infrastructure_mapping_6.png[Infrastructure Mapping Network]
 
-. Now you can click Create.
+. Now you can click *Create*.
 +
-In the *step 5* of the wizard, *Results*, a message `All mappings in VMware to RHV have been mapped.` will appear. 
+In the *step 5* of the wizard, *Results*, a message `All mappings in VMware to RHV have been mapped.` will appear to confirm that the Infrastructure Mapping has been created. + 
 The only thing left to do is to click on *Close* on the last page of the wizard.
 After the wizard closes, you will be presented with a finished mapping, as shown in the next screenshot.
 +
@@ -381,7 +380,7 @@ image::migration_plan_0.png[Migration Plan 0]
 image::migration_plan_1.png[Migration Plan 2]
 +
 [NOTE]
-Keeping the default option for *Select VMs* will take us to the VM menu selector. In this step we will be migrating the `oracledb`, `hana` and `tomcat` virtual machines.
+Keeping the default option for *Select VMs* will take us to the VM menu selector. In this step we will be migrating the `hana`, `oracledb` and `tomcat` virtual machines.
 For massive conversions, there is an option to use a CSV file upload, which is a better option in those cases.
 
 . In the *step 2* of the wizard, *VMs*, we will choose the 3 VMs to be migrated to RHV. 
@@ -411,16 +410,16 @@ image::migration_plan_5.png[Migration Plan 5]
 
 === Monitor the Migration
 
-. After you click the close button, you are be presented with a page showing the migration plans In Progress. It may take up to a minute for the progress box to start updating.
+. After you click the close button, you are presented with a page showing the migration plans In Progress. It may take up to a minute for the progress box to start updating.
 +
 image::migration_running_1.png[Migration Running 3]
 
 . Now the migration is executing. It takes some time for the pre-migration steps to be finished and the conversion process to start.
 If we wished to, we could see the orchestration process in CloudForms logs.
-From the workstation terminal you can SSH into CloudForms and tail the logs at on cf.example.com in the following directory: `/var/www/miq/vmdb/log/automation.log`. 
+From the workstation terminal you can SSH into CloudForms and tail the logs at on `cf.example.com` in the following directory: `/var/www/miq/vmdb/log/automation.log`. 
 +
 You can tail this file with `tail -f /var/www/miq/vmdb/log/automation.log`.
- +
++
 Word of caution: the `automation.log` is storing a lot of logs and can present a huge amount of scrolling text. 
 +
 ----
@@ -445,13 +444,14 @@ image::migration_running_2.png[Migration Running 2]
 . As far as migration goes, `hana` is the only one which will not need to be converted. This means that it will get migrated and be running in the destination as first.
 The other two machines, `tomcat` and `oracledb` will need more time, because after converting the disk to RHV, the OS still needs some time for the conversion to RHEL. 
 The longest migration time is needed by the most complex VM deployment, and that is OracleDB running on Oracle Linux. + 
++
 The total migration time is approximately `55-60` minutes, depending on the load on the cloud servers supporting the environment at the moment.
 A thing to note is that the VMs being migrated are powered off during the migration process. + 
 This can be seen if you navigate to *Compute -> Infrastructure -> Virtual Machines* in CloudForms. You may see double entries in the CloudForms UI, but those are both migrated and source machines presented on the different providers. They can be differentiated by the icon in the lower left corner of each VM.
 +
 image::migration_running_3.png[Migration Running 3]
 +
-You can return to the Migration Progress by clicking *Compute -> Migration -> Migration Plans*. Click on the running plan to get back to the details.
+You can return to the Migration Progress by clicking *Migration -> Migration Plans*. Click on the running plan to get back to the details.
 . After about `30` minutes, all of the VMs have finished with migration and those that need to be converted are running playbooks which will execute the conversion to RHEL. 
 At this point it should already be visible in the list of VMs in RHV Web UI, as shown in the previous screenshot. 
 [NOTE]
