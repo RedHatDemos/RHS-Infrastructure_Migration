@@ -16,11 +16,10 @@ do
     && ssh root@$hostname.example.com "hostnamectl set-hostname $hostname-$guid.example.com" \
     && sed -i "s/$hostname/$hostname-$guid/g" /etc/hosts \
     && sed -i "s/$hostname/$hostname-$guid/g" /etc/ansible/hosts \
-    && scp /etc/hosts root@cf.example.com:/etc/hosts
+    && scp /etc/hosts root@cf.example.com:/etc/hosts \
+    && touch /root/.run
 done
 systemctl restart dnsmasq
-touch /root/.run
 ssh root@satellite.example.com "satellite-maintain service restart"
-
-echo ""
+echo "."
 echo "Done."
