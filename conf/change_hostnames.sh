@@ -20,6 +20,7 @@ do
     && touch /root/.run
 done
 systemctl restart dnsmasq
+echo "Restarting satellite services on a remote host. It can take up to a minute. Be patient please."
 ssh root@satellite.example.com "satellite-maintain service restart"
-echo "."
+
 echo "Done."
