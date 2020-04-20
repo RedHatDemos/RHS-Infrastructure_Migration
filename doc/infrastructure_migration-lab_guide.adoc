@@ -2,7 +2,7 @@
 :data-uri:
 :toc2:
 :imagesdir: images
-#8B0000
+
 == Infrastructure Migration 1.2 GA - Migration Guide
 
 :numbered:
