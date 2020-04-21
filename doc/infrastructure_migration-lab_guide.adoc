@@ -3,20 +3,20 @@
 :toc2:
 :imagesdir: images
 
+
 == Infrastructure Migration 1.2 GA - Migration Guide
 
 :numbered:
 
 == Overview
 
-This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV). During the migration, supported OSes can be converted to RHEL and get registered to Satellite for seamless management automatically. Additionally,
-the migrated and registered VMs can be included to Red Hat Insights inventory. Red Hat Insights helps your infrastructure by proactively identifying and suggesting remediation steps to increase security, performance and stability.  
+This Lab Environment uses Red Hat CloudForms, and the Infrastructure Migration plugin included with it, as a broker to migrate VMs from VMware vSphere to Red Hat Virtualization (RHV). During the migration, supported OSes can be converted to RHEL and registered to Satellite for seamless management automatically. Additionally, the migrated and registered VMs can be included to Red Hat Insights inventory. Red Hat Insights helps your infrastructure by proactively identifying and suggesting remediation steps to increase security, performance and stability.  
 
 The password and user accounts to access all services is provided by the lab administrators.
 
 This environment consists of the following systems deployed, along with the necessary configuration:
 
-* Deployed RHV and VMware providers, Cloud Forms and Satellite.
+* Deployed RHV and VMware providers, CloudForms and Satellite.
 * Configured the conversion hosts in the target provider (Red Hat Virtualization)
 * Credentials for virtualization providers and conversion hosts in CloudForms are added
 * Registered Satellite to Red Hat Insights
@@ -37,7 +37,7 @@ At the beginning, the resource equivalence between the two providers involved in
 * Storage Domains
 * Networks
 
-To perform the migration two *Conversion Hosts* were configured for the target provider. The roles of *Conversion Hosts* are fulfilled by RHV hypervisors. In the case of this lab those are kvm1.example.com and kvm2.example.com.
+To perform the migration two *Conversion Hosts* are configured for the target provider. The roles of *Conversion Hosts* are fulfilled by RHV hypervisors. In the case of this lab those are kvm1.example.com and kvm2.example.com.
 
 .Goal
 * Migrate and convert several VMs from VMware vSphere to Red Hat Virtualization, using Red Hat CloudForms as a broker, with the tooling included in the Red Hat Infrastructure Migration Solution. 
@@ -72,8 +72,10 @@ Versions of products used:
 
 ==== Proxy and FoxyProxy plugin setup
 
+
 To make the environment unique and distinguishable between attendees, a 5 character identifier is assigned to it (i.e. `r1e37`). This identifier will be referred to, within the documentation as *<YOUR-GUID>*. + 
 You can set up a proxy by pointing it in your browser to `workstation-*<YOUR-GUID>*.rhpds.opentlc.com`, port 3128. +
+=======
 Using FoxyProxy is described in more details below.
 When setting the proxy up, the proxy server should be used for all protocols in order to access the environment.
 
@@ -139,7 +141,7 @@ image::architecture_diagram1.png[Architecture Diagram]
 
 * Virtual Machines
 +
-This deployment of the migration environment includes the following VMs provisioned and running in the vSphere environment, which will be migrated:
+The migration environment includes the following VMs provisioned and running in the vSphere environment, which will be migrated:
 
 [cols="1,1,2",options="header"]
 |=======
@@ -154,7 +156,7 @@ This deployment of the migration environment includes the following VMs provisio
 
 . Once the system is running, use SSH to access your bastion workstation using `lab-user`, and the hostname `workstation-*YOUR_GUID*.rhpds.opentlc.com`
 + 
-_The password to log in will be provided by the lab instructors._
+[dark red]#The password to log in will be provided by the lab instructors.#
 
 + 
 ----
@@ -167,7 +169,7 @@ $ ssh lab-user@workstation-<YOUR-GUID>.rhpds.opentlc.com
 $ sudo -i
 ----
 
-. Check the status of the whole environment, from the `workstation`, using ansible:
+. Check the status of the environment, from the `workstation`, using Ansible:
 +
 ----
 # ansible all -m ping -o
@@ -188,7 +190,7 @@ To check only the infrastructure machines the following command can be also used
 ----
 +
 [NOTE] 
-As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. Please review everything is running before proceeding forward. If you run into any issues, please reach out to lab instructors, they will be happy to help!     
+As this environment is quite big, and it is generated and powered up for you in a cloud environment, some resources may suffer from issues or delays depending on the status of the cloud. Please review everything is running before proceeding forward. If you run into any issues, please reach out to lab instructors, they are happy to help!     
 
 === Prepare to manage the environment. 
 From a web browser, open each of the URLs below in its own window or tab, using these credentials (except when noted differently):
@@ -357,7 +359,7 @@ After the wizard closes, you will be presented with a finished mapping, as shown
 +
 image::infrastructure_mapping_final.png[Infrastructure Mapping Final]
 
-In these steps an *Infrastructure Mapping* has been created in order to logically connect source and target resources using the data collected by Red hat CloudForms from both VMware vSphere and Red Hat Virtualization.
+In these steps an *Infrastructure Mapping* has been created in order to logically connect source and target resources using the data collected by Red Hat CloudForms from both VMware vSphere and Red Hat Virtualization.
 
 == Migrating VMs to RHV with a Migration Plan
 
@@ -402,7 +404,7 @@ The wizard will close and the migration of the VMs will start immediately.
 image::migration_plan_4.png[Migration Plan 4]
 +
 [NOTE]
-The migration plan can be scheduled to be ran at a later time, by choosing the other option.
+The migration plan can be scheduled to be run at a later time, by choosing the other option.
 
 . In the *step 5* of the wizard, *Results*, the message `Migration Plan: 'Summit 2020 Lab' is in progress` will be displayed. Click *Close*.
 +
@@ -457,7 +459,7 @@ At this point it should already be visible in the list of VMs in RHV Web UI, as 
 [NOTE]
 The following step can be only be accessed with the proxy enabled in the browser
 +
-Switch to RHV Manager tab in your browser and click on *Compute -> Virtual Machines*.  All the VMs will be now visible in the WEB UI of the Red Hat Virtualization as being powered up or already running. If by any chance some of the VMs are shown as down, and the playbook is running, it may be in the process of creating a snapshot or rebooting during the conversion. 
+Switch to RHV Manager tab in your browser and click on *Compute -> Virtual Machines*.  All the VMs will be now visible in the web UI of Red Hat Virtualization as being powered up or already running. If by any chance some of the VMs are shown as down, and the playbook is running, it may be in the process of creating a snapshot or rebooting during the conversion. 
 +
 image::migration_running_rhv.png[Migration Running 9]
 . Co back to the CloudForms tab. It takes additional `15-20` minutes in this environment for the playbooks to complete on the VMs being converted. 
@@ -531,9 +533,9 @@ We can use `tomcat` to bring up an example of this. Click on the hostname and it
 image::insights_inv3.png[]
 
 . This is a simple enough fix, which can be done manually. But what we will do is create plans which can include multiple fixes, and run them to let Insights and Ansible fix the selected issues for us. 
-For this - we need a plan!
+For this we need a plan!
 
-And plan is what we are going to make. Well, plans rather since we will fix systems belonging to different groups separately. 
+...and plan is what we are going to make. Well, plan(s) rather since we will fix systems belonging to different groups separately. 
 `tomcat` as our _application server_ will be fixed separately, and our database `oracledb` will be fixed as an _infrastructure server_ remediation with a separate plan.
 There are many ways to do this, so we will pick one for you and explain the steps:
 
@@ -624,7 +626,5 @@ When finished the planner will show all of the issues for tomcat resolved, and n
 
 image::run_finished.png[]
 
-
-*CONGRATULATIONS* 
-
-you have reached the end of this lab. 
+=======
+*CONGRATULATIONS*...you have completed this lab! 
