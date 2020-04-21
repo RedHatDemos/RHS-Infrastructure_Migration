@@ -71,10 +71,9 @@ Versions of products used:
 
 ==== Proxy and FoxyProxy plugin setup
 
-
 To make the environment unique and distinguishable between attendees, a 5 character identifier is assigned to it (i.e. `r1e37`). This identifier will be referred to, within the documentation as *<YOUR-GUID>*. + 
 You can set up a proxy by pointing it in your browser to `workstation-*<YOUR-GUID>*.rhpds.opentlc.com`, port 3128. +
-=======
+
 Using FoxyProxy is described in more details below.
 When setting the proxy up, the proxy server should be used for all protocols in order to access the environment.
 
@@ -624,3 +623,7 @@ Let's repeat the steps for remediation of `tomcat`:
 When finished the planner will show all of the issues for tomcat resolved, and no actions to take in the plan. 
 
 image::run_finished.png[]
+
+*CONGRATULATIONS* 
+
+you have reached the end of this lab. 
