@@ -533,7 +533,7 @@ image::insights_inv3.png[]
 . This is a simple enough fix, which can be done manually. But what we will do is create plans which can include multiple fixes, and run them to let Insights and Ansible fix the selected issues for us. 
 For this we need a plan!
 
-...and plan is what we are going to make. Well, plan(s) rather since we will fix systems belonging to different groups separately. 
+...and plan is what we are going to make. Well, *plans* rather since we will fix systems belonging to different groups separately. 
 `tomcat` as our _application server_ will be fixed separately, and our database `oracledb` will be fixed as an _infrastructure server_ remediation with a separate plan.
 There are many ways to do this, so we will pick one for you and explain the steps:
 
