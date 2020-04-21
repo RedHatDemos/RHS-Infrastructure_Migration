@@ -3,7 +3,6 @@
 :toc2:
 :imagesdir: images
 
-
 == Infrastructure Migration 1.2 GA - Migration Guide
 
 :numbered:
@@ -625,6 +624,3 @@ Let's repeat the steps for remediation of `tomcat`:
 When finished the planner will show all of the issues for tomcat resolved, and no actions to take in the plan. 
 
 image::run_finished.png[]
-
-=======
-*CONGRATULATIONS*...you have completed this lab! 
